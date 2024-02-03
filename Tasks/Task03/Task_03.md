@@ -2,7 +2,7 @@
 
 ## Contents
 
-1. **mypwdv1.c**
+### 1. **mypwdv1.c**
    - **Description:** This program (`mypwdv1.c`) prints the current working directory using the `getcwd` function and a fixed-size buffer.
    - **Usage:** Execute the program without any command-line arguments.
    - **Command:**
@@ -46,7 +46,7 @@
      }
      ```
 
-2. **mypwdv2.c**
+### 2. **mypwdv2.c**
    - **Description:** This program (`mypwdv2.c`) prints the current working directory using the `getcwd` function and dynamic memory allocation.
    - **Usage:** Execute the program without any command-line arguments.
    - **Command:**
@@ -104,7 +104,7 @@
      }
      ```
 
-3. **my_echo.c**
+### 3. **my_echo.c**
    - **Description:** This program (`my_echo.c`) echoes the command-line arguments, separating them with spaces.
    - **Usage:** Provide any number of arguments to echo.
    - **Command:**
@@ -130,7 +130,7 @@
      }
      ```
 
-4. **my_mv.c**
+### 4. **my_mv.c**
    - **Description:** This program (`my_mv.c`) moves a file or directory from a source to a destination.
    - **Usage:** Provide source and destination paths as command-line arguments.
    - **Command:**
@@ -168,6 +168,172 @@
      }
      ```
 
+### 5. **commands.h / commands.c:**
+   - **commands.h:** Header file containing function prototypes for command execution (`echo`, `pwd`, `cd`).
+   - **commands.c:** Implementation file for command execution functions.
+
+   - **Source Code:**
+
+     ### commands.h
+
+     ```c
+     #ifndef COMMANDS_H
+     #define COMMANDS_H
+     
+     /**
+      * @brief Execute the echo command.
+      * @param args The arguments for the echo command.
+      */
+     void echo(char *args[]);
+     
+     /**
+      * @brief Execute the pwd command.
+      */
+     void pwd();
+     
+     /**
+      * @brief Execute the cd command.
+      * @param path The path to change the current directory to.
+      */
+     void cd(char *path);
+     
+     
+     #endif  /**< COMMANDS_H */ 
+     ```
+
+     ### commands.c
+     ```c
+     #include <stdio.h>
+     #include <stdlib.h>
+     #include <unistd.h>
+     #include "commands.h"
+     
+     /**
+      * @brief Execute the echo command.
+      * @param args The arguments for the echo command.
+      */
+     void echo(char *args[]) {
+         /**< Print each argument separated by a space */ 
+         for (int i = 0; args[i] != NULL; i++) {
+             printf("%s ", args[i]);
+         }
+         printf("\n");
+     }
+     
+     /**
+      * @brief Execute the pwd command.
+      */
+     void pwd() {
+         /**< Buffer to store the current working directory */ 
+         char buf[100];
+     
+         /**< Get the current working directory and print it */ 
+         if (getcwd(buf, sizeof(buf)) != NULL) {
+             printf("%s\n", buf);
+         } else {
+             perror("getcwd");
+         }
+     }
+     
+     /**
+      * @brief Execute the cd command.
+      * @param path The path to change the current working directory to.
+      */
+     void cd(char *path) {
+         /**< Change the current working directory */ 
+         if (chdir(path) != 0) {
+             perror("chdir");
+         }
+     }
+     ```
+   
+### 6. **fsh.h / fsh.c:**
+   - **fsh.h:** Header file for Femto Shell containing the function prototype for command execution.
+   - **fsh.c:** Implementation file for Femto Shell.
+    
+   - **Source Code:**
+
+     ### fsh.h
+
+     ```c
+     #ifndef FSH_H
+     #define FSH_H
+     
+     /**
+      * @brief Function to execute the command based on the input.
+      *
+      * This function searches for the command in the sorted array of supported     commands
+      * and executes the corresponding function if the command is found.
+      *
+      * @param command The command to be executed.
+      * @param args An array of command arguments.
+      */
+     void executeCommand(char *command, char *args[]);
+     
+     #endif /**< FSH_H */ 
+     ```
+
+     ### fsh.c
+
+     ```c
+     #include <stdio.h>
+     #include <stdlib.h>
+     #include <string.h>
+     #include "commands.h"  /**< Include the commands header */ 
+     #include "fsh.h" /**< Include the Femto Shell (fsh) header */
+     
+     #define COMMAND_COUNT 4  /**< Number of supported commands */ 
+     
+     /**< Array of supported commands */ 
+     char *supportedCommands[COMMAND_COUNT] = {"echo", "pwd", "cd", "exit"};
+     
+     int main(int argc, char **argv) {
+         char inputBuffer[100];
+     
+         while (1) {
+             /**< Prompt user to enter a command */ 
+             printf("Enter a command: ");
+             fgets(inputBuffer, sizeof(inputBuffer), stdin);
+     
+             /**< Remove the trailing newline character from the input */ 
+             inputBuffer[strcspn(inputBuffer, "\n")] = '\0';
+     
+             /**< Split the input into command and arguments */ 
+             char *command = strtok(inputBuffer, " ");
+             char *args[10];
+             int i = 0;
+             while (i < 10 && (args[i] = strtok(NULL, " ")) != NULL) {
+                 i++;
+             }
+             
+             /**< Execute the command */ 
+             executeCommand(command, args);
+         }
+     
+         return 0;
+     }
+     
+     /**< Function to execute the command based on the input */ 
+     void executeCommand(char *command, char *args[]) {
+         if (strcmp(command, "pwd") == 0) {
+             pwd();
+         } else if (strcmp(command, "echo") == 0) {
+             echo(args);
+         } else if (strcmp(command, "cd") == 0) {
+             if (args[0] != NULL) {
+                 cd(args[0]);
+             } else {
+                 printf("cd: missing argument\n");
+             }
+         } else if (strcmp(command, "exit") == 0) {
+             printf("Goodbye :)\n");
+             exit(0);
+         } else {
+             printf("%s: command not found\n", command);
+         }
+     }
+     ```
+
 **Note:** Ensure executable permissions for each program before running.
 
 **Building Instructions:**
@@ -177,4 +343,10 @@
   gcc -o mypwdv2 mypwdv2.c --save-temps
   gcc -o my_echo my_echo.c --save-temps
   gcc -o my_mv my_mv.c --save-temps
+  ```
+
+- For the Femto Shell:
+
+  ```bash
+  gcc -o fsh main.c fsh.c commands.c -std=c99 --save-temps
   ```
