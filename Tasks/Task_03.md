@@ -146,25 +146,22 @@
          /**< Check the number of arguments */
          if (argc != 3) {
              /**< Print usage message and return -1 */
-             printf("Usage: %s <source> <destination>\n", argv[0]);
+             printf("Usage: %s <src> <dest>\n", argv[0]);
              return -1;
          }
      
          /**< Extract source and destination paths from command-line arguments */
-         const char *source = argv[1];
-         const char *destination = argv[2];
+         const char *src = argv[1];
+         const char *dest = argv[2];
      
          /**< Perform the move operation */
-         if (rename(source, destination) != 0) {
+         if (rename(src, dest) != 0) {
             
 
          /**< Handle move operation failure */
              perror("Error moving file");
              return -1;
          }
-     
-         /**< Print success message */
-         printf("Successfully moved %s to %s\n", source, destination);
      
          /**< Return success status */
          return 0;
