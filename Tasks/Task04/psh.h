@@ -24,7 +24,4 @@ void executeCommand(char *command, char *args[]);
  */
 void parseInput(char *input, char ***args, int *argCount);
 
-void parseInput(char *input, char ***args, int *argCount);
-
-
 #endif /**< PSH_H */
