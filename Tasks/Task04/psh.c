@@ -10,17 +10,7 @@ int main() {
 
     while (1) {
         /**< Prompt user to enter a command */ 
-        printf("Enter a command: ");
-
-        /**< Read a line from the user */ 
-        ssize_t inputSize = getline(&inputBuffer, &bufferSize, stdin);
-        if (inputSize == -1) {
-            perror("getline");
-            break;
-        }
-
-        /**< Remove the trailing newline character from the input */ 
-        inputBuffer[strcspn(inputBuffer, "\n")] = '\0';
+        getUserInput(&inputBuffer, &bufferSize);
 
         /**< Skip processing if input is empty. */
         if (strlen(inputBuffer) == 0) {
@@ -107,4 +97,15 @@ void executeCommand(char *command, char *args[]) {
     } else {
         printf("%s: command not found\n", command);
     }
+}
+
+/**< Function to ask the user to enter the commands (Prompt) */
+void getUserInput(char **inputBuffer, size_t *bufferSize) {
+    printf("Enter a command: ");
+    ssize_t inputSize = getline(inputBuffer, bufferSize, stdin);
+    if (inputSize == -1) {
+        perror("getline");
+        exit(EXIT_FAILURE);  /**< Exit if getline fails */ 
+    }
+    (*inputBuffer)[strcspn(*inputBuffer, "\n")] = '\0';  /**< Remove newline character */ 
 }
