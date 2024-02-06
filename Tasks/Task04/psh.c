@@ -12,7 +12,7 @@ int main() {
         /**< Prompt user to enter a command */ 
         printf("Enter a command: ");
 
-        // Read a line from the user
+        /**< Read a line from the user */ 
         ssize_t inputSize = getline(&inputBuffer, &bufferSize, stdin);
         if (inputSize == -1) {
             perror("getline");
@@ -21,6 +21,11 @@ int main() {
 
         /**< Remove the trailing newline character from the input */ 
         inputBuffer[strcspn(inputBuffer, "\n")] = '\0';
+
+        /**< Skip processing if input is empty. */
+        if (strlen(inputBuffer) == 0) {
+            continue;
+        }
 
         /**< Extract the command and arguments */ 
         char **args = NULL;

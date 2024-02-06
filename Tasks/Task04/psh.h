@@ -12,6 +12,18 @@
  */
 void executeCommand(char *command, char *args[]);
 
+/**
+ * @brief Parse the input string and tokenize it into arguments.
+ *
+ * This function parses the input string and tokenizes it into arguments based on spaces.
+ * It dynamically allocates memory for the array of arguments and individual argument strings.
+ *
+ * @param input The input string to be parsed.
+ * @param args Pointer to a pointer to store the array of arguments.
+ * @param argCount Pointer to an integer to store the number of arguments.
+ */
+void parseInput(char *input, char ***args, int *argCount);
+
 void parseInput(char *input, char ***args, int *argCount);
 
 
