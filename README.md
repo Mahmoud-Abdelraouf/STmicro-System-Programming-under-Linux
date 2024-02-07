@@ -56,7 +56,7 @@ We covered user management concepts, including user account administration, perm
 
 ## Instructor Information
 
-**Instructor:** Reda Maher
+**Instructor:** [Reda Maher]
 
 **LinkedIn:** [Instructor's LinkedIn Profile URL](https://www.linkedin.com/in/redamaher/)
 
