@@ -38,12 +38,8 @@ int main() {
             /**< Wait for the child process to finish. */
             wait(&wstatus);
             } else if (returned_pid == 0) { /**< Child process. */
-                /**< Placeholder for new program arguments and environment. */
-                char *new_program_argv[] = {NULL};
-                char *new_program_envp[] = {NULL};
-
                 /**< Execute the specified command. */
-                if (execve(args[0], args, new_program_envp) == -1) {
+                if (execvp(args[0], args) == -1) {
                     /**< Exec failed. Print an error message and return. */
                     perror("execve");
                     exit(EXIT_FAILURE);
