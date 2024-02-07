@@ -8,11 +8,11 @@
 #include "psh.h"
 
 int main() {
-    char *inputBuffer = NULL;
-    size_t bufferSize = 0;
+    char *inputBuffer = NULL; /**< Pointer to store user input */ 
+    size_t bufferSize = 0;  /**< Size of the input buffer */
 
-    char **args = NULL;
-    int argCount = 0;
+    char **args = NULL; /**< Pointer to store parsed arguments */
+    int argCount = 0; /**< Number of parsed arguments */
 
     while (1) {
         /**< Prompt user to enter a command */ 
@@ -60,11 +60,9 @@ int main() {
 
         /**< Free the allocated memory for inputBuffer */ 
         free(inputBuffer);
-
         inputBuffer = NULL;
         bufferSize = 0;
     }
-
     
     return 0;
 }
