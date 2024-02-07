@@ -1,3 +1,5 @@
+#include <sys/types.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,8 +25,38 @@ int main() {
         parseInput(inputBuffer, &args, &argCount);
 
         /**< Execute the command with the arguments */ 
-        executeCommand(args[0], args);
+        int ret_val = executeCommand(args[0], args);
+        /**< This Command Not Internal */
+        if(ret_val != 0) {
+            /**< Fork a new process to execute the command. */
+            pid_t returned_pid = fork();
 
+            if (returned_pid > 0) { /**< Parent process. */
+            int wstatus;
+
+            /**< Wait for the child process to finish. */
+            wait(&wstatus);
+            } else if (returned_pid == 0) { /**< Child process. */
+                /**< Placeholder for new program arguments and environment. */
+                char *new_program_argv[] = {NULL};
+                char *new_program_envp[] = {NULL};
+
+                /**< Execute the specified command. */
+                if (execve(args[0], args, new_program_envp) == -1) {
+                    /**< Exec failed. Print an error message and return. */
+                    perror("execve");
+                    exit(EXIT_FAILURE);
+                }
+            } else {
+                /**< Fork failed. Print an error message. */
+                printf("ERROR: I could not get a child\n");
+            }
+
+        } else {
+            printf("%s: command not found\n", args[0]);
+            return -1;
+        }
+        
         /**< Free the allocated memory for arguments */ 
         for (int i = 0; i < argCount; i++) {
             free(args[i]);
@@ -80,7 +112,7 @@ void parseInput(char *input, char ***args, int *argCount) {
 }
 
 /**< Function to execute the command based on the input */ 
-void executeCommand(char *command, char *args[]) {
+int executeCommand(char *command, char *args[]) {
     if (strcmp(command, "pwd") == 0) {
         pwd();
     } else if (strcmp(command, "echo") == 0) {
@@ -95,8 +127,9 @@ void executeCommand(char *command, char *args[]) {
         printf("Goodbye :)\n");
         exit(0);
     } else {
-        printf("%s: command not found\n", command);
+        return -1;
     }
+    return 0;
 }
 
 /**< Function to ask the user to enter the commands (Prompt) */

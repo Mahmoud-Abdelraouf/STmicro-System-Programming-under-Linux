@@ -4,13 +4,16 @@
 /**
  * @brief Function to execute the command based on the input.
  *
- * This function searches for the command in the sorted array of supported commands
- * and executes the corresponding function if the command is found.
+ * This function searches for the command in the sorted array of supported internal commands
+ * and executes the corresponding function if the command is found internally.
+ * If the command is not found internally, it is treated as an external command and executed accordingly.
  *
  * @param command The command to be executed.
  * @param args An array of command arguments.
+ * 
+ * @return 0 if the command is executed successfully as an internal command, -1 if it's an external command.
  */
-void executeCommand(char *command, char *args[]);
+int executeCommand(char *command, char *args[]);
 
 /**
  * @brief Parse the input string and tokenize it into arguments.
