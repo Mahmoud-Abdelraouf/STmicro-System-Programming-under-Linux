@@ -11,6 +11,9 @@ int main() {
     char *inputBuffer = NULL;
     size_t bufferSize = 0;
 
+    char **args = NULL;
+    int argCount = 0;
+
     while (1) {
         /**< Prompt user to enter a command */ 
         getUserInput(&inputBuffer, &bufferSize);
@@ -21,13 +24,11 @@ int main() {
         }
 
         /**< Extract the command and arguments */ 
-        char **args = NULL;
-        int argCount = 0;
         parseInput(inputBuffer, &args, &argCount);
 
         /**< Execute the command with the arguments */ 
         int ret_val = executeCommand(args[0], args);
-        /**< This Command Not Internal */
+        /**< This Command Not Internal -> External Command */
         if(ret_val != 0) {
             /**< Fork a new process to execute the command. */
             pid_t returned_pid = fork();
@@ -49,21 +50,22 @@ int main() {
                 printf("ERROR: I could not get a child\n");
             }
 
-        } else {
-            printf("%s: command not found\n", args[0]);
-            return -1;
-        }
+        } 
         
         /**< Free the allocated memory for arguments */ 
         for (int i = 0; i < argCount; i++) {
             free(args[i]);
         }
         free(args);
+
+        /**< Free the allocated memory for inputBuffer */ 
+        free(inputBuffer);
+
+        inputBuffer = NULL;
+        bufferSize = 0;
     }
 
-    /**< Free the allocated memory for inputBuffer */ 
-    free(inputBuffer);
-
+    
     return 0;
 }
 
