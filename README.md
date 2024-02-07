@@ -54,6 +54,12 @@ We covered user management concepts, including user account administration, perm
 - Familiarity with Bash scripting for automation and task automation.
 - Ability to work with embedded systems and perform low-level tasks such as parsing MBR partition tables.
 
+## Instructor Information
+
+**Instructor:** Reda Maher
+
+**LinkedIn:** [Instructor's LinkedIn Profile URL](https://www.linkedin.com/in/redamaher/)
+
 ## Conclusion
 
 The training with STMicroelectronics provided a comprehensive understanding of Linux-based embedded systems development and equipped me with the skills necessary to tackle real-world challenges in the field of embedded software engineering. The knowledge gained during this training will be invaluable in my future endeavors in the embedded systems domain.
