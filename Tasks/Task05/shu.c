@@ -67,23 +67,29 @@ int main(int argc, char *argv[])
     char line[256]; /**< Buffer to store each line read from the hex file */
     size_t index = 0; /**< Index to keep track of the current position in the line buffer */
     int c; /**< Variable to store the character read from the hex file */
+    int cLine; /**< Variable to store the character read from the hex file for each line */
 
     while ((c = fgetc(hexFile)) != EOF) {
-	if (c == '\n') {
-	    /**< End of line reached, send the line over serial */
-	    line[index] = '\0';
-            /**< Null-terminate the string */
-	    write(fd, line, strlen(line));
-	    index = 0; /**< Reset index for the next line */
-	} else {
-	    /**< Add character to the line buffer */
+	while ((cLine = fgetc(hexFile)) != '\n') {
+
+            /**< Add character to the line buffer */
 	    if (index < sizeof(line) - 1) { /**< Ensure there is space in the buffer */
-		line[index++] = c;
+		line[index++] = cLine;
 	    } else {
 	    /**< Line too long, we can handle error or truncate line */
 		perror("Long line, more than expected");
 	    }
+
+
 	}
+	if (cLine == '\n') {
+	    /**< End of line reached, send the line over serial */
+	    line[index + 1] = '\0';
+	    /**< Null-terminate the string */
+	    write(fd, line, strlen(line));
+	    index = 0; /**< Reset index for the next line */
+	}
+
 
 	/**< Wait for response from the device with a timeout */
 	fd_set rfds;
