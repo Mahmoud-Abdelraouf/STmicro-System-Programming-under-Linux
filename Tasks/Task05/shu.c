@@ -99,7 +99,6 @@ int main(int argc, char *argv[])
 	    /**< End of line reached, send the line over serial */
 	    line[index + 1] = '\0';
 	    /**< Null-terminate the string */
-	    printf("%s\n", line);
 	    if (write(fd, line, strlen(line)) == -1) {
 		fprintf(stderr, "Error writing data to serial port\n");
 		return -1;
