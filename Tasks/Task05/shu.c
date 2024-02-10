@@ -66,10 +66,9 @@ int main(int argc, char *argv[])
     /**< Read lines from the hex file and send them over serial */
     char line[256]; /**< Buffer to store each line read from the hex file */
     size_t index = 0; /**< Index to keep track of the current position in the line buffer */
-    int c; /**< Variable to store the character read from the hex file */
     int cLine; /**< Variable to store the character read from the hex file for each line */
 
-    while ((c = fgetc(hexFile)) != EOF) {
+    while (1) {
 	while ((cLine = fgetc(hexFile)) != '\n') {
 
             /**< Add character to the line buffer */
@@ -90,8 +89,10 @@ int main(int argc, char *argv[])
 	    	return -1;
 	    }
 	    index = 0; /**< Reset index for the next line */
+	} else if (cLine == EOF) {
+            exit(EXIT_SUCCESS); 	
 	}
-	
+
 	/**< Wait for response from the device with a timeout */
 	fd_set rfds;
 	FD_ZERO(&rfds);
