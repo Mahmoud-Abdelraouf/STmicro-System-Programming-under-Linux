@@ -69,30 +69,30 @@ int main(int argc, char *argv[])
     int cLine; /**< Variable to store the character read from the hex file for each line */
 
     while (1) {
-
+    
 	while ((cLine = fgetc(hexFile)) != '\n') {
-
+	
 	    if (cLine == EOF) {
-		/**< Notify user that flashing is done fully */
-		printf("Flash done successfully!\n");
-
-		/**< Close the hex file */
-		fclose(hexFile);
-
-		/**< Close the serial port */
-		close(fd);
-
-		return 0;
+	        /**< Notify user that flashing is done fully */
+    	        printf("Flash done successfully!\n");
+    	        
+    	        /**< Close the hex file */
+    		fclose(hexFile);
+    		
+    		/**< Close the serial port */
+    		close(fd);
+    	        
+	        return 0;
 	    }
-
-	    /**< Add character to the line buffer */
+	    
+            /**< Add character to the line buffer */
 	    if (index < sizeof(line) - 1) { /**< Ensure there is space in the buffer */
 		line[index++] = cLine;
 	    } else {
 	    /**< Line too long, we can handle error or truncate line */
 		perror("Long line, more than expected");
 	    }
-
+	    
 	}
 
 	if (cLine == '\n') {
@@ -100,13 +100,13 @@ int main(int argc, char *argv[])
 	    line[index + 1] = '\0';
 	    /**< Null-terminate the string */
 	    printf("%s\n", line);
-	    if (write(fd, line, strlen(line)) == -1) {
-		fprintf(stderr, "Error writing data to serial port\n");
-		return -1;
+	    if(write(fd, line, strlen(line)) == -1) {
+	    	fprintf(stderr, "Error writing data to serial port\n");
+	    	return -1;
 	    }
 	    index = 0; /**< Reset index for the next line */
 	}
-
+	
 	/**< Wait for response from the device with a timeout */
 	fd_set rfds;
 	FD_ZERO(&rfds);
@@ -128,8 +128,7 @@ int main(int argc, char *argv[])
 	    if (bytesRead > 0) {
 		response[bytesRead] = '\0'; /**< Null-terminate the response string */
 		if (strcmp(response, "ok") != 0) {
-		    fprintf(stderr, "Error: Unexpected response '%s'\n",
-			    response);
+		    fprintf(stderr, "Error: Unexpected response '%s'\n", response);
 		}
 	    } else {
 		perror("Error reading from serial port");
