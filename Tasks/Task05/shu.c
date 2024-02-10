@@ -79,18 +79,19 @@ int main(int argc, char *argv[])
 	    /**< Line too long, we can handle error or truncate line */
 		perror("Long line, more than expected");
 	    }
-
-
 	}
+	
 	if (cLine == '\n') {
 	    /**< End of line reached, send the line over serial */
 	    line[index + 1] = '\0';
 	    /**< Null-terminate the string */
-	    write(fd, line, strlen(line));
+	    if(write(fd, line, strlen(line)) == -1) {
+	    	fprintf(stderr, "Error writing data to serial port\n");
+	    	return -1;
+	    }
 	    index = 0; /**< Reset index for the next line */
 	}
-
-
+	
 	/**< Wait for response from the device with a timeout */
 	fd_set rfds;
 	FD_ZERO(&rfds);
@@ -99,12 +100,13 @@ int main(int argc, char *argv[])
 	tv.tv_sec = RESPONSE_TIMEOUT_SEC;
 	tv.tv_usec = 0;
 	int retval = select(fd + 1, &rfds, NULL, NULL, &tv);
+	printf("Hello\n");
 	if (retval == -1) {
 	    perror("Error in select");
 	    exit(EXIT_FAILURE);
 	} else if (retval == 0) {
 	    fprintf(stderr, "Error: Timeout waiting for response\n");
-	    break; /**< Break out of the loop and return error */
+	    return -1; /**< Exit the function and return an error code */
 	} else {
 	    /**< Response received, read and process it */
 	    char response[3];
@@ -112,8 +114,7 @@ int main(int argc, char *argv[])
 	    if (bytesRead > 0) {
 		response[bytesRead] = '\0'; /**< Null-terminate the response string */
 		if (strcmp(response, "ok") != 0) {
-		    fprintf(stderr, "Error: Unexpected response '%s'\n",
-			    response);
+		    fprintf(stderr, "Error: Unexpected response '%s'\n", response);
 		}
 	    } else {
 		perror("Error reading from serial port");
@@ -124,7 +125,7 @@ int main(int argc, char *argv[])
 	memset(line, 0, sizeof(line));
     }
 
-    /**< Notify user that flashing is done successfully */
+    /**< Notify user that flashing is done fully */
     printf("Flash done successfully!\n");
 
     /**< Close the hex file */
