@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     read(fd, buf, 512);
 
     /**< Pointer to the partition table entries within the buffer */ 
-    PartitionEntry *table_entry_ptr = (PartitionEntry *) & buf[446];
+    PartitionEntry *table_entry_ptr = ((PartitionEntry *) &buf[446]);
 
     /**< Print the header for the partition table information */ 
     printf("%-5s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", "Device",
@@ -34,17 +34,17 @@ int main(int argc, char **argv)
     /**< Iterate over each partition entry in the partition table */ 
     for (int i = 0; i < 4; i++) {
         /**< Print the details of each partition entry */ 
-        printf("%s%-5d %-10c %-10u %-10u %-10u %uG      %-10X\n",
-               argv[1],
-               i + 1,
-               table_entry_ptr[i].status == 0x80 ? '*' : ' ',                   /**< Check if partition is bootable */ 
-               table_entry_ptr[i].lba,                                          /**< Start sector of the partition */ 
-               table_entry_ptr[i].lba + table_entry_ptr[i].sector_count - 1,    /**< End sector of the partition */ 
-               table_entry_ptr[i].sector_count,                                 /**< Number of sectors in the partition */ 
-               (uint32_t) (((uint64_t) table_entry_ptr[i].sector_count *
-                            512) / (1024 * 1024 * 1024)),                       /**< Size of the partition in GB */ 
-               table_entry_ptr[i].partition_type);                              /**< Type of the partition */ 
+        printf("%-5s %-5d %-10c %-10u %-10u %-10u %4.2fG      %-10X\n",
+               argv[1],                                                         /**< Device name */ 
+               i + 1,                                                           /**< Partition number */ 
+               table_entry_ptr[i].status == 0x80 ? '*' : ' ',                   /**< Boot flag */ 
+               table_entry_ptr[i].lba,                                          /**< Start sector */ 
+               table_entry_ptr[i].lba + table_entry_ptr[i].sector_count - 1,    /**< End sector */ 
+               table_entry_ptr[i].sector_count,                                 /**< Number of sectors */ 
+               (double)table_entry_ptr[i].sector_count * 512 / (1024 * 1024 * 1024), /**< Size in GB */ 
+               table_entry_ptr[i].partition_type);                                  /**< Partition type */ 
     }
+
 
     return 0;
 }
