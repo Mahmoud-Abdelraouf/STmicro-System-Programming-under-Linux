@@ -1,10 +1,13 @@
 #define _LARGEFILE64_SOURCE
 #include <stdio.h>
+#include <stdlib.h> 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <inttypes.h>
+
+#define SECTOR_SIZE 512
 
 typedef struct {
     uint8_t status;            /**< Status of the partition (e.g., active or inactive) */ 
@@ -15,104 +18,80 @@ typedef struct {
     uint32_t sector_count;     /**< Number of sectors in the partition */ 
 } PartitionEntry;
 
-void process_partition_table(char *device, uint8_t paration_number, PartitionEntry *table_entry_ptr) {
+void process_partition_table(char *device, uint8_t partition_number, PartitionEntry *table_entry_ptr) {
     /**< Print the details of each partition entry */ 
     printf("%-8s%-4d  %-4c %-10u %-10u %-10u %06.2fG %5X\n",
-           device,                                                        /**< Device name */ 
-           paration_number + 1,                                           /**< Partition number */ 
-           table_entry_ptr->status == 0x80 ? '*' : ' ',                   /**< Boot flag */ 
-           table_entry_ptr->lba,                                          /**< Start sector */ 
-           table_entry_ptr->lba + table_entry_ptr->sector_count - 1,      /**< End sector */ 
-           table_entry_ptr->sector_count,                                 /**< Number of sectors */ 
-           (double)table_entry_ptr->sector_count * 512 / (1024 * 1024 * 1024), /**< Size in GB */ 
-           table_entry_ptr->partition_type);                              /**< Partition type */ 
+           device,                                                       /**< Device name */ 
+           partition_number + 1,                                         /**< Partition number */ 
+           table_entry_ptr->status == 0x80 ? '*' : ' ',                  /**< Boot flag */ 
+           table_entry_ptr->lba,                                         /**< Start sector */ 
+           table_entry_ptr->lba + table_entry_ptr->sector_count - 1,     /**< End sector */ 
+           table_entry_ptr->sector_count,                                /**< Number of sectors */ 
+           (double)table_entry_ptr->sector_count * SECTOR_SIZE / (1024 * 1024 * 1024), /**< Size in GB */ 
+           table_entry_ptr->partition_type);                             /**< Partition type */ 
 }
 
-void read_ebr_partition_table(char *device, uint32_t ebr_lba, int ebr_number) {
-    char buf[512];  /**< Buffer to store the read data from the disk */ 
+void read_ebr_partition_table(char *device, uint32_t ebr_lba, uint32_t original_ebr_lba, int ebr_number) {
+    char buf[SECTOR_SIZE];  /**< Buffer to store the read data from the disk */ 
 
     /**< Open the disk device file for reading */ 
     int fd = open(device, O_RDONLY);
-
-    /**< Check if the file opened successfully */
     if (fd == -1) {
-        fprintf(stderr, "myfdisk: cannot open '%s': Permission denied\n", device);
-        return;
+        perror("Error opening device");
+        exit(EXIT_FAILURE);
     }
 
     /**< Read the EBR from the disk into the buffer */ 
-    off64_t file_offset = ((off64_t)(ebr_lba)) * 512; /**< Calculate the offset for lseek64 */ 
+    off64_t file_offset = ((off64_t)(ebr_lba)) * SECTOR_SIZE; /**< Calculate the offset for lseek64 */ 
     off64_t current_offset = lseek64(fd, file_offset, SEEK_SET); /**< Move to the position of the EBR */ 
     if (current_offset != file_offset) {
         perror("Error seeking file");
         close(fd);
-        return;
+        exit(EXIT_FAILURE);
     }
     
-    ssize_t bytes_read = read(fd, buf, 512);
-    
-    /**< Check if reading from the file was successful */
+    ssize_t bytes_read = read(fd, buf, SECTOR_SIZE);
     if (bytes_read == -1) {
         perror("Error reading file");
-        close(fd); /**< Close the file descriptor before returning */ 
-        return;
+        close(fd);
+        exit(EXIT_FAILURE);
     }
 
     /**< Pointer to the partition table entries within the buffer */ 
     PartitionEntry *table_entry_ptr = ((PartitionEntry *) &buf[446]);
     table_entry_ptr[0].lba += ebr_lba;
-    process_partition_table(device, ebr_number, &table_entry_ptr[0]);
-    
-    while(1) {
-    	if(table_entry_ptr[1].sector_count == 0) {
-    	    break;
-    	}
-        /**< Read the EBR from the disk into the buffer */ 
-    	off64_t offset = ((off64_t)(ebr_lba + table_entry_ptr[1].lba)); /**< Calculate the offset for lseek64 */ 
-    	off64_t current_offset = lseek64(fd, offset * (off64_t)512, SEEK_SET); /**< Move to the position of the EBR */ 
-    
-    ssize_t bytes_read = read(fd, buf, 512);
-    
-    /**< Check if reading from the file was successful */
-    if (bytes_read == -1) {
-        perror("Error reading file");
-        close(fd); /**< Close the file descriptor before returning */ 
-        return;
-    }
 
-    /**< Pointer to the partition table entries within the buffer */ 
-    PartitionEntry *table_entry_ptr = ((PartitionEntry *) &buf[446]);
-    table_entry_ptr[0].lba += offset;
+    /**< Process the first partition entry in the EBR */
     process_partition_table(device, ebr_number, &table_entry_ptr[0]);
-    
-
-    
-    }
     
     /**< Close the file descriptor */ 
     close(fd);
+    
+    /**< Check if there are additional EBRs to process */
+    if (table_entry_ptr[1].sector_count > 0) {
+        /**< Calculate the offset for the next EBR */
+        uint32_t next_ebr_lba = original_ebr_lba + table_entry_ptr[1].lba;
+        read_ebr_partition_table(device, next_ebr_lba, original_ebr_lba, ebr_number + 1);
+    }
+
 }
 
 void read_partition_table(char *device) {
-    char buf[512];  /**< Buffer to store the read data from the disk */ 
+    char buf[SECTOR_SIZE];  /**< Buffer to store the read data from the disk */ 
 
     /**< Open the disk device file for reading */ 
     int fd = open(device, O_RDONLY);
-
-    /**< Check if the file opened successfully */
     if (fd == -1) {
-        fprintf(stderr, "myfdisk: cannot open '%s': Permission denied\n", device);
-        return;
+        perror("Error opening device");
+        exit(EXIT_FAILURE);
     }
 
     /**< Read the first 512 bytes (MBR) from the disk into the buffer */ 
-    ssize_t bytes_read = read(fd, buf, 512);
-    
-    /**< Check if reading from the file was successful */
+    ssize_t bytes_read = read(fd, buf, SECTOR_SIZE);
     if (bytes_read == -1) {
         perror("Error reading file");
-        close(fd); /**< Close the file descriptor before returning */ 
-        return;
+        close(fd);
+        exit(EXIT_FAILURE);
     }
 
     /**< Pointer to the partition table entries within the buffer */ 
@@ -128,22 +107,23 @@ void read_partition_table(char *device) {
         process_partition_table(device, i, &table_entry_ptr[i]);
         if (table_entry_ptr[i].partition_type == 0x05 && table_entry_ptr[i].sector_count > 0) {
             /**< If the partition type is 0x05 (Extended Partition), read the EBR partition table */ 
-            read_ebr_partition_table(device, table_entry_ptr[i].lba, 4);
+            read_ebr_partition_table(device, table_entry_ptr[i].lba, table_entry_ptr[i].lba, 4);
         }
     }
 
-    close(fd); /**< Close the file descriptor */ 
+    /**< Close the file descriptor */ 
+    close(fd);
 }
 
 int main(int argc, char **argv) {
     /**< Check if the number of arguments is correct */
     if (argc != 2) {
         printf("Usage: %s <device_file>\n", argv[0]);
-        return -1; /**< Return error code -1 for incorrect usage */ 
+        return EXIT_FAILURE;
     }
 
     read_partition_table(argv[1]);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
