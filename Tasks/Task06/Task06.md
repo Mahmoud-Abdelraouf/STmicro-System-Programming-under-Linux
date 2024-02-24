@@ -31,12 +31,12 @@
 
 ## Example Output
 ```
-Device    Boot   Start      End     Sectors    Size    Id    Type
-/dev/sda1 *     2048     1026047    1024000    500.00M   07    NTFS
-/dev/sda2       1026048  82180095   81154048   38.74G    83    Linux
-/dev/sda3       82180096  200488703  118308608  56.43G    05    Extended
-/dev/sda5       82182144  100888575  18606432   8.88G     83    Linux
-/dev/sda6       100890624 200488703  99648080   47.51G    83    Linux
+Device    Boot   Start      End        Sectors    Size      Id    Type
+/dev/sda1 *      2048       1026047    1024000    500.00M   07    NTFS
+/dev/sda2        1026048    82180095   81154048   38.74G    83    Linux
+/dev/sda3        82180096   200488703  118308608  56.43G    05    Extended
+/dev/sda5        82182144   100888575  18606432   8.88G     83    Linux
+/dev/sda6        100890624  200488703  99648080   47.51G    83    Linux
 ```
 
 ## Notes
