@@ -14,11 +14,11 @@
 ## How to Use
 1. Compile the `SerialHexUploader` source code using a C compiler. For example:
     ```bash
-    gcc -o SerialHexUploader SerialHexUploader.c
+    gcc -o SerialHexUploader shu.c
     ```
 2. Run `SerialHexUploader` with the Intel HEX file as an argument. For example:
     ```bash
-    ./SerialHexUploader example.hex
+    ./SerialHexUploader file.hex
     ```
 
 ## Notes
@@ -33,4 +33,4 @@
 - 0.1
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](../../LICENSE) file for details.
