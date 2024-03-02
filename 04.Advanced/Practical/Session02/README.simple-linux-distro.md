@@ -126,4 +126,5 @@ qemu-system-arm -M versatilepb -kernel linux-6.7.6/build/arch/arm/boot/zImage \
 ## Conclusion
 
 Follow these steps to create a simple Linux distribution using QEMU and ARM architecture. You can modify the configurations as per your requirements. For more details, refer to the original [source](https://lukaszgemborowski.github.io/articles/minimalistic-linux-system-on-qemu-arm.html).
+
 This README.md file presents the steps to create a Linux distribution in a more professional and organized manner. Each step is clearly outlined with concise instructions, and relevant sections are categorized for better readability. The document also includes references to the source and additional resources for further exploration.
