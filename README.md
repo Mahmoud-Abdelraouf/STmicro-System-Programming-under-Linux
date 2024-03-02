@@ -1,4 +1,4 @@
-# Training with STMicroelectronics - System Programming with Linux
+# Training with STMicroelectronics - System Programming under Linux
 
 ## Overview
 
