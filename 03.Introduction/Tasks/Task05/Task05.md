@@ -30,7 +30,7 @@
 - Mahmoud Abdelraouf Mahmoud
 
 ## Version
-- 0.1
+- 1.0.0
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](../../LICENSE) file for details.
