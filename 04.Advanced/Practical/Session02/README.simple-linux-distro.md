@@ -67,7 +67,7 @@ time make -j8 modules_install O=./build/ ARCH=arm CROSS_COMPILE=arm-linux-gnueab
 ## Building Busybox
 
 ### 9. Download and Extract Busybox
-Download the latest Busybox from [https://busybox.net/](https://busybox.net/) and untar it.
+Download the latest Busybox from [https://busybox.net/](https://busybox.net/) and untar it. For this guide, we are using Busybox version 1.36.1.
 
 ### 10. Compile Busybox
 ```bash
