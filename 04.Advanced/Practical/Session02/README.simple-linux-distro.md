@@ -46,7 +46,10 @@ make O=./build/ ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig
 
 ### 7. Build Kernel and Modules
 ```bash
+# Build the Linux kernel with multiple cores
 time make -j8 O=./build/ ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
+
+# Build kernel modules with multiple cores
 time make -j8 modules O=./build/ ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
 ```
 
@@ -123,7 +126,10 @@ mkdir -pv rootfs/{bin,sbin,etc,proc,sys,usr/{bin,sbin}}
 
 ### 16. Compress File System
 ```bash
+# Navigate to the rootfs directory
 cd rootfs/
+
+# Create a newc-format cpio archive with null-terminated filenames and gzip compression
 find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../rootfs.cpio.gz
 ```
 
@@ -131,7 +137,10 @@ find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../rootfs.cpio.gz
 
 ### 17. Run QEMU
 ```bash
+# Navigate back to the parent directory
 cd ..
+
+# Run QEMU with the specified parameters to emulate the ARM architecture
 qemu-system-arm -M versatilepb -kernel linux-6.7.6/build/arch/arm/boot/zImage -dtb linux-6.7.6/build/arch/arm/boot/dts/arm/versatile-pb.dtb -initrd rootfs.cpio.gz -serial stdio -append "root=/dev/mem serial=ttyAMA0"
 ```
 
