@@ -70,7 +70,7 @@ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- defconfig
 
 # Step 3: Customize Busybox configuration
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig
-'Note' # Enable 'build busybox as a static binary' from Settings
+# Enable 'build busybox as a static binary' from Settings
 
 # Step 4: Build Busybox with multiple cores
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
