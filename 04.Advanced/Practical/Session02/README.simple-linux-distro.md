@@ -52,7 +52,7 @@ time make -j8 modules O=./build/ ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
 
 ### 8. Install Kernel Modules
 ```bash
-time make -j8 modules_install O=./build/ ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- INSTALL_MOD_PATH=../rootfs
+time make -j8 modules_install O=./build/ ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- INSTALL_MOD_PATH=../../rootfs
 ```
 
 ## Building Busybox
