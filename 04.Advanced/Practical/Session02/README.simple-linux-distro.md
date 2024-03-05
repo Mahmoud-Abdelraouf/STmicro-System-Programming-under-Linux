@@ -30,7 +30,10 @@ sudo apt install gcc-arm-linux-gnueabi
 
 ### 5. Download and Extract Linux Kernel
 ```bash
+# Download the Linux kernel source tarball
 wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.7.6.tar.xz
+
+# Extract the downloaded tarball
 tar xvf linux-6.7.6.tar.xz
 ```
 
