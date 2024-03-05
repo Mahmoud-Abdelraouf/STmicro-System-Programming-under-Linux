@@ -39,7 +39,10 @@ tar xvf linux-6.7.6.tar.xz
 
 ### 6. Configure Kernel
 ```bash
+# Navigate to the Linux kernel source directory
 cd linux-6.7.6
+
+# Configure the kernel for ARM architecture
 make O=./build/ ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- versatile_defconfig
 ```
 You can modify the configuration using:
