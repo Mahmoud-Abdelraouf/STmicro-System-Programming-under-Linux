@@ -14,7 +14,7 @@ sudo apt install qemu-system-arm
 
 ### 2. Additional Step for ARM GCC Compilation
 ```bash
-sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc
+sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison
 ```
 **Note:** This command installs necessary packages for compiling ARM GCC. 
 
