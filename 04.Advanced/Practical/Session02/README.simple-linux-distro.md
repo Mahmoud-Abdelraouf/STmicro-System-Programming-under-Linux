@@ -62,12 +62,21 @@ Download the latest Busybox from [https://busybox.net/](https://busybox.net/) an
 
 ### 10. Compile Busybox
 ```bash
+# Step 1: Navigate to the Busybox directory
 cd busybox-1.36.1
+
+# Step 2: Configure Busybox for ARM architecture
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- defconfig
+
+# Step 3: Customize Busybox configuration
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig
-# Enable 'build busybox as a static binary' from Settings
+'Note' # Enable 'build busybox as a static binary' from Settings
+
+# Step 4: Build Busybox with multiple cores
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- install
+
+# Step 5: Install Busybox on the system
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8 install
 ```
 
 ## Creating the RootFS
