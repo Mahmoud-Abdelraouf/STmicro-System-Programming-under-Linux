@@ -1,4 +1,4 @@
-## Creating a Simple Linux Distro
+# Creating a Simple Linux Distro
 
 This guide outlines the steps to create a basic Linux distribution using QEMU and ARM architecture. The process involves installing necessary tools, configuring and building the Linux kernel, compiling Busybox, creating the RootFS, compressing the file system, and running QEMU with the created file system.
 
