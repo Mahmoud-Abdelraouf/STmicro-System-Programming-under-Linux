@@ -132,9 +132,7 @@ find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../rootfs.cpio.gz
 ### 17. Run QEMU
 ```bash
 cd ..
-qemu-system-arm -M versatilepb -kernel linux-6.7.6/build/arch/arm/boot/zImage \
-                -dtb linux-6.7.6/build/arch/arm/boot/dts/arm/versatile-pb.dtb \
-                -initrd rootfs.cpio.gz -serial stdio -append "root=/dev/mem serial=ttyAMA0"
+qemu-system-arm -M versatilepb -kernel linux-6.7.6/build/arch/arm/boot/zImage -dtb linux-6.7.6/build/arch/arm/boot/dts/arm/versatile-pb.dtb -initrd rootfs.cpio.gz -serial stdio -append "root=/dev/mem serial=ttyAMA0"
 ```
 
 ---
