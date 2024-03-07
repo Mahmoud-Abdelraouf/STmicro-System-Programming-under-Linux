@@ -13,9 +13,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2d8DPtBQfVWkSQa7O28f8Sz0r4u" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -26,6 +26,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/Projects/Software/Python-Projects",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -46,6 +47,7 @@
       <option name="presentableId" value="Default" />
       <updated>1709380792327</updated>
       <workItem from="1709380795706" duration="7000" />
+      <workItem from="1709448610270" duration="42000" />
     </task>
     <servers />
   </component>
