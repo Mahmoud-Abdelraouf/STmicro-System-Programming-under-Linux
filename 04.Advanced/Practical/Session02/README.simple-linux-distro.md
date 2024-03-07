@@ -94,6 +94,7 @@ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8 install
 ```bash
 # Navigate to the rootfs directory
 cd ../rootfs
+
 # Create necessary directories in the root file system
 mkdir -p bin sbin etc proc sys usr/{bin,sbin}  
 ```
@@ -103,6 +104,7 @@ Create the `init` script:
 ```bash
 # Navigate back to the parent directory
 cd ..
+
 # Edit the init script
 vim rootfs/init  
 ```
