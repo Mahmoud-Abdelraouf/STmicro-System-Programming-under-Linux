@@ -1,4 +1,4 @@
-## Static and Shared Libraries in C
+# Static and Shared Libraries in C
 
 This README provides instructions for creating and using static and shared libraries in C programming.
 
