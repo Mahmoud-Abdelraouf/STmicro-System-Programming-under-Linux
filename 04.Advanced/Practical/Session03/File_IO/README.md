@@ -2,7 +2,7 @@
 
 This README presents three C programs designed to showcase various aspects of file handling within UNIX-like operating systems.
 
-## `dup_share_same_file_desc.c`
+## `dup_share_same_file_descriptor.c`
 
 This program delves into the behavior of the `dup()` system call, a fundamental aspect of file handling. This call duplicates a file descriptor, allowing multiple references to the same open file. Key points include:
 
@@ -14,7 +14,7 @@ This program delves into the behavior of the `dup()` system call, a fundamental 
 4. Retrieving the current file offset for both descriptors, it demonstrates how they share the same open file description.
 5. Finally, it writes data to the file using the original file descriptor, showcasing its impact on the duplicated descriptor.
 
-## `open_get_different_file_desc.c`
+## `open_get_different_file_descriptor.c`
 
 This program highlights an intriguing aspect of file handling, where opening the same file twice yields different file descriptors. Key points include:
 
@@ -25,7 +25,7 @@ This program highlights an intriguing aspect of file handling, where opening the
 3. Despite opening the same file, each file descriptor maintains its own file offset and file status flags.
 4. The program proceeds to write data to the file using one of the file descriptors, emphasizing their distinct identities.
 
-## `myshell.c`
+## `shared_file_descriptor_linker.c`
 
 This program serves as a practical demonstration of file handling and process management, showcasing how shared file descriptions impact inter-process communication. Key points include:
 

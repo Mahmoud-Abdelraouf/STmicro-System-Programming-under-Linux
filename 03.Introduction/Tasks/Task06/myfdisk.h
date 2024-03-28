@@ -40,8 +40,9 @@ typedef struct {
  * @param device The name of the device.
  * @param partition_number The partition number.
  * @param table_entry_ptr Pointer to the partition entry.
+ * @private This function is private and should not be used externally.
  */
-void process_partition_table(char *device, uint8_t partition_number, PartitionEntry *table_entry_ptr);
+static void process_partition_table(char *device, uint8_t partition_number, PartitionEntry *table_entry_ptr);
 
 /**
  * @brief Read and process the extended boot record (EBR) partition table recursively.
@@ -50,13 +51,15 @@ void process_partition_table(char *device, uint8_t partition_number, PartitionEn
  * @param ebr_lba Logical block address of the EBR.
  * @param original_ebr_lba Original logical block address of the EBR.
  * @param ebr_number The EBR number.
+ * @private This function is private and should not be used externally.
  */
-void read_ebr_partition_table(char *device, uint32_t ebr_lba, uint32_t original_ebr_lba, int ebr_number);
+static void read_ebr_partition_table(char *device, uint32_t ebr_lba, uint32_t original_ebr_lba, int ebr_number);
 
 /**
  * @brief Read and process the partition table.
  *
  * @param device The name of the device.
+ * @public This function is public and can be used externally.
  */
 void read_partition_table(char *device);
 

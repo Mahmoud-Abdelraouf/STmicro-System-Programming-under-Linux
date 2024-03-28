@@ -1,6 +1,6 @@
 /**
- * @file myshell.c
- * @brief Implements a simple shell program that accepts user input, writes it to a file, and forks a child process to execute commands.
+ * @file SharedFileDescriptorLinker.c
+ * @brief Implements a program that manages shared file descriptors between parent and child processes.
  */
 
 #include <stdio.h>
@@ -15,18 +15,15 @@
 /**
  * @brief Main function
  * @param argc Number of command-line arguments.
- * @param argv
- *  Array of command-line arguments.
+ * @param argv Array of command-line arguments.
  * @return 0 on success, -1 on failure.
  */
-int main(int argc, char *argv
-[]) {
-    printf("Num of args = %d\n", argc);
+int main(int argc, char *argv[]) {
+    printf("Number of arguments: %d\n", argc); // Print the number of command-line arguments
 
     // Print command-line arguments
     for (int i = 0; i < argc; i++) {
-        printf("argv[%d] = %s\n", i, argv
-		[i]);
+        printf("argv[%d] = %s\n", i, argv[i]); // Print each command-line argument
     }
 
     getchar(); // Pause execution until Enter is pressed
@@ -36,20 +33,21 @@ int main(int argc, char *argv
 
     // Main shell loop
     while (1) {
-        printf(">>>>>>> ");
+        printf(">>>>>>> "); // Print the shell prompt
         int size = getline(&cmd, &n, stdin); // Read user input from stdin
-        cmd[size - 1] = 0; // Remove newline character at the end of the input
+        cmd[size - 1] = '\0'; // Remove newline character at the end of the input
 
-        if (strlen(cmd) == 0) // Skip empty commands
+        if (strlen(cmd) == 0) { // Skip empty commands
             continue;
+        }
 
         // Open a file named "test.txt" for writing
         int fd = open("test.txt", O_WRONLY);
         if (fd < 0) {
-            printf(">> Could not open the file\n");
-            return -1;
+            printf(">> Could not open the file\n"); // Print error message if file opening fails
+            return -1; // Return failure code
         }
-        printf(">> the file opened with fd = %d\n", fd);
+        printf(">> The file opened with fd = %d\n", fd); // Print file descriptor after successful opening
 
         // Set the file offset to a large value (100000 bytes from the end of the file)
         off_t newoff = lseek(fd, 100000, SEEK_END);
@@ -59,17 +57,21 @@ int main(int argc, char *argv
         pid_t returned_pid = fork();
         if (returned_pid > 0) { // Parent process
             int wstatus;
-            printf("PARENT: My PID = %d,  I have a new child and his PID = %d\n", getpid(), returned_pid);
+            printf("PARENT: My PID = %d, I have a new child and his PID = %d\n", getpid(), returned_pid); // Print parent and child process IDs
             off_t offset_from_parent = lseek(fd, 0, SEEK_CUR);
-            printf("PARENT: offset_from_parent = %ld, newofffest = %ld\n", offset_from_parent, newoff);
+            printf("PARENT: offset_from_parent = %ld, new offset = %ld\n", offset_from_parent, newoff); // Print file offsets
+
             wait(&wstatus); // Wait for the child process to terminate
+            
             offset_from_parent = lseek(fd, 0, SEEK_CUR);
-            printf("PARENT: after wait: offset_from_parent = %ld, newofffest = %ld\n", offset_from_parent, newoff);
+            printf("PARENT: after wait: offset_from_parent = %ld, new offset = %ld\n", offset_from_parent, newoff); // Print file offsets after waiting
         } else if (returned_pid == 0) { // Child process
-            printf("CHILD: My PID = %d,  My parent PID = %d\n", getpid(), getppid());
+            printf("CHILD: My PID = %d, My parent PID = %d\n", getpid(), getppid()); // Print child and parent process IDs
+
             getchar(); // Pause execution until Enter is pressed
+
             off_t offset_from_child = lseek(fd, 0, SEEK_CUR);
-            printf("CHILD: offset_from_child = %ld, newofffest = %ld\n", offset_from_child, newoff);
+            printf("CHILD: offset_from_child = %ld, new offset = %ld\n", offset_from_child, newoff); // Print file offsets from child process
 
             // Prepare arguments for the new program (currently disabled)
             char *new_program_argv[] = { NULL };
@@ -78,20 +80,16 @@ int main(int argc, char *argv
             // Perform another seek operation in the file
             off_t newoff = lseek(fd, 5000, SEEK_END);
             offset_from_child = lseek(fd, 0, SEEK_CUR);
-            printf("CHILD: another seek: offset_from_child = %ld, newofffest = %ld\n", offset_from_child, newoff);
+            printf("CHILD: another seek: offset_from_child = %ld, new offset = %ld\n", offset_from_child, newoff); // Print file offsets after seek
             
-            // Execute a command (currently disabled)
-            // execve(cmd, new_program_argv, new_program_envp);
-
-            printf("I am not in the mode of execution. Exec failed\n");
-            return -1;
+            return -1; // Return failure code
         } else { // Error handling
-            printf("ERROR: I could not get a child\n");
+            printf("ERROR: Could not create a child process\n"); // Print error message if fork fails
         }
 
         free(cmd); // Free allocated memory
         cmd = NULL; // Reset pointer
         n = 0; // Reset size
-    }
-    return 0;
+    
+    return 0; // Return success code
 }

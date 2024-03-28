@@ -46,4 +46,6 @@ To create a shared library, follow these steps:
    LD_LIBRARY_PATH=./mylib ./main
    ```
 
+---
+
 These instructions provide a clear pathway for creating and using both static and shared libraries in C programming. Static libraries are linked directly into the main program, while shared libraries are dynamically loaded at runtime, offering flexibility and efficiency in code management.

@@ -46,4 +46,6 @@ In this example, the `Sum` function takes an integer `num` representing the numb
 - **Use proper type checking**: Variadic functions rely on the caller to specify the types of arguments correctly. Ensure proper type checking and handling within the function.
 - **Ensure proper cleanup**: Always use `va_end` to clean up resources associated with `va_list` objects to avoid memory leaks.
 
+---
+
 Variadic functions offer flexibility and convenience but require careful handling to ensure correct behavior and prevent errors. When used appropriately, they can simplify code and make it more versatile.
