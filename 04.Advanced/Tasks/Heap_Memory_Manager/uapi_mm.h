@@ -2,7 +2,7 @@
 /******* Author    : Mahmoud Abdelraouf Mahmoud *****************/
 /******* Date      : 8 Apr 2023                 *****************/
 /******* Version   : 0.1                        *****************/
-/******* File Name : UserAPI.h                  *****************/
+/******* File Name : UserAPI_mm.h               *****************/
 /****************************************************************/
 #ifndef __UAPI_MM_H__
 #define __UAPI_MM_H__
@@ -59,5 +59,25 @@ void mm_init();
  * @see mm_get_new_vm_page_from_kernel()
  */
 void mm_instantiate_new_page_family (char *struct_name, uint32_t struct_size);
+
+/**-----------------< Function-like macro section -----------------*/
+/**
+ * @brief Registers a memory structure for page family instantiation.
+ * 
+ * This macro facilitates the registration of a memory structure for page family instantiation
+ * within the memory manager. It takes the name of the structure (`struct_name`) as a parameter
+ * and uses the `#` operator to stringify it, which is then passed to the `mm_instantiate_new_page_family()`
+ * function along with the size of the structure.
+ * 
+ * @param struct_name The name of the memory structure to be registered.
+ * 
+ * @note This macro should be used to register each memory structure before it is instantiated
+ *       as a page family within the memory manager. It ensures proper initialization of the
+ *       memory management system and enables efficient allocation and management of memory pages.
+ * 
+ * @see mm_instantiate_new_page_family()
+ */
+#define MM_REG_STRUCT(struct_name) \
+    (mm_instantiate_new_page_family(#struct_name, sizeof(struct_name)))
 
 #endif /**< __UAPI_MM_H__ */
