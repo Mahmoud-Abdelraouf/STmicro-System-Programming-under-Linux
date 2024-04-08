@@ -1,3 +1,11 @@
+/****************************************************************/
+/******* Author    : Mahmoud Abdelraouf Mahmoud *****************/
+/******* Date      : 8 Apr 2023                 *****************/
+/******* Version   : 0.1                        *****************/
+/******* File Name : MemeoryManager.c           *****************/
+/****************************************************************/
+
+/**-----------------< Includes section -----------------*/
 #include <assert.h>
 #include <memory.h>
 #include <stdint.h>
@@ -7,103 +15,114 @@
 #include <unistd.h>
 #include "mm.h"
 
-/**< The size of the system page.*/
+/**-----------------< Global variable section -----------------*/
+/**
+ * @brief Size of the system page.
+ * 
+ * This static variable holds the size of the system page. It is initialized to 0
+ * and should be updated to the actual size of the system page during program initialization
+ * using a system-specific function or method.
+ * 
+ * @note This variable should be initialized to the size of the system page
+ *       before any memory management operations are performed within the program.
+ *       The actual size of the system page depends on the underlying operating system
+ *       and hardware architecture.
+ */
 static size_t SYSTEM_PAGE_SIZE = 0;
 
-/**<  */
+/**
+ * @brief Pointer to the first virtual memory page for page families.
+ * 
+ * This static pointer variable holds the address of the first virtual memory page used
+ * to store page families. It is initialized to NULL, indicating that no virtual memory
+ * page is currently allocated for page families. As page families are instantiated,
+ * new virtual memory pages may be allocated and linked to this pointer.
+ * 
+ * @note This variable is static and should be accessible only within the scope of the file
+ *       in which it is declared. It is used to maintain the linked list of virtual memory
+ *       pages for page families throughout the program.
+ */
 static vm_page_for_families_t *first_vm_page_for_families = NULL;
 
-/**< Initialize the memory manager. */
+/**-----------------< Functions implementation section -----------------*/
 void mm_init()
 {
-	SYSTEM_PAGE_SIZE = getpagesize();
+    SYSTEM_PAGE_SIZE = getpagesize();
 }
 
-/**
- * @brief Allocate a new virtual memory page from the kernel.
- *
- * @param units Number of units to allocate (multiples of system page size).
- * @return Pointer to the allocated memory page, or NULL if allocation fails.
- */
 static void *mm_get_new_vm_page_from_kernel(int units)
 {
-	char *vm_page = mmap(NULL, units * SYSTEM_PAGE_SIZE, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PRIVATE, 0, 0);
-	if (vm_page == MAP_FAILED) {
-		printf("Error : VM page allocation Failed\n");
-		return NULL;
-	}
+    // Use the mmap() system call to allocate memory from the kernel
+    char *vm_page = mmap(NULL, units * SYSTEM_PAGE_SIZE,
+                         PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PRIVATE, 0,
+                         0);
+    // Check if the allocation was successful
+    if (vm_page == MAP_FAILED) {
+        // Print an error message if allocation fails
+        printf("Error: VM page allocation failed\n");
+        return NULL;
+    }
 
-	memset(vm_page, 0, units * SYSTEM_PAGE_SIZE);
-	return (void *)vm_page;
+    // Initialize the allocated memory block with zeros
+    memset(vm_page, 0, units * SYSTEM_PAGE_SIZE);
+    
+    // Return a pointer to the allocated memory block
+    return (void *)vm_page;
 }
 
-/**
- * @brief Return a virtual memory page to the kernel.
- *
- * @param vm_page Pointer to the memory page to return.
- * @param units Number of units to deallocate (multiples of system page size).
- */
 static void mm_return_page_to_kernel(void *vm_page, int units)
 {
-	if (munmap(vm_page, units * SYSTEM_PAGE_SIZE) != 0) {
-		printf("Error : could not munmap VM page to kernel\n");
-	}
+    // Use the munmap() system call to return memory to the kernel
+    if (munmap(vm_page, units * SYSTEM_PAGE_SIZE) != 0) {
+        // Print an error message if unmapping fails
+        printf("Error: Could not munmap VM page to kernel\n");
+    }
 }
 
-void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size) 
+void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size)
 {
-	vm_page_family_t *vm_page_family_curr = NULL;
-	vm_page_for_families_t *new_vm_page_for_families = NULL;
+    vm_page_family_t *vm_page_family_curr = NULL;
+    vm_page_for_families_t *new_vm_page_for_families = NULL;
 
-	if (struct_size > SYSTEM_PAGE_SIZE) {
-		printf
-		    ("Error : %s() structure %s size exceeds system page size\n", __FUNCTION__, struct_name);
-	}
+    // Check if the size of the memory structure exceeds the system page size
+    if (struct_size > SYSTEM_PAGE_SIZE) {
+        printf("Error: %s() structure %s size exceeds system page size\n", __FUNCTION__, struct_name);
+        return;
+    }
 
-	if (!first_vm_page_for_families) {
-		first_vm_page_for_families = (vm_page_for_families_t *)mm_get_new_vm_page_from_kernel(1);
+    // If there are no existing virtual memory pages, allocate a new page and initialize it with the first page family
+    if (!first_vm_page_for_families) {
+        first_vm_page_for_families = (vm_page_for_families_t *)mm_get_new_vm_page_from_kernel(1);
+        first_vm_page_for_families->next = NULL;
+        strncpy(first_vm_page_for_families->vm_page_family[0].struct_name, struct_name, MM_MAX_STRUCT_NAME);
+        first_vm_page_for_families->vm_page_family[0].struct_size = struct_size;
+        return;
+    }
 
-		first_vm_page_for_families->next = NULL;
+    uint32_t count = 0;
 
-		strncpy(first_vm_page_for_families->vm_page_family[0].struct_name, struct_name, MM_MAX_STRUCT_NAME);
+    // Iterate over existing page families to check if a page family with the same name already exists
+    ITERATE_PAGE_FAMILIES_BEGIN(first_vm_page_for_families, vm_page_family_curr) {
+        if (strncmp(vm_page_family_curr->struct_name, struct_name, MM_MAX_STRUCT_NAME) != 0) {
+            count++;
+            continue;
+        }
 
-		first_vm_page_for_families->vm_page_family[0].struct_size = struct_size;
-		return; 
-	}
+        // Trigger an assertion error if a page family with the same name already exists
+        assert(0);
+    } ITERATE_PAGE_FAMILIES_END(first_vm_page_for_families, vm_page_family_curr);
 
-	uint32_t count = 0;
+    // If the existing page is full, allocate a new page and add it to the beginning of the linked list
+    if (count == (uint32_t) MAX_FAMILIES_PER_VM_PAGE) {
+        new_vm_page_for_families = (vm_page_for_families_t *)mm_get_new_vm_page_from_kernel(1);
+        new_vm_page_for_families->next = first_vm_page_for_families;
+        first_vm_page_for_families = new_vm_page_for_families;
+        vm_page_family_curr = &first_vm_page_for_families->vm_page_family[0];
+    }
 
-	ITERATE_PAGE_FAMILIES_BEGIN(first_vm_page_for_families, vm_page_family_curr) {
-		if (strncmp(vm_page_family_curr->struct_name, struct_name, MM_MAX_STRUCT_NAME) != 0) {
-			count++;
-			continue;
-		}
-
-		assert(0);
-	} ITERATE_PAGE_FAMILIES_END(first_vm_page_for_families, vm_page_family_curr);
-
-	if (count == (uint32_t)MAX_FAMILIES_PER_VM_PAGE) {
-		new_vm_page_for_families = (vm_page_for_families_t *)mm_get_new_vm_page_from_kernel(1);
-		new_vm_page_for_families->next = first_vm_page_for_families;
-		first_vm_page_for_families = new_vm_page_for_families;
-	}	
+    // Initialize the new page family with the specified name and size
+    strncpy(vm_page_family_curr->struct_name, struct_name, MM_MAX_STRUCT_NAME);
+    vm_page_family_curr->struct_size = struct_size;
+    // vm_page_family_curr->firs_page = NULL;
 }
-
-int main(int argc, char *argv[])
-{
-  /**< Initialize memory manager. */
-	mm_init();
-
-  /**< Print the size of the virtual memory page. */
-	printf("VM page size = %lu\n", SYSTEM_PAGE_SIZE);
-
-  /**< Requests and allocates two new virtual memory pages from the kernel using
-   * the memory manager. */
-	void *addr1 = mm_get_new_vm_page_from_kernel(1);
-	void *addr2 = mm_get_new_vm_page_from_kernel(1);
-
-  /**< Prints the addresses of the two allocated memory pages. */
-	printf("Page 1 = %p, Page 2 = %p\n", addr1, addr2);
-
-	return 0;
-}
+/**-----------------< The end of functions implementation section -----------------*/
