@@ -6,6 +6,7 @@
 /****************************************************************/
 
 /**-----------------< Includes section -----------------*/
+/**< System includes */
 #include <assert.h>
 #include <memory.h>
 #include <stdint.h>
@@ -13,6 +14,8 @@
 #include <string.h>
 #include <sys/mman.h>
 #include <unistd.h>
+/**< Project includes */
+#include "uapi_mm.h"
 #include "mm.h"
 
 /**-----------------< Global variable section -----------------*/
@@ -125,4 +128,32 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size)
     vm_page_family_curr->struct_size = struct_size;
     // vm_page_family_curr->firs_page = NULL;
 }
-/**-----------------< The end of functions implementation section -----------------*/
+
+void mm_print_registered_page_families() {
+    vm_page_family_t *vm_page_family_curr = NULL; // Pointer to the current page family
+    char struct_name[MM_MAX_STRUCT_NAME];         // Buffer to store the name of the structure
+    uint32_t struct_size;                         // Size of the structure
+
+    // Check if there are no registered page families
+    if (first_vm_page_for_families == NULL) {
+        printf("No page families registered for printing.\n");
+    } else {
+        // Pointer to iterate over virtual memory pages
+        vm_page_for_families_t *current_page = first_vm_page_for_families;
+        
+        // Iterate over all virtual memory pages containing page families
+        do {
+            ITERATE_PAGE_FAMILIES_BEGIN(current_page, vm_page_family_curr) {
+                // Copy the name and size of the structure from the current page family
+                strncpy(struct_name, vm_page_family_curr->struct_name, MM_MAX_STRUCT_NAME);
+                struct_size = vm_page_family_curr->struct_size;
+                
+                // Print information about the page family
+                printf("Page Family: %s, Size: %d\n", struct_name, struct_size);
+            } ITERATE_PAGE_FAMILIES_END(current_page, vm_page_family_curr);
+            
+            // Move to the next virtual memory page
+            current_page = current_page->next;
+        } while (current_page != NULL);
+    }
+}

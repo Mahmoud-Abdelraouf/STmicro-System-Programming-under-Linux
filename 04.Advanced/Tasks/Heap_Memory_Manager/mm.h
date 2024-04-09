@@ -4,8 +4,8 @@
 /******* Version   : 0.1                        *****************/
 /******* File Name : MemeoryManager.h           *****************/
 /****************************************************************/
-#ifndef MM_H_
-#define MM_H_
+#ifndef __MM_H__
+#define __MM_H__
 /**-----------------< Includes section -----------------*/
 #include <stdint.h> 
 
@@ -27,8 +27,7 @@ typedef struct vm_page_family_ {
  */
 typedef struct vm_page_for_families_ {
   struct vm_page_for_families_ *next; /**< Pointer to the next virtual memory page. */
-  vm_page_family_t vm_page_family[0]; /**< Array of variable size storing memory
-                                         structure families. */
+  vm_page_family_t vm_page_family[0]; /**< Array of variable size storing memory structure families. */
 } vm_page_for_families_t;
 
 /**-----------------< Function-like macro section -----------------*/
@@ -40,10 +39,23 @@ typedef struct vm_page_for_families_ {
   (SYSTEM_PAGE_SIZE - sizeof(vm_page_family_t *) / sizeof(vm_page_family_t))
 
 /**
- * @brief Macro for iterating over families stored within a virtual memory page.
- *
- * @param vm_page_for_families_ptr Pointer to the virtual memory page.
- * @param curr Pointer to the current family being iterated.
+ * @brief Macro for beginning iteration over page families.
+ * 
+ * This macro is used to begin iteration over page families stored within a virtual memory page.
+ * It initializes a loop for iterating over page families, using the provided pointers.
+ * 
+ * @param vm_page_for_families_ptr Pointer to the virtual memory page for families.
+ * @param curr Pointer to the current page family being iterated.
+ * 
+ * @note This macro is typically used in conjunction with `ITERATE_PAGE_FAMILIES_END` to iterate
+ *       over page families stored within a virtual memory page. The loop continues until all page
+ *       families have been iterated or the maximum number of families per page is reached.
+ * 
+ * @warning This macro assumes that `vm_page_for_families_ptr` points to a valid virtual memory page
+ *           structure containing page families, and `curr` is a valid pointer to iterate over
+ *           these families. Improper usage may result in undefined behavior.
+ * 
+ * @see ITERATE_PAGE_FAMILIES_END
  */
 #define ITERATE_PAGE_FAMILIES_BEGIN(vm_page_for_families_ptr, curr)             \
 {                                                                               \
@@ -53,11 +65,23 @@ typedef struct vm_page_for_families_ {
        curr++, count++) {
 
 /**
- * @brief Macro marking the end of the iteration over families within a virtual
- * memory page.
- *
- * @param vm_page_for_families_ptr Pointer to the virtual memory page.
+ * @brief Macro marking the end of iteration over families within a virtual memory page.
+ * 
+ * This macro is used to mark the end of iteration over families within a virtual memory page,
+ * which was started with the `ITERATE_PAGE_FAMILIES_BEGIN` macro. It concludes the loop
+ * for iterating over page families.
+ * 
+ * @param vm_page_for_families_ptr Pointer to the virtual memory page for families.
  * @param curr Pointer to the current family being iterated.
+ * 
+ * @note This macro should be used in conjunction with `ITERATE_PAGE_FAMILIES_BEGIN` to properly
+ *       mark the end of the iteration loop over page families within a virtual memory page.
+ * 
+ * @warning The loop for iterating over families within a virtual memory page should be enclosed
+ *          within curly braces `{}` to ensure proper scoping of loop variables and statements.
+ *          Improper usage of this macro may lead to compilation errors or unexpected behavior.
+ * 
+ * @see ITERATE_PAGE_FAMILIES_BEGIN
  */
 #define ITERATE_PAGE_FAMILIES_END(vm_page_for_families_ptr, curr)              \
   }                                                                            \
@@ -65,54 +89,26 @@ typedef struct vm_page_for_families_ {
 
 /**-----------------< Public functions interfacce -----------------*/
 /**
- * @brief Initializes the memory manager.
+ * @brief Looks up a page family by its name.
  * 
- * This function initializes the memory manager. It sets up necessary configurations
- * and parameters for memory management operations within the program. It specifically
- * determines the system page size using the `getpagesize()` system call and assigns
- * it to the global variable `SYSTEM_PAGE_SIZE`.
+ * This function iterates over all virtual memory pages hosting page families
+ * and returns a pointer to the page family object identified by the given struct_name.
+ * If no such page family object is found, it returns NULL.
  * 
- * @note This function should be called before any memory management operations are performed
- *       within the program. It is typically called at the beginning of the program execution
- *       to ensure proper initialization of memory management functionalities.
+ * @param struct_name The name of the page family to look up.
  * 
- * @warning This function relies on the `getpagesize()` system call to determine the system page size.
- *           Therefore, it may not be portable across all platforms. It is primarily intended for use
- *           in Unix-like systems where `getpagesize()` is available.
+ * @return Pointer to the page family object if found, otherwise NULL.
  * 
- * @see getpagesize()
+ * @note This function should be used to retrieve a page family object by its name
+ *       after the page families have been registered and initialized using the
+ *       appropriate functions and macros provided by the memory manager.
+ * 
+ * @see mm_init
+ * @see MM_REG_STRUCT
+ * @see vm_page_for_families_t
+ * @see vm_page_family_t
  */
-void mm_init();
-
-/**
- * @brief Instantiates a new page family for a memory structure.
- * 
- * This function creates a new page family for a memory structure identified by its name
- * and size. It allocates memory for the page family and adds it to the existing virtual
- * memory pages if necessary. Each page family can contain multiple memory structures of
- * the same type.
- * 
- * @param struct_name The name of the memory structure.
- * @param struct_size The size of the memory structure.
- * 
- * @note If the size of the memory structure exceeds the system page size, an error message
- *       is printed, and the function returns without creating the page family.
- * 
- * @note This function maintains a linked list of virtual memory pages (`first_vm_page_for_families`)
- *       to store the page families. If there are no existing pages, it allocates a new page and
- *       initializes it with the first page family. If the existing pages are full, it allocates
- *       a new page and adds it to the beginning of the linked list.
- * 
- * @note If a page family with the same name already exists, an assertion error is triggered, indicating
- *       a conflict in page family instantiation.
- * 
- * @warning This function relies on the `mm_get_new_vm_page_from_kernel()` function to allocate
- *           memory from the kernel for the page family. Improper use or misuse of this function
- *           can lead to memory leaks or system instability.
- * 
- * @see mm_get_new_vm_page_from_kernel()
- */
-void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size);
+vm_page_family_t *lookup_page_family_by_name(char *struct_name);
 
 /**-----------------< Private functions interfacce -----------------*/
 /**

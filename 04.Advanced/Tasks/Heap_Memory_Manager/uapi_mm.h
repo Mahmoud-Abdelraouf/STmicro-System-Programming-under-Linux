@@ -9,7 +9,7 @@
 /**-----------------< Includes section -----------------*/
 #include <stdint.h>
 
-/**-----------------< Interface section -----------------*/
+/**-----------------< Public functions interface section -----------------*/
 /**
  * @brief Initializes the memory manager.
  * 
@@ -59,6 +59,21 @@ void mm_init();
  * @see mm_get_new_vm_page_from_kernel()
  */
 void mm_instantiate_new_page_family (char *struct_name, uint32_t struct_size);
+
+/**
+ * @brief Prints all registered page families.
+ * 
+ * This function prints all page families that have been registered with the Linux Memory Manager.
+ * It iterates over all virtual memory pages hosting page families and prints information about
+ * each page family, including its name and size.
+ * 
+ * @note This function should be invoked after the application has performed registration for all
+ *       its structures using the `MM_REG_STRUCT` macro. It relies on the `first_vm_page_for_families`
+ *       global variable, which maintains a linked list of virtual memory pages containing page families.
+ * 
+ * @see MM_REG_STRUCT
+ */
+void mm_print_registered_page_families();
 
 /**-----------------< Function-like macro section -----------------*/
 /**
