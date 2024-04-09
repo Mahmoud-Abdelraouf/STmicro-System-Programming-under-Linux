@@ -14,6 +14,17 @@
 
 /**-----------------< user defined data type section -----------------*/
 /**
+ * @brief Represents a boolean value.
+ * 
+ * The `vm_bool_t` type represents a boolean value, which can have one of two states:
+ * `VM_TRUE` or `VM_FALSE`. It is used to store boolean values in the program.
+ */
+typedef enum {
+    MM_FALSE = 0, /**< Represents the false state. */
+    MM_TRUE = 1   /**< Represents the true state. */
+} vm_bool_t;
+
+/**
  * @brief Structure representing a family of memory structures.
  */
 typedef struct vm_page_family_ {
@@ -29,6 +40,22 @@ typedef struct vm_page_for_families_ {
   struct vm_page_for_families_ *next; /**< Pointer to the next virtual memory page. */
   vm_page_family_t vm_page_family[0]; /**< Array of variable size storing memory structure families. */
 } vm_page_for_families_t;
+
+/**
+ * @brief Structure representing metadata for a memory block.
+ * 
+ * The `block_meta_data_t` structure represents metadata for a memory block.
+ * It includes information such as whether the block is free or allocated,
+ * its size, pointers to the previous and next blocks (if applicable), and
+ * the offset within the memory region.
+ */
+typedef struct block_meta_data_ {
+    vm_bool_t is_free;               /**< Flag indicating whether the block is free. */
+    uint32_t block_size;             /**< Size of the memory block. */
+    struct block_meta_data_ *prev_block; /**< Pointer to the previous memory block. */
+    struct block_meta_data_ *next_block; /**< Pointer to the next memory block. */
+    uint32_t offset;                 /**< Offset within the memory region. */
+} block_meta_data_t;
 
 /**-----------------< Function-like macro section -----------------*/
 /**
@@ -86,6 +113,91 @@ typedef struct vm_page_for_families_ {
 #define ITERATE_PAGE_FAMILIES_END(vm_page_for_families_ptr, curr)              \
   }                                                                            \
 }
+
+/**
+ * @brief Macro to calculate the offset of a field within a structure.
+ * 
+ * This macro calculates the byte offset of a specified field within a structure.
+ * It is often used in low-level programming to access structure members at specific
+ * memory locations.
+ * 
+ * @param container_structure The name of the structure containing the field.
+ * @param field_name The name of the field whose offset is being calculated.
+ * 
+ * @return The byte offset of the field within the structure.
+ * 
+ * @note This macro uses the pointer arithmetic to calculate the offset.
+ */
+#define offset_of(container_structure, field_name) \
+    ((size_t)(&((container_structure *)0)->field_name))
+
+/**
+ * @brief Macro to retrieve the virtual memory page from a block's metadata.
+ * 
+ * This macro retrieves the virtual memory page associated with a given block's metadata.
+ * 
+ * @param block_meta_data_ptr Pointer to the block's metadata.
+ * @return Pointer to the virtual memory page.
+ */
+#define MM_GET_PAGE_FROM_META_BLOCK(block_meta_data_ptr) \
+    ((void *)((uintptr_t)(block_meta_data_ptr) - (block_meta_data_ptr)->offset))
+
+/**
+ * @brief Macro to retrieve the metadata of the next block based on the current block's size.
+ * 
+ * This macro calculates the pointer to the metadata of the next block by adding the size
+ * of the current block to the pointer to the current block's metadata.
+ * 
+ * @param block_meta_data_ptr Pointer to the current block's metadata.
+ * @return Pointer to the metadata of the next block.
+ * 
+ * @note This macro is commonly used in memory management systems where metadata blocks
+ *       are used to manage memory allocation. It allows for efficient traversal of the
+ *       memory blocks, enabling operations such as coalescing adjacent free memory blocks
+ *       or iterating over allocated memory blocks.
+ * 
+ * @warning The behavior of this macro depends on the assumption that the next block starts
+ *          immediately after the current block in memory. Ensure that the memory layout and
+ *          block sizes are correctly managed to avoid undefined behavior.
+ */
+#define NEXT_META_BLOCK_BY_SIZE(block_meta_data_ptr) \
+    ((block_meta_data_t *)((uintptr_t)(block_meta_data_ptr) + (block_meta_data_ptr)->block_size))
+
+/**
+ * @brief Macro to get the pointer to the next metadata block.
+ * 
+ * This macro is used to obtain the pointer to the next metadata block
+ * given a pointer to the current metadata block.
+ * 
+ * @param block_meta_data_ptr Pointer to the current metadata block.
+ * 
+ * @return Pointer to the next metadata block.
+ * 
+ * @note This macro is typically used in memory management systems where metadata
+ *       blocks are used to manage memory allocation. It allows for efficient traversal
+ *       of the metadata blocks linked list, enabling operations such as coalescing
+ *       adjacent free memory blocks or iterating over allocated memory blocks.
+ */
+#define NEXT_META_BLOCK(block_meta_data_ptr) \
+   ((block_meta_data_ptr)->next_block)
+
+/**
+ * @brief Macro to get the pointer to the previous metadata block.
+ * 
+ * This macro is used to obtain the pointer to the previous metadata block
+ * given a pointer to the current metadata block.
+ * 
+ * @param block_meta_data_ptr Pointer to the current metadata block.
+ * 
+ * @return Pointer to the previous metadata block.
+ * 
+ * @note This macro is typically used in memory management systems where metadata
+ *       blocks are used to manage memory allocation. It allows for efficient traversal
+ *       of the metadata blocks linked list, allowing operations such as merging adjacent
+ *       free memory blocks or finding neighboring blocks.
+ */
+#define PREV_META_BLOCK(block_meta_data_ptr) \
+   ((block_meta_data_ptr)->prev)
 
 /**-----------------< Public functions interfacce -----------------*/
 /**
