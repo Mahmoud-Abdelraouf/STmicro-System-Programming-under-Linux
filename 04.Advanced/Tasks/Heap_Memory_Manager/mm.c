@@ -157,3 +157,29 @@ void mm_print_registered_page_families() {
         } while (current_page != NULL);
     }
 }
+
+vm_page_family_t *lookup_page_family_by_name(char *struct_name) {
+    // Pointer to iterate over VM pages
+    vm_page_for_families_t *current_page = first_vm_page_for_families;
+
+    // Iterate over all VM pages containing page families
+    while (current_page != NULL) {
+        // Pointer to iterate over page families within the current VM page
+        vm_page_family_t *vm_page_family_curr = NULL;
+        
+        // Iterate over page families within the current VM page
+        ITERATE_PAGE_FAMILIES_BEGIN(current_page, vm_page_family_curr) {
+            // Check if the name of the current page family matches the provided struct_name
+            if (strncmp(vm_page_family_curr->struct_name, struct_name, MM_MAX_STRUCT_NAME) == 0) {
+                // If a match is found, return the pointer to the page family object
+                return vm_page_family_curr;
+            }
+        } ITERATE_PAGE_FAMILIES_END(current_page, vm_page_family_curr);
+        
+        // Move to the next VM page
+        current_page = current_page->next;
+    }
+
+    // If no matching page family is found, return NULL
+    return NULL;
+}
