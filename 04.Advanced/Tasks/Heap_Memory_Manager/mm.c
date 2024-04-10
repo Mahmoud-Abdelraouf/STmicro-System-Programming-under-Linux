@@ -128,7 +128,8 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size)
     // vm_page_family_curr->firs_page = NULL;
 }
 
-void mm_print_registered_page_families() {
+void mm_print_registered_page_families() 
+{
     vm_page_family_t *vm_page_family_curr = NULL; // Pointer to the current page family
     char struct_name[MM_MAX_STRUCT_NAME];         // Buffer to store the name of the structure
     uint32_t struct_size;                         // Size of the structure
@@ -157,7 +158,8 @@ void mm_print_registered_page_families() {
     }
 }
 
-vm_page_family_t *lookup_page_family_by_name(char *struct_name) {
+vm_page_family_t *lookup_page_family_by_name(char *struct_name) 
+{
     // Pointer to iterate over VM pages
     vm_page_for_families_t *current_page = first_vm_page_for_families;
 
@@ -181,4 +183,38 @@ vm_page_family_t *lookup_page_family_by_name(char *struct_name) {
 
     // If no matching page family is found, return NULL
     return NULL;
+}
+
+static void mm_union_free_blocks(block_meta_data_t *first, block_meta_data_t *second)  
+{
+    // Ensure that both blocks are free
+    assert(first->is_free == MM_TRUE && second->is_free == MM_TRUE);
+
+    // Check if the two blocks are contiguous
+    if (first->next_block == second && second->prev_block == first) {
+        // Merge the blocks by updating the size and pointers
+        first->block_size += sizeof(block_meta_data_t) + second->block_size;
+        first->next_block = second->next_block;
+
+        // Update the previous block pointer of the next block if it exists
+        if (second->next_block != NULL) {
+            second->next_block->prev_block = first;
+        }
+    } else {
+        // Error message if blocks are not contiguous
+        printf("Error: mm_union_free_blocks - Attempting to merge non-contiguous free blocks\n");
+    }
+}
+
+vm_bool_t mm_is_vm_page_empty(vm_page_t *vm_page) {
+    if (vm_page != NULL) {
+        // Check if all conditions for an empty page are met
+        if (vm_page->block_meta_data.next_block == NULL && 
+            vm_page->block_meta_data.prev_block == NULL &&
+            vm_page->block_meta_data.is_free == MM_TRUE) {
+            return MM_TRUE;
+        }
+        return MM_FALSE;
+    }
+    return -1;
 }

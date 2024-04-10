@@ -25,11 +25,43 @@ typedef enum {
 } vm_bool_t;
 
 /**
+ * @brief Structure representing metadata for a memory block.
+ * 
+ * The `block_meta_data_t` structure represents metadata for a memory block.
+ * It includes information such as whether the block is free or allocated,
+ * its size, pointers to the previous and next blocks (if applicable), and
+ * the offset within the memory region.
+ */
+typedef struct block_meta_data_ {
+    vm_bool_t is_free;                    /**< Flag indicating whether the block is free. */
+    uint32_t block_size;                  /**< Size of the memory block. */
+    struct block_meta_data_ *prev_block;  /**< Pointer to the previous memory block. */
+    struct block_meta_data_ *next_block;  /**< Pointer to the next memory block. */
+    uint32_t offset;                      /**< Offset within the memory region. */
+} block_meta_data_t;
+
+/**
+ * @brief Structure representing a virtual memory page.
+ * 
+ * This structure represents a virtual memory page used in memory management systems.
+ * It contains metadata for managing memory blocks within the page, as well as the actual
+ * memory region allocated for storing data blocks.
+ */
+typedef struct vm_page_ {
+    struct vm_page_ *next;                  /**< Pointer to the next virtual memory page. */
+    struct vm_page_ *prev;                  /**< Pointer to the previous virtual memory page. */
+    struct vm_page_family_ *pg_family;      /**< Pointer to the page family associated with the page. */
+    block_meta_data_t block_meta_data;      /**< Metadata for managing memory blocks within the page. */
+    char page_memory[0];                    /**< Memory region allocated for storing data blocks. */
+} vm_page_t;
+
+/**
  * @brief Structure representing a family of memory structures.
  */
 typedef struct vm_page_family_ {
   char struct_name[MM_MAX_STRUCT_NAME]; /**< Name of the structure. */
   uint32_t struct_size;                 /**< Size of the structure. */
+  vm_page_t *first_page;                /**<  Pointer to the most recent vm page in using */
 } vm_page_family_t;
 
 /**
@@ -40,22 +72,6 @@ typedef struct vm_page_for_families_ {
   struct vm_page_for_families_ *next; /**< Pointer to the next virtual memory page. */
   vm_page_family_t vm_page_family[0]; /**< Array of variable size storing memory structure families. */
 } vm_page_for_families_t;
-
-/**
- * @brief Structure representing metadata for a memory block.
- * 
- * The `block_meta_data_t` structure represents metadata for a memory block.
- * It includes information such as whether the block is free or allocated,
- * its size, pointers to the previous and next blocks (if applicable), and
- * the offset within the memory region.
- */
-typedef struct block_meta_data_ {
-    vm_bool_t is_free;               /**< Flag indicating whether the block is free. */
-    uint32_t block_size;             /**< Size of the memory block. */
-    struct block_meta_data_ *prev_block; /**< Pointer to the previous memory block. */
-    struct block_meta_data_ *next_block; /**< Pointer to the next memory block. */
-    uint32_t offset;                 /**< Offset within the memory region. */
-} block_meta_data_t;
 
 /**-----------------< Function-like macro section -----------------*/
 /**
@@ -110,9 +126,70 @@ typedef struct block_meta_data_ {
  * 
  * @see ITERATE_PAGE_FAMILIES_BEGIN
  */
-#define ITERATE_PAGE_FAMILIES_END(vm_page_for_families_ptr, curr)              \
-  }                                                                            \
-}
+#define ITERATE_PAGE_FAMILIES_END(vm_page_for_families_ptr, curr) \
+        }                                                         \
+    }
+
+/**
+ * @brief Macro to iterate over virtual memory pages beginning from the first page of a page family.
+ * 
+ * This macro allows for iterating over virtual memory pages starting from the first page of a specified page family.
+ * 
+ * @param vm_page_family_ptr Pointer to the page family containing the first page.
+ * @param curr Pointer variable to hold the current virtual memory page during iteration.
+ */
+#define ITERATE_VM_PAGE_BEGIN(vm_page_family_ptr, curr) \
+    {                                                   \
+        curr = (vm_page_family_ptr)->first_page;        \
+        vm_page_t *next = NULL;                         \
+        for (; curr != NULL; curr = next) {             \
+            next = curr->next;
+
+/**
+ * @brief Macro marking the end of the iteration over virtual memory pages.
+ * 
+ * This macro marks the end of the iteration over virtual memory pages.
+ * 
+ * @param vm_page_family_ptr Pointer to the page family containing the first page.
+ * @param curr Pointer variable holding the current virtual memory page.
+ */
+#define ITERATE_VM_PAGE_END(vm_page_family_ptr, curr) \
+        }                                             \
+    }
+
+/**
+ * @brief Macro to begin iteration over all memory blocks within a virtual memory page.
+ * 
+ * This macro initializes the iteration process over all memory blocks within a given virtual memory page.
+ * 
+ * @param vm_page_ptr Pointer to the virtual memory page.
+ * @param curr Pointer to hold the current memory block during iteration.
+ * 
+ * @note This macro is typically used in memory management systems to iterate over all memory blocks within a virtual memory page.
+ *       It sets up a loop that traverses through the metadata blocks of each memory block within the page.
+ *       The iteration begins with the metadata block of the first memory block in the page.
+ */
+#define ITERATE_VM_PAGE_ALL_BLOCKS_BEGIN(vm_page_ptr, curr) \
+    do {                                                    \
+        curr = &(vm_page_ptr->block_meta_data);             \
+        block_meta_data_t *next = NULL;                     \
+        for (; curr != NULL; curr = next) {                 \
+            next = NEXT_META_BLOCK(curr);
+
+/**
+ * @brief Macro to end iteration over all memory blocks within a virtual memory page.
+ * 
+ * This macro marks the end of the iteration process over all memory blocks within a virtual memory page.
+ * 
+ * @param vm_page_ptr Pointer to the virtual memory page.
+ * @param curr Pointer holding the current memory block during iteration.
+ * 
+ * @note This macro is used in conjunction with ITERATE_VM_PAGE_ALL_BLOCKS_BEGIN macro to define the end of the iteration loop.
+ *       It completes the loop setup by ITERATE_VM_PAGE_ALL_BLOCKS_BEGIN, ensuring proper termination of the loop.
+ */
+#define ITERATE_VM_PAGE_ALL_BLOCKS_END(vm_page_ptr, curr)  \
+        }                                                  \
+    } while(0);
 
 /**
  * @brief Macro to calculate the offset of a field within a structure.
@@ -199,7 +276,47 @@ typedef struct block_meta_data_ {
 #define PREV_META_BLOCK(block_meta_data_ptr) \
    ((block_meta_data_ptr)->prev)
 
-/**-----------------< Public functions interfacce -----------------*/
+/**
+ * @brief Macro to mark a virtual memory page as empty.
+ * 
+ * This macro is heavily documented to provide detailed information about its purpose, usage, and behavior.
+ * 
+ * @param vm_page_t_ptr Pointer to the virtual memory page to be marked as empty.
+ * 
+ * @details
+ * This macro is used to reset the state of a virtual memory page, indicating that it contains no allocated
+ * memory blocks and is available for reuse. It operates by modifying the metadata associated with the
+ * memory blocks within the page.
+ * 
+ * The macro takes a single parameter:
+ * - @p vm_page_t_ptr: Pointer to the virtual memory page to be marked as empty.
+ * 
+ * The macro does the following:
+ * - Sets the 'next_block' and 'prev_block' pointers of the block metadata to NULL, indicating that the
+ *   page does not have any neighboring blocks.
+ * - Sets the 'is_free' flag of the block metadata to MM_TRUE, indicating that the page is free and available
+ *   for allocation.
+ * 
+ * @note
+ * This macro should be used judiciously and only when it is certain that the virtual memory page is not
+ * in use and can be safely reset. Incorrect usage may lead to memory corruption or undefined behavior.
+ * 
+ * @warning
+ * It is important to ensure that the 'vm_page_t_ptr' parameter is a valid pointer to a virtual memory page
+ * structure. Passing invalid or uninitialized pointers may result in undefined behavior.
+ * 
+ * @remark
+ * This macro is typically used in memory management systems as part of memory recycling and allocation routines.
+ * It helps maintain memory hygiene by properly managing the state of virtual memory pages.
+ */
+#define MARK_VM_PAGE_EMPTY(vm_page_t_ptr) \
+    do { \
+        (vm_page_t_ptr)->block_meta_data.next_block = NULL; \
+        (vm_page_t_ptr)->block_meta_data.prev_block = NULL; \
+        (vm_page_t_ptr)->block_meta_data.is_free = MM_TRUE; \
+    } while (0)
+
+/**-----------------< Public functions interface -----------------*/
 /**
  * @brief Looks up a page family by its name.
  * 
@@ -221,6 +338,30 @@ typedef struct block_meta_data_ {
  * @see vm_page_family_t
  */
 vm_page_family_t *lookup_page_family_by_name(char *struct_name);
+
+/**
+ * @brief Checks if a virtual memory page is empty.
+ * 
+ * This function determines whether a virtual memory page is empty based on its metadata.
+ * 
+ * @param vm_page Pointer to the virtual memory page to be checked.
+ * 
+ * @return 
+ * - MM_TRUE if the page is empty.
+ * - MM_FALSE if the page is not empty.
+ * - -1 if the input pointer is NULL.
+ * 
+ * @note
+ * A virtual memory page is considered empty if all the following conditions are met:
+ * - The 'next_block' pointer in the block metadata is NULL, indicating no next block.
+ * - The 'prev_block' pointer in the block metadata is NULL, indicating no previous block.
+ * - The 'is_free' flag in the block metadata is set to MM_TRUE, indicating the page is free.
+ * 
+ * @warning
+ * It is important to ensure that the 'vm_page' parameter is a valid pointer to a virtual memory page
+ * structure. Passing invalid or uninitialized pointers may result in undefined behavior.
+ */
+vm_bool_t mm_is_vm_page_empty(vm_page_t *vm_page);
 
 /**-----------------< Private functions interfacce -----------------*/
 /**
@@ -263,5 +404,20 @@ static void *mm_get_new_vm_page_from_kernel(int units);
  * @see man munmap()
  */
 static void mm_return_page_to_kernel(void *vm_page, int units);
+
+/**
+ * @brief Merges two contiguous free memory blocks.
+ * 
+ * This function merges two contiguous free memory blocks into a single block.
+ * The function assumes that both blocks are free and contiguous.
+ * 
+ * @param first Pointer to the first free memory block.
+ * @param second Pointer to the second free memory block.
+ * 
+ * @note This function is typically used in memory management systems to optimize
+ *       memory usage by consolidating adjacent free memory blocks.
+ */
+static void mm_union_free_blocks(block_meta_data_t *first, block_meta_data_t *second);
+
 
 #endif /**< MM_H_ */
