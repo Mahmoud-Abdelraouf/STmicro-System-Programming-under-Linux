@@ -431,7 +431,6 @@ vm_page_t *allocate_vm_page(vm_page_family_t *vm_page_family);
  * @param vm_page Pointer to the virtual memory page to be deleted and freed.
  */
 void mm_vm_page_delete_and_free(vm_page_t *vm_page);
-
 /**-----------------< Private functions interfacce -----------------*/
 /**
  * @brief Allocates a new virtual memory page from the kernel.

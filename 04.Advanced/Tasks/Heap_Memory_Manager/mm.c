@@ -280,8 +280,9 @@ void mm_vm_page_delete_and_free(vm_page_t *vm_page) {
   // If the page being deleted is the head of the linked list
   if (vm_page_family->first_page == vm_page) {
     vm_page_family->first_page = vm_page->next;
-    if (vm_page->next)
+    if (vm_page->next) {
       vm_page->next->prev = NULL;
+    }
     vm_page->next = NULL;
     vm_page->prev = NULL;
     mm_return_vm_page_to_kernel((void *)vm_page, 1);
