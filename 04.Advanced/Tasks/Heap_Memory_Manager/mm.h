@@ -7,7 +7,10 @@
 #ifndef __MM_H__
 #define __MM_H__
 /**-----------------< Includes section -----------------*/
+/**< System includes */
 #include <stdint.h>
+/**< External includes */
+#include "glthread.h"
 
 /**-----------------< Macros section -----------------*/
 #define MM_MAX_STRUCT_NAME 32
@@ -40,7 +43,40 @@ typedef struct block_meta_data_ {
       *prev_block; /**< Pointer to the previous memory block. */
   struct block_meta_data_ *next_block; /**< Pointer to the next memory block. */
   uint32_t offset;                     /**< Offset within the memory region. */
+  glthread_t priority_thread_glue; /**< Priority thread glue for managing block
+                                  priority. */
 } block_meta_data_t;
+
+/**
+ * @brief Macro to declare a conversion function for converting a glthread_t
+ * structure to a user-defined structure pointer.
+ *
+ * This macro simplifies the process of declaring a conversion function that
+ * takes a glthread_t pointer and returns a pointer to a user-defined structure.
+ * It is particularly useful when you have a glthread_t structure embedded
+ * within a user-defined structure and need to access the user-defined data.
+ *
+ * @param fn_name The name of the conversion function to be declared.
+ * @param struct_type The type of the user-defined structure.
+ * @param glthread_member The name of the glthread_t member within the
+ * user-defined structure.
+ * @param glthread_ptr The name of the glthread_t pointer variable.
+ *
+ * Example usage:
+ * Suppose we have a user-defined structure named block_meta_data_t that
+ * contains a glthread_t member named priority_thread_glue. To declare a
+ * conversion function named glthread_to_block_meta_data to convert a glthread_t
+ * pointer to a block_meta_data_t pointer, we use the following declaration:
+ *
+ * GLTHREAD_TO_STRUCT(glthread_to_block_meta_data, block_meta_data_t,
+ *                    priority_thread_glue, glthread_ptr);
+ *
+ * Now, we can use glthread_to_block_meta_data to convert glthread_t pointers to
+ * block_meta_data_t pointers and access the metadata associated with memory
+ * blocks.
+ */
+GLTHREAD_TO_STRUCT(glthread_to_block_meta_data, block_meta_data_t,
+                   priority_thread_glue, glthread_ptr);
 
 /**
  * @brief Structure representing a virtual memory page.
@@ -60,12 +96,18 @@ typedef struct vm_page_ {
 } vm_page_t;
 
 /**
- * @brief Structure representing a family of memory structures.
+ * @brief Structure representing a page family in virtual memory.
+ *
+ * This structure maintains information about a page family in virtual memory,
+ * including the name of the structure, its size, a pointer to the most recent
+ * virtual memory page in use, and a priority list of free memory blocks.
  */
 typedef struct vm_page_family_ {
   char struct_name[MM_MAX_STRUCT_NAME]; /**< Name of the structure. */
   uint32_t struct_size;                 /**< Size of the structure. */
-  vm_page_t *first_page; /**<  Pointer to the most recent vm page in using */
+  vm_page_t *first_page; /**< Pointer to the most recent vm page in use. */
+  glthread_t free_block_priority_list_head; /**< Priority list of free memory
+                                               blocks. */
 } vm_page_family_t;
 
 /**
@@ -78,6 +120,106 @@ typedef struct vm_page_for_families_ {
   vm_page_family_t vm_page_family[0]; /**< Array of variable size storing memory
                                          structure families. */
 } vm_page_for_families_t;
+
+/**
+ * @brief Allocates a new virtual memory page for a given page family.
+ *
+ * This function allocates a new virtual memory page for the specified page
+ * family. It initializes the metadata and pointers associated with the page and
+ * inserts the page into the linked list of pages belonging to the page family.
+ *
+ * @param vm_page_family Pointer to the page family for which the page is being
+ * allocated.
+ *
+ * @return Pointer to the newly allocated virtual memory page.
+ */
+vm_page_t *allocate_vm_page(vm_page_family_t *vm_page_family);
+
+/**
+ * @brief Deletes and frees a virtual memory page.
+ *
+ * This function deletes and frees a virtual memory page. It removes the page
+ * from the linked list of pages belonging to its page family and deallocates
+ * the memory associated with the page.
+ *
+ * @param vm_page Pointer to the virtual memory page to be deleted and freed.
+ */
+void mm_vm_page_delete_and_free(vm_page_t *vm_page);
+
+/**-----------------< Public functions interface -----------------*/
+/**
+ * @brief Looks up a page family by its name.
+ *
+ * This function iterates over all virtual memory pages hosting page families
+ * and returns a pointer to the page family object identified by the given
+ * struct_name. If no such page family object is found, it returns NULL.
+ *
+ * @param struct_name The name of the page family to look up.
+ *
+ * @return Pointer to the page family object if found, otherwise NULL.
+ *
+ * @note This function should be used to retrieve a page family object by its
+ * name after the page families have been registered and initialized using the
+ *       appropriate functions and macros provided by the memory manager.
+ *
+ * @see mm_init
+ * @see MM_REG_STRUCT
+ * @see vm_page_for_families_t
+ * @see vm_page_family_t
+ */
+vm_page_family_t *lookup_page_family_by_name(char *struct_name);
+
+/**
+ * @brief Checks if a virtual memory page is empty.
+ *
+ * This function determines whether a virtual memory page is empty based on its
+ * metadata.
+ *
+ * @param vm_page Pointer to the virtual memory page to be checked.
+ *
+ * @return
+ * - MM_TRUE if the page is empty.
+ * - MM_FALSE if the page is not empty.
+ * - -1 if the input pointer is NULL.
+ *
+ * @note
+ * A virtual memory page is considered empty if all the following conditions are
+ * met:
+ * - The 'next_block' pointer in the block metadata is NULL, indicating no next
+ * block.
+ * - The 'prev_block' pointer in the block metadata is NULL, indicating no
+ * previous block.
+ * - The 'is_free' flag in the block metadata is set to MM_TRUE, indicating the
+ * page is free.
+ *
+ * @warning
+ * It is important to ensure that the 'vm_page' parameter is a valid pointer to
+ * a virtual memory page structure. Passing invalid or uninitialized pointers
+ * may result in undefined behavior.
+ */
+vm_bool_t mm_is_vm_page_empty(vm_page_t *vm_page);
+
+/**
+ * @brief Add a free block's metadata to the free block list of a virtual memory
+ * page family.
+ *
+ * This function adds the metadata of a free block to the free block list of a
+ * virtual memory page family. The block metadata is inserted into the free
+ * block list in descending order of block size, based on the comparison
+ * function `free_blocks_comparison_function`.
+ *
+ * @param vm_page_family Pointer to the virtual memory page family to which the
+ * free block metadata will be added.
+ * @param free_block Pointer to the block_meta_data_t structure representing the
+ * metadata of the free block to be added to the free block list.
+ *
+ * @note This function assumes that the `is_free` flag of the `free_block`
+ * structure is set to MM_TRUE. An assertion will trigger if this condition is
+ * not met.
+ */
+static void
+mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
+                                               block_meta_data_t *free_block);
 
 /**-----------------< Function-like macro section -----------------*/
 /**
@@ -354,83 +496,6 @@ typedef struct vm_page_for_families_ {
     (vm_page_t_ptr)->block_meta_data.is_free = MM_TRUE;                        \
   } while (0)
 
-/**-----------------< Public functions interface -----------------*/
-/**
- * @brief Looks up a page family by its name.
- *
- * This function iterates over all virtual memory pages hosting page families
- * and returns a pointer to the page family object identified by the given
- * struct_name. If no such page family object is found, it returns NULL.
- *
- * @param struct_name The name of the page family to look up.
- *
- * @return Pointer to the page family object if found, otherwise NULL.
- *
- * @note This function should be used to retrieve a page family object by its
- * name after the page families have been registered and initialized using the
- *       appropriate functions and macros provided by the memory manager.
- *
- * @see mm_init
- * @see MM_REG_STRUCT
- * @see vm_page_for_families_t
- * @see vm_page_family_t
- */
-vm_page_family_t *lookup_page_family_by_name(char *struct_name);
-
-/**
- * @brief Checks if a virtual memory page is empty.
- *
- * This function determines whether a virtual memory page is empty based on its
- * metadata.
- *
- * @param vm_page Pointer to the virtual memory page to be checked.
- *
- * @return
- * - MM_TRUE if the page is empty.
- * - MM_FALSE if the page is not empty.
- * - -1 if the input pointer is NULL.
- *
- * @note
- * A virtual memory page is considered empty if all the following conditions are
- * met:
- * - The 'next_block' pointer in the block metadata is NULL, indicating no next
- * block.
- * - The 'prev_block' pointer in the block metadata is NULL, indicating no
- * previous block.
- * - The 'is_free' flag in the block metadata is set to MM_TRUE, indicating the
- * page is free.
- *
- * @warning
- * It is important to ensure that the 'vm_page' parameter is a valid pointer to
- * a virtual memory page structure. Passing invalid or uninitialized pointers
- * may result in undefined behavior.
- */
-vm_bool_t mm_is_vm_page_empty(vm_page_t *vm_page);
-
-/**
- * @brief Allocates a new virtual memory page for a given page family.
- *
- * This function allocates a new virtual memory page for the specified page
- * family. It initializes the metadata and pointers associated with the page and
- * inserts the page into the linked list of pages belonging to the page family.
- *
- * @param vm_page_family Pointer to the page family for which the page is being
- * allocated.
- *
- * @return Pointer to the newly allocated virtual memory page.
- */
-vm_page_t *allocate_vm_page(vm_page_family_t *vm_page_family);
-
-/**
- * @brief Deletes and frees a virtual memory page.
- *
- * This function deletes and frees a virtual memory page. It removes the page
- * from the linked list of pages belonging to its page family and deallocates
- * the memory associated with the page.
- *
- * @param vm_page Pointer to the virtual memory page to be deleted and freed.
- */
-void mm_vm_page_delete_and_free(vm_page_t *vm_page);
 /**-----------------< Private functions interfacce -----------------*/
 /**
  * @brief Allocates a new virtual memory page from the kernel.
@@ -509,5 +574,46 @@ static void mm_union_free_blocks(block_meta_data_t *first,
  * allocation of memory within virtual memory pages.
  */
 static inline uint32_t mm_max_page_allocatable_memory(int units);
+
+/**
+ * @brief Comparison function for sorting free blocks by block size.
+ *
+ * This function compares two block_meta_data_t objects based on their block
+ * sizes. It is intended to be used as a comparison function for sorting free
+ * blocks in descending order of block size.
+ *
+ * @param _block_meta_data1 Pointer to the first block_meta_data_t object.
+ * @param _block_meta_data2 Pointer to the second block_meta_data_t object.
+ * @return An integer value representing the result of the comparison:
+ *         - If the block size of _block_meta_data1 is greater than that of
+ * _block_meta_data2, the function returns -1.
+ *         - If the block size of _block_meta_data1 is less than that of
+ * _block_meta_data2, the function returns 1.
+ *         - If the block sizes are equal, the function returns 0.
+ */
+static int free_blocks_comparison_function(void *_block_meta_data1,
+                                           void *_block_meta_data2);
+
+/**
+ * @brief Retrieves the metadata of the biggest free memory block within a given
+ * virtual memory page family.
+ *
+ * This function retrieves the metadata of the biggest free memory block within
+ * a specified virtual memory page family. It utilizes a priority list to
+ * maintain the biggest free block at the head of the list.
+ *
+ * @param vm_page_family Pointer to the virtual memory page family for which the
+ * biggest free block is to be retrieved.
+ *
+ * @return Pointer to the metadata of the biggest free memory block within the
+ * page family. If no such block exists (i.e., the priority list is empty), it
+ * returns NULL.
+ *
+ * @note This function is typically used in memory management systems to
+ * efficiently locate the largest available free block within a page family,
+ * which can then be used for memory allocation.
+ */
+static inline block_meta_data_t *
+mm_get_biggest_free_block_page_family(vm_page_family_t *vm_page_family);
 
 #endif /**< MM_H_ */

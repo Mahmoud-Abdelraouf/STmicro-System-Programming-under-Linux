@@ -97,6 +97,8 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size) {
     strncpy(first_vm_page_for_families->vm_page_family[0].struct_name,
             struct_name, MM_MAX_STRUCT_NAME);
     first_vm_page_for_families->vm_page_family[0].struct_size = struct_size;
+    init_glthread(&first_vm_page_for_families->vm_page_family[0]
+                       .free_block_priority_list_head);
     return;
   }
 
@@ -135,6 +137,10 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size) {
   // This indicates that there are no associated virtual memory pages with this
   // page family yet
   vm_page_family_curr->first_page = NULL;
+
+  // Initialize the glthread_t structure within the first virtual memory page
+  init_glthread(&first_vm_page_for_families->vm_page_family[0]
+                     .free_block_priority_list_head);
 }
 
 void mm_print_registered_page_families() {
@@ -251,7 +257,7 @@ vm_page_t *allocate_vm_page(vm_page_family_t *vm_page_family) {
   vm_page->block_meta_data.offset = offset_of(vm_page_t, block_meta_data);
 
   // Initialize the priority thread glue
-  // init_glthread(&vm_page->block_meta_data.priority_thread_glue);
+  init_glthread(&vm_page->block_meta_data.priority_thread_glue);
 
   // Initialize next and prev pointers of the page
   vm_page->next = NULL;
@@ -294,4 +300,49 @@ void mm_vm_page_delete_and_free(vm_page_t *vm_page) {
     vm_page->next->prev = vm_page->prev;
   vm_page->prev->next = vm_page->next;
   mm_return_vm_page_to_kernel((void *)vm_page, 1);
+}
+
+static int free_blocks_comparison_function(void *_block_meta_data1,
+                                           void *_block_meta_data2) {
+  block_meta_data_t *block_meta_data1 = (block_meta_data_t *)_block_meta_data1;
+  block_meta_data_t *block_meta_data2 = (block_meta_data_t *)_block_meta_data2;
+
+  if (block_meta_data1->block_size > block_meta_data2->block_size) {
+    return -1;
+  } else if (block_meta_data1->block_size < block_meta_data2->block_size) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+static void
+mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
+                                               block_meta_data_t *free_block) {
+
+  // Assert that the free_block is indeed marked as free
+  assert(free_block->is_free == MM_TRUE);
+
+  // Insert the free block metadata into the free block list of the virtual
+  // memory page family
+  glthread_priority_insert(&vm_page_family->free_block_priority_list_head,
+                           &free_block->priority_thread_glue,
+                           free_blocks_comparison_function,
+                           offset_of(block_meta_data_t, priority_thread_glue));
+}
+
+static inline block_meta_data_t *
+mm_get_biggest_free_block_page_family(vm_page_family_t *vm_page_family) {
+  // Retrieve the right pointer of the free_block_priority_list_head in the
+  // vm_page_family
+  glthread_t *biggest_free_block_glue =
+      vm_page_family->free_block_priority_list_head.right;
+
+  // If a block exists in the priority list, return its metadata
+  if (biggest_free_block_glue) {
+    return glthread_to_block_meta_data(biggest_free_block_glue);
+  }
+
+  // If the priority list is empty, return NULL
+  return NULL;
 }
