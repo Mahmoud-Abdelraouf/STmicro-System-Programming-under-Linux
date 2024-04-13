@@ -496,6 +496,47 @@ mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
     (vm_page_t_ptr)->block_meta_data.is_free = MM_TRUE;                        \
   } while (0)
 
+/**
+ * @brief Binds metadata blocks for memory allocation.
+ *
+ * This macro is used to bind metadata blocks for memory allocation. It updates
+ * the pointers of the allocated and free blocks to maintain the integrity of
+ * the memory management system.
+ *
+ * @param allocated_meta_block Pointer to the metadata block of the allocated
+ * memory.
+ * @param free_meta_block Pointer to the metadata block of the free memory.
+ *
+ * @note This macro is typically used in memory management systems to properly
+ * link allocated and free memory blocks. It ensures correct traversal and
+ * management of memory blocks, maintaining the coherence of the memory
+ * allocation process.
+ */
+#define mm_bind_blocks_for_allocation(allocated_meta_block, free_meta_block)   \
+  free_meta_block->prev_block = allocated_meta_block;                          \
+  free_meta_block->next_block = allocated_meta_block->next_block;              \
+  allocated_meta_block->next_block = free_meta_block;                          \
+  if (free_meta_block->next_block)                                             \
+  free_meta_block->next_block->prev_block = free_meta_block
+
+/**
+ * @brief Macro to calculate the maximum allocatable memory for a given number
+ * of units.
+ *
+ * This macro calculates the maximum allocatable memory for a specified number
+ * of units based on the system page size and the offset of the virtual memory
+ * page structure.
+ *
+ * @param units Number of units for which memory allocation is requested.
+ * @return Maximum allocatable memory in bytes.
+ *
+ * @note This macro is typically used to determine the maximum amount of memory
+ * that can be allocated for a given number of units, considering system page
+ * constraints and structure offsets within the virtual memory page.
+ */
+#define MAX_PAGE_ALLOCATABLE_MEMORY(units)                                     \
+  (mm_max_page_allocatable_memory(units))
+
 /**-----------------< Private functions interfacce -----------------*/
 /**
  * @brief Allocates a new virtual memory page from the kernel.
@@ -615,5 +656,83 @@ static int free_blocks_comparison_function(void *_block_meta_data1,
  */
 static inline block_meta_data_t *
 mm_get_biggest_free_block_page_family(vm_page_family_t *vm_page_family);
+
+/**
+ * @brief Splits a free data block to allocate a portion of it for memory
+ * allocation.
+ *
+ * This function splits a free data block to allocate a portion of it for memory
+ * allocation. It checks various cases to determine how the block should be
+ * split and whether additional metadata blocks need to be created. After
+ * splitting, it updates the metadata of the original block and, if necessary,
+ * creates new metadata blocks for the remaining free space.
+ *
+ * @param vm_page_family Pointer to the page family associated with the data
+ * block.
+ * @param block_meta_data Pointer to the metadata of the free data block to be
+ * split.
+ * @param size Size of the portion of the block to be allocated.
+ *
+ * @return MM_TRUE if the block is successfully split and allocated, MM_FALSE
+ * otherwise.
+ *
+ * @note This function assumes that the provided block is free and that the size
+ * argument specifies a valid size for memory allocation. It relies on the
+ * mm_bind_blocks_for_allocation function to establish the link between metadata
+ * blocks after splitting.
+ */
+static vm_bool_t
+mm_split_free_data_block_for_allocation(vm_page_family_t *vm_page_family,
+                                        block_meta_data_t *block_meta_data,
+                                        uint32_t size);
+
+/**
+ * @brief Allocates a free data block from the specified page family.
+ *
+ * This function attempts to allocate a free data block of the requested size
+ * from the specified page family. It first checks if there is a sufficiently
+ * large free block available within the page family. If not, it adds a new page
+ * to the page family to satisfy the allocation request. If successful, it
+ * splits the free block to allocate the requested memory and returns a pointer
+ * to the allocated block's metadata.
+ *
+ * @param vm_page_family Pointer to the page family from which to allocate the
+ * data block.
+ * @param req_size The size of the data block to allocate.
+ *
+ * @return A pointer to the allocated block's metadata if successful, or NULL if
+ * the allocation fails.
+ *
+ * @note This function assumes that the specified page family has been properly
+ * initialized and that the requested size is within the maximum allocatable
+ * memory per page. It utilizes the mm_family_new_page_add and
+ * mm_split_free_data_block_for_allocation functions to add new pages and split
+ * free blocks for allocation, respectively.
+ */
+static block_meta_data_t *
+mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
+                            uint32_t req_size);
+/**
+ * @brief Adds a new virtual memory page to the specified page family.
+ *
+ * This function adds a new virtual memory page to the specified page family.
+ * It first allocates a new page using the allocate_vm_page function and then
+ * adds the page to the page family. Additionally, it treats the new page as
+ * one free block and adds its metadata to the free block list of the page
+ * family.
+ *
+ * @param vm_page_family Pointer to the page family to which the new page will
+ * be added.
+ *
+ * @return A pointer to the newly added virtual memory page if successful, or
+ * NULL if allocation fails.
+ *
+ * @note This function assumes that the page family has been properly
+ * initialized and that the allocate_vm_page function is available for
+ * allocating new pages. It also relies on the
+ * mm_add_free_block_meta_data_to_free_block_list function to add the metadata
+ * of the new page to the free block list of the page family.
+ */
+static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family);
 
 #endif /**< MM_H_ */

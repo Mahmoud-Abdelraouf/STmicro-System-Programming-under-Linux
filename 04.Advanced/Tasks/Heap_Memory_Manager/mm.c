@@ -331,6 +331,67 @@ mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
                            offset_of(block_meta_data_t, priority_thread_glue));
 }
 
+static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family) {
+
+  // Allocate a new virtual memory page for the page family
+  vm_page_t *vm_page = allocate_vm_page(vm_page_family);
+
+  // Check if page allocation is successful
+  if (!vm_page) {
+    return NULL;
+  }
+
+  // Add the new page to the free block list of the page family
+  mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
+                                                 &vm_page->block_meta_data);
+
+  return vm_page;
+}
+
+static block_meta_data_t *
+mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
+                            uint32_t req_size) {
+
+  vm_bool_t status = MM_FALSE;
+  vm_page_t *vm_page = NULL;
+  block_meta_data_t *block_meta_data = NULL;
+
+  // Get the biggest free block in the page family
+  block_meta_data_t *biggest_block_meta_data =
+      mm_get_biggest_free_block_page_family(vm_page_family);
+
+  // Check if there is no available block or if the available block is too small
+  if (!biggest_block_meta_data ||
+      biggest_block_meta_data->block_size < req_size) {
+
+    // Add a new page to the page family
+    vm_page = mm_family_new_page_add(vm_page_family);
+
+    // Allocate the free block from the new page
+    status = mm_split_free_data_block_for_allocation(
+        vm_page_family, &vm_page->block_meta_data, req_size);
+
+    // Return the allocated block's metadata if successful
+    if (status) {
+      return &vm_page->block_meta_data;
+    }
+    return NULL;
+  }
+
+  // Attempt to split the biggest free block to satisfy the allocation request
+  if (biggest_block_meta_data) {
+    status = mm_split_free_data_block_for_allocation(
+        vm_page_family, biggest_block_meta_data, req_size);
+  }
+
+  // Return the allocated block's metadata if successful
+  if (status) {
+    return biggest_block_meta_data;
+  }
+
+  return NULL;
+}
+
 static inline block_meta_data_t *
 mm_get_biggest_free_block_page_family(vm_page_family_t *vm_page_family) {
   // Retrieve the right pointer of the free_block_priority_list_head in the
@@ -345,4 +406,110 @@ mm_get_biggest_free_block_page_family(vm_page_family_t *vm_page_family) {
 
   // If the priority list is empty, return NULL
   return NULL;
+}
+
+void *xcalloc(char *struct_name, int units) {
+  // Step 1: Look up the page family associated with the structure name
+  vm_page_family_t *pg_family = lookup_page_family_by_name(struct_name);
+
+  // Check if the structure is registered with the Memory Manager
+  if (!pg_family) {
+    printf("Error: Structure %s not registered with Memory Manager\n",
+           struct_name);
+    return NULL;
+  }
+
+  // Check if the requested memory size exceeds the maximum allocatable memory
+  // per page
+  if (units * pg_family->struct_size > MAX_PAGE_ALLOCATABLE_MEMORY(1)) {
+    printf("Error: Memory requested exceeds page size\n");
+    return NULL;
+  }
+
+  // Find a free block in the page family to satisfy the allocation request
+  block_meta_data_t *free_block_meta_data =
+      mm_allocate_free_data_block(pg_family, units * pg_family->struct_size);
+
+  // Check if the allocation was successful
+  if (free_block_meta_data) {
+    // Initialize the allocated memory to zero
+    memset((char *)(free_block_meta_data + 1), 0,
+           free_block_meta_data->block_size);
+    // Return a pointer to the allocated memory
+    return (void *)(free_block_meta_data + 1);
+  }
+
+  // Return NULL if the allocation failed
+  return NULL;
+}
+
+static vm_bool_t
+mm_split_free_data_block_for_allocation(vm_page_family_t *vm_page_family,
+                                        block_meta_data_t *block_meta_data,
+                                        uint32_t size) {
+
+  block_meta_data_t *next_block_meta_data = NULL;
+
+  // Assert that the provided block is free
+  assert(block_meta_data->is_free == MM_TRUE);
+
+  // Check if the block size is sufficient for allocation
+  if (block_meta_data->block_size < size) {
+    return MM_FALSE;
+  }
+
+  // Calculate the remaining size after allocation
+  uint32_t remaining_size = block_meta_data->block_size - size;
+
+  // Update metadata for the allocated portion
+  block_meta_data->is_free = MM_FALSE;
+  block_meta_data->block_size = size;
+  remove_glthread(&block_meta_data->priority_thread_glue);
+  /*block_meta_data->offset =  ??*/
+
+  // Case 1: No Split
+  if (!remaining_size) {
+    return MM_TRUE;
+  }
+
+  // Case 3: Partial Split - Soft Internal Fragmentation
+  else if (sizeof(block_meta_data_t) < remaining_size &&
+           remaining_size <
+               (sizeof(block_meta_data_t) + vm_page_family->struct_size)) {
+    // Create a new metadata block for the remaining space
+    next_block_meta_data = NEXT_META_BLOCK_BY_SIZE(block_meta_data);
+    next_block_meta_data->is_free = MM_TRUE;
+    next_block_meta_data->block_size =
+        remaining_size - sizeof(block_meta_data_t);
+    next_block_meta_data->offset = block_meta_data->offset +
+                                   sizeof(block_meta_data_t) +
+                                   block_meta_data->block_size;
+    init_glthread(&next_block_meta_data->priority_thread_glue);
+    mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
+                                                   next_block_meta_data);
+    mm_bind_blocks_for_allocation(block_meta_data, next_block_meta_data);
+  }
+
+  // Case 3: Partial Split - Hard Internal Fragmentation
+  else if (remaining_size < sizeof(block_meta_data_t)) {
+    // No need to do anything
+  }
+
+  // Case 2: Full Split - New Metadata Block Created
+  else {
+    // Create a new metadata block for the remaining space
+    next_block_meta_data = NEXT_META_BLOCK_BY_SIZE(block_meta_data);
+    next_block_meta_data->is_free = MM_TRUE;
+    next_block_meta_data->block_size =
+        remaining_size - sizeof(block_meta_data_t);
+    next_block_meta_data->offset = block_meta_data->offset +
+                                   sizeof(block_meta_data_t) +
+                                   block_meta_data->block_size;
+    init_glthread(&next_block_meta_data->priority_thread_glue);
+    mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
+                                                   next_block_meta_data);
+    mm_bind_blocks_for_allocation(block_meta_data, next_block_meta_data);
+  }
+
+  return MM_TRUE;
 }
