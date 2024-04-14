@@ -4,8 +4,8 @@
 /******* Version   : 0.1                        *****************/
 /******* File Name : MemeoryManager.h           *****************/
 /****************************************************************/
-#ifndef __MM_H__
-#define __MM_H__
+#ifndef MM_H_
+#define MM_H_
 /**-----------------< Includes section -----------------*/
 /**< System includes */
 #include <stdint.h>
@@ -39,12 +39,10 @@ typedef enum {
 typedef struct block_meta_data_ {
   vm_bool_t is_free;   /**< Flag indicating whether the block is free. */
   uint32_t block_size; /**< Size of the memory block. */
-  struct block_meta_data_
-      *prev_block; /**< Pointer to the previous memory block. */
-  struct block_meta_data_ *next_block; /**< Pointer to the next memory block. */
   uint32_t offset;                     /**< Offset within the memory region. */
-  glthread_t priority_thread_glue; /**< Priority thread glue for managing block
-                                  priority. */
+  struct block_meta_data_ *prev_block; /**< Pointer to the previous memory block. */
+  struct block_meta_data_ *next_block; /**< Pointer to the next memory block. */
+  glthread_t priority_thread_glue; /**< Priority thread glue for managing block priority. */
 } block_meta_data_t;
 
 /**
@@ -88,10 +86,8 @@ GLTHREAD_TO_STRUCT(glthread_to_block_meta_data, block_meta_data_t,
 typedef struct vm_page_ {
   struct vm_page_ *next; /**< Pointer to the next virtual memory page. */
   struct vm_page_ *prev; /**< Pointer to the previous virtual memory page. */
-  struct vm_page_family_
-      *pg_family; /**< Pointer to the page family associated with the page. */
-  block_meta_data_t block_meta_data; /**< Metadata for managing memory blocks
-                                        within the page. */
+  struct vm_page_family_ *pg_family; /**< Pointer to the page family associated with the page. */
+  block_meta_data_t block_meta_data; /**< Metadata for managing memory blocks within the page. */
   char page_memory[0]; /**< Memory region allocated for storing data blocks. */
 } vm_page_t;
 
@@ -383,7 +379,6 @@ void mm_print_vm_page_details(vm_page_t *vm_page);
   }                                                                            \
   }                                                                            \
   while (0)                                                                    \
-    ;
 
 /**
  * @brief Macro to calculate the offset of a field within a structure.
@@ -412,7 +407,7 @@ void mm_print_vm_page_details(vm_page_t *vm_page);
  * @return Pointer to the virtual memory page.
  */
 #define MM_GET_PAGE_FROM_META_BLOCK(block_meta_data_ptr)                       \
-  ((void *)((uintptr_t)(block_meta_data_ptr) - (block_meta_data_ptr)->offset))
+  ((void *)((char *)(block_meta_data_ptr) - (block_meta_data_ptr)->offset))
 
 /**
  * @brief Macro to retrieve the metadata of the next block based on the current
@@ -435,7 +430,7 @@ void mm_print_vm_page_details(vm_page_t *vm_page);
  * behavior.
  */
 #define NEXT_META_BLOCK_BY_SIZE(block_meta_data_ptr)                           \
-  ((block_meta_data_t *)((uintptr_t)(block_meta_data_ptr) +                    \
+  ((block_meta_data_t *)((char *)(block_meta_data_ptr + 1) +                    \
                          (block_meta_data_ptr)->block_size))
 
 /**
@@ -471,7 +466,7 @@ void mm_print_vm_page_details(vm_page_t *vm_page);
  * traversal of the metadata blocks linked list, allowing operations such as
  * merging adjacent free memory blocks or finding neighboring blocks.
  */
-#define PREV_META_BLOCK(block_meta_data_ptr) ((block_meta_data_ptr)->prev)
+#define PREV_META_BLOCK(block_meta_data_ptr) ((block_meta_data_ptr)->prev_block)
 
 /**
  * @brief Macro to mark a virtual memory page as empty.
@@ -758,4 +753,4 @@ mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
  */
 static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family);
 
-#endif /**< __MM_H__ */
+#endif /**< MM_H_ */

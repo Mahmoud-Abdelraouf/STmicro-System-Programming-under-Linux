@@ -4,8 +4,8 @@
 /******* Version   : 0.1                        *****************/
 /******* File Name : UserAPI_mm.h               *****************/
 /****************************************************************/
-#ifndef __UAPI_MM_H__
-#define __UAPI_MM_H__
+#ifndef UAPI_MM_H_
+#define UAPI_MM_H_
 /**-----------------< Includes section -----------------*/
 #include <stdint.h>
 
@@ -165,6 +165,6 @@ void mm_print_block_usage();
  * @return A pointer to the allocated memory, initialized to zero, or NULL if
  * allocation fails.
  */
-#define Xcalloc(units, struct_name) (xcalloc(units, #struct_name))
+#define Xcalloc(units, struct_name) (xcalloc(#struct_name, units))
 
-#endif /**< __UAPI_MM_H__ */
+#endif /**< UAPI_MM_H_ */

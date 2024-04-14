@@ -7,8 +7,8 @@
 /**-----------------< Includes section -----------------*/
 /**< System includes */
 #include <assert.h>
-#include <memory.h>
 #include <stdint.h>
+#include <memory.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/mman.h>
@@ -103,14 +103,14 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size) {
     return;
   }
 
-  uint32_t count = 0;
+  uint32_t page_count = 0;
 
   // Iterate over existing page families to check if a page family with the same
   // name already exists
   ITERATE_PAGE_FAMILIES_BEGIN(first_vm_page_for_families, vm_page_family_curr) {
     if (strncmp(vm_page_family_curr->struct_name, struct_name,
                 MM_MAX_STRUCT_NAME) != 0) {
-      count++;
+        page_count = count;
       continue;
     }
 
@@ -122,7 +122,7 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size) {
 
   // If the existing page is full, allocate a new page and add it to the
   // beginning of the linked list
-  if (count == (uint32_t)MAX_FAMILIES_PER_VM_PAGE) {
+  if (page_count == (uint32_t)MAX_FAMILIES_PER_VM_PAGE) {
     new_vm_page_for_families =
         (vm_page_for_families_t *)mm_get_new_vm_page_from_kernel(1);
     new_vm_page_for_families->next = first_vm_page_for_families;
@@ -211,6 +211,11 @@ static inline uint32_t mm_max_page_allocatable_memory(int units) {
 vm_page_t *allocate_vm_page(vm_page_family_t *vm_page_family) {
   // Allocate memory for the new virtual memory page
   vm_page_t *vm_page = mm_get_new_vm_page_from_kernel(1);
+
+  // If the virtual memory page is NULL, return NULL
+  if (!vm_page) {
+     return NULL;
+  }
 
   // Initialize the lowermost metadata block of the VM page
   MARK_VM_PAGE_EMPTY(vm_page);
@@ -322,9 +327,8 @@ static block_meta_data_t *
 mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
                             uint32_t req_size) {
 
-  vm_bool_t status = MM_FALSE;
+  vm_bool_t status;
   vm_page_t *vm_page = NULL;
-  block_meta_data_t *block_meta_data = NULL;
 
   // Get the biggest free block in the page family
   block_meta_data_t *biggest_block_meta_data =
@@ -349,10 +353,8 @@ mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
   }
 
   // Attempt to split the biggest free block to satisfy the allocation request
-  if (biggest_block_meta_data) {
     status = mm_split_free_data_block_for_allocation(
-        vm_page_family, biggest_block_meta_data, req_size);
-  }
+            vm_page_family, biggest_block_meta_data, req_size);
 
   // Return the allocated block's metadata if successful
   if (status) {
@@ -602,7 +604,7 @@ void mm_print_memory_usage(char *struct_name) {
     if (struct_name) {
       // Filter output by structure name if specified
       if (strncmp(struct_name, vm_page_family_curr->struct_name,
-                  strlen(vm_page_family_curr->struct_name))) {
+                  strlen(vm_page_family_curr->struct_name)) != 0) {
         continue;
       }
     }

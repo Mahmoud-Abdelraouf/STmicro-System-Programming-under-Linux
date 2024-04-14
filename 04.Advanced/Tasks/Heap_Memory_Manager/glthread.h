@@ -4,8 +4,8 @@
 /******* Version   : 0.1                           *****************/
 /******* File Name : Generic Linked List Thread.c  *****************/
 /*******************************************************************/
-#ifndef __GLUETHREAD_H__
-#define __GLUETHREAD_H__
+#ifndef GLUETHREAD_H_
+#define GLUETHREAD_H_
 
 /**-----------------< user defined data type section -----------------*/
 /**
@@ -15,9 +15,9 @@
  * This structure defines a generic linked list node for threaded linking.
  * It consists of left and right pointers for threading the nodes together.
  */
-typedef struct _glthread {
-  struct _glthread *left;  /**< Pointer to the left node in the linked list. */
-  struct _glthread *right; /**< Pointer to the right node in the linked list. */
+typedef struct glthread_ {
+  struct glthread_ *left;  /**< Pointer to the left node in the linked list. */
+  struct glthread_ *right; /**< Pointer to the right node in the linked list. */
 } glthread_t;
 
 /**-----------------< Public functions interface -----------------*/
@@ -113,7 +113,7 @@ void glthread_priority_insert(glthread_t *base_glthread, glthread_t *glthread,
  * @return void* Pointer to the user-defined structure corresponding to the
  * found glthread_t structure, or NULL if not found.
  */
-void *gl_thread_search(glthread_t *base_glthread,
+void *glthread_search(glthread_t *base_glthread,
                        void *(*thread_to_struct_fn)(glthread_t *), void *key,
                        int (*comparison_fn)(void *, void *));
 /**-----------------< Function-like macro section -----------------*/
@@ -191,11 +191,12 @@ void *gl_thread_search(glthread_t *base_glthread,
  * @param glthreadptr Pointer to the current glthread_t structure being
  * iterated.
  */
-#define ITERATE_GLTHREAD_BEGIN(glthreadptrstart, glthreadptr)                  \
-  {                                                                            \
-    glthread_t *_glthread_ptr = NULL;                                          \
-    glthreadptr = BASE(glthreadptrstart);                                      \
-    for (; glthreadptr != NULL; glthreadptr = _glthread_ptr) {
+#define ITERATE_GLTHREAD_BEGIN(glthreadptrstart, glthreadptr)                                      \
+{                                                                                                  \
+    glthread_t *_glthread_ptr = NULL;                                                              \
+    glthreadptr = BASE(glthreadptrstart);                                                          \
+    for(; glthreadptr!= NULL; glthreadptr = _glthread_ptr){                                        \
+        _glthread_ptr = (glthreadptr)->right;
 
 /**
  * @brief Macro to end iteration over a linked list of glthread_t structures.
@@ -226,7 +227,7 @@ void *gl_thread_search(glthread_t *base_glthread,
  * structure.
  * @return Pointer to the user-defined data.
  */
-#define GLTHREAD_GET_USER_DATA_FROM_OFFSET(glthreadptr, offset)                \
-  (void *)((char *)(glthreadptr)-offset)
+#define GLTHREAD_GET_USER_DATA_FROM_OFFSET(glthreadptr, offset)  \
+    (void *)((char *)(glthreadptr) - offset)
 
-#endif /**< __GLUETHREAD_H__ */
+#endif /**< GLUETHREAD_H_ */

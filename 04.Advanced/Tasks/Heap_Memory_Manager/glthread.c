@@ -17,6 +17,9 @@ void init_glthread(glthread_t *glthread) {
 }
 
 void glthread_add_next(glthread_t *curr_glthread, glthread_t *new_glthread) {
+  if(!new_glthread || !curr_glthread) {
+      return;
+  }
 
   if (!curr_glthread->right) {
     curr_glthread->right = new_glthread;
@@ -55,7 +58,7 @@ void remove_glthread(glthread_t *curr_glthread) {
     if (curr_glthread->right) {
       curr_glthread->right->left =
           NULL;                    // Update the left neighbor of the right node
-      curr_glthread->right = NULL; // Remove the link to the right node
+      curr_glthread->right = 0; // Remove the link to the right node
       return;
     }
     return;
@@ -72,8 +75,8 @@ void remove_glthread(glthread_t *curr_glthread) {
       curr_glthread->right; // Update the right neighbor of the left node
   curr_glthread->right->left =
       curr_glthread->left;     // Update the left neighbor of the right node
-  curr_glthread->left = NULL;  // Remove the link to the left node
-  curr_glthread->right = NULL; // Remove the link to the right node
+  curr_glthread->left = 0;  // Remove the link to the left node
+  curr_glthread->right = 0; // Remove the link to the right node
 }
 
 void delete_glthread_list(glthread_t *base_glthread) {
@@ -134,8 +137,7 @@ void glthread_priority_insert(glthread_t *base_glthread, glthread_t *glthread,
 
   /**< Only one node */
   if (base_glthread->right &&
-      !base_glthread->right
-           ->right) { // Check if there is only one node in the list
+      !base_glthread->right->right) { // Check if there is only one node in the list
     if (comp_fn(
             GLTHREAD_GET_USER_DATA_FROM_OFFSET(base_glthread->right, offset),
             GLTHREAD_GET_USER_DATA_FROM_OFFSET(glthread, offset)) == -1) {
@@ -176,7 +178,7 @@ void glthread_priority_insert(glthread_t *base_glthread, glthread_t *glthread,
   glthread_add_next(prev, glthread); // Add the glthread at the end of the list
 }
 
-void *gl_thread_search(glthread_t *base_glthread,
+void *glthread_search(glthread_t *base_glthread,
                        void *(*thread_to_struct_fn)(glthread_t *), void *key,
                        int (*comparison_fn)(void *, void *)) {
   glthread_t *curr = NULL;
