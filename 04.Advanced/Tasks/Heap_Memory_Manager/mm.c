@@ -14,6 +14,7 @@
 #include <sys/mman.h>
 #include <unistd.h>
 /**< Project includes */
+#include "colors.h"
 #include "mm.h"
 #include "uapi_mm.h"
 
@@ -143,39 +144,6 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size) {
                      .free_block_priority_list_head);
 }
 
-void mm_print_registered_page_families() {
-  vm_page_family_t *vm_page_family_curr =
-      NULL;                             // Pointer to the current page family
-  char struct_name[MM_MAX_STRUCT_NAME]; // Buffer to store the name of the
-                                        // structure
-  uint32_t struct_size;                 // Size of the structure
-
-  // Check if there are no registered page families
-  if (first_vm_page_for_families == NULL) {
-    printf("No page families registered for printing.\n");
-  } else {
-    // Pointer to iterate over virtual memory pages
-    vm_page_for_families_t *current_page = first_vm_page_for_families;
-
-    // Iterate over all virtual memory pages containing page families
-    do {
-      ITERATE_PAGE_FAMILIES_BEGIN(current_page, vm_page_family_curr) {
-        // Copy the name and size of the structure from the current page family
-        strncpy(struct_name, vm_page_family_curr->struct_name,
-                MM_MAX_STRUCT_NAME);
-        struct_size = vm_page_family_curr->struct_size;
-
-        // Print information about the page family
-        printf("Page Family: %s, Size: %d\n", struct_name, struct_size);
-      }
-      ITERATE_PAGE_FAMILIES_END(current_page, vm_page_family_curr);
-
-      // Move to the next virtual memory page
-      current_page = current_page->next;
-    } while (current_page != NULL);
-  }
-}
-
 vm_page_family_t *lookup_page_family_by_name(char *struct_name) {
   // Pointer to iterate over VM pages
   vm_page_for_families_t *current_page = first_vm_page_for_families;
@@ -205,28 +173,23 @@ vm_page_family_t *lookup_page_family_by_name(char *struct_name) {
   return NULL;
 }
 
-static void mm_union_free_blocks(block_meta_data_t *first,
-                                 block_meta_data_t *second) {
-  // Ensure that both blocks are free
-  assert(first->is_free == MM_TRUE && second->is_free == MM_TRUE);
+static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family) {
 
-  // Check if the two blocks are contiguous
-  if (first->next_block == second && second->prev_block == first) {
-    // Merge the blocks by updating the size and pointers
-    first->block_size += sizeof(block_meta_data_t) + second->block_size;
-    first->next_block = second->next_block;
+  // Allocate a new virtual memory page for the page family
+  vm_page_t *vm_page = allocate_vm_page(vm_page_family);
 
-    // Update the previous block pointer of the next block if it exists
-    if (second->next_block != NULL) {
-      second->next_block->prev_block = first;
-    }
-  } else {
-    // Error message if blocks are not contiguous
-    printf("Error: mm_union_free_blocks - Attempting to merge non-contiguous "
-           "free blocks\n");
+  // Check if page allocation is successful
+  if (!vm_page) {
+    return NULL;
   }
-}
 
+  // Add the new page to the free block list of the page family
+  mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
+                                                 &vm_page->block_meta_data);
+
+  return vm_page;
+}
+/**-----------------< VM Page section  -----------------*/
 vm_bool_t mm_is_vm_page_empty(vm_page_t *vm_page) {
   if (vm_page != NULL) {
     // Check if all conditions for an empty page are met
@@ -302,6 +265,29 @@ void mm_vm_page_delete_and_free(vm_page_t *vm_page) {
   mm_return_vm_page_to_kernel((void *)vm_page, 1);
 }
 
+/**-----------------< Free VM Page/Block section -----------------*/
+static void mm_union_free_blocks(block_meta_data_t *first,
+                                 block_meta_data_t *second) {
+  // Ensure that both blocks are free
+  assert(first->is_free == MM_TRUE && second->is_free == MM_TRUE);
+
+  // Check if the two blocks are contiguous
+  if (first->next_block == second && second->prev_block == first) {
+    // Merge the blocks by updating the size and pointers
+    first->block_size += sizeof(block_meta_data_t) + second->block_size;
+    first->next_block = second->next_block;
+
+    // Update the previous block pointer of the next block if it exists
+    if (second->next_block != NULL) {
+      second->next_block->prev_block = first;
+    }
+  } else {
+    // Error message if blocks are not contiguous
+    printf("Error: mm_union_free_blocks - Attempting to merge non-contiguous "
+           "free blocks\n");
+  }
+}
+
 static int free_blocks_comparison_function(void *_block_meta_data1,
                                            void *_block_meta_data2) {
   block_meta_data_t *block_meta_data1 = (block_meta_data_t *)_block_meta_data1;
@@ -331,23 +317,7 @@ mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
                            offset_of(block_meta_data_t, priority_thread_glue));
 }
 
-static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family) {
-
-  // Allocate a new virtual memory page for the page family
-  vm_page_t *vm_page = allocate_vm_page(vm_page_family);
-
-  // Check if page allocation is successful
-  if (!vm_page) {
-    return NULL;
-  }
-
-  // Add the new page to the free block list of the page family
-  mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
-                                                 &vm_page->block_meta_data);
-
-  return vm_page;
-}
-
+/**-----------------<  Memory allocation section -----------------*/
 static block_meta_data_t *
 mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
                             uint32_t req_size) {
@@ -408,6 +378,76 @@ mm_get_biggest_free_block_page_family(vm_page_family_t *vm_page_family) {
   return NULL;
 }
 
+static vm_bool_t
+mm_split_free_data_block_for_allocation(vm_page_family_t *vm_page_family,
+                                        block_meta_data_t *block_meta_data,
+                                        uint32_t size) {
+
+  block_meta_data_t *next_block_meta_data = NULL;
+
+  // Assert that the provided block is free
+  assert(block_meta_data->is_free == MM_TRUE);
+
+  // Check if the block size is sufficient for allocation
+  if (block_meta_data->block_size < size) {
+    return MM_FALSE;
+  }
+
+  // Calculate the remaining size after allocation
+  uint32_t remaining_size = block_meta_data->block_size - size;
+
+  // Update metadata for the allocated portion
+  block_meta_data->is_free = MM_FALSE;
+  block_meta_data->block_size = size;
+  remove_glthread(&block_meta_data->priority_thread_glue);
+
+  // Case 1: No Split
+  if (!remaining_size) {
+    return MM_TRUE;
+  }
+
+  // Case 3-1: Partial Split - Soft Internal Fragmentation
+  else if (sizeof(block_meta_data_t) < remaining_size &&
+           remaining_size <
+               (sizeof(block_meta_data_t) + vm_page_family->struct_size)) {
+    // Create a new metadata block for the remaining space
+    next_block_meta_data = NEXT_META_BLOCK_BY_SIZE(block_meta_data);
+    next_block_meta_data->is_free = MM_TRUE;
+    next_block_meta_data->block_size =
+        remaining_size - sizeof(block_meta_data_t);
+    next_block_meta_data->offset = block_meta_data->offset +
+                                   sizeof(block_meta_data_t) +
+                                   block_meta_data->block_size;
+    init_glthread(&next_block_meta_data->priority_thread_glue);
+    mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
+                                                   next_block_meta_data);
+    mm_bind_blocks_for_allocation(block_meta_data, next_block_meta_data);
+  }
+
+  // Case 3-2: Partial Split - Hard Internal Fragmentation
+  else if (remaining_size < sizeof(block_meta_data_t)) {
+    // No need to do anything
+  }
+
+  // Case 2: Full Split - New Metadata Block Created
+  else {
+    // Create a new metadata block for the remaining space
+    next_block_meta_data = NEXT_META_BLOCK_BY_SIZE(block_meta_data);
+    next_block_meta_data->is_free = MM_TRUE;
+    next_block_meta_data->block_size =
+        remaining_size - sizeof(block_meta_data_t);
+    next_block_meta_data->offset = block_meta_data->offset +
+                                   sizeof(block_meta_data_t) +
+                                   block_meta_data->block_size;
+    init_glthread(&next_block_meta_data->priority_thread_glue);
+    mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
+                                                   next_block_meta_data);
+    mm_bind_blocks_for_allocation(block_meta_data, next_block_meta_data);
+  }
+
+  return MM_TRUE;
+}
+
 void *xcalloc(char *struct_name, int units) {
   // Step 1: Look up the page family associated with the structure name
   vm_page_family_t *pg_family = lookup_page_family_by_name(struct_name);
@@ -443,73 +483,156 @@ void *xcalloc(char *struct_name, int units) {
   return NULL;
 }
 
-static vm_bool_t
-mm_split_free_data_block_for_allocation(vm_page_family_t *vm_page_family,
-                                        block_meta_data_t *block_meta_data,
-                                        uint32_t size) {
+/**-----------------< Printing information section -----------------*/
+void mm_print_registered_page_families() {
+  vm_page_family_t *vm_page_family_curr =
+      NULL;                             // Pointer to the current page family
+  char struct_name[MM_MAX_STRUCT_NAME]; // Buffer to store the name of the
+                                        // structure
+  uint32_t struct_size;                 // Size of the structure
 
-  block_meta_data_t *next_block_meta_data = NULL;
+  // Check if there are no registered page families
+  if (first_vm_page_for_families == NULL) {
+    printf("No page families registered for printing.\n");
+  } else {
+    // Pointer to iterate over virtual memory pages
+    vm_page_for_families_t *current_page = first_vm_page_for_families;
 
-  // Assert that the provided block is free
-  assert(block_meta_data->is_free == MM_TRUE);
+    // Iterate over all virtual memory pages containing page families
+    do {
+      ITERATE_PAGE_FAMILIES_BEGIN(current_page, vm_page_family_curr) {
+        // Copy the name and size of the structure from the current page family
+        strncpy(struct_name, vm_page_family_curr->struct_name,
+                MM_MAX_STRUCT_NAME);
+        struct_size = vm_page_family_curr->struct_size;
 
-  // Check if the block size is sufficient for allocation
-  if (block_meta_data->block_size < size) {
-    return MM_FALSE;
+        // Print information about the page family
+        printf("Page Family: %s, Size: %d\n", struct_name, struct_size);
+      }
+      ITERATE_PAGE_FAMILIES_END(current_page, vm_page_family_curr);
+
+      // Move to the next virtual memory page
+      current_page = current_page->next;
+    } while (current_page != NULL);
   }
+}
 
-  // Calculate the remaining size after allocation
-  uint32_t remaining_size = block_meta_data->block_size - size;
+void mm_print_block_usage() {
+  vm_page_t *vm_page_curr;
+  vm_page_family_t *vm_page_family_curr;
+  block_meta_data_t *block_meta_data_curr;
+  uint32_t total_block_count, free_block_count, occupied_block_count;
+  uint32_t application_memory_usage;
 
-  // Update metadata for the allocated portion
-  block_meta_data->is_free = MM_FALSE;
-  block_meta_data->block_size = size;
-  remove_glthread(&block_meta_data->priority_thread_glue);
-  /*block_meta_data->offset =  ??*/
+  // Iterate over page families
+  ITERATE_PAGE_FAMILIES_BEGIN(first_vm_page_for_families, vm_page_family_curr) {
+    // Initialize counters
+    total_block_count = 0;
+    free_block_count = 0;
+    application_memory_usage = 0;
+    occupied_block_count = 0;
 
-  // Case 1: No Split
-  if (!remaining_size) {
-    return MM_TRUE;
+    // Iterate over virtual memory pages
+    ITERATE_VM_PAGE_BEGIN(vm_page_family_curr, vm_page_curr) {
+      // Iterate over all blocks within the page
+      ITERATE_VM_PAGE_ALL_BLOCKS_BEGIN(vm_page_curr, block_meta_data_curr) {
+        // Increment total block count
+        total_block_count++;
+
+        // Perform sanity checks
+        if (block_meta_data_curr->is_free == MM_FALSE) {
+          assert(IS_GLTHREAD_LIST_EMPTY(
+              &block_meta_data_curr->priority_thread_glue));
+        }
+        if (block_meta_data_curr->is_free == MM_TRUE) {
+          assert(!IS_GLTHREAD_LIST_EMPTY(
+              &block_meta_data_curr->priority_thread_glue));
+        }
+
+        // Update counts based on block status
+        if (block_meta_data_curr->is_free == MM_TRUE) {
+          free_block_count++;
+        } else {
+          application_memory_usage +=
+              block_meta_data_curr->block_size + sizeof(block_meta_data_t);
+          occupied_block_count++;
+        }
+      }
+      ITERATE_VM_PAGE_ALL_BLOCKS_END(vm_page_curr, block_meta_data_curr);
+    }
+    ITERATE_VM_PAGE_END(vm_page_family_curr, vm_page_curr);
+
+    // Print block usage information for the current page family
+    printf("%-20s   TBC : %-4u    FBC : %-4u    OBC : %-4u AppMemUsage : %u\n",
+           vm_page_family_curr->struct_name, total_block_count,
+           free_block_count, occupied_block_count, application_memory_usage);
   }
+  ITERATE_PAGE_FAMILIES_END(first_vm_page_for_families, vm_page_family_curr);
+}
 
-  // Case 3: Partial Split - Soft Internal Fragmentation
-  else if (sizeof(block_meta_data_t) < remaining_size &&
-           remaining_size <
-               (sizeof(block_meta_data_t) + vm_page_family->struct_size)) {
-    // Create a new metadata block for the remaining space
-    next_block_meta_data = NEXT_META_BLOCK_BY_SIZE(block_meta_data);
-    next_block_meta_data->is_free = MM_TRUE;
-    next_block_meta_data->block_size =
-        remaining_size - sizeof(block_meta_data_t);
-    next_block_meta_data->offset = block_meta_data->offset +
-                                   sizeof(block_meta_data_t) +
-                                   block_meta_data->block_size;
-    init_glthread(&next_block_meta_data->priority_thread_glue);
-    mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
-                                                   next_block_meta_data);
-    mm_bind_blocks_for_allocation(block_meta_data, next_block_meta_data);
+void mm_print_vm_page_details(vm_page_t *vm_page) {
+  printf("\t\t next = %p, prev = %p\n", vm_page->next, vm_page->prev);
+  printf("\t\t page family = %s\n", vm_page->pg_family->struct_name);
+
+  uint32_t j = 0;
+  block_meta_data_t *curr;
+
+  // Iterate over all blocks within the virtual memory page
+  ITERATE_VM_PAGE_ALL_BLOCKS_BEGIN(vm_page, curr) {
+    printf("\t\t\t%-14p Block %-3u %s  block_size = %-6u  "
+           "offset = %-6u  prev = %-14p  next = %p\n",
+           curr, j++, curr->is_free ? "F R E E D" : "ALLOCATED",
+           curr->block_size, curr->offset, curr->prev_block, curr->next_block);
   }
+  ITERATE_VM_PAGE_ALL_BLOCKS_END(vm_page, curr);
+}
 
-  // Case 3: Partial Split - Hard Internal Fragmentation
-  else if (remaining_size < sizeof(block_meta_data_t)) {
-    // No need to do anything
+void mm_print_memory_usage(char *struct_name) {
+  uint32_t i = 0;
+  vm_page_t *vm_page = NULL;
+  vm_page_family_t *vm_page_family_curr;
+  uint32_t number_of_struct_families = 0;
+  uint32_t cumulative_vm_pages_claimed_from_kernel = 0;
+
+  // Print page size
+  printf("\nPage Size = %zu Bytes\n", SYSTEM_PAGE_SIZE);
+
+  // Iterate over each virtual memory page family
+  ITERATE_PAGE_FAMILIES_BEGIN(first_vm_page_for_families, vm_page_family_curr) {
+    if (struct_name) {
+      // Filter output by structure name if specified
+      if (strncmp(struct_name, vm_page_family_curr->struct_name,
+                  strlen(vm_page_family_curr->struct_name))) {
+        continue;
+      }
+    }
+
+    // Increment number of structure families processed
+    number_of_struct_families++;
+
+    // Print details of each virtual memory page family
+    printf(ANSI_COLOR_GREEN
+           "vm_page_family : %s, struct size = %u\n" ANSI_COLOR_RESET,
+           vm_page_family_curr->struct_name, vm_page_family_curr->struct_size);
+    i = 0;
+
+    // Iterate over each virtual memory page within the family
+    ITERATE_VM_PAGE_BEGIN(vm_page_family_curr, vm_page) {
+      cumulative_vm_pages_claimed_from_kernel++;
+      mm_print_vm_page_details(vm_page);
+    }
+    ITERATE_VM_PAGE_END(vm_page_family_curr, vm_page);
+    printf("\n");
   }
+  ITERATE_PAGE_FAMILIES_END(first_vm_page_for_families, vm_page_family_curr);
 
-  // Case 2: Full Split - New Metadata Block Created
-  else {
-    // Create a new metadata block for the remaining space
-    next_block_meta_data = NEXT_META_BLOCK_BY_SIZE(block_meta_data);
-    next_block_meta_data->is_free = MM_TRUE;
-    next_block_meta_data->block_size =
-        remaining_size - sizeof(block_meta_data_t);
-    next_block_meta_data->offset = block_meta_data->offset +
-                                   sizeof(block_meta_data_t) +
-                                   block_meta_data->block_size;
-    init_glthread(&next_block_meta_data->priority_thread_glue);
-    mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
-                                                   next_block_meta_data);
-    mm_bind_blocks_for_allocation(block_meta_data, next_block_meta_data);
-  }
+  // Print total number of VM pages in use and their total memory usage
+  printf(ANSI_COLOR_MAGENTA
+         "# Of VM Pages in Use : %u (%lu Bytes)\n" ANSI_COLOR_RESET,
+         cumulative_vm_pages_claimed_from_kernel,
+         SYSTEM_PAGE_SIZE * cumulative_vm_pages_claimed_from_kernel);
 
-  return MM_TRUE;
+  // Print total memory being used by the Memory Manager
+  printf("Total Memory being used by Memory Manager = %lu Bytes\n",
+         cumulative_vm_pages_claimed_from_kernel * SYSTEM_PAGE_SIZE);
 }

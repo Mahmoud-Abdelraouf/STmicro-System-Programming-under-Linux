@@ -221,13 +221,36 @@ static void
 mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
                                                block_meta_data_t *free_block);
 
+/**
+ * @brief Prints details of a virtual memory page.
+ *
+ * This function prints detailed information about a virtual memory page,
+ * including its next and previous pointers, page family name, and information
+ * about each block within the page.
+ *
+ * @param vm_page Pointer to the virtual memory page.
+ */
+void mm_print_vm_page_details(vm_page_t *vm_page);
 /**-----------------< Function-like macro section -----------------*/
 /**
- * @brief Macro defining the maximum number of families that can be stored in a
- * single virtual memory page.
+ * @brief Maximum number of families that can be stored in a single virtual
+ * memory page.
+ *
+ * This macro calculates the maximum number of families that can be stored in a
+ * single virtual memory page based on the system page size and the sizes of the
+ * `vm_page_for_families_t` and `vm_page_family_t` structures. It accounts for
+ * the space occupied by the `next` pointer in `vm_page_for_families_t`.
+ *
+ * @note The calculation subtracts the size of the `next` pointer from the total
+ * system page size, and then divides the remaining size by the size of a single
+ * `vm_page_family_t` structure.
+ *
+ * @note This macro is useful for determining the maximum capacity of a virtual
+ * memory page for managing families of memory structures.
  */
 #define MAX_FAMILIES_PER_VM_PAGE                                               \
-  (SYSTEM_PAGE_SIZE - sizeof(vm_page_family_t *) / sizeof(vm_page_family_t))
+  (SYSTEM_PAGE_SIZE - sizeof(struct vm_page_for_families_ *)) /                \
+      sizeof(struct vm_page_family_)
 
 /**
  * @brief Macro for beginning iteration over page families.
@@ -735,4 +758,4 @@ mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
  */
 static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family);
 
-#endif /**< MM_H_ */
+#endif /**< __MM_H__ */

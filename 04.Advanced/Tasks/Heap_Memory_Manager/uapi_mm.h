@@ -66,23 +66,6 @@ void mm_init();
 void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size);
 
 /**
- * @brief Prints all registered page families.
- *
- * This function prints all page families that have been registered with the
- * Linux Memory Manager. It iterates over all virtual memory pages hosting page
- * families and prints information about each page family, including its name
- * and size.
- *
- * @note This function should be invoked after the application has performed
- * registration for all its structures using the `MM_REG_STRUCT` macro. It
- * relies on the `first_vm_page_for_families` global variable, which maintains a
- * linked list of virtual memory pages containing page families.
- *
- * @see MM_REG_STRUCT
- */
-void mm_print_registered_page_families();
-
-/**
  * @brief Allocates and initializes memory for an array of structures.
  *
  * This function allocates memory for an array of structures of the specified
@@ -106,6 +89,45 @@ void mm_print_registered_page_families();
  */
 void *xcalloc(char *struct_name, int units);
 
+/**
+ * @brief Prints all registered page families.
+ *
+ * This function prints all page families that have been registered with the
+ * Linux Memory Manager. It iterates over all virtual memory pages hosting page
+ * families and prints information about each page family, including its name
+ * and size.
+ *
+ * @note This function should be invoked after the application has performed
+ * registration for all its structures using the `MM_REG_STRUCT` macro. It
+ * relies on the `first_vm_page_for_families` global variable, which maintains a
+ * linked list of virtual memory pages containing page families.
+ *
+ * @see MM_REG_STRUCT
+ */
+void mm_print_registered_page_families();
+/**
+ * @brief Prints memory usage details related to the memory manager.
+ *
+ * This function prints information about the memory usage of the memory
+ * manager, including details of each virtual memory page family and the total
+ * memory being used. Optionally, it can filter the output by a specific
+ * structure name.
+ *
+ * @param struct_name Optional parameter to filter the output by a specific
+ * structure name.
+ */
+
+void mm_print_memory_usage(char *struct_name);
+
+/**
+ * @brief Prints information about the memory block usage.
+ *
+ * This function iterates through all virtual memory pages and their associated
+ * memory block families to print information about the memory block usage,
+ * including the total block count, free block count, occupied block count, and
+ * application memory usage.
+ */
+void mm_print_block_usage();
 /**-----------------< Function-like macro section -----------------*/
 /**
  * @brief Registers a memory structure for page family instantiation.
@@ -127,5 +149,22 @@ void *xcalloc(char *struct_name, int units);
  */
 #define MM_REG_STRUCT(struct_name)                                             \
   (mm_instantiate_new_page_family(#struct_name, sizeof(struct_name)))
+
+/**
+ * @brief Macro for allocating memory for multiple instances of a structure and
+ * initializing them to zero.
+ *
+ * This macro simplifies the process of allocating memory for multiple instances
+ * of a structure and initializing them to zero. It takes the number of units
+ * and the name of the structure as input parameters.
+ *
+ * @param units The number of instances of the structure to allocate memory for.
+ * @param struct_name The name of the structure for which memory is to be
+ * allocated.
+ *
+ * @return A pointer to the allocated memory, initialized to zero, or NULL if
+ * allocation fails.
+ */
+#define Xcalloc(units, struct_name) (xcalloc(units, #struct_name))
 
 #endif /**< __UAPI_MM_H__ */
