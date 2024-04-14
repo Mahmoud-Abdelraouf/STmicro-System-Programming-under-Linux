@@ -4,95 +4,101 @@
 granularity: each sample hit covers 4 byte(s) no time propagated
 
 index % time    self  children    called     name
-                0.00    0.00       2/18          mm_instantiate_new_page_family [16]
-                0.00    0.00       2/18          allocate_vm_page [14]
-                0.00    0.00       6/18          mm_split_free_data_block_for_allocation [9]
-                0.00    0.00       8/18          glthread_priority_insert [3]
-[1]      0.0    0.00    0.00      18         init_glthread [1]
+                0.00    0.00       3/27      mm_instantiate_new_page_family [16]
+                0.00    0.00       3/27      allocate_vm_page [14]
+                0.00    0.00       9/27      mm_split_free_data_block_for_allocation [9]
+                0.00    0.00      12/27      glthread_priority_insert [3]
+[1]      0.0    0.00    0.00      27         init_glthread [1]
 -----------------------------------------------
-                0.00    0.00       8/8           glthread_priority_insert [3]
-[2]      0.0    0.00    0.00       8         glthread_add_next [2]
+                0.00    0.00      12/12      glthread_priority_insert [3]
+[2]      0.0    0.00    0.00      12         glthread_add_next [2]
 -----------------------------------------------
-                0.00    0.00       8/8           mm_add_free_block_meta_data_to_free_block_list [4]
-[3]      0.0    0.00    0.00       8         glthread_priority_insert [3]
-                0.00    0.00       8/18          init_glthread [1]
-                0.00    0.00       8/8           glthread_add_next [2]
+                0.00    0.00      12/12      mm_add_free_block_meta_data_to_free_block_list [4]
+[3]      0.0    0.00    0.00      12         glthread_priority_insert [3]
+                0.00    0.00      12/27      init_glthread [1]
+                0.00    0.00      12/12      glthread_add_next [2]
 -----------------------------------------------
-                0.00    0.00       2/8           mm_family_new_page_add [15]
-                0.00    0.00       6/8           mm_split_free_data_block_for_allocation [9]
-[4]      0.0    0.00    0.00       8         mm_add_free_block_meta_data_to_free_block_list [4]
-                0.00    0.00       8/8           glthread_priority_insert [3]
+                0.00    0.00       3/12      mm_family_new_page_add [15]
+                0.00    0.00       9/12      mm_split_free_data_block_for_allocation [9]
+[4]      0.0    0.00    0.00      12         mm_add_free_block_meta_data_to_free_block_list [4]
+                0.00    0.00      12/12      glthread_priority_insert [3]
 -----------------------------------------------
-                0.00    0.00       2/8           allocate_vm_page [14]
-                0.00    0.00       6/8           xcalloc [11]
-[5]      0.0    0.00    0.00       8         mm_max_page_allocatable_memory [5]
+                0.00    0.00       3/12      allocate_vm_page [14]
+                0.00    0.00       9/12      xcalloc [11]
+[5]      0.0    0.00    0.00      12         mm_max_page_allocatable_memory [5]
 -----------------------------------------------
-                0.00    0.00       6/6           xcalloc [11]
-[6]      0.0    0.00    0.00       6         lookup_page_family_by_name [6]
+                0.00    0.00      10/10      xcalloc [11]
+[6]      0.0    0.00    0.00      10         lookup_page_family_by_name [6]
 -----------------------------------------------
-                0.00    0.00       6/6           xcalloc [11]
-[7]      0.0    0.00    0.00       6         mm_allocate_free_data_block [7]
-                0.00    0.00       6/6           mm_get_biggest_free_block_page_family [8]
-                0.00    0.00       6/6           mm_split_free_data_block_for_allocation [9]
-                0.00    0.00       2/2           mm_family_new_page_add [15]
+                0.00    0.00       9/9       xcalloc [11]
+[7]      0.0    0.00    0.00       9         mm_allocate_free_data_block [7]
+                0.00    0.00       9/9       mm_get_biggest_free_block_page_family [8]
+                0.00    0.00       9/9       mm_split_free_data_block_for_allocation [9]
+                0.00    0.00       3/3       mm_family_new_page_add [15]
 -----------------------------------------------
-                0.00    0.00       6/6           mm_allocate_free_data_block [7]
-[8]      0.0    0.00    0.00       6         mm_get_biggest_free_block_page_family [8]
-                0.00    0.00       4/4           glthread_to_block_meta_data [12]
+                0.00    0.00       9/9       mm_allocate_free_data_block [7]
+[8]      0.0    0.00    0.00       9         mm_get_biggest_free_block_page_family [8]
+                0.00    0.00       6/6       glthread_to_block_meta_data [12]
 -----------------------------------------------
-                0.00    0.00       6/6           mm_allocate_free_data_block [7]
-[9]      0.0    0.00    0.00       6         mm_split_free_data_block_for_allocation [9]
-                0.00    0.00       6/6           remove_glthread [10]
-                0.00    0.00       6/18          init_glthread [1]
-                0.00    0.00       6/8           mm_add_free_block_meta_data_to_free_block_list [4]
+                0.00    0.00       9/9       mm_allocate_free_data_block [7]
+[9]      0.0    0.00    0.00       9         mm_split_free_data_block_for_allocation [9]
+                0.00    0.00       9/9       remove_glthread [10]
+                0.00    0.00       9/27      init_glthread [1]
+                0.00    0.00       9/12      mm_add_free_block_meta_data_to_free_block_list [4]
 -----------------------------------------------
-                0.00    0.00       6/6           mm_split_free_data_block_for_allocation [9]
-[10]     0.0    0.00    0.00       6         remove_glthread [10]
+                0.00    0.00       9/9       mm_split_free_data_block_for_allocation [9]
+[10]     0.0    0.00    0.00       9         remove_glthread [10]
 -----------------------------------------------
-                0.00    0.00       6/6           main [33]
-[11]     0.0    0.00    0.00       6         xcalloc [11]
-                0.00    0.00       6/6           lookup_page_family_by_name [6]
-                0.00    0.00       6/8           mm_max_page_allocatable_memory [5]
-                0.00    0.00       6/6           mm_allocate_free_data_block [7]
+                0.00    0.00       9/9       main [34]
+[11]     0.0    0.00    0.00       9         xcalloc [11]
+                0.00    0.00      10/10      lookup_page_family_by_name [6]
+                0.00    0.00       9/12      mm_max_page_allocatable_memory [5]
+                0.00    0.00       9/9       mm_allocate_free_data_block [7]
+                0.00    0.00       1/1       getSizeOfDataType [18]
+                0.00    0.00       1/3       mm_instantiate_new_page_family [16]
 -----------------------------------------------
-                0.00    0.00       4/4           mm_get_biggest_free_block_page_family [8]
-[12]     0.0    0.00    0.00       4         glthread_to_block_meta_data [12]
+                0.00    0.00       6/6       mm_get_biggest_free_block_page_family [8]
+[12]     0.0    0.00    0.00       6         glthread_to_block_meta_data [12]
 -----------------------------------------------
-                0.00    0.00       1/3           mm_instantiate_new_page_family [16]
-                0.00    0.00       2/3           allocate_vm_page [14]
-[13]     0.0    0.00    0.00       3         mm_get_new_vm_page_from_kernel [13]
+                0.00    0.00       1/4       mm_instantiate_new_page_family [16]
+                0.00    0.00       3/4       allocate_vm_page [14]
+[13]     0.0    0.00    0.00       4         mm_get_new_vm_page_from_kernel [13]
 -----------------------------------------------
-                0.00    0.00       2/2           mm_family_new_page_add [15]
-[14]     0.0    0.00    0.00       2         allocate_vm_page [14]
-                0.00    0.00       2/3           mm_get_new_vm_page_from_kernel [13]
-                0.00    0.00       2/8           mm_max_page_allocatable_memory [5]
-                0.00    0.00       2/18          init_glthread [1]
+                0.00    0.00       3/3       mm_family_new_page_add [15]
+[14]     0.0    0.00    0.00       3         allocate_vm_page [14]
+                0.00    0.00       3/4       mm_get_new_vm_page_from_kernel [13]
+                0.00    0.00       3/12      mm_max_page_allocatable_memory [5]
+                0.00    0.00       3/27      init_glthread [1]
 -----------------------------------------------
-                0.00    0.00       2/2           mm_allocate_free_data_block [7]
-[15]     0.0    0.00    0.00       2         mm_family_new_page_add [15]
-                0.00    0.00       2/2           allocate_vm_page [14]
-                0.00    0.00       2/8           mm_add_free_block_meta_data_to_free_block_list [4]
+                0.00    0.00       3/3       mm_allocate_free_data_block [7]
+[15]     0.0    0.00    0.00       3         mm_family_new_page_add [15]
+                0.00    0.00       3/3       allocate_vm_page [14]
+                0.00    0.00       3/12      mm_add_free_block_meta_data_to_free_block_list [4]
 -----------------------------------------------
-                0.00    0.00       2/2           main [33]
-[16]     0.0    0.00    0.00       2         mm_instantiate_new_page_family [16]
-                0.00    0.00       2/18          init_glthread [1]
-                0.00    0.00       1/3           mm_get_new_vm_page_from_kernel [13]
+                0.00    0.00       1/3       xcalloc [11]
+                0.00    0.00       2/3       main [34]
+[16]     0.0    0.00    0.00       3         mm_instantiate_new_page_family [16]
+                0.00    0.00       3/27      init_glthread [1]
+                0.00    0.00       1/4       mm_get_new_vm_page_from_kernel [13]
 -----------------------------------------------
-                0.00    0.00       2/2           mm_print_memory_usage [20]
-[17]     0.0    0.00    0.00       2         mm_print_vm_page_details [17]
+                0.00    0.00       3/3       mm_print_memory_usage [21]
+[17]     0.0    0.00    0.00       3         mm_print_vm_page_details [17]
 -----------------------------------------------
-                0.00    0.00       1/1           main [33]
-[18]     0.0    0.00    0.00       1         mm_init [18]
+                0.00    0.00       1/1       xcalloc [11]
+[18]     0.0    0.00    0.00       1         getSizeOfDataType [18]
 -----------------------------------------------
-                0.00    0.00       1/1           main [33]
-[19]     0.0    0.00    0.00       1         mm_print_block_usage [19]
+                0.00    0.00       1/1       main [34]
+[19]     0.0    0.00    0.00       1         mm_init [19]
 -----------------------------------------------
-                0.00    0.00       1/1           main [33]
-[20]     0.0    0.00    0.00       1         mm_print_memory_usage [20]
-                0.00    0.00       2/2           mm_print_vm_page_details [17]
+                0.00    0.00       1/1       main [34]
+[20]     0.0    0.00    0.00       1         mm_print_block_usage [20]
 -----------------------------------------------
-                0.00    0.00       1/1           main [33]
-[21]     0.0    0.00    0.00       1         mm_print_registered_page_families [21]
+                0.00    0.00       1/1       main [34]
+[21]     0.0    0.00    0.00       1         mm_print_memory_usage [21]
+                0.00    0.00       3/3       mm_print_vm_page_details [17]
+-----------------------------------------------
+                0.00    0.00       1/1       main [34]
+[22]     0.0    0.00    0.00       1         mm_print_registered_page_families [22]
 -----------------------------------------------
 
  This table describes the call tree of the program, and was sorted by
@@ -185,10 +191,11 @@ notice and this notice are preserved.
 
 Index by function name
 
-  [14] allocate_vm_page        [7] mm_allocate_free_data_block [19] mm_print_block_usage
-   [2] glthread_add_next      [15] mm_family_new_page_add [20] mm_print_memory_usage
-   [3] glthread_priority_insert [8] mm_get_biggest_free_block_page_family [21] mm_print_registered_page_families
-  [12] glthread_to_block_meta_data [13] mm_get_new_vm_page_from_kernel [17] mm_print_vm_page_details
-   [1] init_glthread          [18] mm_init                 [9] mm_split_free_data_block_for_allocation
-   [6] lookup_page_family_by_name [16] mm_instantiate_new_page_family [10] remove_glthread
-   [4] mm_add_free_block_meta_data_to_free_block_list [5] mm_max_page_allocatable_memory [11] xcalloc
+  [14] allocate_vm_page                               [7] mm_allocate_free_data_block           [21] mm_print_memory_usage
+  [18] getSizeOfDataType                              [15] mm_family_new_page_add               [22] mm_print_registered_page_families
+   [2] glthread_add_next                              [8] mm_get_biggest_free_block_page_family [17] mm_print_vm_page_details
+   [3] glthread_priority_insert                       [13] mm_get_new_vm_page_from_kernel       [9] mm_split_free_data_block_for_allocation
+  [12] glthread_to_block_meta_data                    [19] mm_init                              [10] remove_glthread
+   [1] init_glthread                                  [16] mm_instantiate_new_page_family       [11] xcalloc
+   [6] lookup_page_family_by_name                     [5] mm_max_page_allocatable_memory
+   [4] mm_add_free_block_meta_data_to_free_block_list [20] mm_print_block_usage
