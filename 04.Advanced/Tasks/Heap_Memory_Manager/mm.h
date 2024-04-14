@@ -14,6 +14,7 @@
 
 /**-----------------< Macros section -----------------*/
 #define MM_MAX_STRUCT_NAME 32
+#define MAX_STRUCT_NAME_LEN 50
 
 /**-----------------< user defined data type section -----------------*/
 /**
@@ -39,10 +40,12 @@ typedef enum {
 typedef struct block_meta_data_ {
   vm_bool_t is_free;   /**< Flag indicating whether the block is free. */
   uint32_t block_size; /**< Size of the memory block. */
-  uint32_t offset;                     /**< Offset within the memory region. */
-  struct block_meta_data_ *prev_block; /**< Pointer to the previous memory block. */
+  uint32_t offset;     /**< Offset within the memory region. */
+  struct block_meta_data_
+      *prev_block; /**< Pointer to the previous memory block. */
   struct block_meta_data_ *next_block; /**< Pointer to the next memory block. */
-  glthread_t priority_thread_glue; /**< Priority thread glue for managing block priority. */
+  glthread_t priority_thread_glue; /**< Priority thread glue for managing block
+                                      priority. */
 } block_meta_data_t;
 
 /**
@@ -86,8 +89,10 @@ GLTHREAD_TO_STRUCT(glthread_to_block_meta_data, block_meta_data_t,
 typedef struct vm_page_ {
   struct vm_page_ *next; /**< Pointer to the next virtual memory page. */
   struct vm_page_ *prev; /**< Pointer to the previous virtual memory page. */
-  struct vm_page_family_ *pg_family; /**< Pointer to the page family associated with the page. */
-  block_meta_data_t block_meta_data; /**< Metadata for managing memory blocks within the page. */
+  struct vm_page_family_
+      *pg_family; /**< Pointer to the page family associated with the page. */
+  block_meta_data_t block_meta_data; /**< Metadata for managing memory blocks
+                                        within the page. */
   char page_memory[0]; /**< Memory region allocated for storing data blocks. */
 } vm_page_t;
 
@@ -378,7 +383,7 @@ void mm_print_vm_page_details(vm_page_t *vm_page);
 #define ITERATE_VM_PAGE_ALL_BLOCKS_END(vm_page_ptr, curr)                      \
   }                                                                            \
   }                                                                            \
-  while (0)                                                                    \
+  while (0)
 
 /**
  * @brief Macro to calculate the offset of a field within a structure.
@@ -430,7 +435,7 @@ void mm_print_vm_page_details(vm_page_t *vm_page);
  * behavior.
  */
 #define NEXT_META_BLOCK_BY_SIZE(block_meta_data_ptr)                           \
-  ((block_meta_data_t *)((char *)(block_meta_data_ptr + 1) +                    \
+  ((block_meta_data_t *)((char *)(block_meta_data_ptr + 1) +                   \
                          (block_meta_data_ptr)->block_size))
 
 /**

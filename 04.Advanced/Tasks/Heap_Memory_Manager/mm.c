@@ -7,14 +7,15 @@
 /**-----------------< Includes section -----------------*/
 /**< System includes */
 #include <assert.h>
-#include <stdint.h>
 #include <memory.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/mman.h>
 #include <unistd.h>
 /**< Project includes */
 #include "colors.h"
+#include "datatype_size_lookup.h"
 #include "mm.h"
 #include "uapi_mm.h"
 
@@ -110,7 +111,7 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size) {
   ITERATE_PAGE_FAMILIES_BEGIN(first_vm_page_for_families, vm_page_family_curr) {
     if (strncmp(vm_page_family_curr->struct_name, struct_name,
                 MM_MAX_STRUCT_NAME) != 0) {
-        page_count = count;
+      page_count = count;
       continue;
     }
 
@@ -214,7 +215,7 @@ vm_page_t *allocate_vm_page(vm_page_family_t *vm_page_family) {
 
   // If the virtual memory page is NULL, return NULL
   if (!vm_page) {
-     return NULL;
+    return NULL;
   }
 
   // Initialize the lowermost metadata block of the VM page
@@ -353,8 +354,8 @@ mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
   }
 
   // Attempt to split the biggest free block to satisfy the allocation request
-    status = mm_split_free_data_block_for_allocation(
-            vm_page_family, biggest_block_meta_data, req_size);
+  status = mm_split_free_data_block_for_allocation(
+      vm_page_family, biggest_block_meta_data, req_size);
 
   // Return the allocated block's metadata if successful
   if (status) {
@@ -451,11 +452,27 @@ mm_split_free_data_block_for_allocation(vm_page_family_t *vm_page_family,
 }
 
 void *xcalloc(char *struct_name, int units) {
-  // Step 1: Look up the page family associated with the structure name
-  vm_page_family_t *pg_family = lookup_page_family_by_name(struct_name);
+  // To store the name extracted from the sizeof()
+  char data_type[MAX_STRUCT_NAME_LEN];
+  uint8_t data_type_error_flag = 0;
+  vm_page_family_t *pg_family = NULL;
 
-  // Check if the structure is registered with the Memory Manager
-  if (!pg_family) {
+  // Extract data type from size_str
+  if (sscanf(struct_name, "sizeof(%49[^)])", data_type) != 1) {
+    // Set the flag that indicates the struct isn't in form of sizeof(datatype)
+    data_type_error_flag = 1;
+    // Step 1: Look up the page family associated with the structure name
+    pg_family = lookup_page_family_by_name(struct_name);
+  } else {
+    // Step 1: Look up the page family associated with the structure name
+    pg_family = lookup_page_family_by_name(data_type);
+  }
+
+  // If the page family is not registered, register it
+  if (!pg_family && !data_type_error_flag) {
+    mm_instantiate_new_page_family(data_type, getSizeOfDataType(data_type));
+    pg_family = lookup_page_family_by_name(data_type);
+  } else if (!pg_family) {
     printf("Error: Structure %s not registered with Memory Manager\n",
            struct_name);
     return NULL;

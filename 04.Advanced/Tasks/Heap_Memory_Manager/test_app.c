@@ -59,6 +59,10 @@ int main(int argc, char *argv[]) {
   // Print all registered page families
   mm_print_registered_page_families();
 
+  int *datatype1 = Xcalloc(3, sizeof(int));
+  int *datatype2 = Xcalloc(3, sizeof(int));
+  int *datatype3 = Xcalloc(3, sizeof(int));
+
   emp_t *emp1 = Xcalloc(1, emp_t);
   emp_t *emp2 = Xcalloc(1, emp_t);
   emp_t *emp3 = Xcalloc(1, emp_t);
@@ -68,8 +72,8 @@ int main(int argc, char *argv[]) {
   student_t *stud3 = Xcalloc(1, student_t);
 
   printf(" \nSCENARIO 1 : *********** \n");
-   mm_print_memory_usage(0);
-   mm_print_block_usage();
+  mm_print_memory_usage(0);
+  mm_print_block_usage();
 
   return 0; // Indicate successful execution
 }
