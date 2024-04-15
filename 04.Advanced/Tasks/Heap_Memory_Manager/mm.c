@@ -17,7 +17,7 @@
 #include "colors.h"
 #include "datatype_size_lookup.h"
 #include "mm.h"
-#include "uapi_mm.h"
+#include "mm_api.h"
 
 /**-----------------< Global variable section -----------------*/
 /**
