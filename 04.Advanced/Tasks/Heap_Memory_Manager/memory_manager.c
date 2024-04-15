@@ -16,8 +16,8 @@
 /**< Project includes */
 #include "colors.h"
 #include "datatype_size_lookup.h"
-#include "mm.h"
-#include "mm_api.h"
+#include "memory_manager.h"
+#include "memory_manager_api.h"
 
 /**-----------------< Global variable section -----------------*/
 /**
