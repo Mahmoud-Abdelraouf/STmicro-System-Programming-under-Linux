@@ -10,8 +10,8 @@ index % time    self  children    called     name
                 0.00    0.00       12/27     glthread_priority_insert [3]
 [1]      0.0    0.00    0.00       27        init_glthread [1]
 -----------------------------------------------
-                0.00    0.00      12/12      glthread_priority_insert [3]
-[2]      0.0    0.00    0.00      12         glthread_add_next [2]
+                0.00    0.00       12/12     glthread_priority_insert [3]
+[2]      0.0    0.00    0.00       12        glthread_add_next [2]
 -----------------------------------------------
                 0.00    0.00      12/12      mm_add_free_block_meta_data_to_free_block_list [4]
 [3]      0.0    0.00    0.00      12         glthread_priority_insert [3]
@@ -20,15 +20,15 @@ index % time    self  children    called     name
 -----------------------------------------------
                 0.00    0.00       3/12      mm_family_new_page_add [15]
                 0.00    0.00       9/12      mm_split_free_data_block_for_allocation [9]
-[4]      0.0    0.00    0.00      12         mm_add_free_block_meta_data_to_free_block_list [4]
-                0.00    0.00      12/12      glthread_priority_insert [3]
+[4]      0.0    0.00    0.00       12        mm_add_free_block_meta_data_to_free_block_list [4]
+                0.00    0.00       12/12     glthread_priority_insert [3]
 -----------------------------------------------
                 0.00    0.00       3/12      allocate_vm_page [14]
                 0.00    0.00       9/12      xcalloc [11]
-[5]      0.0    0.00    0.00      12         mm_max_page_allocatable_memory [5]
+[5]      0.0    0.00    0.00       12        mm_max_page_allocatable_memory [5]
 -----------------------------------------------
-                0.00    0.00      10/10      xcalloc [11]
-[6]      0.0    0.00    0.00      10         lookup_page_family_by_name [6]
+                0.00    0.00       10/10     xcalloc [11]
+[6]      0.0    0.00    0.00       10        lookup_page_family_by_name [6]
 -----------------------------------------------
                 0.00    0.00       9/9       xcalloc [11]
 [7]      0.0    0.00    0.00       9         mm_allocate_free_data_block [7]
@@ -51,7 +51,7 @@ index % time    self  children    called     name
 -----------------------------------------------
                 0.00    0.00       9/9       main [34]
 [11]     0.0    0.00    0.00       9         xcalloc [11]
-                0.00    0.00      10/10      lookup_page_family_by_name [6]
+                0.00    0.00       10/10     lookup_page_family_by_name [6]
                 0.00    0.00       9/12      mm_max_page_allocatable_memory [5]
                 0.00    0.00       9/9       mm_allocate_free_data_block [7]
                 0.00    0.00       1/1       getSizeOfDataType [18]
