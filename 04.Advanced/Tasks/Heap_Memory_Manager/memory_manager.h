@@ -180,8 +180,7 @@ vm_page_family_t *lookup_page_family_by_name(char *struct_name);
  *
  * @return
  * - MM_TRUE if the page is empty.
- * - MM_FALSE if the page is not empty.
- * - -1 if the input pointer is NULL.
+ * - MM_FALSE if the page is not empty or if the input pointer is NULL.
  *
  * @note
  * A virtual memory page is considered empty if all the following conditions are

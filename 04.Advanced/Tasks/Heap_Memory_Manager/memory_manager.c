@@ -199,9 +199,8 @@ vm_bool_t mm_is_vm_page_empty(vm_page_t *vm_page) {
         vm_page->block_meta_data.is_free == MM_TRUE) {
       return MM_TRUE;
     }
-    return MM_FALSE;
   }
-  return -1;
+  return MM_FALSE;
 }
 
 static inline uint32_t mm_max_page_allocatable_memory(int units) {
