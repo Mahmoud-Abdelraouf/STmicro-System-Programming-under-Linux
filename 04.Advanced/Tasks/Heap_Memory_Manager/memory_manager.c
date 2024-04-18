@@ -104,26 +104,32 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size) {
     return;
   }
 
-  uint32_t page_count = 0;
+  // Look up the page family in the system by its name and store the result in
+  // 'vm_page_family_curr'.
+  vm_page_family_curr = lookup_page_family_by_name(struct_name);
+
+  // Trigger an assertion error if a page family with the same name already
+  // exists. This ensures that each page family has a unique name in the system.
+  if (vm_page_family_curr) {
+    assert(0); // Assertion fails if a page family with the same name already
+               // exists.
+  }
+
+  uint32_t pg_family_count = 0;
 
   // Iterate over existing page families to check if a page family with the same
   // name already exists
   ITERATE_PAGE_FAMILIES_BEGIN(first_vm_page_for_families, vm_page_family_curr) {
     if (strncmp(vm_page_family_curr->struct_name, struct_name,
                 MM_MAX_STRUCT_NAME) != 0) {
-      page_count = count;
-      continue;
+      pg_family_count++;
     }
-
-    // Trigger an assertion error if a page family with the same name already
-    // exists
-    assert(0);
   }
   ITERATE_PAGE_FAMILIES_END(first_vm_page_for_families, vm_page_family_curr);
 
   // If the existing page is full, allocate a new page and add it to the
   // beginning of the linked list
-  if (page_count == (uint32_t)MAX_FAMILIES_PER_VM_PAGE) {
+  if (pg_family_count == (uint32_t)MAX_FAMILIES_PER_VM_PAGE) {
     new_vm_page_for_families =
         (vm_page_for_families_t *)mm_get_new_vm_page_from_kernel(1);
     new_vm_page_for_families->next = first_vm_page_for_families;
@@ -332,33 +338,30 @@ static int mm_get_hard_internal_memory_frag_size(block_meta_data_t *first,
 }
 
 static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
-  block_meta_data_t *return_block = NULL;
-
-  // Ensure that the block to be freed is not already free
+  block_meta_data_t *return_block = NULL; // Pointer to the freed block
   assert(to_be_free_block->is_free == MM_FALSE);
 
-  // Get the hosting page for the block to be freed
+  // Retrieving hosting page and page family
   vm_page_t *hosting_page = MM_GET_PAGE_FROM_META_BLOCK(to_be_free_block);
   vm_page_family_t *vm_page_family = hosting_page->pg_family;
 
-  // Mark the block as free
-  to_be_free_block->is_free = MM_TRUE;
+  // Setting return_block to the block being freed
+  return_block = to_be_free_block;
+  to_be_free_block->is_free = MM_TRUE; // Marking the block as free
 
-  // Calculate the next block
-  block_meta_data_t *next_block = NEXT_META_BLOCK(to_be_free_block);
+  block_meta_data_t *next_block =
+      NEXT_META_BLOCK(to_be_free_block); // Next block pointer
 
-  // Handle memory fragmentation if the next block exists
+  // Handling Hard IF memory
   if (next_block) {
-    /* Scenario 1 : When data block to be freed is not the last
-     * upper most meta block in a VM data page*/
+    // Scenario 1: When data block to be freed is not the last uppermost meta
+    // block in a VM data page
     to_be_free_block->block_size +=
         mm_get_hard_internal_memory_frag_size(to_be_free_block, next_block);
   } else {
-    // Handle memory fragmentation at page boundary
-    /* Scenario 2: Page Boundry condition*/
-    /* Block being freed is the upper most free data block
-     * in a VM data page, check of hard internal fragmented
-     * memory and merge */
+    // Scenario 2: Page Boundary condition
+    // Block being freed is the uppermost free data block in a VM data page,
+    // checking for hard internal fragmented memory and merge
     char *end_address_of_vm_page =
         (char *)((char *)hosting_page + SYSTEM_PAGE_SIZE);
     char *end_address_of_free_data_block =
@@ -369,26 +372,27 @@ static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
     to_be_free_block->block_size += internal_mem_fragmentation;
   }
 
-  // Merge with the next block if it is free
+  // Performing merging with next block if it's free
   if (next_block && next_block->is_free == MM_TRUE) {
-    mm_union_free_blocks(to_be_free_block, next_block);
+    mm_union_free_blocks(to_be_free_block, next_block); // Union two free blocks
     return_block = to_be_free_block;
   }
 
-  // Check the previous block for merging if it was free
+  // Checking the previous block if it was free and merging if necessary
   block_meta_data_t *prev_block = PREV_META_BLOCK(to_be_free_block);
   if (prev_block && prev_block->is_free) {
     mm_union_free_blocks(prev_block, to_be_free_block);
     return_block = prev_block;
   }
 
-  // Delete and free the hosting page if it is now empty
+  // Checking if the hosting page becomes empty after freeing this block
   if (mm_is_vm_page_empty(hosting_page)) {
-    mm_vm_page_delete_and_free(hosting_page);
+    mm_vm_page_delete_and_free(
+        hosting_page); // Delete and free the hosting page
     return NULL;
   }
 
-  // Add the freed block to the free block list
+  // Adding the freed block metadata to the free block list
   mm_add_free_block_meta_data_to_free_block_list(hosting_page->pg_family,
                                                  return_block);
 
