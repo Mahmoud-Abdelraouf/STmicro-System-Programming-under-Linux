@@ -349,10 +349,16 @@ static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
 
   // Handle memory fragmentation if the next block exists
   if (next_block) {
+    /* Scenario 1 : When data block to be freed is not the last
+     * upper most meta block in a VM data page*/
     to_be_free_block->block_size +=
         mm_get_hard_internal_memory_frag_size(to_be_free_block, next_block);
   } else {
     // Handle memory fragmentation at page boundary
+    /* Scenario 2: Page Boundry condition*/
+    /* Block being freed is the upper most free data block
+     * in a VM data page, check of hard internal fragmented
+     * memory and merge */
     char *end_address_of_vm_page =
         (char *)((char *)hosting_page + SYSTEM_PAGE_SIZE);
     char *end_address_of_free_data_block =
