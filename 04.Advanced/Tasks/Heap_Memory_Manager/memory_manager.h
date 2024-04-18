@@ -231,6 +231,7 @@ mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
  * @param vm_page Pointer to the virtual memory page.
  */
 void mm_print_vm_page_details(vm_page_t *vm_page);
+
 /**-----------------< Function-like macro section -----------------*/
 /**
  * @brief Maximum number of families that can be stored in a single virtual
@@ -756,5 +757,37 @@ mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
  * of the new page to the free block list of the page family.
  */
 static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family);
+
+/**
+ * @brief Calculates the size of hard internal memory fragmentation between two
+ * memory blocks.
+ *
+ * This function calculates the size of hard internal memory fragmentation
+ * between two memory blocks. Hard internal memory fragmentation occurs when
+ * there is unused space between the end of the first memory block and the start
+ * of the second memory block.
+ *
+ * @param first Pointer to the first memory block.
+ * @param second Pointer to the second memory block.
+ * @return The size of hard internal memory fragmentation between the two memory
+ * blocks.
+ */
+static int mm_get_hard_internal_memory_frag_size(block_meta_data_t *first,
+                                                 block_meta_data_t *second);
+
+/**
+ * @brief Frees a block of memory.
+ *
+ * This function is responsible for freeing a block of memory represented by the
+ * @p to_be_free_block parameter. It performs various operations including
+ * marking the block as free, handling memory fragmentation, merging with
+ * adjacent free blocks, deleting and freeing the hosting page if it is now
+ * empty, and adding the freed block to the free block list.
+ *
+ * @param to_be_free_block The block of memory to be freed.
+ * @return A pointer to the block of memory that was freed, or NULL if the page
+ * containing the block is now empty.
+ */
+static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block);
 
 #endif /**< MM_H_ */

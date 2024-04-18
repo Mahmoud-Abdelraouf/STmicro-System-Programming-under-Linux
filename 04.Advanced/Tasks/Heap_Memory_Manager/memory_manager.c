@@ -322,6 +322,85 @@ mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
                            offset_of(block_meta_data_t, priority_thread_glue));
 }
 
+static int mm_get_hard_internal_memory_frag_size(block_meta_data_t *first,
+                                                 block_meta_data_t *second) {
+  // Get the next block after the first block
+  block_meta_data_t *next_block = NEXT_META_BLOCK_BY_SIZE(first);
+
+  // Calculate the size of hard internal memory fragmentation
+  return (int)((unsigned long)second - (unsigned long)(next_block));
+}
+
+static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
+  block_meta_data_t *return_block = NULL;
+
+  // Ensure that the block to be freed is not already free
+  assert(to_be_free_block->is_free == MM_FALSE);
+
+  // Get the hosting page for the block to be freed
+  vm_page_t *hosting_page = MM_GET_PAGE_FROM_META_BLOCK(to_be_free_block);
+  vm_page_family_t *vm_page_family = hosting_page->pg_family;
+
+  // Mark the block as free
+  to_be_free_block->is_free = MM_TRUE;
+
+  // Calculate the next block
+  block_meta_data_t *next_block = NEXT_META_BLOCK(to_be_free_block);
+
+  // Handle memory fragmentation if the next block exists
+  if (next_block) {
+    to_be_free_block->block_size +=
+        mm_get_hard_internal_memory_frag_size(to_be_free_block, next_block);
+  } else {
+    // Handle memory fragmentation at page boundary
+    char *end_address_of_vm_page =
+        (char *)((char *)hosting_page + SYSTEM_PAGE_SIZE);
+    char *end_address_of_free_data_block =
+        (char *)(to_be_free_block + 1) + to_be_free_block->block_size;
+    int internal_mem_fragmentation =
+        (int)((unsigned long)end_address_of_vm_page -
+              (unsigned long)end_address_of_free_data_block);
+    to_be_free_block->block_size += internal_mem_fragmentation;
+  }
+
+  // Merge with the next block if it is free
+  if (next_block && next_block->is_free == MM_TRUE) {
+    mm_union_free_blocks(to_be_free_block, next_block);
+    return_block = to_be_free_block;
+  }
+
+  // Check the previous block for merging if it was free
+  block_meta_data_t *prev_block = PREV_META_BLOCK(to_be_free_block);
+  if (prev_block && prev_block->is_free) {
+    mm_union_free_blocks(prev_block, to_be_free_block);
+    return_block = prev_block;
+  }
+
+  // Delete and free the hosting page if it is now empty
+  if (mm_is_vm_page_empty(hosting_page)) {
+    mm_vm_page_delete_and_free(hosting_page);
+    return NULL;
+  }
+
+  // Add the freed block to the free block list
+  mm_add_free_block_meta_data_to_free_block_list(hosting_page->pg_family,
+                                                 return_block);
+
+  return return_block;
+}
+
+void xfree(void *app_data) {
+  // Adjust the pointer to point to the block metadata
+  block_meta_data_t *block_meta_data =
+      (block_meta_data_t *)((char *)app_data - sizeof(block_meta_data_t));
+
+  // Ensure that the block is not already free
+  assert(block_meta_data->is_free == MM_FALSE);
+
+  // Call the memory manager's free blocks function
+  mm_free_blocks(block_meta_data);
+}
+
 /**-----------------<  Memory allocation section -----------------*/
 static block_meta_data_t *
 mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
@@ -469,7 +548,7 @@ void *xcalloc(char *struct_name, int units) {
 
   // If the page family is not registered, register it
   if (!pg_family && !data_type_error_flag) {
-    mm_instantiate_new_page_family(data_type, getSizeOfDataType(data_type));
+    mm_instantiate_new_page_family(data_type, get_size_of_datatype(data_type));
     pg_family = lookup_page_family_by_name(data_type);
   } else if (!pg_family) {
     printf("Error: Structure %s not registered with Memory Manager\n",
