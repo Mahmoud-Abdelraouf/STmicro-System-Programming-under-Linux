@@ -15,7 +15,7 @@
  * This structure defines a mapping between a data type name and its
  * corresponding size.
  */
-typedef struct {
+typedef struct datatype_mapping_ {
   const char *name; /**< The name of the data type. */
   size_t size;      /**< The size of the data type in bytes. */
 } datatype_mapping_t;
