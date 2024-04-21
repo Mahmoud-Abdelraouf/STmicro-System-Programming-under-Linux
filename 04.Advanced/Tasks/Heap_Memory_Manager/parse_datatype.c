@@ -57,10 +57,7 @@ static bool is_number(const char *str) {
     }
     i++;
   }
-  // Check if the string has a digit before the suffix 'f' or 'F'
-  if (has_suffix && !isdigit(str[i - 1])) {
-    return false;
-  }
+
   return true;
 }
 

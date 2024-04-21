@@ -572,13 +572,19 @@ void *xcalloc(char *struct_name, int units) {
   }
 
   // If the page family is not registered, register it
-  if (!pg_family && !data_type_error_flag) {
+  if (!pg_family && (!data_type_error_flag || data_type_error_flag == 2)) {
     mm_instantiate_new_page_family(data_type, get_size_of_datatype(data_type));
     pg_family = lookup_page_family_by_name(data_type);
   } else if (!pg_family) {
     printf("Error: Structure %s not registered with Memory Manager\n",
            struct_name);
     return NULL;
+  }
+
+  if (data_type_error_flag == 2) {
+    pg_family->struct_size = atoi(struct_name);
+  } else {
+    pg_family->struct_size = get_size_of_datatype(data_type);
   }
 
   // Check if the requested memory size exceeds the maximum allocatable memory

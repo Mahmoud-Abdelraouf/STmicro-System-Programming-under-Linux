@@ -33,9 +33,13 @@ int main(int argc, char **argv) {
   MM_REG_STRUCT(student_t);
   mm_print_registered_page_families();
 
-  emp_t *emp1 = XCALLOC(20, sizeof(int));
-  emp_t *emp2 = XCALLOC(30, emp_t);
-  emp_t *emp3 = XCALLOC(60, emp_t);
+  emp_t *emp1 = XCALLOC(20, 100.05f);
+  emp_t *emp2 = XCALLOC(10, 50);
+  emp_t *emp3 = XCALLOC(10, sizeof(int));
+  emp_t *emp4 = XCALLOC(30, sizeof(double));
+  emp_t *emp5 = XCALLOC(30, sizeof(float));
+  emp_t *emp6 = XCALLOC(30, 12);
+  emp_t *emp7 = XCALLOC(60, emp_t);
 
   student_t *stud1 = XCALLOC(1, student_t);
   student_t *stud2 = XCALLOC(1, student_t);
@@ -48,6 +52,8 @@ int main(int argc, char **argv) {
 
   XFREE(emp1);
   XFREE(emp3);
+  XFREE(emp5);
+  XFREE(emp7);
   XFREE(stud2);
   printf(" \nSCENARIO 2 : *********** \n");
   mm_print_memory_usage(0);
@@ -56,6 +62,8 @@ int main(int argc, char **argv) {
   scanf("%d", &wait);
 
   XFREE(emp2);
+  XFREE(emp4);
+  XFREE(emp6);
   XFREE(stud1);
   printf(" \nSCENARIO 3 : *********** \n");
   mm_print_memory_usage(0);
