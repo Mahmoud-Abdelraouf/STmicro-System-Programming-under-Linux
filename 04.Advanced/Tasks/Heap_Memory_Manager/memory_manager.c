@@ -555,13 +555,12 @@ mm_split_free_data_block_for_allocation(vm_page_family_t *vm_page_family,
 
 void *xcalloc(char *struct_name, int units) {
   // Initialize variables
-  char buffer[MAX_STRUCT_NAME_LEN];
+  char data_type[MAX_STRUCT_NAME_LEN];
   uint8_t data_type_error_flag = 0;
   vm_page_family_t *pg_family = NULL;
 
-  // Parse the struct name and set the data type error flag
-  char *data_type =
-      parse_struct_name(struct_name, buffer, &data_type_error_flag);
+  // Parse the struct name and set the data type error
+  parse_struct_name(struct_name, data_type, &data_type_error_flag);
 
   // Check if there was an error parsing the struct name
   if (data_type_error_flag == 1) {

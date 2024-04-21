@@ -7,25 +7,61 @@
 #ifndef PARSE_DATATYPE_H_
 #define PARSE_DATATYPE_H_
 
+#include <ctype.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define MAX_STRUCT_NAME_LEN 50 /**< Maximum length of the data type name */
 
 /**
  * @brief Parses the name of a struct from a string.
  *
- * This function extracts the name of a struct from a string
- * formatted as "sizeof(datatype)" and stores it in the provided buffer.
+ * This function extracts the name of a struct from a string formatted as
+ * "sizeof(datatype)" and stores it in the provided buffer. If the string does
+ * not match this format, it checks if the string represents a number and sets
+ * the error flag accordingly.
  *
  * @param struct_name The string containing the sizeof expression.
- * @param buffer Pointer to a buffer where the extracted struct name will be
- * stored.
- * @param error_flag Pointer to a uint8_t variable to indicate any errors
- * encountered.
- * @return Pointer to the extracted struct name in the buffer, or NULL if an
- * error occurs.
+ * @param buffer Pointer to a buffer where the extracted struct name or integer
+ * value will be stored. If the struct name is extracted successfully, it will
+ * be stored in this buffer. If the struct name is a number, the integer value
+ * will be stored in this buffer.
+ * @param error_flag Pointer to a uint8_t variable to indicate the status of the
+ * struct name. It can have the following values:
+ *                   - 0: No error, struct name extracted successfully.
+ *                   - 1: Error in the format of the struct name, not in the
+ * form "sizeof(datatype)".
+ *                   - 2: The struct name is actually a number, and the integer
+ * value is stored in the buffer.
+ * @return If the struct name is extracted successfully or it's a number,
+ * returns "int". If an error occurs, returns NULL.
  */
 char *parse_struct_name(char *struct_name, char *buffer, uint8_t *error_flag);
+
+/**
+ * @brief Checks if a string represents a number.
+ *
+ * This function checks if the provided string represents a number.
+ * It allows for digits (0-9) and an optional decimal point.
+ * It ignores leading and trailing whitespace.
+ *
+ * @param str The string to check.
+ * @return true if the string represents a number, false otherwise.
+ */
+static bool is_number(const char *str);
+
+/**
+ * @brief Converts a string representation of a number to an integer.
+ *
+ * This function converts the provided string representation of a number
+ * to an integer. It ignores any non-digit characters and suffixes.
+ *
+ * @param str The string representation of the number.
+ * @return The integer value of the number.
+ */
+int convert_to_int(const char *str);
 
 #endif /**< PARSE_DATATYPE_H_ */
