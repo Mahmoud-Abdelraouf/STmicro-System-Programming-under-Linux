@@ -1,12 +1,11 @@
 var searchData=
 [
-  ['is_5fglthread_5flist_5fempty_0',['IS_GLTHREAD_LIST_EMPTY',['../glthread_8h.html#ad9ef88902f404ff5f9a1d767babe57fa',1,'glthread.h']]],
-  ['iterate_5fglthread_5fbegin_1',['ITERATE_GLTHREAD_BEGIN',['../glthread_8h.html#a53c0388e1d559db357ff7473d944dea5',1,'glthread.h']]],
-  ['iterate_5fglthread_5fend_2',['ITERATE_GLTHREAD_END',['../glthread_8h.html#a6a3240e33c08a20fbe58f26c45b33fa9',1,'glthread.h']]],
-  ['iterate_5fpage_5ffamilies_5fbegin_3',['ITERATE_PAGE_FAMILIES_BEGIN',['../memory__manager_8h.html#ac15f4fa9d6b78fc0ff539a7d1d4b64d2',1,'memory_manager.h']]],
-  ['iterate_5fpage_5ffamilies_5fend_4',['ITERATE_PAGE_FAMILIES_END',['../memory__manager_8h.html#ade62c3641f42fba45136e760112aca9c',1,'memory_manager.h']]],
-  ['iterate_5fvm_5fpage_5fall_5fblocks_5fbegin_5',['ITERATE_VM_PAGE_ALL_BLOCKS_BEGIN',['../memory__manager_8h.html#ac163a8510af79f4a2e157f664a0a73cc',1,'memory_manager.h']]],
-  ['iterate_5fvm_5fpage_5fall_5fblocks_5fend_6',['ITERATE_VM_PAGE_ALL_BLOCKS_END',['../memory__manager_8h.html#a54793f38cfc42b2f461e3b198efa9a1e',1,'memory_manager.h']]],
-  ['iterate_5fvm_5fpage_5fbegin_7',['ITERATE_VM_PAGE_BEGIN',['../memory__manager_8h.html#ac631f611777465204532dc3ab987b332',1,'memory_manager.h']]],
-  ['iterate_5fvm_5fpage_5fend_8',['ITERATE_VM_PAGE_END',['../memory__manager_8h.html#a596be76ddc13d22fa0fe655e5dd58931',1,'memory_manager.h']]]
+  ['mark_5fvm_5fpage_5fempty_0',['MARK_VM_PAGE_EMPTY',['../memory__manager_8h.html#a4cc1ec88cf052995c8c09a4cc9daf886',1,'memory_manager.h']]],
+  ['max_5ffamilies_5fper_5fvm_5fpage_1',['MAX_FAMILIES_PER_VM_PAGE',['../memory__manager_8h.html#a1144c25dd2f4ee38d1825adf4a316a27',1,'memory_manager.h']]],
+  ['max_5fpage_5fallocatable_5fmemory_2',['MAX_PAGE_ALLOCATABLE_MEMORY',['../memory__manager_8h.html#a8ddc0f810ab01f3747ae4793557a746b',1,'memory_manager.h']]],
+  ['max_5fstruct_5fname_5flen_3',['MAX_STRUCT_NAME_LEN',['../datatype__size__lookup_8h.html#a56d7beb47f6bbf896e6f21fb09c73ec5',1,'MAX_STRUCT_NAME_LEN:&#160;datatype_size_lookup.h'],['../memory__manager_8h.html#a56d7beb47f6bbf896e6f21fb09c73ec5',1,'MAX_STRUCT_NAME_LEN:&#160;memory_manager.h'],['../parse__datatype_8h.html#a56d7beb47f6bbf896e6f21fb09c73ec5',1,'MAX_STRUCT_NAME_LEN:&#160;parse_datatype.h']]],
+  ['mm_5fbind_5fblocks_5ffor_5fallocation_4',['mm_bind_blocks_for_allocation',['../memory__manager_8h.html#add6df20638bfeb770280984d1a88dfe6',1,'memory_manager.h']]],
+  ['mm_5fget_5fpage_5ffrom_5fmeta_5fblock_5',['MM_GET_PAGE_FROM_META_BLOCK',['../memory__manager_8h.html#a8b33c3f061b53c0229ff71ef0b291595',1,'memory_manager.h']]],
+  ['mm_5fmax_5fstruct_5fname_6',['MM_MAX_STRUCT_NAME',['../memory__manager_8h.html#a7e33ad2337bb751f178af9eebc45a84d',1,'memory_manager.h']]],
+  ['mm_5freg_5fstruct_7',['MM_REG_STRUCT',['../memory__manager__api_8h.html#a499d5d9d246e2afe4506e751ba45ec1e',1,'memory_manager_api.h']]]
 ];

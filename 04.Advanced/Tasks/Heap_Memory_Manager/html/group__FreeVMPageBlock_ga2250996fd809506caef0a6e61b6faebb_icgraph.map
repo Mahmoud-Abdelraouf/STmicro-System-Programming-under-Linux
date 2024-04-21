@@ -1,0 +1,5 @@
+<map id="mm_free_blocks" name="mm_free_blocks">
+<area shape="rect" id="Node000001" title=" " alt="" coords="109,5,240,31"/>
+<area shape="rect" id="Node000002" href="$group__FreeVMPageBlock.html#gae075bb556abb4342aedf495ddb8d390a" title="Frees memory allocated by the memory manager." alt="" coords="5,5,61,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,21,61,21,61,15,96,15"/>
+</map>

@@ -1,5 +1,4 @@
 /**
- * @file extract_data_type.c
  * @brief Extracts a data type name from a string containing the sizeof
  * operator.
  *

@@ -1,44 +1,43 @@
 \doxysection{datatype\+\_\+size\+\_\+lookup.\+h File Reference}
 \hypertarget{datatype__size__lookup_8h}{}\label{datatype__size__lookup_8h}\index{datatype\_size\_lookup.h@{datatype\_size\_lookup.h}}
+
+
+Header file for data type size lookup functionality and mappings.  
+
+
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
-Include dependency graph for datatype\+\_\+size\+\_\+lookup.\+h\+:
-\nopagebreak
+Include dependency graph for datatype\+\_\+size\+\_\+lookup.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=211pt]{datatype__size__lookup_8h__incl}
+\includegraphics[width=276pt]{datatype__size__lookup_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=344pt]{datatype__size__lookup_8h__dep__incl}
 \end{center}
 \end{figure}
-\doxysubsubsection*{Data Structures}
-\begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{structdatatype__mapping__}{datatype\+\_\+mapping\+\_\+}}
-\end{DoxyCompactItemize}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{datatype__size__lookup_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}{MAX\+\_\+\+STRUCT\+\_\+\+NAME\+\_\+\+LEN}}~50
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Typedefs}
-\begin{DoxyCompactItemize}
-\item 
-typedef struct \mbox{\hyperlink{structdatatype__mapping__}{datatype\+\_\+mapping\+\_\+}} \mbox{\hyperlink{datatype__size__lookup_8h_a16539ea0e5459474a36a56d75d31d977}{datatype\+\_\+mapping\+\_\+t}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Maximum length of a data type name. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 size\+\_\+t \mbox{\hyperlink{datatype__size__lookup_8h_a65d92569472aecd58e18e5afaa9b41ea}{get\+\_\+size\+\_\+of\+\_\+datatype}} (const char \texorpdfstring{$\ast$}{*}data\+\_\+type)
 \begin{DoxyCompactList}\small\item\em Gets the size of a data type by its name. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Header file for data type size lookup functionality and mappings. 
+
+This file contains declarations and mappings for functions and structures related to retrieving the size of data types. 
 
 \doxysubsection{Macro Definition Documentation}
 \Hypertarget{datatype__size__lookup_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}\label{datatype__size__lookup_8h_a56d7beb47f6bbf896e6f21fb09c73ec5} 
@@ -49,14 +48,9 @@ size\+\_\+t \mbox{\hyperlink{datatype__size__lookup_8h_a65d92569472aecd58e18e5af
 
 
 
-\doxysubsection{Typedef Documentation}
-\Hypertarget{datatype__size__lookup_8h_a16539ea0e5459474a36a56d75d31d977}\label{datatype__size__lookup_8h_a16539ea0e5459474a36a56d75d31d977} 
-\index{datatype\_size\_lookup.h@{datatype\_size\_lookup.h}!datatype\_mapping\_t@{datatype\_mapping\_t}}
-\index{datatype\_mapping\_t@{datatype\_mapping\_t}!datatype\_size\_lookup.h@{datatype\_size\_lookup.h}}
-\doxysubsubsection{\texorpdfstring{datatype\_mapping\_t}{datatype\_mapping\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structdatatype__mapping__}{datatype\+\_\+mapping\+\_\+}} \mbox{\hyperlink{datatype__size__lookup_8h_a16539ea0e5459474a36a56d75d31d977}{datatype\+\_\+mapping\+\_\+t}}}
+Maximum length of a data type name. 
 
-
+Defines the maximum length allowed for a data type name. 
 
 \doxysubsection{Function Documentation}
 \Hypertarget{datatype__size__lookup_8h_a65d92569472aecd58e18e5afaa9b41ea}\label{datatype__size__lookup_8h_a65d92569472aecd58e18e5afaa9b41ea} 
@@ -79,8 +73,7 @@ This function searches for the given data type name in a pre-\/defined mapping t
 \begin{DoxyReturn}{Returns}
 The size of the data type if found, otherwise 0. DATATYPE\+\_\+\+SIZE\+\_\+\+LOOKUP\+\_\+\+H\+\_\+ 
 \end{DoxyReturn}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

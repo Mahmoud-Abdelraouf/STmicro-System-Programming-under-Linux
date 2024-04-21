@@ -72,27 +72,39 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">datatype_size_lookup.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation file for data type size lookup functionality.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="datatype__size__lookup_8h_source.html">datatype_size_lookup.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for datatype_size_lookup.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="datatype__size__lookup_8c__incl.png" border="0" usemap="#adatatype__size__lookup_8c" alt=""/></div>
 <map name="adatatype__size__lookup_8c" id="adatatype__size__lookup_8c">
-<area shape="rect" title=" " alt="" coords="5,5,180,31"/>
-<area shape="rect" href="datatype__size__lookup_8h.html" title=" " alt="" coords="5,79,180,104"/>
-<area shape="poly" title=" " alt="" coords="95,31,95,65,90,65,90,31"/>
-<area shape="rect" title=" " alt="" coords="13,152,79,177"/>
-<area shape="poly" title=" " alt="" coords="87,106,63,142,59,139,83,103"/>
-<area shape="rect" title=" " alt="" coords="104,152,175,177"/>
-<area shape="poly" title=" " alt="" coords="103,103,126,139,122,142,98,106"/>
+<area shape="rect" title="Implementation file for data type size lookup functionality." alt="" coords="50,5,225,31"/>
+<area shape="rect" href="datatype__size__lookup_8h.html" title="Header file for data type size lookup functionality and mappings." alt="" coords="50,79,225,104"/>
+<area shape="poly" title=" " alt="" coords="140,31,140,65,135,65,135,31"/>
+<area shape="rect" title=" " alt="" coords="5,152,80,177"/>
+<area shape="poly" title=" " alt="" coords="124,106,71,146,68,141,121,102"/>
+<area shape="rect" title=" " alt="" coords="104,152,171,177"/>
+<area shape="poly" title=" " alt="" coords="140,104,140,138,135,138,135,104"/>
+<area shape="rect" title=" " alt="" coords="195,152,266,177"/>
+<area shape="poly" title=" " alt="" coords="154,102,206,141,203,146,151,106"/>
 </map>
 </div>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdatatype__mapping__t.html">datatype_mapping_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing a data type mapping.  <a href="structdatatype__mapping__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a65d92569472aecd58e18e5afaa9b41ea" id="r_a65d92569472aecd58e18e5afaa9b41ea"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65d92569472aecd58e18e5afaa9b41ea">get_size_of_datatype</a> (const char *data_type)</td></tr>
@@ -101,10 +113,14 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:abf4afd2b70a7060b1fcbf161723da458" id="r_abf4afd2b70a7060b1fcbf161723da458"><td class="memItemLeft" align="right" valign="top"><a class="el" href="datatype__size__lookup_8h.html#a16539ea0e5459474a36a56d75d31d977">datatype_mapping_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf4afd2b70a7060b1fcbf161723da458">type_mappings</a> []</td></tr>
-<tr class="separator:abf4afd2b70a7060b1fcbf161723da458"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabf4afd2b70a7060b1fcbf161723da458" id="r_gabf4afd2b70a7060b1fcbf161723da458"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdatatype__mapping__t.html">datatype_mapping_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__DatatypeMappings.html#gabf4afd2b70a7060b1fcbf161723da458">type_mappings</a> []</td></tr>
+<tr class="memdesc:gabf4afd2b70a7060b1fcbf161723da458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of data type mappings.  <br /></td></tr>
+<tr class="separator:gabf4afd2b70a7060b1fcbf161723da458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation file for data type size lookup functionality. </p>
+<p>This file contains the implementation of functions related to retrieving the size of data types. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a65d92569472aecd58e18e5afaa9b41ea" name="a65d92569472aecd58e18e5afaa9b41ea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a65d92569472aecd58e18e5afaa9b41ea">&#9670;&#160;</a></span>get_size_of_datatype()</h2>
 
@@ -140,35 +156,6 @@ Here is the caller graph for this function:</div>
 </map>
 </div>
 
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="abf4afd2b70a7060b1fcbf161723da458" name="abf4afd2b70a7060b1fcbf161723da458"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf4afd2b70a7060b1fcbf161723da458">&#9670;&#160;</a></span>type_mappings</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="datatype__size__lookup_8h.html#a16539ea0e5459474a36a56d75d31d977">datatype_mapping_t</a> type_mappings[]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    {<span class="stringliteral">&quot;int&quot;</span>, <span class="keyword">sizeof</span>(int)},</div>
-<div class="line">    {<span class="stringliteral">&quot;char&quot;</span>, <span class="keyword">sizeof</span>(char)},</div>
-<div class="line">    {<span class="stringliteral">&quot;float&quot;</span>, <span class="keyword">sizeof</span>(float)},</div>
-<div class="line">    {<span class="stringliteral">&quot;double&quot;</span>, <span class="keyword">sizeof</span>(double)},</div>
-<div class="line">    {<span class="stringliteral">&quot;short&quot;</span>, <span class="keyword">sizeof</span>(short)},</div>
-<div class="line">    {<span class="stringliteral">&quot;long&quot;</span>, <span class="keyword">sizeof</span>(long)},</div>
-<div class="line">    {<span class="stringliteral">&quot;long long&quot;</span>, <span class="keyword">sizeof</span>(<span class="keywordtype">long</span> long)},</div>
-<div class="line">    {<span class="stringliteral">&quot;unsigned int&quot;</span>, <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> int)},</div>
-<div class="line">    {<span class="stringliteral">&quot;unsigned char&quot;</span>, <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> char)},</div>
-<div class="line">    {<span class="stringliteral">&quot;unsigned short&quot;</span>, <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> short)},</div>
-<div class="line">    {<span class="stringliteral">&quot;unsigned long&quot;</span>, <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> long)},</div>
-<div class="line">    {<span class="stringliteral">&quot;unsigned long long&quot;</span>, <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> long)},</div>
-<div class="line">}</div>
-</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

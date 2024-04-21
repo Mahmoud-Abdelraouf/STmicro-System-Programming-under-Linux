@@ -72,25 +72,29 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">datatype_size_lookup.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+
+<p>Header file for data type size lookup functionality and mappings.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;stddef.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for datatype_size_lookup.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="datatype__size__lookup_8h__incl.png" border="0" usemap="#adatatype__size__lookup_8h" alt=""/></div>
 <map name="adatatype__size__lookup_8h" id="adatatype__size__lookup_8h">
-<area shape="rect" title=" " alt="" coords="5,5,180,31"/>
-<area shape="rect" title=" " alt="" coords="13,79,79,104"/>
-<area shape="poly" title=" " alt="" coords="87,32,63,69,59,66,83,30"/>
-<area shape="rect" title=" " alt="" coords="104,79,175,104"/>
-<area shape="poly" title=" " alt="" coords="103,30,126,66,122,69,98,32"/>
+<area shape="rect" title="Header file for data type size lookup functionality and mappings." alt="" coords="50,5,225,31"/>
+<area shape="rect" title=" " alt="" coords="5,79,80,104"/>
+<area shape="poly" title=" " alt="" coords="124,33,71,72,68,68,121,29"/>
+<area shape="rect" title=" " alt="" coords="104,79,171,104"/>
+<area shape="poly" title=" " alt="" coords="140,31,140,65,135,65,135,31"/>
+<area shape="rect" title=" " alt="" coords="195,79,266,104"/>
+<area shape="poly" title=" " alt="" coords="154,29,206,68,203,72,151,33"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -98,8 +102,8 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="datatype__size__lookup_8h__dep__incl.png" border="0" usemap="#adatatype__size__lookup_8hdep" alt=""/></div>
 <map name="adatatype__size__lookup_8hdep" id="adatatype__size__lookup_8hdep">
-<area shape="rect" title=" " alt="" coords="99,5,273,31"/>
-<area shape="rect" href="datatype__size__lookup_8c.html" title=" " alt="" coords="5,79,180,104"/>
+<area shape="rect" title="Header file for data type size lookup functionality and mappings." alt="" coords="99,5,273,31"/>
+<area shape="rect" href="datatype__size__lookup_8c.html" title="Implementation file for data type size lookup functionality." alt="" coords="5,79,180,104"/>
 <area shape="poly" title=" " alt="" coords="162,41,110,81,106,76,159,37"/>
 <area shape="rect" href="memory__manager_8c.html" title=" " alt="" coords="205,79,357,104"/>
 <area shape="poly" title=" " alt="" coords="214,37,267,76,264,81,211,41"/>
@@ -108,20 +112,11 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 <p><a href="datatype__size__lookup_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdatatype__mapping__.html">datatype_mapping_</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a56d7beb47f6bbf896e6f21fb09c73ec5" id="r_a56d7beb47f6bbf896e6f21fb09c73ec5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56d7beb47f6bbf896e6f21fb09c73ec5">MAX_STRUCT_NAME_LEN</a>&#160;&#160;&#160;50</td></tr>
+<tr class="memdesc:a56d7beb47f6bbf896e6f21fb09c73ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length of a data type name.  <br /></td></tr>
 <tr class="separator:a56d7beb47f6bbf896e6f21fb09c73ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a16539ea0e5459474a36a56d75d31d977" id="r_a16539ea0e5459474a36a56d75d31d977"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdatatype__mapping__.html">datatype_mapping_</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16539ea0e5459474a36a56d75d31d977">datatype_mapping_t</a></td></tr>
-<tr class="separator:a16539ea0e5459474a36a56d75d31d977"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -129,7 +124,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a65d92569472aecd58e18e5afaa9b41ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the size of a data type by its name.  <br /></td></tr>
 <tr class="separator:a65d92569472aecd58e18e5afaa9b41ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Header file for data type size lookup functionality and mappings. </p>
+<p>This file contains declarations and mappings for functions and structures related to retrieving the size of data types. </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a56d7beb47f6bbf896e6f21fb09c73ec5" name="a56d7beb47f6bbf896e6f21fb09c73ec5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a56d7beb47f6bbf896e6f21fb09c73ec5">&#9670;&#160;</a></span>MAX_STRUCT_NAME_LEN</h2>
 
@@ -142,20 +140,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="a16539ea0e5459474a36a56d75d31d977" name="a16539ea0e5459474a36a56d75d31d977"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16539ea0e5459474a36a56d75d31d977">&#9670;&#160;</a></span>datatype_mapping_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structdatatype__mapping__.html">datatype_mapping_</a> <a class="el" href="#a16539ea0e5459474a36a56d75d31d977">datatype_mapping_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Maximum length of a data type name. </p>
+<p>Defines the maximum length allowed for a data type name. </p>
 
 </div>
 </div>

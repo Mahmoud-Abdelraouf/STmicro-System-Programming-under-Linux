@@ -2,11 +2,11 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,29,165,69"/>
 <area shape="rect" id="Node000002" href="$glthread_8c.html#a9e4b763220b1c69da2d9e9f191506f89" title="Initialize a glthread_t structure." alt="" coords="703,12,807,38"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,26,213,14,345,4,477,4,596,9,690,16,689,21,596,14,477,9,346,10,214,20,154,32"/>
-<area shape="rect" id="Node000003" href="$memory__manager_8c.html#aa72156192006fd76902b0616def7db4d" title=" " alt="" coords="213,29,408,69"/>
+<area shape="rect" id="Node000003" href="$group__FreeVMPageBlock.html#gaa72156192006fd76902b0616def7db4d" title=" " alt="" coords="213,29,408,69"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,46,200,46,200,52,166,52"/>
 <area shape="rect" id="Node000007" href="$glthread_8c.html#a6a385ab1c9d4f03191dcae2d1147c349" title="Removes the specified node from the threaded linked list." alt="" coords="244,94,377,119"/>
 <area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="165,67,247,88,246,93,164,72"/>
-<area shape="rect" id="Node000004" href="$memory__manager_8c.html#a5987bb26622d19dcd8ecfd1416a7f3c6" title=" " alt="" coords="456,29,636,69"/>
+<area shape="rect" id="Node000004" href="$group__FreeVMPageBlock.html#ga5987bb26622d19dcd8ecfd1416a7f3c6" title=" " alt="" coords="456,29,636,69"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="408,46,442,46,442,52,408,52"/>
 <area shape="rect" id="Node000005" href="$glthread_8c.html#a2f6336d160a55d3adecb11dace34152a" title="Insert a glthread_t structure into a sorted linked list based on priority." alt="" coords="459,94,633,119"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="394,66,481,88,479,93,393,72"/>

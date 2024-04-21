@@ -1,8 +1,9 @@
 /**
- * @file datatype_mapping.h
- * @brief Header file for datatype mapping definitions.
+ * @file datatype_size_lookup.c
+ * @brief Implementation file for data type size lookup functionality.
  *
- * This file contains mappings between data types and their corresponding sizes.
+ * This file contains the implementation of functions related to retrieving the
+ * size of data types.
  */
 
 #include "datatype_size_lookup.h"

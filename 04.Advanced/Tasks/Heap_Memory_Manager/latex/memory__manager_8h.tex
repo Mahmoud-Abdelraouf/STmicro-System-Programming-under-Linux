@@ -2,16 +2,14 @@
 \hypertarget{memory__manager_8h}{}\label{memory__manager_8h}\index{memory\_manager.h@{memory\_manager.h}}
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include "{}glthread.\+h"{}}\newline
-Include dependency graph for memory\+\_\+manager.\+h\+:
-\nopagebreak
+Include dependency graph for memory\+\_\+manager.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=218pt]{memory__manager_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -64,7 +62,7 @@ struct \mbox{\hyperlink{structvm__page__for__families__}{vm\+\_\+page\+\_\+for\+
 \begin{DoxyCompactList}\small\item\em Macro to mark a virtual memory page as empty. \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{memory__manager_8h_add6df20638bfeb770280984d1a88dfe6}{mm\+\_\+bind\+\_\+blocks\+\_\+for\+\_\+allocation}}(allocated\+\_\+meta\+\_\+block,  free\+\_\+meta\+\_\+block)
 \begin{DoxyCompactList}\small\item\em Binds metadata blocks for memory allocation. \end{DoxyCompactList}\item 
-\#define \mbox{\hyperlink{memory__manager_8h_a8ddc0f810ab01f3747ae4793557a746b}{MAX\+\_\+\+PAGE\+\_\+\+ALLOCATABLE\+\_\+\+MEMORY}}(units)~  (\mbox{\hyperlink{memory__manager_8c_ae68e468ad150ea915ed9a3b9d899e9df}{mm\+\_\+max\+\_\+page\+\_\+allocatable\+\_\+memory}}(units))
+\#define \mbox{\hyperlink{memory__manager_8h_a8ddc0f810ab01f3747ae4793557a746b}{MAX\+\_\+\+PAGE\+\_\+\+ALLOCATABLE\+\_\+\+MEMORY}}(units)~  (\mbox{\hyperlink{group__VMPage_gae68e468ad150ea915ed9a3b9d899e9df}{mm\+\_\+max\+\_\+page\+\_\+allocatable\+\_\+memory}}(units))
 \begin{DoxyCompactList}\small\item\em Macro to calculate the maximum allocatable memory for a given number of units. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -89,13 +87,13 @@ enum \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\+
 \item 
 \mbox{\hyperlink{memory__manager_8h_aa604b0781f01e3696274d24e45a62ff2}{GLTHREAD\+\_\+\+TO\+\_\+\+STRUCT}} (glthread\+\_\+to\+\_\+block\+\_\+meta\+\_\+data, \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}}, priority\+\_\+thread\+\_\+glue, glthread\+\_\+ptr)
 \begin{DoxyCompactList}\small\item\em Macro to declare a conversion function for converting a glthread\+\_\+t structure to a user-\/defined structure pointer. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111}{allocate\+\_\+vm\+\_\+page}} (\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page\+\_\+family)
+\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__VMPage_gacf4906c4a2cd80f10a570cc1c7411111}{allocate\+\_\+vm\+\_\+page}} (\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page\+\_\+family)
 \begin{DoxyCompactList}\small\item\em Allocates a new virtual memory page for a given page family. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{memory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222}{mm\+\_\+vm\+\_\+page\+\_\+delete\+\_\+and\+\_\+free}} (\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page)
+void \mbox{\hyperlink{group__VMPage_ga3c0f19fa657602a76893a7f53e9f5222}{mm\+\_\+vm\+\_\+page\+\_\+delete\+\_\+and\+\_\+free}} (\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page)
 \begin{DoxyCompactList}\small\item\em Deletes and frees a virtual memory page. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager_8h_ab9910db7228c29ee672139e284cd6cec}{lookup\+\_\+page\+\_\+family\+\_\+by\+\_\+name}} (char \texorpdfstring{$\ast$}{*}struct\+\_\+name)
+\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__MemoryManagement_gab9910db7228c29ee672139e284cd6cec}{lookup\+\_\+page\+\_\+family\+\_\+by\+\_\+name}} (char \texorpdfstring{$\ast$}{*}struct\+\_\+name)
 \begin{DoxyCompactList}\small\item\em Looks up a page family by its name. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\+\_\+bool\+\_\+t}} \mbox{\hyperlink{memory__manager_8h_a38d0ee21c7b3b9b22289786fd969be46}{mm\+\_\+is\+\_\+vm\+\_\+page\+\_\+empty}} (\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page)
+\mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\+\_\+bool\+\_\+t}} \mbox{\hyperlink{group__VMPage_ga38d0ee21c7b3b9b22289786fd969be46}{mm\+\_\+is\+\_\+vm\+\_\+page\+\_\+empty}} (\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page)
 \begin{DoxyCompactList}\small\item\em Checks if a virtual memory page is empty. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{memory__manager_8h_aa72156192006fd76902b0616def7db4d}{mm\+\_\+add\+\_\+free\+\_\+block\+\_\+meta\+\_\+data\+\_\+to\+\_\+free\+\_\+block\+\_\+list}} (\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page\+\_\+family, \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}free\+\_\+block)
 \begin{DoxyCompactList}\small\item\em Add a free block\textquotesingle{}s metadata to the free block list of a virtual memory page family. \end{DoxyCompactList}\item 
@@ -122,7 +120,7 @@ static \mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm
 static int \mbox{\hyperlink{memory__manager_8h_a3635ea0217471faffe42b0c91c4bcc42}{mm\+\_\+get\+\_\+hard\+\_\+internal\+\_\+memory\+\_\+frag\+\_\+size}} (\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}first, \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}second)
 \begin{DoxyCompactList}\small\item\em Calculates the size of hard internal memory fragmentation between two memory blocks. \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager_8h_a2250996fd809506caef0a6e61b6faebb}{mm\+\_\+free\+\_\+blocks}} (\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}to\+\_\+be\+\_\+free\+\_\+block)
-\begin{DoxyCompactList}\small\item\em Frees a block of memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Frees a memory block and performs merging if necessary. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
@@ -388,7 +386,7 @@ This macro is useful for determining the maximum capacity of a virtual memory pa
 \index{memory\_manager.h@{memory\_manager.h}!MAX\_PAGE\_ALLOCATABLE\_MEMORY@{MAX\_PAGE\_ALLOCATABLE\_MEMORY}}
 \index{MAX\_PAGE\_ALLOCATABLE\_MEMORY@{MAX\_PAGE\_ALLOCATABLE\_MEMORY}!memory\_manager.h@{memory\_manager.h}}
 \doxysubsubsection{\texorpdfstring{MAX\_PAGE\_ALLOCATABLE\_MEMORY}{MAX\_PAGE\_ALLOCATABLE\_MEMORY}}
-{\footnotesize\ttfamily \#define MAX\+\_\+\+PAGE\+\_\+\+ALLOCATABLE\+\_\+\+MEMORY(\begin{DoxyParamCaption}\item[{}]{units }\end{DoxyParamCaption})~  (\mbox{\hyperlink{memory__manager_8c_ae68e468ad150ea915ed9a3b9d899e9df}{mm\+\_\+max\+\_\+page\+\_\+allocatable\+\_\+memory}}(units))}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+PAGE\+\_\+\+ALLOCATABLE\+\_\+\+MEMORY(\begin{DoxyParamCaption}\item[{}]{units }\end{DoxyParamCaption})~  (\mbox{\hyperlink{group__VMPage_gae68e468ad150ea915ed9a3b9d899e9df}{mm\+\_\+max\+\_\+page\+\_\+allocatable\+\_\+memory}}(units))}
 
 
 
@@ -644,42 +642,6 @@ MM\+\_\+\+TRUE&Represents the true state. \\
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{memory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111}\label{memory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111} 
-\index{memory\_manager.h@{memory\_manager.h}!allocate\_vm\_page@{allocate\_vm\_page}}
-\index{allocate\_vm\_page@{allocate\_vm\_page}!memory\_manager.h@{memory\_manager.h}}
-\doxysubsubsection{\texorpdfstring{allocate\_vm\_page()}{allocate\_vm\_page()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*} allocate\+\_\+vm\+\_\+page (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page\+\_\+family }\end{DoxyParamCaption})}
-
-
-
-Allocates a new virtual memory page for a given page family. 
-
-This function allocates a new virtual memory page for the specified page family. It initializes the metadata and pointers associated with the page and inserts the page into the linked list of pages belonging to the page family.
-
-
-\begin{DoxyParams}{Parameters}
-{\em vm\+\_\+page\+\_\+family} & Pointer to the page family for which the page is being allocated.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Pointer to the newly allocated virtual memory page. 
-\end{DoxyReturn}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{memory__manager_8h_a5987bb26622d19dcd8ecfd1416a7f3c6}\label{memory__manager_8h_a5987bb26622d19dcd8ecfd1416a7f3c6} 
 \index{memory\_manager.h@{memory\_manager.h}!free\_blocks\_comparison\_function@{free\_blocks\_comparison\_function}}
 \index{free\_blocks\_comparison\_function@{free\_blocks\_comparison\_function}!memory\_manager.h@{memory\_manager.h}}
@@ -734,49 +696,7 @@ Example usage\+: Suppose we have a user-\/defined structure named block\+\_\+met
 
 \doxylink{memory__manager_8h_aa604b0781f01e3696274d24e45a62ff2}{GLTHREAD\+\_\+\+TO\+\_\+\+STRUCT(glthread\+\_\+to\+\_\+block\+\_\+meta\+\_\+data, block\+\_\+meta\+\_\+data\+\_\+t,                    priority\+\_\+thread\+\_\+glue, glthread\+\_\+ptr)};
 
-Now, we can use glthread\+\_\+to\+\_\+block\+\_\+meta\+\_\+data to convert glthread\+\_\+t pointers to block\+\_\+meta\+\_\+data\+\_\+t pointers and access the metadata associated with memory blocks. \Hypertarget{memory__manager_8h_ab9910db7228c29ee672139e284cd6cec}\label{memory__manager_8h_ab9910db7228c29ee672139e284cd6cec} 
-\index{memory\_manager.h@{memory\_manager.h}!lookup\_page\_family\_by\_name@{lookup\_page\_family\_by\_name}}
-\index{lookup\_page\_family\_by\_name@{lookup\_page\_family\_by\_name}!memory\_manager.h@{memory\_manager.h}}
-\doxysubsubsection{\texorpdfstring{lookup\_page\_family\_by\_name()}{lookup\_page\_family\_by\_name()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*} lookup\+\_\+page\+\_\+family\+\_\+by\+\_\+name (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{struct\+\_\+name }\end{DoxyParamCaption})}
-
-
-
-Looks up a page family by its name. 
-
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Public functions interface -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
-
-This function iterates over all virtual memory pages hosting page families and returns a pointer to the page family object identified by the given struct\+\_\+name. If no such page family object is found, it returns NULL.
-
-
-\begin{DoxyParams}{Parameters}
-{\em struct\+\_\+name} & The name of the page family to look up.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Pointer to the page family object if found, otherwise NULL.
-\end{DoxyReturn}
-\begin{DoxyNote}{Note}
-This function should be used to retrieve a page family object by its name after the page families have been registered and initialized using the appropriate functions and macros provided by the memory manager.
-\end{DoxyNote}
-\begin{DoxySeeAlso}{See also}
-\doxylink{memory__manager_8c_a0d0d58e2b3f34ada92ab7889d013e717}{mm\+\_\+init} 
-
-\doxylink{memory__manager__api_8h_a499d5d9d246e2afe4506e751ba45ec1e}{MM\+\_\+\+REG\+\_\+\+STRUCT} 
-
-\doxylink{memory__manager_8h_a0cf10cad96e10ff9160b976e509f9462}{vm\+\_\+page\+\_\+for\+\_\+families\+\_\+t} 
-
-\doxylink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t} 
-\end{DoxySeeAlso}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8h_ab9910db7228c29ee672139e284cd6cec_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8h_aa72156192006fd76902b0616def7db4d}\label{memory__manager_8h_aa72156192006fd76902b0616def7db4d} 
+Now, we can use glthread\+\_\+to\+\_\+block\+\_\+meta\+\_\+data to convert glthread\+\_\+t pointers to block\+\_\+meta\+\_\+data\+\_\+t pointers and access the metadata associated with memory blocks. \Hypertarget{memory__manager_8h_aa72156192006fd76902b0616def7db4d}\label{memory__manager_8h_aa72156192006fd76902b0616def7db4d} 
 \index{memory\_manager.h@{memory\_manager.h}!mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list@{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list}}
 \index{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list@{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list}!memory\_manager.h@{memory\_manager.h}}
 \doxysubsubsection{\texorpdfstring{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list()}{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list()}}
@@ -854,18 +774,21 @@ This function assumes that the page family has been properly initialized and tha
 
 
 
-Frees a block of memory. 
+Frees a memory block and performs merging if necessary. 
 
-This function is responsible for freeing a block of memory represented by the {\ttfamily to\+\_\+be\+\_\+free\+\_\+block} parameter. It performs various operations including marking the block as free, handling memory fragmentation, merging with adjacent free blocks, deleting and freeing the hosting page if it is now empty, and adding the freed block to the free block list.
+This function frees a memory block represented by the given {\ttfamily to\+\_\+be\+\_\+free\+\_\+block} parameter. It also handles merging of adjacent free blocks if present.
 
 
 \begin{DoxyParams}{Parameters}
-{\em to\+\_\+be\+\_\+free\+\_\+block} & The block of memory to be freed. \\
+{\em to\+\_\+be\+\_\+free\+\_\+block} & The block to be freed. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-A pointer to the block of memory that was freed, or NULL if the page containing the block is now empty. MM\+\_\+\+H\+\_\+ 
+A pointer to the freed block or NULL if the hosting page becomes empty.
 \end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The function assumes that {\ttfamily to\+\_\+be\+\_\+free\+\_\+block} is not NULL and its is\+\_\+free flag is set to MM\+\_\+\+FALSE (indicating it\textquotesingle{}s not already free). MM\+\_\+\+H\+\_\+ 
+\end{DoxyNote}
 \Hypertarget{memory__manager_8h_a28b2162ebaea314c420ca44e29fb9d44}\label{memory__manager_8h_a28b2162ebaea314c420ca44e29fb9d44} 
 \index{memory\_manager.h@{memory\_manager.h}!mm\_get\_biggest\_free\_block\_page\_family@{mm\_get\_biggest\_free\_block\_page\_family}}
 \index{mm\_get\_biggest\_free\_block\_page\_family@{mm\_get\_biggest\_free\_block\_page\_family}!memory\_manager.h@{memory\_manager.h}}
@@ -942,49 +865,6 @@ This function should be used with caution as it interacts directly with the kern
 \begin{DoxySeeAlso}{See also}
 man mmap() 
 \end{DoxySeeAlso}
-\Hypertarget{memory__manager_8h_a38d0ee21c7b3b9b22289786fd969be46}\label{memory__manager_8h_a38d0ee21c7b3b9b22289786fd969be46} 
-\index{memory\_manager.h@{memory\_manager.h}!mm\_is\_vm\_page\_empty@{mm\_is\_vm\_page\_empty}}
-\index{mm\_is\_vm\_page\_empty@{mm\_is\_vm\_page\_empty}!memory\_manager.h@{memory\_manager.h}}
-\doxysubsubsection{\texorpdfstring{mm\_is\_vm\_page\_empty()}{mm\_is\_vm\_page\_empty()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\+\_\+bool\+\_\+t}} mm\+\_\+is\+\_\+vm\+\_\+page\+\_\+empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page }\end{DoxyParamCaption})}
-
-
-
-Checks if a virtual memory page is empty. 
-
-This function determines whether a virtual memory page is empty based on its metadata.
-
-
-\begin{DoxyParams}{Parameters}
-{\em vm\+\_\+page} & Pointer to the virtual memory page to be checked.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-
-\begin{DoxyItemize}
-\item MM\+\_\+\+TRUE if the page is empty.
-\item MM\+\_\+\+FALSE if the page is not empty or if the input pointer is NULL.
-\end{DoxyItemize}
-\end{DoxyReturn}
-\begin{DoxyNote}{Note}
-A virtual memory page is considered empty if all the following conditions are met\+:
-\begin{DoxyItemize}
-\item The \textquotesingle{}next\+\_\+block\textquotesingle{} pointer in the block metadata is NULL, indicating no next block.
-\item The \textquotesingle{}prev\+\_\+block\textquotesingle{} pointer in the block metadata is NULL, indicating no previous block.
-\item The \textquotesingle{}is\+\_\+free\textquotesingle{} flag in the block metadata is set to MM\+\_\+\+TRUE, indicating the page is free.
-\end{DoxyItemize}
-\end{DoxyNote}
-\begin{DoxyWarning}{Warning}
-It is important to ensure that the \textquotesingle{}vm\+\_\+page\textquotesingle{} parameter is a valid pointer to a virtual memory page structure. Passing invalid or uninitialized pointers may result in undefined behavior.
-\end{DoxyWarning}
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} VM Page section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8h_a38d0ee21c7b3b9b22289786fd969be46_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{memory__manager_8h_ae68e468ad150ea915ed9a3b9d899e9df}\label{memory__manager_8h_ae68e468ad150ea915ed9a3b9d899e9df} 
 \index{memory\_manager.h@{memory\_manager.h}!mm\_max\_page\_allocatable\_memory@{mm\_max\_page\_allocatable\_memory}}
 \index{mm\_max\_page\_allocatable\_memory@{mm\_max\_page\_allocatable\_memory}!memory\_manager.h@{memory\_manager.h}}
@@ -1110,36 +990,3 @@ This function merges two contiguous free memory blocks into a single block. The 
 \begin{DoxyNote}{Note}
 This function is typically used in memory management systems to optimize memory usage by consolidating adjacent free memory blocks. 
 \end{DoxyNote}
-\Hypertarget{memory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222}\label{memory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222} 
-\index{memory\_manager.h@{memory\_manager.h}!mm\_vm\_page\_delete\_and\_free@{mm\_vm\_page\_delete\_and\_free}}
-\index{mm\_vm\_page\_delete\_and\_free@{mm\_vm\_page\_delete\_and\_free}!memory\_manager.h@{memory\_manager.h}}
-\doxysubsubsection{\texorpdfstring{mm\_vm\_page\_delete\_and\_free()}{mm\_vm\_page\_delete\_and\_free()}}
-{\footnotesize\ttfamily void mm\+\_\+vm\+\_\+page\+\_\+delete\+\_\+and\+\_\+free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page }\end{DoxyParamCaption})}
-
-
-
-Deletes and frees a virtual memory page. 
-
-This function deletes and frees a virtual memory page. It removes the page from the linked list of pages belonging to its page family and deallocates the memory associated with the page.
-
-
-\begin{DoxyParams}{Parameters}
-{\em vm\+\_\+page} & Pointer to the virtual memory page to be deleted and freed. \\
-\hline
-\end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222_icgraph}
-\end{center}
-\end{figure}

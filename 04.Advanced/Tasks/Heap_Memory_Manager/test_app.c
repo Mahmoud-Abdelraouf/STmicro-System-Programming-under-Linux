@@ -8,11 +8,13 @@
 #include "memory_manager_api.h"
 #include <stdint.h>
 #include <stdio.h>
-
-/**-----------------< User defined data types section -----------------*/
+/**
+ * @defgroup UserDefinedDataTypes User defined data types
+ * @brief Definitions for user-defined data types.
+ * @{
+ */
 
 /**
- * @struct emp_t
  * @brief Structure representing an employee.
  *
  * This structure defines the attributes of an employee, including their name
@@ -24,7 +26,6 @@ typedef struct emp_ {
 } emp_t;
 
 /**
- * @struct student_t
  * @brief Structure representing a student.
  *
  * This structure defines the attributes of a student, including their name,
@@ -40,7 +41,27 @@ typedef struct student_ {
   struct student_ *next; /**< Pointer to the next student in the linked list. */
 } student_t;
 
-/**-----------------< Business logic -----------------*/
+/**
+ * @}
+ */
+
+/**
+ * @defgroup BusinessLogic Business logic
+ * @brief Implementation of the main function and business logic.
+ * @{
+ */
+
+/**
+ * @brief The main function.
+ *
+ * This function serves as the entry point to the program. It initializes
+ * necessary components, registers structure types, and prints registered
+ * page families.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv An array of command-line arguments.
+ * @return An integer indicating the exit status of the program.
+ */
 
 int main(int argc, char **argv) {
 
@@ -87,3 +108,7 @@ int main(int argc, char **argv) {
   mm_print_block_usage();
   return 0;
 }
+
+/**
+ * @}
+ */

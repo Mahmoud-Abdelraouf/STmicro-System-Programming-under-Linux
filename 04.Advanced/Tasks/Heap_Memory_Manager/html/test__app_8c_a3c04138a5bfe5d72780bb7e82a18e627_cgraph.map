@@ -1,6 +1,6 @@
 <map id="main" name="main">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,80,60,105"/>
-<area shape="rect" id="Node000002" href="$memory__manager_8c.html#a0d0d58e2b3f34ada92ab7889d013e717" title="Initializes the memory manager." alt="" coords="167,5,243,31"/>
+<area shape="rect" id="Node000002" href="$group__MemoryManagement.html#ga0d0d58e2b3f34ada92ab7889d013e717" title="Initializes the memory manager." alt="" coords="167,5,243,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="48,77,74,58,107,40,152,25,154,30,109,44,77,62,51,82"/>
 <area shape="rect" id="Node000003" href="$memory__manager_8c.html#abc2214ca18f00171e96262019bb84919" title="Prints information about the memory block usage." alt="" coords="118,55,291,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,86,105,79,105,85,60,91"/>

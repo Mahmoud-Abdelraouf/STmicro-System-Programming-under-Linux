@@ -103,7 +103,7 @@ Include dependency graph for parse_datatype.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a951929580735bed45579ce79ea1d6c71" id="r_a951929580735bed45579ce79ea1d6c71"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a951929580735bed45579ce79ea1d6c71">parse_struct_name</a> (char *struct_name, char *buffer, uint8_t *error_flag)</td></tr>
-<tr class="memdesc:a951929580735bed45579ce79ea1d6c71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the name of a struct from a string.  <br /></td></tr>
+<tr class="memdesc:a951929580735bed45579ce79ea1d6c71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extracts a data type name from a string containing the sizeof operator.  <br /></td></tr>
 <tr class="separator:a951929580735bed45579ce79ea1d6c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aced8c866b58d74e72f0c67e362c75740" id="r_aced8c866b58d74e72f0c67e362c75740"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aced8c866b58d74e72f0c67e362c75740">is_number</a> (const char *str)</td></tr>
 <tr class="separator:aced8c866b58d74e72f0c67e362c75740"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,7 +167,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="parse__datatype_8c_aced8c866b58d74e72f0c67e362c75740_icgraph.png" border="0" usemap="#aparse__datatype_8c_aced8c866b58d74e72f0c67e362c75740_icgraph" alt=""/></div>
 <map name="aparse__datatype_8c_aced8c866b58d74e72f0c67e362c75740_icgraph" id="aparse__datatype_8c_aced8c866b58d74e72f0c67e362c75740_icgraph">
 <area shape="rect" title=" " alt="" coords="316,5,407,31"/>
-<area shape="rect" href="parse__datatype_8c.html#a951929580735bed45579ce79ea1d6c71" title="Parses the name of a struct from a string." alt="" coords="121,5,268,31"/>
+<area shape="rect" href="parse__datatype_8c.html#a951929580735bed45579ce79ea1d6c71" title="Extracts a data type name from a string containing the sizeof operator." alt="" coords="121,5,268,31"/>
 <area shape="poly" title=" " alt="" coords="302,21,268,21,268,15,302,15"/>
 <area shape="rect" href="memory__manager_8c.html#a99f5a0d88caf5abe330155eb4e2d7aac" title="Allocates and initializes memory for an array of structures." alt="" coords="5,5,73,31"/>
 <area shape="poly" title=" " alt="" coords="107,21,73,21,73,15,107,15"/>
@@ -200,28 +200,15 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Parses the name of a struct from a string. </p>
-<p>This function extracts the name of a struct from a string formatted as "sizeof(datatype)" and stores it in the provided buffer. If the string does not match this format, it checks if the string represents a number and sets the error flag accordingly.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">struct_name</td><td>The string containing the sizeof expression. </td></tr>
-    <tr><td class="paramname">buffer</td><td>Pointer to a buffer where the extracted struct name or integer value will be stored. If the struct name is extracted successfully, it will be stored in this buffer. If the struct name is a number, the integer value will be stored in this buffer. </td></tr>
-    <tr><td class="paramname">error_flag</td><td>Pointer to a uint8_t variable to indicate the status of the struct name. It can have the following values:<ul>
-<li>0: No error, struct name extracted successfully.</li>
-<li>1: Error in the format of the struct name, not in the form "sizeof(datatype)".</li>
-<li>2: The struct name is actually a number, and the integer value is stored in the buffer. </li>
-</ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>If the struct name is extracted successfully or it's a number, returns "int". If an error occurs, returns NULL. </dd></dl>
+<p>Extracts a data type name from a string containing the sizeof operator. </p>
+<p>Parses the name of a struct from a string.</p>
+<p>This program demonstrates how to extract a data type name from a string containing the sizeof operator using the sscanf function in C. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="parse__datatype_8c_a951929580735bed45579ce79ea1d6c71_cgraph.png" border="0" usemap="#aparse__datatype_8c_a951929580735bed45579ce79ea1d6c71_cgraph" alt=""/></div>
 <map name="aparse__datatype_8c_a951929580735bed45579ce79ea1d6c71_cgraph" id="aparse__datatype_8c_a951929580735bed45579ce79ea1d6c71_cgraph">
-<area shape="rect" title="Parses the name of a struct from a string." alt="" coords="5,5,152,31"/>
+<area shape="rect" title="Extracts a data type name from a string containing the sizeof operator." alt="" coords="5,5,152,31"/>
 <area shape="rect" href="parse__datatype_8c.html#aced8c866b58d74e72f0c67e362c75740" title=" " alt="" coords="200,5,291,31"/>
 <area shape="poly" title=" " alt="" coords="152,15,186,15,186,21,152,21"/>
 </map>
@@ -231,7 +218,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="parse__datatype_8c_a951929580735bed45579ce79ea1d6c71_icgraph.png" border="0" usemap="#aparse__datatype_8c_a951929580735bed45579ce79ea1d6c71_icgraph" alt=""/></div>
 <map name="aparse__datatype_8c_a951929580735bed45579ce79ea1d6c71_icgraph" id="aparse__datatype_8c_a951929580735bed45579ce79ea1d6c71_icgraph">
-<area shape="rect" title="Parses the name of a struct from a string." alt="" coords="121,5,268,31"/>
+<area shape="rect" title="Extracts a data type name from a string containing the sizeof operator." alt="" coords="121,5,268,31"/>
 <area shape="rect" href="memory__manager_8c.html#a99f5a0d88caf5abe330155eb4e2d7aac" title="Allocates and initializes memory for an array of structures." alt="" coords="5,5,73,31"/>
 <area shape="poly" title=" " alt="" coords="107,21,73,21,73,15,107,15"/>
 </map>

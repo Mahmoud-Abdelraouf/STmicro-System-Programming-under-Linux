@@ -12,8 +12,7 @@
 {\ttfamily \#include "{}memory\+\_\+manager.\+h"{}}\newline
 {\ttfamily \#include "{}memory\+\_\+manager\+\_\+api.\+h"{}}\newline
 {\ttfamily \#include "{}parse\+\_\+datatype.\+h"{}}\newline
-Include dependency graph for memory\+\_\+manager.\+c\+:
-\nopagebreak
+Include dependency graph for memory\+\_\+manager.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,37 +22,37 @@ Include dependency graph for memory\+\_\+manager.\+c\+:
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{memory__manager_8c_a0d0d58e2b3f34ada92ab7889d013e717}{mm\+\_\+init}} ()
+void \mbox{\hyperlink{group__MemoryManagement_ga0d0d58e2b3f34ada92ab7889d013e717}{mm\+\_\+init}} ()
 \begin{DoxyCompactList}\small\item\em Initializes the memory manager. \end{DoxyCompactList}\item 
-static void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager_8c_a8b6e564655ddbbb3147b2d28ee398e5c}{mm\+\_\+get\+\_\+new\+\_\+vm\+\_\+page\+\_\+from\+\_\+kernel}} (int units)
+static void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__MemoryManagement_ga8b6e564655ddbbb3147b2d28ee398e5c}{mm\+\_\+get\+\_\+new\+\_\+vm\+\_\+page\+\_\+from\+\_\+kernel}} (int units)
 \item 
-static void \mbox{\hyperlink{memory__manager_8c_ab7ac1212082ab9c61aab19e76696d9ec}{mm\+\_\+return\+\_\+vm\+\_\+page\+\_\+to\+\_\+kernel}} (void \texorpdfstring{$\ast$}{*}vm\+\_\+page, int units)
+static void \mbox{\hyperlink{group__MemoryManagement_gab7ac1212082ab9c61aab19e76696d9ec}{mm\+\_\+return\+\_\+vm\+\_\+page\+\_\+to\+\_\+kernel}} (void \texorpdfstring{$\ast$}{*}vm\+\_\+page, int units)
 \item 
-void \mbox{\hyperlink{memory__manager_8c_a3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family}} (char \texorpdfstring{$\ast$}{*}struct\+\_\+name, uint32\+\_\+t struct\+\_\+size)
+void \mbox{\hyperlink{group__MemoryManagement_ga3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family}} (char \texorpdfstring{$\ast$}{*}struct\+\_\+name, uint32\+\_\+t struct\+\_\+size)
 \begin{DoxyCompactList}\small\item\em Instantiates a new page family for a memory structure. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager_8c_ab9910db7228c29ee672139e284cd6cec}{lookup\+\_\+page\+\_\+family\+\_\+by\+\_\+name}} (char \texorpdfstring{$\ast$}{*}struct\+\_\+name)
+\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__MemoryManagement_gab9910db7228c29ee672139e284cd6cec}{lookup\+\_\+page\+\_\+family\+\_\+by\+\_\+name}} (char \texorpdfstring{$\ast$}{*}struct\+\_\+name)
 \begin{DoxyCompactList}\small\item\em Looks up a page family by its name. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager_8c_acf3ff2e7438d4ae2c531e8851b7270e8}{mm\+\_\+family\+\_\+new\+\_\+page\+\_\+add}} (\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page\+\_\+family)
+static \mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__MemoryManagement_gacf3ff2e7438d4ae2c531e8851b7270e8}{mm\+\_\+family\+\_\+new\+\_\+page\+\_\+add}} (\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page\+\_\+family)
 \item 
-\mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\+\_\+bool\+\_\+t}} \mbox{\hyperlink{memory__manager_8c_a38d0ee21c7b3b9b22289786fd969be46}{mm\+\_\+is\+\_\+vm\+\_\+page\+\_\+empty}} (\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page)
+\mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\+\_\+bool\+\_\+t}} \mbox{\hyperlink{group__VMPage_ga38d0ee21c7b3b9b22289786fd969be46}{mm\+\_\+is\+\_\+vm\+\_\+page\+\_\+empty}} (\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page)
 \begin{DoxyCompactList}\small\item\em Checks if a virtual memory page is empty. \end{DoxyCompactList}\item 
-static uint32\+\_\+t \mbox{\hyperlink{memory__manager_8c_ae68e468ad150ea915ed9a3b9d899e9df}{mm\+\_\+max\+\_\+page\+\_\+allocatable\+\_\+memory}} (int units)
+static uint32\+\_\+t \mbox{\hyperlink{group__VMPage_gae68e468ad150ea915ed9a3b9d899e9df}{mm\+\_\+max\+\_\+page\+\_\+allocatable\+\_\+memory}} (int units)
 \item 
-\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager_8c_acf4906c4a2cd80f10a570cc1c7411111}{allocate\+\_\+vm\+\_\+page}} (\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page\+\_\+family)
+\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__VMPage_gacf4906c4a2cd80f10a570cc1c7411111}{allocate\+\_\+vm\+\_\+page}} (\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page\+\_\+family)
 \begin{DoxyCompactList}\small\item\em Allocates a new virtual memory page for a given page family. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{memory__manager_8c_a3c0f19fa657602a76893a7f53e9f5222}{mm\+\_\+vm\+\_\+page\+\_\+delete\+\_\+and\+\_\+free}} (\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page)
+void \mbox{\hyperlink{group__VMPage_ga3c0f19fa657602a76893a7f53e9f5222}{mm\+\_\+vm\+\_\+page\+\_\+delete\+\_\+and\+\_\+free}} (\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page)
 \begin{DoxyCompactList}\small\item\em Deletes and frees a virtual memory page. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{memory__manager_8c_a8b1f18097a67a303b6182eaf288b64f9}{mm\+\_\+union\+\_\+free\+\_\+blocks}} (\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}first, \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}second)
+static void \mbox{\hyperlink{group__FreeVMPageBlock_ga8b1f18097a67a303b6182eaf288b64f9}{mm\+\_\+union\+\_\+free\+\_\+blocks}} (\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}first, \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}second)
 \item 
-static int \mbox{\hyperlink{memory__manager_8c_a5987bb26622d19dcd8ecfd1416a7f3c6}{free\+\_\+blocks\+\_\+comparison\+\_\+function}} (void \texorpdfstring{$\ast$}{*}\+\_\+block\+\_\+meta\+\_\+data1, void \texorpdfstring{$\ast$}{*}\+\_\+block\+\_\+meta\+\_\+data2)
+static int \mbox{\hyperlink{group__FreeVMPageBlock_ga5987bb26622d19dcd8ecfd1416a7f3c6}{free\+\_\+blocks\+\_\+comparison\+\_\+function}} (void \texorpdfstring{$\ast$}{*}\+\_\+block\+\_\+meta\+\_\+data1, void \texorpdfstring{$\ast$}{*}\+\_\+block\+\_\+meta\+\_\+data2)
 \item 
-static void \mbox{\hyperlink{memory__manager_8c_aa72156192006fd76902b0616def7db4d}{mm\+\_\+add\+\_\+free\+\_\+block\+\_\+meta\+\_\+data\+\_\+to\+\_\+free\+\_\+block\+\_\+list}} (\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page\+\_\+family, \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}free\+\_\+block)
+static void \mbox{\hyperlink{group__FreeVMPageBlock_gaa72156192006fd76902b0616def7db4d}{mm\+\_\+add\+\_\+free\+\_\+block\+\_\+meta\+\_\+data\+\_\+to\+\_\+free\+\_\+block\+\_\+list}} (\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page\+\_\+family, \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}free\+\_\+block)
 \item 
-static int \mbox{\hyperlink{memory__manager_8c_a3635ea0217471faffe42b0c91c4bcc42}{mm\+\_\+get\+\_\+hard\+\_\+internal\+\_\+memory\+\_\+frag\+\_\+size}} (\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}first, \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}second)
+static int \mbox{\hyperlink{group__FreeVMPageBlock_ga3635ea0217471faffe42b0c91c4bcc42}{mm\+\_\+get\+\_\+hard\+\_\+internal\+\_\+memory\+\_\+frag\+\_\+size}} (\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}first, \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}second)
 \item 
-static \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager_8c_a2250996fd809506caef0a6e61b6faebb}{mm\+\_\+free\+\_\+blocks}} (\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}to\+\_\+be\+\_\+free\+\_\+block)
-\begin{DoxyCompactList}\small\item\em Frees a memory block and performs merging if necessary. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{memory__manager_8c_ae075bb556abb4342aedf495ddb8d390a}{xfree}} (void \texorpdfstring{$\ast$}{*}app\+\_\+data)
+static \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__FreeVMPageBlock_ga2250996fd809506caef0a6e61b6faebb}{mm\+\_\+free\+\_\+blocks}} (\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}to\+\_\+be\+\_\+free\+\_\+block)
+\item 
+void \mbox{\hyperlink{group__FreeVMPageBlock_gae075bb556abb4342aedf495ddb8d390a}{xfree}} (void \texorpdfstring{$\ast$}{*}app\+\_\+data)
 \begin{DoxyCompactList}\small\item\em Frees memory allocated by the memory manager. \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager_8c_a464ebae83b876a0ebb252e793e296fe9}{mm\+\_\+allocate\+\_\+free\+\_\+data\+\_\+block}} (\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}vm\+\_\+page\+\_\+family, uint32\+\_\+t req\+\_\+size)
 \item 
@@ -81,209 +80,24 @@ static \mbox{\hyperlink{memory__manager_8h_a0cf10cad96e10ff9160b976e509f9462}{vm
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{memory__manager_8c_acf4906c4a2cd80f10a570cc1c7411111}\label{memory__manager_8c_acf4906c4a2cd80f10a570cc1c7411111} 
-\index{memory\_manager.c@{memory\_manager.c}!allocate\_vm\_page@{allocate\_vm\_page}}
-\index{allocate\_vm\_page@{allocate\_vm\_page}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{allocate\_vm\_page()}{allocate\_vm\_page()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*} allocate\+\_\+vm\+\_\+page (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page\+\_\+family }\end{DoxyParamCaption})}
-
-
-
-Allocates a new virtual memory page for a given page family. 
-
-This function allocates a new virtual memory page for the specified page family. It initializes the metadata and pointers associated with the page and inserts the page into the linked list of pages belonging to the page family.
-
-
-\begin{DoxyParams}{Parameters}
-{\em vm\+\_\+page\+\_\+family} & Pointer to the page family for which the page is being allocated.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Pointer to the newly allocated virtual memory page. 
-\end{DoxyReturn}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_acf4906c4a2cd80f10a570cc1c7411111_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_acf4906c4a2cd80f10a570cc1c7411111_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_a5987bb26622d19dcd8ecfd1416a7f3c6}\label{memory__manager_8c_a5987bb26622d19dcd8ecfd1416a7f3c6} 
-\index{memory\_manager.c@{memory\_manager.c}!free\_blocks\_comparison\_function@{free\_blocks\_comparison\_function}}
-\index{free\_blocks\_comparison\_function@{free\_blocks\_comparison\_function}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{free\_blocks\_comparison\_function()}{free\_blocks\_comparison\_function()}}
-{\footnotesize\ttfamily static int free\+\_\+blocks\+\_\+comparison\+\_\+function (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{\+\_\+block\+\_\+meta\+\_\+data1,  }\item[{void \texorpdfstring{$\ast$}{*}}]{\+\_\+block\+\_\+meta\+\_\+data2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_a5987bb26622d19dcd8ecfd1416a7f3c6_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_ab9910db7228c29ee672139e284cd6cec}\label{memory__manager_8c_ab9910db7228c29ee672139e284cd6cec} 
-\index{memory\_manager.c@{memory\_manager.c}!lookup\_page\_family\_by\_name@{lookup\_page\_family\_by\_name}}
-\index{lookup\_page\_family\_by\_name@{lookup\_page\_family\_by\_name}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{lookup\_page\_family\_by\_name()}{lookup\_page\_family\_by\_name()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*} lookup\+\_\+page\+\_\+family\+\_\+by\+\_\+name (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{struct\+\_\+name }\end{DoxyParamCaption})}
-
-
-
-Looks up a page family by its name. 
-
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Public functions interface -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
-
-This function iterates over all virtual memory pages hosting page families and returns a pointer to the page family object identified by the given struct\+\_\+name. If no such page family object is found, it returns NULL.
-
-
-\begin{DoxyParams}{Parameters}
-{\em struct\+\_\+name} & The name of the page family to look up.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Pointer to the page family object if found, otherwise NULL.
-\end{DoxyReturn}
-\begin{DoxyNote}{Note}
-This function should be used to retrieve a page family object by its name after the page families have been registered and initialized using the appropriate functions and macros provided by the memory manager.
-\end{DoxyNote}
-\begin{DoxySeeAlso}{See also}
-\doxylink{memory__manager_8c_a0d0d58e2b3f34ada92ab7889d013e717}{mm\+\_\+init} 
-
-\doxylink{memory__manager__api_8h_a499d5d9d246e2afe4506e751ba45ec1e}{MM\+\_\+\+REG\+\_\+\+STRUCT} 
-
-\doxylink{memory__manager_8h_a0cf10cad96e10ff9160b976e509f9462}{vm\+\_\+page\+\_\+for\+\_\+families\+\_\+t} 
-
-\doxylink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t} 
-\end{DoxySeeAlso}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_ab9910db7228c29ee672139e284cd6cec_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_aa72156192006fd76902b0616def7db4d}\label{memory__manager_8c_aa72156192006fd76902b0616def7db4d} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list@{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list}}
-\index{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list@{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list()}{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list()}}
-{\footnotesize\ttfamily static void mm\+\_\+add\+\_\+free\+\_\+block\+\_\+meta\+\_\+data\+\_\+to\+\_\+free\+\_\+block\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page\+\_\+family,  }\item[{\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{free\+\_\+block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_aa72156192006fd76902b0616def7db4d_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_aa72156192006fd76902b0616def7db4d_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{memory__manager_8c_a464ebae83b876a0ebb252e793e296fe9}\label{memory__manager_8c_a464ebae83b876a0ebb252e793e296fe9} 
 \index{memory\_manager.c@{memory\_manager.c}!mm\_allocate\_free\_data\_block@{mm\_allocate\_free\_data\_block}}
 \index{mm\_allocate\_free\_data\_block@{mm\_allocate\_free\_data\_block}!memory\_manager.c@{memory\_manager.c}}
 \doxysubsubsection{\texorpdfstring{mm\_allocate\_free\_data\_block()}{mm\_allocate\_free\_data\_block()}}
 {\footnotesize\ttfamily static \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*} mm\+\_\+allocate\+\_\+free\+\_\+data\+\_\+block (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page\+\_\+family,  }\item[{uint32\+\_\+t}]{req\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Memory allocation section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the call graph for this function\+:
-\nopagebreak
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Memory allocation section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{memory__manager_8c_a464ebae83b876a0ebb252e793e296fe9_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=299pt]{memory__manager_8c_a464ebae83b876a0ebb252e793e296fe9_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_acf3ff2e7438d4ae2c531e8851b7270e8}\label{memory__manager_8c_acf3ff2e7438d4ae2c531e8851b7270e8} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_family\_new\_page\_add@{mm\_family\_new\_page\_add}}
-\index{mm\_family\_new\_page\_add@{mm\_family\_new\_page\_add}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_family\_new\_page\_add()}{mm\_family\_new\_page\_add()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*} mm\+\_\+family\+\_\+new\+\_\+page\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page\+\_\+family }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_acf3ff2e7438d4ae2c531e8851b7270e8_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_acf3ff2e7438d4ae2c531e8851b7270e8_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_a2250996fd809506caef0a6e61b6faebb}\label{memory__manager_8c_a2250996fd809506caef0a6e61b6faebb} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_free\_blocks@{mm\_free\_blocks}}
-\index{mm\_free\_blocks@{mm\_free\_blocks}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_free\_blocks()}{mm\_free\_blocks()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*} mm\+\_\+free\+\_\+blocks (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{to\+\_\+be\+\_\+free\+\_\+block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Frees a memory block and performs merging if necessary. 
-
-This function frees a memory block represented by the given {\ttfamily to\+\_\+be\+\_\+free\+\_\+block} parameter. It also handles merging of adjacent free blocks if present.
-
-
-\begin{DoxyParams}{Parameters}
-{\em to\+\_\+be\+\_\+free\+\_\+block} & The block to be freed. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-A pointer to the freed block or NULL if the hosting page becomes empty.
-\end{DoxyReturn}
-\begin{DoxyNote}{Note}
-The function assumes that {\ttfamily to\+\_\+be\+\_\+free\+\_\+block} is not NULL and its is\+\_\+free flag is set to MM\+\_\+\+FALSE (indicating it\textquotesingle{}s not already free). 
-\end{DoxyNote}
-\texorpdfstring{$<$}{<} Pointer to the freed block
-
-\texorpdfstring{$<$}{<} Marking the block as free
-
-\texorpdfstring{$<$}{<} Next block pointer
-
-\texorpdfstring{$<$}{<} Union two free blocks
-
-\texorpdfstring{$<$}{<} Delete and free the hosting pageHere is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_a2250996fd809506caef0a6e61b6faebb_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=256pt]{memory__manager_8c_a2250996fd809506caef0a6e61b6faebb_icgraph}
 \end{center}
 \end{figure}
 \Hypertarget{memory__manager_8c_a28b2162ebaea314c420ca44e29fb9d44}\label{memory__manager_8c_a28b2162ebaea314c420ca44e29fb9d44} 
@@ -292,138 +106,11 @@ Here is the caller graph for this function\+:
 \doxysubsubsection{\texorpdfstring{mm\_get\_biggest\_free\_block\_page\_family()}{mm\_get\_biggest\_free\_block\_page\_family()}}
 {\footnotesize\ttfamily static \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*} mm\+\_\+get\+\_\+biggest\+\_\+free\+\_\+block\+\_\+page\+\_\+family (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page\+\_\+family }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{memory__manager_8c_a28b2162ebaea314c420ca44e29fb9d44_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_a3635ea0217471faffe42b0c91c4bcc42}\label{memory__manager_8c_a3635ea0217471faffe42b0c91c4bcc42} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_get\_hard\_internal\_memory\_frag\_size@{mm\_get\_hard\_internal\_memory\_frag\_size}}
-\index{mm\_get\_hard\_internal\_memory\_frag\_size@{mm\_get\_hard\_internal\_memory\_frag\_size}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_get\_hard\_internal\_memory\_frag\_size()}{mm\_get\_hard\_internal\_memory\_frag\_size()}}
-{\footnotesize\ttfamily static int mm\+\_\+get\+\_\+hard\+\_\+internal\+\_\+memory\+\_\+frag\+\_\+size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{first,  }\item[{\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{second }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_a3635ea0217471faffe42b0c91c4bcc42_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_a8b6e564655ddbbb3147b2d28ee398e5c}\label{memory__manager_8c_a8b6e564655ddbbb3147b2d28ee398e5c} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_get\_new\_vm\_page\_from\_kernel@{mm\_get\_new\_vm\_page\_from\_kernel}}
-\index{mm\_get\_new\_vm\_page\_from\_kernel@{mm\_get\_new\_vm\_page\_from\_kernel}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_get\_new\_vm\_page\_from\_kernel()}{mm\_get\_new\_vm\_page\_from\_kernel()}}
-{\footnotesize\ttfamily static void \texorpdfstring{$\ast$}{*} mm\+\_\+get\+\_\+new\+\_\+vm\+\_\+page\+\_\+from\+\_\+kernel (\begin{DoxyParamCaption}\item[{int}]{units }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_a8b6e564655ddbbb3147b2d28ee398e5c_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_a0d0d58e2b3f34ada92ab7889d013e717}\label{memory__manager_8c_a0d0d58e2b3f34ada92ab7889d013e717} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_init@{mm\_init}}
-\index{mm\_init@{mm\_init}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_init()}{mm\_init()}}
-{\footnotesize\ttfamily void mm\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Initializes the memory manager. 
-
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Functions implementation section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=214pt]{memory__manager_8c_a0d0d58e2b3f34ada92ab7889d013e717_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_a3ed96883ba6c4711318dbae3f5941bbf}\label{memory__manager_8c_a3ed96883ba6c4711318dbae3f5941bbf} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_instantiate\_new\_page\_family@{mm\_instantiate\_new\_page\_family}}
-\index{mm\_instantiate\_new\_page\_family@{mm\_instantiate\_new\_page\_family}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_instantiate\_new\_page\_family()}{mm\_instantiate\_new\_page\_family()}}
-{\footnotesize\ttfamily void mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{struct\+\_\+name,  }\item[{uint32\+\_\+t}]{struct\+\_\+size }\end{DoxyParamCaption})}
-
-
-
-Instantiates a new page family for a memory structure. 
-
-This function creates a new page family for a memory structure identified by its name and size. It allocates memory for the page family and adds it to the existing virtual memory pages if necessary. Each page family can contain multiple memory structures of the same type.
-
-
-\begin{DoxyParams}{Parameters}
-{\em struct\+\_\+name} & The name of the memory structure. \\
-\hline
-{\em struct\+\_\+size} & The size of the memory structure.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyNote}{Note}
-If the size of the memory structure exceeds the system page size, an error message is printed, and the function returns without creating the page family.
-
-This function maintains a linked list of virtual memory pages ({\ttfamily first\+\_\+vm\+\_\+page\+\_\+for\+\_\+families}) to store the page families. If there are no existing pages, it allocates a new page and initializes it with the first page family. If the existing pages are full, it allocates a new page and adds it to the beginning of the linked list.
-
-If a page family with the same name already exists, an assertion error is triggered, indicating a conflict in page family instantiation.
-\end{DoxyNote}
-\begin{DoxyWarning}{Warning}
-This function relies on the {\ttfamily \doxylink{memory__manager_8c_a8b6e564655ddbbb3147b2d28ee398e5c}{mm\+\_\+get\+\_\+new\+\_\+vm\+\_\+page\+\_\+from\+\_\+kernel()}} function to allocate memory from the kernel for the page family. Improper use or misuse of this function can lead to memory leaks or system instability.
-\end{DoxyWarning}
-\begin{DoxySeeAlso}{See also}
-\doxylink{memory__manager_8c_a8b6e564655ddbbb3147b2d28ee398e5c}{mm\+\_\+get\+\_\+new\+\_\+vm\+\_\+page\+\_\+from\+\_\+kernel()} 
-\end{DoxySeeAlso}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_a3ed96883ba6c4711318dbae3f5941bbf_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=286pt]{memory__manager_8c_a3ed96883ba6c4711318dbae3f5941bbf_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_a38d0ee21c7b3b9b22289786fd969be46}\label{memory__manager_8c_a38d0ee21c7b3b9b22289786fd969be46} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_is\_vm\_page\_empty@{mm\_is\_vm\_page\_empty}}
-\index{mm\_is\_vm\_page\_empty@{mm\_is\_vm\_page\_empty}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_is\_vm\_page\_empty()}{mm\_is\_vm\_page\_empty()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\+\_\+bool\+\_\+t}} mm\+\_\+is\+\_\+vm\+\_\+page\+\_\+empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page }\end{DoxyParamCaption})}
-
-
-
-Checks if a virtual memory page is empty. 
-
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} VM Page section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_a38d0ee21c7b3b9b22289786fd969be46_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_ae68e468ad150ea915ed9a3b9d899e9df}\label{memory__manager_8c_ae68e468ad150ea915ed9a3b9d899e9df} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_max\_page\_allocatable\_memory@{mm\_max\_page\_allocatable\_memory}}
-\index{mm\_max\_page\_allocatable\_memory@{mm\_max\_page\_allocatable\_memory}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_max\_page\_allocatable\_memory()}{mm\_max\_page\_allocatable\_memory()}}
-{\footnotesize\ttfamily static uint32\+\_\+t mm\+\_\+max\+\_\+page\+\_\+allocatable\+\_\+memory (\begin{DoxyParamCaption}\item[{int}]{units }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
-
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_ae68e468ad150ea915ed9a3b9d899e9df_icgraph}
 \end{center}
 \end{figure}
 \Hypertarget{memory__manager_8c_abc2214ca18f00171e96262019bb84919}\label{memory__manager_8c_abc2214ca18f00171e96262019bb84919} 
@@ -461,8 +148,7 @@ This function prints information about the memory usage of the memory manager, i
 {\em struct\+\_\+name} & Optional parameter to filter the output by a specific structure name. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -520,87 +206,24 @@ Here is the caller graph for this function\+:
 \includegraphics[width=350pt]{memory__manager_8c_a0a1f3a9753facffae61a89ed4ad4ff68_icgraph}
 \end{center}
 \end{figure}
-\Hypertarget{memory__manager_8c_ab7ac1212082ab9c61aab19e76696d9ec}\label{memory__manager_8c_ab7ac1212082ab9c61aab19e76696d9ec} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_return\_vm\_page\_to\_kernel@{mm\_return\_vm\_page\_to\_kernel}}
-\index{mm\_return\_vm\_page\_to\_kernel@{mm\_return\_vm\_page\_to\_kernel}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_return\_vm\_page\_to\_kernel()}{mm\_return\_vm\_page\_to\_kernel()}}
-{\footnotesize\ttfamily static void mm\+\_\+return\+\_\+vm\+\_\+page\+\_\+to\+\_\+kernel (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page,  }\item[{int}]{units }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_ab7ac1212082ab9c61aab19e76696d9ec_icgraph}
-\end{center}
-\end{figure}
 \Hypertarget{memory__manager_8c_ab335253cb154c4adb2beb3cea638fb3c}\label{memory__manager_8c_ab335253cb154c4adb2beb3cea638fb3c} 
 \index{memory\_manager.c@{memory\_manager.c}!mm\_split\_free\_data\_block\_for\_allocation@{mm\_split\_free\_data\_block\_for\_allocation}}
 \index{mm\_split\_free\_data\_block\_for\_allocation@{mm\_split\_free\_data\_block\_for\_allocation}!memory\_manager.c@{memory\_manager.c}}
 \doxysubsubsection{\texorpdfstring{mm\_split\_free\_data\_block\_for\_allocation()}{mm\_split\_free\_data\_block\_for\_allocation()}}
 {\footnotesize\ttfamily static \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\+\_\+bool\+\_\+t}} mm\+\_\+split\+\_\+free\+\_\+data\+\_\+block\+\_\+for\+\_\+allocation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\+\_\+page\+\_\+family\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page\+\_\+family,  }\item[{\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{block\+\_\+meta\+\_\+data,  }\item[{uint32\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{memory__manager_8c_ab335253cb154c4adb2beb3cea638fb3c_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{memory__manager_8c_ab335253cb154c4adb2beb3cea638fb3c_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_a8b1f18097a67a303b6182eaf288b64f9}\label{memory__manager_8c_a8b1f18097a67a303b6182eaf288b64f9} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_union\_free\_blocks@{mm\_union\_free\_blocks}}
-\index{mm\_union\_free\_blocks@{mm\_union\_free\_blocks}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_union\_free\_blocks()}{mm\_union\_free\_blocks()}}
-{\footnotesize\ttfamily static void mm\+\_\+union\+\_\+free\+\_\+blocks (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{first,  }\item[{\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{second }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
-
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Free VM Page/\+Block section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_a8b1f18097a67a303b6182eaf288b64f9_icgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_a3c0f19fa657602a76893a7f53e9f5222}\label{memory__manager_8c_a3c0f19fa657602a76893a7f53e9f5222} 
-\index{memory\_manager.c@{memory\_manager.c}!mm\_vm\_page\_delete\_and\_free@{mm\_vm\_page\_delete\_and\_free}}
-\index{mm\_vm\_page\_delete\_and\_free@{mm\_vm\_page\_delete\_and\_free}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{mm\_vm\_page\_delete\_and\_free()}{mm\_vm\_page\_delete\_and\_free()}}
-{\footnotesize\ttfamily void mm\+\_\+vm\+\_\+page\+\_\+delete\+\_\+and\+\_\+free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{vm\+\_\+page }\end{DoxyParamCaption})}
-
-
-
-Deletes and frees a virtual memory page. 
-
-This function deletes and frees a virtual memory page. It removes the page from the linked list of pages belonging to its page family and deallocates the memory associated with the page.
-
-
-\begin{DoxyParams}{Parameters}
-{\em vm\+\_\+page} & Pointer to the virtual memory page to be deleted and freed. \\
-\hline
-\end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_a3c0f19fa657602a76893a7f53e9f5222_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_a3c0f19fa657602a76893a7f53e9f5222_icgraph}
 \end{center}
 \end{figure}
 \Hypertarget{memory__manager_8c_a99f5a0d88caf5abe330155eb4e2d7aac}\label{memory__manager_8c_a99f5a0d88caf5abe330155eb4e2d7aac} 
@@ -634,31 +257,6 @@ Here is the call graph for this function\+:
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{memory__manager_8c_a99f5a0d88caf5abe330155eb4e2d7aac_cgraph}
-\end{center}
-\end{figure}
-\Hypertarget{memory__manager_8c_ae075bb556abb4342aedf495ddb8d390a}\label{memory__manager_8c_ae075bb556abb4342aedf495ddb8d390a} 
-\index{memory\_manager.c@{memory\_manager.c}!xfree@{xfree}}
-\index{xfree@{xfree}!memory\_manager.c@{memory\_manager.c}}
-\doxysubsubsection{\texorpdfstring{xfree()}{xfree()}}
-{\footnotesize\ttfamily void xfree (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{app\+\_\+data }\end{DoxyParamCaption})}
-
-
-
-Frees memory allocated by the memory manager. 
-
-This function is used to free memory that was previously allocated by the memory manager. It takes a pointer to the memory to be freed as its argument. The pointer is adjusted to point to the block metadata, and then it is passed to the memory manager\textquotesingle{}s free blocks function.
-
-
-\begin{DoxyParams}{Parameters}
-{\em app\+\_\+data} & Pointer to the memory to be freed. \\
-\hline
-\end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{memory__manager_8c_ae075bb556abb4342aedf495ddb8d390a_cgraph}
 \end{center}
 \end{figure}
 

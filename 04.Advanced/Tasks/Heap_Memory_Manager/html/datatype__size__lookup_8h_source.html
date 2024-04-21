@@ -79,31 +79,20 @@ $(function() { codefold.init(0); });
   <div class="headertitle"><div class="title">datatype_size_lookup.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="datatype__size__lookup_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef DATATYPE_SIZE_LOOKUP_H_</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define DATATYPE_SIZE_LOOKUP_H_</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="datatype__size__lookup_8h.html#a56d7beb47f6bbf896e6f21fb09c73ec5">    7</a></span><span class="preprocessor">#define MAX_STRUCT_NAME_LEN 50</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">// Define a structure to map data type strings to C data types</span></div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="structdatatype__mapping__.html">   10</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structdatatype__mapping__.html">datatype_mapping_</a> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="structdatatype__mapping__.html#ac9faab2ffaccf4ff79e42a7f14acb347">   11</a></span>  <span class="keywordtype">char</span> <a class="code hl_variable" href="structdatatype__mapping__.html#ac9faab2ffaccf4ff79e42a7f14acb347">name</a>[<a class="code hl_define" href="datatype__size__lookup_8h.html#a56d7beb47f6bbf896e6f21fb09c73ec5">MAX_STRUCT_NAME_LEN</a>];</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="structdatatype__mapping__.html#a179c4d19cce9e39137898b8f5251cf07">   12</a></span>  <span class="keywordtype">size_t</span> <a class="code hl_variable" href="structdatatype__mapping__.html#a179c4d19cce9e39137898b8f5251cf07">size</a>;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="datatype__size__lookup_8h.html#a16539ea0e5459474a36a56d75d31d977">   13</a></span>} <a class="code hl_typedef" href="datatype__size__lookup_8h.html#a16539ea0e5459474a36a56d75d31d977">datatype_mapping_t</a>;</div>
-</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="datatype__size__lookup_8h.html#a65d92569472aecd58e18e5afaa9b41ea">get_size_of_datatype</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *data_type);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif </span></div>
-<div class="ttc" id="adatatype__size__lookup_8h_html_a16539ea0e5459474a36a56d75d31d977"><div class="ttname"><a href="datatype__size__lookup_8h.html#a16539ea0e5459474a36a56d75d31d977">datatype_mapping_t</a></div><div class="ttdeci">struct datatype_mapping_ datatype_mapping_t</div></div>
-<div class="ttc" id="adatatype__size__lookup_8h_html_a56d7beb47f6bbf896e6f21fb09c73ec5"><div class="ttname"><a href="datatype__size__lookup_8h.html#a56d7beb47f6bbf896e6f21fb09c73ec5">MAX_STRUCT_NAME_LEN</a></div><div class="ttdeci">#define MAX_STRUCT_NAME_LEN</div><div class="ttdef"><b>Definition</b> datatype_size_lookup.h:7</div></div>
-<div class="ttc" id="adatatype__size__lookup_8h_html_a65d92569472aecd58e18e5afaa9b41ea"><div class="ttname"><a href="datatype__size__lookup_8h.html#a65d92569472aecd58e18e5afaa9b41ea">get_size_of_datatype</a></div><div class="ttdeci">size_t get_size_of_datatype(const char *data_type)</div><div class="ttdoc">Gets the size of a data type by its name.</div><div class="ttdef"><b>Definition</b> datatype_size_lookup.c:24</div></div>
-<div class="ttc" id="astructdatatype__mapping___html"><div class="ttname"><a href="structdatatype__mapping__.html">datatype_mapping_</a></div><div class="ttdef"><b>Definition</b> datatype_size_lookup.h:10</div></div>
-<div class="ttc" id="astructdatatype__mapping___html_a179c4d19cce9e39137898b8f5251cf07"><div class="ttname"><a href="structdatatype__mapping__.html#a179c4d19cce9e39137898b8f5251cf07">datatype_mapping_::size</a></div><div class="ttdeci">size_t size</div><div class="ttdef"><b>Definition</b> datatype_size_lookup.h:12</div></div>
-<div class="ttc" id="astructdatatype__mapping___html_ac9faab2ffaccf4ff79e42a7f14acb347"><div class="ttname"><a href="structdatatype__mapping__.html#ac9faab2ffaccf4ff79e42a7f14acb347">datatype_mapping_::name</a></div><div class="ttdeci">char name[MAX_STRUCT_NAME_LEN]</div><div class="ttdef"><b>Definition</b> datatype_size_lookup.h:11</div></div>
+<a href="datatype__size__lookup_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#ifndef DATATYPE_SIZE_LOOKUP_H_</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define DATATYPE_SIZE_LOOKUP_H_</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="datatype__size__lookup_8h.html#a56d7beb47f6bbf896e6f21fb09c73ec5">   22</a></span><span class="preprocessor">#define MAX_STRUCT_NAME_LEN 50</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="datatype__size__lookup_8h.html#a65d92569472aecd58e18e5afaa9b41ea">get_size_of_datatype</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *data_type);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif </span></div>
+<div class="ttc" id="adatatype__size__lookup_8h_html_a65d92569472aecd58e18e5afaa9b41ea"><div class="ttname"><a href="datatype__size__lookup_8h.html#a65d92569472aecd58e18e5afaa9b41ea">get_size_of_datatype</a></div><div class="ttdeci">size_t get_size_of_datatype(const char *data_type)</div><div class="ttdoc">Gets the size of a data type by its name.</div><div class="ttdef"><b>Definition</b> datatype_size_lookup.c:58</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
