@@ -10,21 +10,38 @@
 #include <stdio.h>
 
 /**-----------------< User defined data types section -----------------*/
+
+/**
+ * @struct emp_t
+ * @brief Structure representing an employee.
+ *
+ * This structure defines the attributes of an employee, including their name
+ * and employee ID.
+ */
 typedef struct emp_ {
-  char name[32];
-  uint32_t emp_id;
+  char name[32];   /**< The name of the employee. */
+  uint32_t emp_id; /**< The employee ID. */
 } emp_t;
 
+/**
+ * @struct student_t
+ * @brief Structure representing a student.
+ *
+ * This structure defines the attributes of a student, including their name,
+ * roll number, and subject marks. Additionally, it contains a pointer to the
+ * next student in a linked list.
+ */
 typedef struct student_ {
-  char name[32];
-  uint32_t roll_no;
-  uint32_t marks_phys;
-  uint32_t marks_chem;
-  uint32_t marks_maths;
-  struct student_ *next;
+  char name[32];         /**< The name of the student. */
+  uint32_t roll_no;      /**< The roll number of the student. */
+  uint32_t marks_phys;   /**< The marks obtained in Physics. */
+  uint32_t marks_chem;   /**< The marks obtained in Chemistry. */
+  uint32_t marks_maths;  /**< The marks obtained in Mathematics. */
+  struct student_ *next; /**< Pointer to the next student in the linked list. */
 } student_t;
 
 /**-----------------< Business logic -----------------*/
+
 int main(int argc, char **argv) {
 
   int wait;

@@ -5,6 +5,7 @@
 /******* File Name : MemeoryManager.c           *****************/
 /****************************************************************/
 /**-----------------< Includes section -----------------*/
+
 /**< System includes */
 #include <assert.h>
 #include <memory.h>
@@ -21,6 +22,7 @@
 #include "parse_datatype.h"
 
 /**-----------------< Global variable section -----------------*/
+
 /**
  * @brief Size of the system page.
  *
@@ -50,7 +52,12 @@ static size_t SYSTEM_PAGE_SIZE = 0;
  */
 static vm_page_for_families_t *first_vm_page_for_families = NULL;
 
-/**-----------------< Functions implementation section -----------------*/
+/**
+ * @defgroup MemoryManagement Memory Management
+ * @brief Functions for memory management.
+ * @{
+ */
+
 void mm_init() { SYSTEM_PAGE_SIZE = getpagesize(); }
 
 static void *mm_get_new_vm_page_from_kernel(int units) {
@@ -195,7 +202,16 @@ static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family) {
   return vm_page;
 }
 
-/**-----------------< VM Page section  -----------------*/
+/**
+ * @}
+ */
+
+/**
+ * @defgroup VMPage VM Page
+ * @brief Functions related to virtual memory pages.
+ * @{
+ */
+
 vm_bool_t mm_is_vm_page_empty(vm_page_t *vm_page) {
   if (vm_page != NULL) {
     // Check if all conditions for an empty page are met
@@ -275,7 +291,16 @@ void mm_vm_page_delete_and_free(vm_page_t *vm_page) {
   mm_return_vm_page_to_kernel((void *)vm_page, 1);
 }
 
-/**-----------------< Free VM Page/Block section -----------------*/
+/**
+ * @}
+ */
+
+/**
+ * @defgroup FreeVMPageBlock Free VM Page/Block
+ * @brief Functions related to managing free virtual memory pages and blocks.
+ * @{
+ */
+
 static void mm_union_free_blocks(block_meta_data_t *first,
                                  block_meta_data_t *second) {
   // Ensure that both blocks are free
@@ -336,20 +361,6 @@ static int mm_get_hard_internal_memory_frag_size(block_meta_data_t *first,
   return (int)((unsigned long)second - (unsigned long)(next_block));
 }
 
-/**
- * @brief Frees a memory block and performs merging if necessary.
- *
- * This function frees a memory block represented by the given @p
- * to_be_free_block parameter. It also handles merging of adjacent free blocks
- * if present.
- *
- * @param to_be_free_block The block to be freed.
- * @return A pointer to the freed block or NULL if the hosting page becomes
- * empty.
- *
- * @note The function assumes that @p to_be_free_block is not NULL and its
- * is_free flag is set to MM_FALSE (indicating it's not already free).
- */
 static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
   block_meta_data_t *return_block = NULL; ///< Pointer to the freed block
   assert(to_be_free_block->is_free == MM_FALSE);
@@ -424,6 +435,10 @@ void xfree(void *app_data) {
   // Call the memory manager's free blocks function
   mm_free_blocks(block_meta_data);
 }
+
+/**
+ * @}
+ */
 
 /**-----------------<  Memory allocation section -----------------*/
 static block_meta_data_t *

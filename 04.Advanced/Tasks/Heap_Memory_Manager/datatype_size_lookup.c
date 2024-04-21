@@ -1,6 +1,35 @@
+/**
+ * @file datatype_mapping.h
+ * @brief Header file for datatype mapping definitions.
+ *
+ * This file contains mappings between data types and their corresponding sizes.
+ */
+
 #include "datatype_size_lookup.h"
 
-// Define a lookup table for data type mappings
+/**
+ * @defgroup DatatypeMappings Datatype Mappings
+ * @brief Definitions for data type mappings.
+ * @{
+ */
+
+/**
+ * @brief Structure representing a data type mapping.
+ *
+ * This structure defines a mapping between a data type name and its
+ * corresponding size.
+ */
+typedef struct {
+  const char *name; /**< The name of the data type. */
+  size_t size;      /**< The size of the data type in bytes. */
+} datatype_mapping_t;
+
+/**
+ * @brief Array of data type mappings.
+ *
+ * This array contains mappings between data type names and their corresponding
+ * sizes.
+ */
 datatype_mapping_t type_mappings[] = {
     {"int", sizeof(int)},
     {"char", sizeof(char)},
@@ -15,6 +44,10 @@ datatype_mapping_t type_mappings[] = {
     {"unsigned long", sizeof(unsigned long)},
     {"unsigned long long", sizeof(unsigned long long)},
 };
+
+/**
+ * @}
+ */
 
 // TODO: Implement an efficient data type mapping lookup using a hash table.
 //       Consider using a perfect hash function generator like gperf for optimal
@@ -31,23 +64,3 @@ size_t get_size_of_datatype(const char *data_type) {
   }
   return 0; // Return 0 if data type is not found
 }
-
-// int main() {
-//   char size_str[] = "sizeof(int)";
-//   char data_type[MAX_STRUCT_NAME_LEN];
-//
-//   // Extract data type from size_str
-//   if (sscanf(size_str, "sizeof(%49[^)])", data_type) == 1) {
-//     // Get the size of the data type
-//     size_t size = getSizeOfDataType(data_type);
-//     if (size != 0) {
-//       printf("Size of %s: %zu\n", data_type, size);
-//     } else {
-//       fprintf(stderr, "Error: Unknown data type\n");
-//     }
-//   } else {
-//     fprintf(stderr, "Error: Invalid struct size format\n");
-//   }
-//
-//   return 0;
-// }

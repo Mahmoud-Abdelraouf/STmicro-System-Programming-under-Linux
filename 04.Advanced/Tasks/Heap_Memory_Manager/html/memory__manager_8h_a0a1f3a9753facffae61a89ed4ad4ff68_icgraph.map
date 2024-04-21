@@ -1,0 +1,7 @@
+<map id="mm_print_vm_page_details" name="mm_print_vm_page_details">
+<area shape="rect" id="Node000001" title="Prints details of a virtual memory page." alt="" coords="349,5,552,31"/>
+<area shape="rect" id="Node000002" href="$memory__manager_8c.html#a0107300bfc4db599504abef54c980fa6" title="Prints memory usage details related to the memory manager." alt="" coords="108,5,301,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="336,21,302,21,302,15,336,15"/>
+<area shape="rect" id="Node000003" href="$test__app_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
+</map>

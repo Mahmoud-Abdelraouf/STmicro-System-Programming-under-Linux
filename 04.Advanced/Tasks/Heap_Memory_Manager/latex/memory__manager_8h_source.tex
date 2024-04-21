@@ -1,0 +1,174 @@
+\doxysection{memory\+\_\+manager.\+h}
+\hypertarget{memory__manager_8h_source}{}\label{memory__manager_8h_source}\mbox{\hyperlink{memory__manager_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/****************************************************************/}}
+\DoxyCodeLine{00002\ \textcolor{comment}{/*******\ Author\ \ \ \ :\ Mahmoud\ Abdelraouf\ Mahmoud\ *****************/}}
+\DoxyCodeLine{00003\ \textcolor{comment}{/*******\ Date\ \ \ \ \ \ :\ 8\ Apr\ 2023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *****************/}}
+\DoxyCodeLine{00004\ \textcolor{comment}{/*******\ Version\ \ \ :\ 0.1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *****************/}}
+\DoxyCodeLine{00005\ \textcolor{comment}{/*******\ File\ Name\ :\ MemeoryManager.h\ \ \ \ \ \ \ \ \ \ \ *****************/}}
+\DoxyCodeLine{00006\ \textcolor{comment}{/****************************************************************/}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MM\_H\_}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MM\_H\_}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{glthread_8h}{glthread.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MM\_MAX\_STRUCT\_NAME\ 32}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ MAX\_STRUCT\_NAME\_LEN\ 50}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743a5fa86d930835744d22245a6bef510f24}{MM\_FALSE}}\ =\ 0,\ }
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743a60caf413ecbcbf918d0b0e19c9772556}{MM\_TRUE}}\ =\ 1\ \ \ }
+\DoxyCodeLine{00030\ \}\ \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\_bool\_t}};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_}}\ \{}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\_bool\_t}}\ \mbox{\hyperlink{structblock__meta__data___a90c4e212e3c7d12f03d463d226222eec}{is\_free}};\ \ \ }
+\DoxyCodeLine{00042\ \ \ uint32\_t\ \mbox{\hyperlink{structblock__meta__data___afdb30e953ac72d6c06e8dda8e7ba3fa8}{block\_size}};\ }
+\DoxyCodeLine{00043\ \ \ uint32\_t\ \mbox{\hyperlink{structblock__meta__data___a42089748d243642953126e141a46ca74}{offset}};\ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_}}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ *\mbox{\hyperlink{structblock__meta__data___aae8138edf04da59ce1d268df8ee9df8a}{prev\_block}};\ }
+\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_}}\ *\mbox{\hyperlink{structblock__meta__data___a05e3a2b0278c7a764f9ee7a904c5883e}{next\_block}};\ }
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{structglthread__}{glthread\_t}}\ \mbox{\hyperlink{structblock__meta__data___a4418fa8e20b418454435a5f9bae137ae}{priority\_thread\_glue}};\ }
+\DoxyCodeLine{00049\ \}\ \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\_meta\_data\_t}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00079\ \mbox{\hyperlink{glthread_8h_a46e14b66e90bb61bc6fce5e45a753d69}{GLTHREAD\_TO\_STRUCT}}(glthread\_to\_block\_meta\_data,\ \mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}},}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structblock__meta__data___a4418fa8e20b418454435a5f9bae137ae}{priority\_thread\_glue}},\ glthread\_ptr);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__page__}{vm\_page\_}}\ \{}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__page__}{vm\_page\_}}\ *\mbox{\hyperlink{structvm__page___a87995cd55301183d3d7c94ae9cfc0bfb}{next}};\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__page__}{vm\_page\_}}\ *\mbox{\hyperlink{structvm__page___a469046156ae2117a1dd19d6cf1801952}{prev}};\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__page__family__}{vm\_page\_family\_}}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ *\mbox{\hyperlink{structvm__page___a6ac529860ec2f94916bea6dd91df92aa}{pg\_family}};\ }
+\DoxyCodeLine{00094\ \ \ \mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ \mbox{\hyperlink{structvm__page___af8497e59faabb5f0665ea7e8db661c09}{block\_meta\_data}};\ }
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structvm__page___a2c50de67035c2fed15c95dac6131c2d6}{page\_memory}}[0];\ }
+\DoxyCodeLine{00097\ \}\ \mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\_page\_t}};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__page__family__}{vm\_page\_family\_}}\ \{}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structvm__page__family___a7cbb058e1581c37459d890f255f8de1f}{struct\_name}}[\mbox{\hyperlink{memory__manager_8h_a7e33ad2337bb751f178af9eebc45a84d}{MM\_MAX\_STRUCT\_NAME}}];\ }
+\DoxyCodeLine{00108\ \ \ uint32\_t\ \mbox{\hyperlink{structvm__page__family___a40db364a6d4f993286b3b70e75ef819d}{struct\_size}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00109\ \ \ \mbox{\hyperlink{structvm__page__}{vm\_page\_t}}\ *\mbox{\hyperlink{structvm__page__family___ab00e93097772a5e2774a04afd35c14b1}{first\_page}};\ }
+\DoxyCodeLine{00110\ \ \ \mbox{\hyperlink{structglthread__}{glthread\_t}}\ \mbox{\hyperlink{structvm__page__family___a97852d8704b25a68de7cce0c586bc30a}{free\_block\_priority\_list\_head}};\ }
+\DoxyCodeLine{00112\ \}\ \mbox{\hyperlink{memory__manager_8h_ad146e732e35bec81b72c7437204e9ee8}{vm\_page\_family\_t}};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__page__for__families__}{vm\_page\_for\_families\_}}\ \{}
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvm__page__for__families__}{vm\_page\_for\_families\_}}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ *\mbox{\hyperlink{structvm__page__for__families___a24af31aa2704f20cd44872759337f162}{next}};\ }
+\DoxyCodeLine{00121\ \ \ \mbox{\hyperlink{structvm__page__family__}{vm\_page\_family\_t}}\ \mbox{\hyperlink{structvm__page__for__families___a2aeb70fd9478bae7c60d0fd95bb62317}{vm\_page\_family}}[0];\ }
+\DoxyCodeLine{00123\ \}\ \mbox{\hyperlink{memory__manager_8h_a0cf10cad96e10ff9160b976e509f9462}{vm\_page\_for\_families\_t}};}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00137\ \mbox{\hyperlink{structvm__page__}{vm\_page\_t}}\ *\mbox{\hyperlink{memory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111}{allocate\_vm\_page}}(\mbox{\hyperlink{structvm__page__family__}{vm\_page\_family\_t}}\ *\mbox{\hyperlink{structvm__page__for__families___a2aeb70fd9478bae7c60d0fd95bb62317}{vm\_page\_family}});}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00148\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{memory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222}{mm\_vm\_page\_delete\_and\_free}}(\mbox{\hyperlink{structvm__page__}{vm\_page\_t}}\ *vm\_page);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00171\ \mbox{\hyperlink{structvm__page__family__}{vm\_page\_family\_t}}\ *\mbox{\hyperlink{memory__manager_8h_ab9910db7228c29ee672139e284cd6cec}{lookup\_page\_family\_by\_name}}(\textcolor{keywordtype}{char}\ *struct\_name);}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00200\ \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\_bool\_t}}\ \mbox{\hyperlink{memory__manager_8h_a38d0ee21c7b3b9b22289786fd969be46}{mm\_is\_vm\_page\_empty}}(\mbox{\hyperlink{structvm__page__}{vm\_page\_t}}\ *vm\_page);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00220\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00221\ \mbox{\hyperlink{memory__manager_8h_aa72156192006fd76902b0616def7db4d}{mm\_add\_free\_block\_meta\_data\_to\_free\_block\_list}}(\mbox{\hyperlink{structvm__page__family__}{vm\_page\_family\_t}}\ *\mbox{\hyperlink{structvm__page__for__families___a2aeb70fd9478bae7c60d0fd95bb62317}{vm\_page\_family}},}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ *free\_block);}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00233\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{memory__manager_8h_a0a1f3a9753facffae61a89ed4ad4ff68}{mm\_print\_vm\_page\_details}}(\mbox{\hyperlink{structvm__page__}{vm\_page\_t}}\ *vm\_page);}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ MAX\_FAMILIES\_PER\_VM\_PAGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\ \ (SYSTEM\_PAGE\_SIZE\ -\/\ sizeof(struct\ vm\_page\_for\_families\_\ *))\ /\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ \ \ \ \ sizeof(struct\ vm\_page\_family\_)}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#define\ ITERATE\_PAGE\_FAMILIES\_BEGIN(vm\_page\_for\_families\_ptr,\ curr)\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\ \ \ \ uint32\_t\ \_count\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\ \ \ \ for\ (curr\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ (vm\_page\_family\_t\ *)\&vm\_page\_for\_families\_ptr-\/>vm\_page\_family[0];\ \(\backslash\)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ curr-\/>struct\_size\ \&\&\ \_count\ <\ MAX\_FAMILIES\_PER\_VM\_PAGE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ curr++,\ \_count++)\ \{}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#define\ ITERATE\_PAGE\_FAMILIES\_END(vm\_page\_for\_families\_ptr,\ curr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#define\ ITERATE\_VM\_PAGE\_BEGIN(vm\_page\_family\_ptr,\ curr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\ \ \ \ curr\ =\ (vm\_page\_family\_ptr)-\/>first\_page;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\ \ \ \ vm\_page\_t\ *next\ =\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\ \ \ \ for\ (;\ curr\ !=\ NULL;\ curr\ =\ next)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\ \ \ \ \ \ next\ =\ curr-\/>next;}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#define\ ITERATE\_VM\_PAGE\_END(vm\_page\_family\_ptr,\ curr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#define\ ITERATE\_VM\_PAGE\_ALL\_BLOCKS\_BEGIN(vm\_page\_ptr,\ curr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\ \ \ \ curr\ =\ \&(vm\_page\_ptr-\/>block\_meta\_data);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\ \ \ \ block\_meta\_data\_t\ *next\ =\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\ \ \ \ for\ (;\ curr\ !=\ NULL;\ curr\ =\ next)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\ \ \ \ \ \ next\ =\ NEXT\_META\_BLOCK(curr);}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00383\ \textcolor{preprocessor}{\#define\ ITERATE\_VM\_PAGE\_ALL\_BLOCKS\_END(vm\_page\_ptr,\ curr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00385\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\ \ while\ (0)}}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#define\ offset\_of(container\_structure,\ field\_name)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\ \ ((size\_t)(\&((container\_structure\ *)0)-\/>field\_name))}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00414\ \textcolor{preprocessor}{\#define\ MM\_GET\_PAGE\_FROM\_META\_BLOCK(block\_meta\_data\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00415\ \textcolor{preprocessor}{\ \ ((void\ *)((char\ *)(block\_meta\_data\_ptr)\ -\/\ (block\_meta\_data\_ptr)-\/>offset))}}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#define\ NEXT\_META\_BLOCK\_BY\_SIZE(block\_meta\_data\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\ \ ((block\_meta\_data\_t\ *)((char\ *)(block\_meta\_data\_ptr\ +\ 1)\ +\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00439\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (block\_meta\_data\_ptr)-\/>block\_size))}}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\#define\ NEXT\_META\_BLOCK(block\_meta\_data\_ptr)\ ((block\_meta\_data\_ptr)-\/>next\_block)}}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00474\ \textcolor{preprocessor}{\#define\ PREV\_META\_BLOCK(block\_meta\_data\_ptr)\ ((block\_meta\_data\_ptr)-\/>prev\_block)}}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00515\ \textcolor{preprocessor}{\#define\ MARK\_VM\_PAGE\_EMPTY(vm\_page\_t\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00517\ \textcolor{preprocessor}{\ \ \ \ (vm\_page\_t\_ptr)-\/>block\_meta\_data.next\_block\ =\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00518\ \textcolor{preprocessor}{\ \ \ \ (vm\_page\_t\_ptr)-\/>block\_meta\_data.prev\_block\ =\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00519\ \textcolor{preprocessor}{\ \ \ \ (vm\_page\_t\_ptr)-\/>block\_meta\_data.is\_free\ =\ MM\_TRUE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00538\ \textcolor{preprocessor}{\#define\ mm\_bind\_blocks\_for\_allocation(allocated\_meta\_block,\ free\_meta\_block)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00539\ \textcolor{preprocessor}{\ \ free\_meta\_block-\/>prev\_block\ =\ allocated\_meta\_block;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00540\ \textcolor{preprocessor}{\ \ free\_meta\_block-\/>next\_block\ =\ allocated\_meta\_block-\/>next\_block;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00541\ \textcolor{preprocessor}{\ \ allocated\_meta\_block-\/>next\_block\ =\ free\_meta\_block;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00542\ \textcolor{preprocessor}{\ \ if\ (free\_meta\_block-\/>next\_block)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00543\ \textcolor{preprocessor}{\ \ free\_meta\_block-\/>next\_block-\/>prev\_block\ =\ free\_meta\_block}}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00560\ \textcolor{preprocessor}{\#define\ MAX\_PAGE\_ALLOCATABLE\_MEMORY(units)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00561\ \textcolor{preprocessor}{\ \ (mm\_max\_page\_allocatable\_memory(units))}}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00585\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{memory__manager_8h_a8b6e564655ddbbb3147b2d28ee398e5c}{mm\_get\_new\_vm\_page\_from\_kernel}}(\textcolor{keywordtype}{int}\ units);}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00607\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{memory__manager_8h_ab7ac1212082ab9c61aab19e76696d9ec}{mm\_return\_vm\_page\_to\_kernel}}(\textcolor{keywordtype}{void}\ *vm\_page,\ \textcolor{keywordtype}{int}\ units);}
+\DoxyCodeLine{00608\ }
+\DoxyCodeLine{00621\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{memory__manager_8h_a8b1f18097a67a303b6182eaf288b64f9}{mm\_union\_free\_blocks}}(\mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ *first,}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ *second);}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00640\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ \mbox{\hyperlink{memory__manager_8h_ae68e468ad150ea915ed9a3b9d899e9df}{mm\_max\_page\_allocatable\_memory}}(\textcolor{keywordtype}{int}\ units);}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00658\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{memory__manager_8h_a5987bb26622d19dcd8ecfd1416a7f3c6}{free\_blocks\_comparison\_function}}(\textcolor{keywordtype}{void}\ *\_block\_meta\_data1,}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\_block\_meta\_data2);}
+\DoxyCodeLine{00660\ }
+\DoxyCodeLine{00680\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ *}
+\DoxyCodeLine{00681\ \mbox{\hyperlink{memory__manager_8h_a28b2162ebaea314c420ca44e29fb9d44}{mm\_get\_biggest\_free\_block\_page\_family}}(\mbox{\hyperlink{structvm__page__family__}{vm\_page\_family\_t}}\ *\mbox{\hyperlink{structvm__page__for__families___a2aeb70fd9478bae7c60d0fd95bb62317}{vm\_page\_family}});}
+\DoxyCodeLine{00682\ }
+\DoxyCodeLine{00707\ \textcolor{keyword}{static}\ \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\_bool\_t}}}
+\DoxyCodeLine{00708\ \mbox{\hyperlink{memory__manager_8h_ab335253cb154c4adb2beb3cea638fb3c}{mm\_split\_free\_data\_block\_for\_allocation}}(\mbox{\hyperlink{structvm__page__family__}{vm\_page\_family\_t}}\ *\mbox{\hyperlink{structvm__page__for__families___a2aeb70fd9478bae7c60d0fd95bb62317}{vm\_page\_family}},}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ *block\_meta\_data,}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ size);}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00735\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ *}
+\DoxyCodeLine{00736\ \mbox{\hyperlink{memory__manager_8h_a464ebae83b876a0ebb252e793e296fe9}{mm\_allocate\_free\_data\_block}}(\mbox{\hyperlink{structvm__page__family__}{vm\_page\_family\_t}}\ *\mbox{\hyperlink{structvm__page__for__families___a2aeb70fd9478bae7c60d0fd95bb62317}{vm\_page\_family}},}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ req\_size);}
+\DoxyCodeLine{00759\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structvm__page__}{vm\_page\_t}}\ *\mbox{\hyperlink{memory__manager_8h_acf3ff2e7438d4ae2c531e8851b7270e8}{mm\_family\_new\_page\_add}}(\mbox{\hyperlink{structvm__page__family__}{vm\_page\_family\_t}}\ *\mbox{\hyperlink{structvm__page__for__families___a2aeb70fd9478bae7c60d0fd95bb62317}{vm\_page\_family}});}
+\DoxyCodeLine{00760\ }
+\DoxyCodeLine{00775\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{memory__manager_8h_a3635ea0217471faffe42b0c91c4bcc42}{mm\_get\_hard\_internal\_memory\_frag\_size}}(\mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ *first,}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ *second);}
+\DoxyCodeLine{00777\ }
+\DoxyCodeLine{00791\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ *\mbox{\hyperlink{memory__manager_8h_a2250996fd809506caef0a6e61b6faebb}{mm\_free\_blocks}}(\mbox{\hyperlink{structblock__meta__data__}{block\_meta\_data\_t}}\ *to\_be\_free\_block);}
+\DoxyCodeLine{00792\ }
+\DoxyCodeLine{00793\ \textcolor{preprocessor}{\#endif\ }}
+
+\end{DoxyCode}

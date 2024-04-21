@@ -1,0 +1,22 @@
+\doxysection{datatype\+\_\+size\+\_\+lookup.\+h}
+\hypertarget{datatype__size__lookup_8h_source}{}\label{datatype__size__lookup_8h_source}\mbox{\hyperlink{datatype__size__lookup_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DATATYPE\_SIZE\_LOOKUP\_H\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DATATYPE\_SIZE\_LOOKUP\_H\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ MAX\_STRUCT\_NAME\_LEN\ 50}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Define\ a\ structure\ to\ map\ data\ type\ strings\ to\ C\ data\ types}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdatatype__mapping__}{datatype\_mapping\_}}\ \{}
+\DoxyCodeLine{00011\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structdatatype__mapping___ac9faab2ffaccf4ff79e42a7f14acb347}{name}}[\mbox{\hyperlink{datatype__size__lookup_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}{MAX\_STRUCT\_NAME\_LEN}}];}
+\DoxyCodeLine{00012\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structdatatype__mapping___a179c4d19cce9e39137898b8f5251cf07}{size}};}
+\DoxyCodeLine{00013\ \}\ \mbox{\hyperlink{datatype__size__lookup_8h_a16539ea0e5459474a36a56d75d31d977}{datatype\_mapping\_t}};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{datatype__size__lookup_8h_a65d92569472aecd58e18e5afaa9b41ea}{get\_size\_of\_datatype}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data\_type);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif\ }}
+
+\end{DoxyCode}

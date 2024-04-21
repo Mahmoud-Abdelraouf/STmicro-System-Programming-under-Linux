@@ -1,0 +1,11 @@
+<map id="mm_max_page_allocatable_memory" name="mm_max_page_allocatable_memory">
+<area shape="rect" id="Node000001" title=" " alt="" coords="784,5,987,45"/>
+<area shape="rect" id="Node000002" href="$memory__manager_8c.html#acf4906c4a2cd80f10a570cc1c7411111" title="Allocates a new virtual memory page for a given page family." alt="" coords="595,13,736,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="770,28,736,28,736,23,770,23"/>
+<area shape="rect" id="Node000003" href="$memory__manager_8c.html#acf3ff2e7438d4ae2c531e8851b7270e8" title=" " alt="" coords="345,13,547,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="581,28,547,28,547,23,581,23"/>
+<area shape="rect" id="Node000004" href="$memory__manager_8c.html#a464ebae83b876a0ebb252e793e296fe9" title=" " alt="" coords="121,5,297,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="332,28,298,28,298,23,332,23"/>
+<area shape="rect" id="Node000005" href="$memory__manager_8c.html#a99f5a0d88caf5abe330155eb4e2d7aac" title="Allocates and initializes memory for an array of structures." alt="" coords="5,13,73,38"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="107,28,74,28,74,23,107,23"/>
+</map>

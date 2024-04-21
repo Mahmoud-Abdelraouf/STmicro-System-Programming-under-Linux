@@ -776,17 +776,18 @@ static int mm_get_hard_internal_memory_frag_size(block_meta_data_t *first,
                                                  block_meta_data_t *second);
 
 /**
- * @brief Frees a block of memory.
+ * @brief Frees a memory block and performs merging if necessary.
  *
- * This function is responsible for freeing a block of memory represented by the
- * @p to_be_free_block parameter. It performs various operations including
- * marking the block as free, handling memory fragmentation, merging with
- * adjacent free blocks, deleting and freeing the hosting page if it is now
- * empty, and adding the freed block to the free block list.
+ * This function frees a memory block represented by the given @p
+ * to_be_free_block parameter. It also handles merging of adjacent free blocks
+ * if present.
  *
- * @param to_be_free_block The block of memory to be freed.
- * @return A pointer to the block of memory that was freed, or NULL if the page
- * containing the block is now empty.
+ * @param to_be_free_block The block to be freed.
+ * @return A pointer to the freed block or NULL if the hosting page becomes
+ * empty.
+ *
+ * @note The function assumes that @p to_be_free_block is not NULL and its
+ * is_free flag is set to MM_FALSE (indicating it's not already free).
  */
 static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block);
 

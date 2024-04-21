@@ -1,0 +1,452 @@
+\doxysection{glthread.\+h File Reference}
+\hypertarget{glthread_8h}{}\label{glthread_8h}\index{glthread.h@{glthread.h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{glthread_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structglthread__}{glthread\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Structure representing a generic linked list node for threaded linking. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{glthread_8h_ad9ef88902f404ff5f9a1d767babe57fa}{IS\+\_\+\+GLTHREAD\+\_\+\+LIST\+\_\+\+EMPTY}}(glthreadptr)~  ((glthreadptr)-\/$>$right == 0 \&\& (glthreadptr)-\/$>$left == 0)
+\begin{DoxyCompactList}\small\item\em Macro to check if a linked list of glthread\+\_\+t structures is empty. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{glthread_8h_a46e14b66e90bb61bc6fce5e45a753d69}{GLTHREAD\+\_\+\+TO\+\_\+\+STRUCT}}(fn\+\_\+name,  structure\+\_\+name,  field\+\_\+name,  glthreadptr)
+\begin{DoxyCompactList}\small\item\em Macro to convert a glthread\+\_\+t structure to a user-\/defined structure. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{glthread_8h_af64cb523b5609d6e3bb4189e5d1d36e7}{BASE}}(glthreadptr)~((glthreadptr)-\/$>$right)
+\begin{DoxyCompactList}\small\item\em Macro to retrieve the base of a linked list. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{glthread_8h_a53c0388e1d559db357ff7473d944dea5}{ITERATE\+\_\+\+GLTHREAD\+\_\+\+BEGIN}}(glthreadptrstart,  glthreadptr)
+\begin{DoxyCompactList}\small\item\em Macro to begin iterating over a linked list of glthread\+\_\+t structures. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{glthread_8h_a6a3240e33c08a20fbe58f26c45b33fa9}{ITERATE\+\_\+\+GLTHREAD\+\_\+\+END}}(glthreadptrstart,  glthreadptr)
+\begin{DoxyCompactList}\small\item\em Macro to end iteration over a linked list of glthread\+\_\+t structures. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{glthread_8h_a4462265e043c8a84bc2970bb6e6d477f}{GLTHREAD\+\_\+\+GET\+\_\+\+USER\+\_\+\+DATA\+\_\+\+FROM\+\_\+\+OFFSET}}(glthreadptr,  offset)~    (void \texorpdfstring{$\ast$}{*})((char \texorpdfstring{$\ast$}{*})(glthreadptr) -\/ offset)
+\begin{DoxyCompactList}\small\item\em Macro to get a pointer to user-\/defined data from a glthread\+\_\+t pointer and offset. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structglthread__}{glthread\+\_\+}} \mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure representing a generic linked list node for threaded linking. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{glthread_8h_a9e4b763220b1c69da2d9e9f191506f89}{init\+\_\+glthread}} (\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}glthread)
+\begin{DoxyCompactList}\small\item\em Initialize a glthread\+\_\+t structure. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{glthread_8h_adafe7c4011854c5d89fbafe866c32cfc}{glthread\+\_\+add\+\_\+next}} (\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}base\+\_\+glthread, \mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}new\+\_\+glthread)
+\begin{DoxyCompactList}\small\item\em Adds a new node after the specified current node in the threaded linked list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{glthread_8h_a86eea30d1cd4164ecae0e84bec741aae}{glthread\+\_\+add\+\_\+before}} (\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}base\+\_\+glthread, \mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}new\+\_\+glthread)
+\begin{DoxyCompactList}\small\item\em Adds a new node before the specified current node in the threaded linked list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{glthread_8h_a935ecd20646a46a7b84dbbeee4abd76d}{remove\+\_\+glthread}} (\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}glthread)
+\begin{DoxyCompactList}\small\item\em Removes the specified node from the threaded linked list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{glthread_8h_aa9ff7634d580d992d01f4804c8fc83f4}{glthread\+\_\+add\+\_\+last}} (\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}base\+\_\+glthread, \mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}new\+\_\+glthread)
+\begin{DoxyCompactList}\small\item\em Add a new glthread\+\_\+t structure at the last position of a linked list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{glthread_8h_a535e3f6499dfcfd78ae9f62ee77923f5}{delete\+\_\+glthread\+\_\+list}} (\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}base\+\_\+glthread)
+\begin{DoxyCompactList}\small\item\em Delete all glthread\+\_\+t structures in a linked list. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{glthread_8h_a2600b64b53c4f32bf6ff6fa38f55da22}{get\+\_\+glthread\+\_\+list\+\_\+count}} (\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}base\+\_\+glthread)
+\begin{DoxyCompactList}\small\item\em Get the count of glthread\+\_\+t structures in a linked list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{glthread_8h_a2f6336d160a55d3adecb11dace34152a}{glthread\+\_\+priority\+\_\+insert}} (\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}base\+\_\+glthread, \mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}glthread, int(\texorpdfstring{$\ast$}{*}comp\+\_\+fn)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}), int offset)
+\begin{DoxyCompactList}\small\item\em Insert a glthread\+\_\+t structure into a sorted linked list based on priority. \end{DoxyCompactList}\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{glthread_8h_ae9c3167c02163fc2484c65b0dce9a8b5}{glthread\+\_\+search}} (\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}base\+\_\+glthread, void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*}thread\+\_\+to\+\_\+struct\+\_\+fn)(\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}), void \texorpdfstring{$\ast$}{*}key, int(\texorpdfstring{$\ast$}{*}comparison\+\_\+fn)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}))
+\begin{DoxyCompactList}\small\item\em Search for a specific glthread\+\_\+t structure in the linked list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{glthread_8h_af64cb523b5609d6e3bb4189e5d1d36e7}\label{glthread_8h_af64cb523b5609d6e3bb4189e5d1d36e7} 
+\index{glthread.h@{glthread.h}!BASE@{BASE}}
+\index{BASE@{BASE}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{BASE}{BASE}}
+{\footnotesize\ttfamily \#define BASE(\begin{DoxyParamCaption}\item[{}]{glthreadptr }\end{DoxyParamCaption})~((glthreadptr)-\/$>$right)}
+
+
+
+Macro to retrieve the base of a linked list. 
+
+This macro retrieves the base of a linked list given a pointer to a glthread\+\_\+t structure. It returns the pointer to the right child of the provided glthread\+\_\+t structure, which is typically the base of the linked list.
+
+
+\begin{DoxyParams}{Parameters}
+{\em glthreadptr} & Pointer to the glthread\+\_\+t structure from which to retrieve the base. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+glthread\+\_\+t\texorpdfstring{$\ast$}{*} Pointer to the base of the linked list. 
+\end{DoxyReturn}
+\Hypertarget{glthread_8h_a4462265e043c8a84bc2970bb6e6d477f}\label{glthread_8h_a4462265e043c8a84bc2970bb6e6d477f} 
+\index{glthread.h@{glthread.h}!GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET@{GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET}}
+\index{GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET@{GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET}{GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET}}
+{\footnotesize\ttfamily \#define GLTHREAD\+\_\+\+GET\+\_\+\+USER\+\_\+\+DATA\+\_\+\+FROM\+\_\+\+OFFSET(\begin{DoxyParamCaption}\item[{}]{glthreadptr,  }\item[{}]{offset }\end{DoxyParamCaption})~    (void \texorpdfstring{$\ast$}{*})((char \texorpdfstring{$\ast$}{*})(glthreadptr) -\/ offset)}
+
+
+
+Macro to get a pointer to user-\/defined data from a glthread\+\_\+t pointer and offset. 
+
+This macro calculates a pointer to user-\/defined data from a given glthread\+\_\+t pointer and an offset. It\textquotesingle{}s useful when you have a glthread\+\_\+t pointer embedded within a user-\/defined structure and you want to access the user-\/defined data based on a known offset.
+
+
+\begin{DoxyParams}{Parameters}
+{\em glthreadptr} & Pointer to the glthread\+\_\+t structure. \\
+\hline
+{\em offset} & Offset of the glthread\+\_\+t member within the user-\/defined structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the user-\/defined data. GLUETHREAD\+\_\+\+H\+\_\+ 
+\end{DoxyReturn}
+\Hypertarget{glthread_8h_a46e14b66e90bb61bc6fce5e45a753d69}\label{glthread_8h_a46e14b66e90bb61bc6fce5e45a753d69} 
+\index{glthread.h@{glthread.h}!GLTHREAD\_TO\_STRUCT@{GLTHREAD\_TO\_STRUCT}}
+\index{GLTHREAD\_TO\_STRUCT@{GLTHREAD\_TO\_STRUCT}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{GLTHREAD\_TO\_STRUCT}{GLTHREAD\_TO\_STRUCT}}
+{\footnotesize\ttfamily \#define GLTHREAD\+\_\+\+TO\+\_\+\+STRUCT(\begin{DoxyParamCaption}\item[{}]{fn\+\_\+name,  }\item[{}]{structure\+\_\+name,  }\item[{}]{field\+\_\+name,  }\item[{}]{glthreadptr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ structure\_name\ *fn\_name(\mbox{\hyperlink{structglthread__}{glthread\_t}}\ *glthreadptr)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ return\ (structure\_name\ *)((\textcolor{keywordtype}{char}\ *)(glthreadptr)\ -\/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{char}\ *)\&(((structure\_name\ *)0)-\/>field\_name));\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+Macro to convert a glthread\+\_\+t structure to a user-\/defined structure. 
+
+This macro provides a convenient way to convert a glthread\+\_\+t structure to a user-\/defined structure. It creates a conversion function that takes a glthread\+\_\+t pointer and returns a pointer to the user-\/defined structure. This is particularly useful when you have a glthread\+\_\+t structure embedded within a user-\/defined structure and need to access the user-\/defined data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fn\+\_\+name} & The name of the conversion function to be created. \\
+\hline
+{\em struct\+\_\+type} & The type of the user-\/defined structure. \\
+\hline
+{\em glthread\+\_\+member} & The name of the glthread\+\_\+t member within the user-\/defined structure. \\
+\hline
+{\em glthread\+\_\+ptr} & The name of the glthread\+\_\+t pointer variable.\\
+\hline
+\end{DoxyParams}
+Example usage\+: Suppose we have a user-\/defined structure named {\ttfamily block\+\_\+meta\+\_\+data\+\_\+t} that contains a {\ttfamily glthread\+\_\+t} member named {\ttfamily priority\+\_\+thread\+\_\+glue}. We want to create a conversion function named {\ttfamily glthread\+\_\+to\+\_\+block\+\_\+meta\+\_\+data} to convert a {\ttfamily glthread\+\_\+t} pointer to a {\ttfamily block\+\_\+meta\+\_\+data\+\_\+t} pointer\+:
+
+\doxylink{glthread_8h_a46e14b66e90bb61bc6fce5e45a753d69}{GLTHREAD\+\_\+\+TO\+\_\+\+STRUCT(glthread\+\_\+to\+\_\+block\+\_\+meta\+\_\+data, block\+\_\+meta\+\_\+data\+\_\+t,                    priority\+\_\+thread\+\_\+glue, glthread\+\_\+ptr)};
+
+Now, we can use {\ttfamily glthread\+\_\+to\+\_\+block\+\_\+meta\+\_\+data} to convert {\ttfamily glthread\+\_\+t} pointers to {\ttfamily block\+\_\+meta\+\_\+data\+\_\+t} pointers and access the metadata associated with memory blocks. \Hypertarget{glthread_8h_ad9ef88902f404ff5f9a1d767babe57fa}\label{glthread_8h_ad9ef88902f404ff5f9a1d767babe57fa} 
+\index{glthread.h@{glthread.h}!IS\_GLTHREAD\_LIST\_EMPTY@{IS\_GLTHREAD\_LIST\_EMPTY}}
+\index{IS\_GLTHREAD\_LIST\_EMPTY@{IS\_GLTHREAD\_LIST\_EMPTY}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{IS\_GLTHREAD\_LIST\_EMPTY}{IS\_GLTHREAD\_LIST\_EMPTY}}
+{\footnotesize\ttfamily \#define IS\+\_\+\+GLTHREAD\+\_\+\+LIST\+\_\+\+EMPTY(\begin{DoxyParamCaption}\item[{}]{glthreadptr }\end{DoxyParamCaption})~  ((glthreadptr)-\/$>$right == 0 \&\& (glthreadptr)-\/$>$left == 0)}
+
+
+
+Macro to check if a linked list of glthread\+\_\+t structures is empty. 
+
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Function-\/like macro section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
+
+This macro checks if a linked list of glthread\+\_\+t structures is empty. It evaluates to true if both the right and left pointers of the provided glthread\+\_\+t structure are NULL, indicating an empty list.
+
+
+\begin{DoxyParams}{Parameters}
+{\em glthreadptr} & Pointer to the glthread\+\_\+t structure representing the linked list. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Returns 1 if the linked list is empty, 0 otherwise. 
+\end{DoxyReturn}
+\Hypertarget{glthread_8h_a53c0388e1d559db357ff7473d944dea5}\label{glthread_8h_a53c0388e1d559db357ff7473d944dea5} 
+\index{glthread.h@{glthread.h}!ITERATE\_GLTHREAD\_BEGIN@{ITERATE\_GLTHREAD\_BEGIN}}
+\index{ITERATE\_GLTHREAD\_BEGIN@{ITERATE\_GLTHREAD\_BEGIN}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{ITERATE\_GLTHREAD\_BEGIN}{ITERATE\_GLTHREAD\_BEGIN}}
+{\footnotesize\ttfamily \#define ITERATE\+\_\+\+GLTHREAD\+\_\+\+BEGIN(\begin{DoxyParamCaption}\item[{}]{glthreadptrstart,  }\item[{}]{glthreadptr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structglthread__}{glthread\_t}}\ *\_glthread\_ptr\ =\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ glthreadptr\ =\ \mbox{\hyperlink{glthread_8h_af64cb523b5609d6e3bb4189e5d1d36e7}{BASE}}(glthreadptrstart);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ for(;\ glthreadptr!=\ NULL;\ glthreadptr\ =\ \_glthread\_ptr)\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \_glthread\_ptr\ =\ (glthreadptr)-\/>right;}
+
+\end{DoxyCode}
+
+
+Macro to begin iterating over a linked list of glthread\+\_\+t structures. 
+
+This macro sets up a loop to iterate over a linked list of glthread\+\_\+t structures. It initializes necessary variables and pointers for the iteration.
+
+
+\begin{DoxyParams}{Parameters}
+{\em glthreadptrstart} & Pointer to the starting glthread\+\_\+t structure for iteration. \\
+\hline
+{\em glthreadptr} & Pointer to the current glthread\+\_\+t structure being iterated. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{glthread_8h_a6a3240e33c08a20fbe58f26c45b33fa9}\label{glthread_8h_a6a3240e33c08a20fbe58f26c45b33fa9} 
+\index{glthread.h@{glthread.h}!ITERATE\_GLTHREAD\_END@{ITERATE\_GLTHREAD\_END}}
+\index{ITERATE\_GLTHREAD\_END@{ITERATE\_GLTHREAD\_END}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{ITERATE\_GLTHREAD\_END}{ITERATE\_GLTHREAD\_END}}
+{\footnotesize\ttfamily \#define ITERATE\+\_\+\+GLTHREAD\+\_\+\+END(\begin{DoxyParamCaption}\item[{}]{glthreadptrstart,  }\item[{}]{glthreadptr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+Macro to end iteration over a linked list of glthread\+\_\+t structures. 
+
+This macro marks the end of the loop initiated by ITERATE\+\_\+\+GLTHREAD\+\_\+\+BEGIN. It closes the loop block.
+
+
+\begin{DoxyParams}{Parameters}
+{\em glthreadptrstart} & Pointer to the starting glthread\+\_\+t structure for iteration. \\
+\hline
+{\em glthreadptr} & Pointer to the current glthread\+\_\+t structure being iterated. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}\label{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad} 
+\index{glthread.h@{glthread.h}!glthread\_t@{glthread\_t}}
+\index{glthread\_t@{glthread\_t}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{glthread\_t}{glthread\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structglthread__}{glthread\+\_\+}} \mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}}}
+
+
+
+Structure representing a generic linked list node for threaded linking. 
+
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} user defined data type section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
+
+This structure defines a generic linked list node for threaded linking. It consists of left and right pointers for threading the nodes together. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{glthread_8h_a535e3f6499dfcfd78ae9f62ee77923f5}\label{glthread_8h_a535e3f6499dfcfd78ae9f62ee77923f5} 
+\index{glthread.h@{glthread.h}!delete\_glthread\_list@{delete\_glthread\_list}}
+\index{delete\_glthread\_list@{delete\_glthread\_list}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{delete\_glthread\_list()}{delete\_glthread\_list()}}
+{\footnotesize\ttfamily void delete\+\_\+glthread\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{base\+\_\+glthread }\end{DoxyParamCaption})}
+
+
+
+Delete all glthread\+\_\+t structures in a linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em base\+\_\+glthread} & Pointer to the base glthread\+\_\+t structure (head of the linked list). \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{glthread_8h_a535e3f6499dfcfd78ae9f62ee77923f5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{glthread_8h_a2600b64b53c4f32bf6ff6fa38f55da22}\label{glthread_8h_a2600b64b53c4f32bf6ff6fa38f55da22} 
+\index{glthread.h@{glthread.h}!get\_glthread\_list\_count@{get\_glthread\_list\_count}}
+\index{get\_glthread\_list\_count@{get\_glthread\_list\_count}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{get\_glthread\_list\_count()}{get\_glthread\_list\_count()}}
+{\footnotesize\ttfamily unsigned int get\+\_\+glthread\+\_\+list\+\_\+count (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{base\+\_\+glthread }\end{DoxyParamCaption})}
+
+
+
+Get the count of glthread\+\_\+t structures in a linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em base\+\_\+glthread} & Pointer to the base glthread\+\_\+t structure (head of the linked list). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+unsigned int The count of glthread\+\_\+t structures in the linked list. 
+\end{DoxyReturn}
+\Hypertarget{glthread_8h_a86eea30d1cd4164ecae0e84bec741aae}\label{glthread_8h_a86eea30d1cd4164ecae0e84bec741aae} 
+\index{glthread.h@{glthread.h}!glthread\_add\_before@{glthread\_add\_before}}
+\index{glthread\_add\_before@{glthread\_add\_before}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{glthread\_add\_before()}{glthread\_add\_before()}}
+{\footnotesize\ttfamily void glthread\+\_\+add\+\_\+before (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{base\+\_\+glthread,  }\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{new\+\_\+glthread }\end{DoxyParamCaption})}
+
+
+
+Adds a new node before the specified current node in the threaded linked list. 
+
+This function adds a new node before the specified current node in the threaded linked list.
+
+
+\begin{DoxyParams}{Parameters}
+{\em curr\+\_\+glthread} & Pointer to the current node in the threaded linked list. \\
+\hline
+{\em new\+\_\+glthread} & Pointer to the new node to be added. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{glthread_8h_aa9ff7634d580d992d01f4804c8fc83f4}\label{glthread_8h_aa9ff7634d580d992d01f4804c8fc83f4} 
+\index{glthread.h@{glthread.h}!glthread\_add\_last@{glthread\_add\_last}}
+\index{glthread\_add\_last@{glthread\_add\_last}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{glthread\_add\_last()}{glthread\_add\_last()}}
+{\footnotesize\ttfamily void glthread\+\_\+add\+\_\+last (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{base\+\_\+glthread,  }\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{new\+\_\+glthread }\end{DoxyParamCaption})}
+
+
+
+Add a new glthread\+\_\+t structure at the last position of a linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em base\+\_\+glthread} & Pointer to the base glthread\+\_\+t structure (head of the linked list). \\
+\hline
+{\em new\+\_\+glthread} & Pointer to the new glthread\+\_\+t structure to be added. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{glthread_8h_aa9ff7634d580d992d01f4804c8fc83f4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{glthread_8h_adafe7c4011854c5d89fbafe866c32cfc}\label{glthread_8h_adafe7c4011854c5d89fbafe866c32cfc} 
+\index{glthread.h@{glthread.h}!glthread\_add\_next@{glthread\_add\_next}}
+\index{glthread\_add\_next@{glthread\_add\_next}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{glthread\_add\_next()}{glthread\_add\_next()}}
+{\footnotesize\ttfamily void glthread\+\_\+add\+\_\+next (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{base\+\_\+glthread,  }\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{new\+\_\+glthread }\end{DoxyParamCaption})}
+
+
+
+Adds a new node after the specified current node in the threaded linked list. 
+
+This function adds a new node after the specified current node in the threaded linked list.
+
+
+\begin{DoxyParams}{Parameters}
+{\em curr\+\_\+glthread} & Pointer to the current node in the threaded linked list. \\
+\hline
+{\em new\+\_\+glthread} & Pointer to the new node to be added. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{glthread_8h_adafe7c4011854c5d89fbafe866c32cfc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{glthread_8h_a2f6336d160a55d3adecb11dace34152a}\label{glthread_8h_a2f6336d160a55d3adecb11dace34152a} 
+\index{glthread.h@{glthread.h}!glthread\_priority\_insert@{glthread\_priority\_insert}}
+\index{glthread\_priority\_insert@{glthread\_priority\_insert}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{glthread\_priority\_insert()}{glthread\_priority\_insert()}}
+{\footnotesize\ttfamily void glthread\+\_\+priority\+\_\+insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{base\+\_\+glthread,  }\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{glthread,  }\item[{int(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})}]{comp\+\_\+fn,  }\item[{int}]{offset }\end{DoxyParamCaption})}
+
+
+
+Insert a glthread\+\_\+t structure into a sorted linked list based on priority. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em base\+\_\+glthread} & Pointer to the base glthread\+\_\+t structure (head of the linked list). \\
+\hline
+{\em glthread} & Pointer to the glthread\+\_\+t structure to be inserted. \\
+\hline
+{\em comp\+\_\+fn} & Pointer to the comparison function used to determine priority. \\
+\hline
+{\em offset} & Offset to access the user data within the glthread\+\_\+t structure. \\
+\hline
+\end{DoxyParams}
+\texorpdfstring{$<$}{<} Add in the endHere is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{glthread_8h_a2f6336d160a55d3adecb11dace34152a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{glthread_8h_a2f6336d160a55d3adecb11dace34152a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{glthread_8h_ae9c3167c02163fc2484c65b0dce9a8b5}\label{glthread_8h_ae9c3167c02163fc2484c65b0dce9a8b5} 
+\index{glthread.h@{glthread.h}!glthread\_search@{glthread\_search}}
+\index{glthread\_search@{glthread\_search}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{glthread\_search()}{glthread\_search()}}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} glthread\+\_\+search (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{base\+\_\+glthread,  }\item[{void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*})(\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*})}]{thread\+\_\+to\+\_\+struct\+\_\+fn,  }\item[{void \texorpdfstring{$\ast$}{*}}]{key,  }\item[{int(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})}]{comparison\+\_\+fn }\end{DoxyParamCaption})}
+
+
+
+Search for a specific glthread\+\_\+t structure in the linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em base\+\_\+glthread} & Pointer to the base glthread\+\_\+t structure (head of the linked list). \\
+\hline
+{\em thread\+\_\+to\+\_\+struct\+\_\+fn} & Function pointer to convert a glthread\+\_\+t structure to the corresponding user-\/defined structure. \\
+\hline
+{\em key} & Pointer to the key used for comparison. \\
+\hline
+{\em comparison\+\_\+fn} & Function pointer to the comparison function used to compare keys. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void\texorpdfstring{$\ast$}{*} Pointer to the user-\/defined structure corresponding to the found glthread\+\_\+t structure, or NULL if not found. 
+\end{DoxyReturn}
+\Hypertarget{glthread_8h_a9e4b763220b1c69da2d9e9f191506f89}\label{glthread_8h_a9e4b763220b1c69da2d9e9f191506f89} 
+\index{glthread.h@{glthread.h}!init\_glthread@{init\_glthread}}
+\index{init\_glthread@{init\_glthread}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{init\_glthread()}{init\_glthread()}}
+{\footnotesize\ttfamily void init\+\_\+glthread (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{glthread }\end{DoxyParamCaption})}
+
+
+
+Initialize a glthread\+\_\+t structure. 
+
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Public functions interface -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
+
+
+\begin{DoxyParams}{Parameters}
+{\em glthread} & Pointer to the glthread\+\_\+t structure to be initialized.\\
+\hline
+\end{DoxyParams}
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Includes section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \texorpdfstring{$<$}{<} System includes \texorpdfstring{$<$}{<} Project includes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Functions implementation section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{glthread_8h_a9e4b763220b1c69da2d9e9f191506f89_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{glthread_8h_a935ecd20646a46a7b84dbbeee4abd76d}\label{glthread_8h_a935ecd20646a46a7b84dbbeee4abd76d} 
+\index{glthread.h@{glthread.h}!remove\_glthread@{remove\_glthread}}
+\index{remove\_glthread@{remove\_glthread}!glthread.h@{glthread.h}}
+\doxysubsubsection{\texorpdfstring{remove\_glthread()}{remove\_glthread()}}
+{\footnotesize\ttfamily void remove\+\_\+glthread (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{glthread }\end{DoxyParamCaption})}
+
+
+
+Removes the specified node from the threaded linked list. 
+
+This function removes the specified node from the threaded linked list.
+
+
+\begin{DoxyParams}{Parameters}
+{\em curr\+\_\+glthread} & Pointer to the node to be removed. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{glthread_8h_a935ecd20646a46a7b84dbbeee4abd76d_icgraph}
+\end{center}
+\end{figure}

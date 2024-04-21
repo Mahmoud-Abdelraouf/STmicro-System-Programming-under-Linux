@@ -1,16 +1,25 @@
+/**
+ * @file datatype_size_lookup.h
+ * @brief Header file for data type size lookup functionality and mappings.
+ *
+ * This file contains declarations and mappings for functions and structures
+ * related to retrieving the size of data types.
+ */
+
 #ifndef DATATYPE_SIZE_LOOKUP_H_
 #define DATATYPE_SIZE_LOOKUP_H_
 
+#include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 
+/**
+ * @def MAX_STRUCT_NAME_LEN
+ * @brief Maximum length of a data type name.
+ *
+ * Defines the maximum length allowed for a data type name.
+ */
 #define MAX_STRUCT_NAME_LEN 50
-
-// Define a structure to map data type strings to C data types
-typedef struct datatype_mapping_ {
-  char name[MAX_STRUCT_NAME_LEN];
-  size_t size;
-} datatype_mapping_t;
 
 /**
  * @brief Gets the size of a data type by its name.
@@ -24,3 +33,4 @@ typedef struct datatype_mapping_ {
 size_t get_size_of_datatype(const char *data_type);
 
 #endif /**< DATATYPE_SIZE_LOOKUP_H_ */
+

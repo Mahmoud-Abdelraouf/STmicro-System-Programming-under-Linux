@@ -1,0 +1,135 @@
+\doxysection{parse\+\_\+datatype.\+h File Reference}
+\hypertarget{parse__datatype_8h}{}\label{parse__datatype_8h}\index{parse\_datatype.h@{parse\_datatype.h}}
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for parse\+\_\+datatype.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parse__datatype_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{parse__datatype_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{parse__datatype_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}{MAX\+\_\+\+STRUCT\+\_\+\+NAME\+\_\+\+LEN}}~50
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{parse__datatype_8h_a951929580735bed45579ce79ea1d6c71}{parse\+\_\+struct\+\_\+name}} (char \texorpdfstring{$\ast$}{*}struct\+\_\+name, char \texorpdfstring{$\ast$}{*}buffer, uint8\+\_\+t \texorpdfstring{$\ast$}{*}error\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Parses the name of a struct from a string. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{parse__datatype_8h_aced8c866b58d74e72f0c67e362c75740}{is\+\_\+number}} (const char \texorpdfstring{$\ast$}{*}str)
+\begin{DoxyCompactList}\small\item\em Checks if a string represents a number. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{parse__datatype_8h_af4ecb85dd2cb74346908690aaa0f3e5d}{convert\+\_\+to\+\_\+int}} (const char \texorpdfstring{$\ast$}{*}str)
+\begin{DoxyCompactList}\small\item\em Converts a string representation of a number to an integer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{parse__datatype_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}\label{parse__datatype_8h_a56d7beb47f6bbf896e6f21fb09c73ec5} 
+\index{parse\_datatype.h@{parse\_datatype.h}!MAX\_STRUCT\_NAME\_LEN@{MAX\_STRUCT\_NAME\_LEN}}
+\index{MAX\_STRUCT\_NAME\_LEN@{MAX\_STRUCT\_NAME\_LEN}!parse\_datatype.h@{parse\_datatype.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_STRUCT\_NAME\_LEN}{MAX\_STRUCT\_NAME\_LEN}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+STRUCT\+\_\+\+NAME\+\_\+\+LEN~50}
+
+Maximum length of the data type name 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{parse__datatype_8h_af4ecb85dd2cb74346908690aaa0f3e5d}\label{parse__datatype_8h_af4ecb85dd2cb74346908690aaa0f3e5d} 
+\index{parse\_datatype.h@{parse\_datatype.h}!convert\_to\_int@{convert\_to\_int}}
+\index{convert\_to\_int@{convert\_to\_int}!parse\_datatype.h@{parse\_datatype.h}}
+\doxysubsubsection{\texorpdfstring{convert\_to\_int()}{convert\_to\_int()}}
+{\footnotesize\ttfamily int convert\+\_\+to\+\_\+int (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str }\end{DoxyParamCaption})}
+
+
+
+Converts a string representation of a number to an integer. 
+
+This function converts the provided string representation of a number to an integer. It ignores any non-\/digit characters and suffixes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & The string representation of the number. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The integer value of the number. PARSE\+\_\+\+DATATYPE\+\_\+\+H\+\_\+ 
+\end{DoxyReturn}
+\Hypertarget{parse__datatype_8h_aced8c866b58d74e72f0c67e362c75740}\label{parse__datatype_8h_aced8c866b58d74e72f0c67e362c75740} 
+\index{parse\_datatype.h@{parse\_datatype.h}!is\_number@{is\_number}}
+\index{is\_number@{is\_number}!parse\_datatype.h@{parse\_datatype.h}}
+\doxysubsubsection{\texorpdfstring{is\_number()}{is\_number()}}
+{\footnotesize\ttfamily static bool is\+\_\+number (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checks if a string represents a number. 
+
+This function checks if the provided string represents a number. It allows for digits (0-\/9) and an optional decimal point. It ignores leading and trailing whitespace.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & The string to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the string represents a number, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{parse__datatype_8h_a951929580735bed45579ce79ea1d6c71}\label{parse__datatype_8h_a951929580735bed45579ce79ea1d6c71} 
+\index{parse\_datatype.h@{parse\_datatype.h}!parse\_struct\_name@{parse\_struct\_name}}
+\index{parse\_struct\_name@{parse\_struct\_name}!parse\_datatype.h@{parse\_datatype.h}}
+\doxysubsubsection{\texorpdfstring{parse\_struct\_name()}{parse\_struct\_name()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} parse\+\_\+struct\+\_\+name (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{struct\+\_\+name,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{error\+\_\+flag }\end{DoxyParamCaption})}
+
+
+
+Parses the name of a struct from a string. 
+
+This function extracts the name of a struct from a string formatted as "{}sizeof(datatype)"{} and stores it in the provided buffer. If the string does not match this format, it checks if the string represents a number and sets the error flag accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em struct\+\_\+name} & The string containing the sizeof expression. \\
+\hline
+{\em buffer} & Pointer to a buffer where the extracted struct name or integer value will be stored. If the struct name is extracted successfully, it will be stored in this buffer. If the struct name is a number, the integer value will be stored in this buffer. \\
+\hline
+{\em error\+\_\+flag} & Pointer to a uint8\+\_\+t variable to indicate the status of the struct name. It can have the following values\+:
+\begin{DoxyItemize}
+\item 0\+: No error, struct name extracted successfully.
+\item 1\+: Error in the format of the struct name, not in the form "{}sizeof(datatype)"{}.
+\item 2\+: The struct name is actually a number, and the integer value is stored in the buffer. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the struct name is extracted successfully or it\textquotesingle{}s a number, returns "{}int"{}. If an error occurs, returns NULL. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{parse__datatype_8h_a951929580735bed45579ce79ea1d6c71_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=277pt]{parse__datatype_8h_a951929580735bed45579ce79ea1d6c71_icgraph}
+\end{center}
+\end{figure}
