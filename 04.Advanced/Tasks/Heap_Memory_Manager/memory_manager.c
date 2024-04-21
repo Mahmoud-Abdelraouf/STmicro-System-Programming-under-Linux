@@ -18,6 +18,7 @@
 #include "datatype_size_lookup.h"
 #include "memory_manager.h"
 #include "memory_manager_api.h"
+#include "parse_datatype.h"
 
 /**-----------------< Global variable section -----------------*/
 /**
@@ -540,15 +541,16 @@ mm_split_free_data_block_for_allocation(vm_page_family_t *vm_page_family,
 }
 
 void *xcalloc(char *struct_name, int units) {
-  // To store the name extracted from the sizeof()
+  // Initialize variables
   char data_type[MAX_STRUCT_NAME_LEN];
   uint8_t data_type_error_flag = 0;
   vm_page_family_t *pg_family = NULL;
 
-  // Extract data type from size_str
-  if (sscanf(struct_name, "sizeof(%49[^)])", data_type) != 1) {
-    // Set the flag that indicates the struct isn't in form of sizeof(datatype)
-    data_type_error_flag = 1;
+  // Parse the struct name and set the data type error flag
+  parse_struct_name(struct_name, &data_type_error_flag);
+
+  // Check if there was an error parsing the struct name
+  if (data_type_error_flag == 1) {
     // Step 1: Look up the page family associated with the structure name
     pg_family = lookup_page_family_by_name(struct_name);
   } else {

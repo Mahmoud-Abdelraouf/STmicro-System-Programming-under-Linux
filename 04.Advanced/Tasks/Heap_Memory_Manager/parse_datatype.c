@@ -7,22 +7,18 @@
  * containing the sizeof operator using the sscanf function in C.
  */
 
-#include <stdio.h>
+#include "parse_datatype.h"
 
-#define MAX_STRUCT_NAME_LEN 50 /**< Maximum length of the data type name */
+void parse_struct_name(char *struct_name, uint8_t *error_flag) {
+  // To store the name extracted from the sizeof()
+  char data_type[MAX_STRUCT_NAME_LEN];
 
-int main() {
-  char size_str[] = "sizeof(int)";     /**< String containing sizeof operator */
-  char data_type[MAX_STRUCT_NAME_LEN]; /**< Buffer to store data type name */
-
-  // Attempt to extract data type from size_str
-  if (sscanf(size_str, "sizeof(%49[^)])", data_type) == 1) {
-    // Print the extracted data type
-    printf("Data type: %s\n", data_type);
-    return 0; // Return success
+  // Extract data type from size_str
+  if (sscanf(struct_name, "sizeof(%49[^)])", data_type) != 1) {
+    // Set the flag that indicates the struct isn't in form of sizeof(datatype)
+    *error_flag = 1;
   } else {
-    // Print error message if extraction fails
-    fprintf(stderr, "Error: Invalid struct size format\n");
-    return 1; // Return error
+    // Reset the error flag
+    *error_flag = 0;
   }
 }
