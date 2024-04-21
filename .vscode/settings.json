@@ -59,5 +59,8 @@
   "files.associations": {
     "commands.h": "c",
     "psh.h": "c"
-  }
+  },
+  "cSpell.words": [
+    "glthread"
+  ]
 }
