@@ -18,12 +18,9 @@
 #include "memory_manager_api.h"
 #include <stdint.h>
 #include <stdio.h>
-/**
- * @defgroup UserDefinedDataTypes User defined data types
- * @brief Definitions for user-defined data types.
- * @{
- */
 
+//-----------------< UserDefinedDataTypes User defined data types
+//-----------------/
 /**
  * @brief Structure representing an employee.
  *
@@ -50,16 +47,6 @@ typedef struct student_ {
   uint32_t marks_maths;  /**< The marks obtained in Mathematics. */
   struct student_ *next; /**< Pointer to the next student in the linked list. */
 } student_t;
-
-/**
- * @}
- */
-
-/**
- * @defgroup BusinessLogic Business logic
- * @brief Implementation of the main function and business logic.
- * @{
- */
 
 /**
  * @brief The main function.
@@ -118,7 +105,3 @@ int main(int argc, char **argv) {
   mm_print_block_usage();
   return 0;
 }
-
-/**
- * @}
- */

@@ -8,9 +8,8 @@ var indexSectionsWithContent =
   5: "begsv",
   6: "v",
   7: "m",
-  8: "bgimnopx",
-  9: "abcdflmptuv",
-  10: "fghpw"
+  8: "abgimnopx",
+  9: "fghpw"
 };
 
 var indexSectionNames =
@@ -24,8 +23,7 @@ var indexSectionNames =
   6: "enums",
   7: "enumvalues",
   8: "defines",
-  9: "groups",
-  10: "pages"
+  9: "pages"
 };
 
 var indexSectionLabels =
@@ -39,7 +37,6 @@ var indexSectionLabels =
   6: "Enumerations",
   7: "Enumerator",
   8: "Macros",
-  9: "Modules",
-  10: "Pages"
+  9: "Pages"
 };
 

@@ -13,8 +13,7 @@ Include dependency graph for memory\+\_\+manager\+\_\+api.\+h\+:\nopagebreak
 \includegraphics[width=216pt]{memory__manager__api_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -24,22 +23,22 @@ This graph shows which files directly or indirectly include this file\+:
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{memory__manager__api_8h_a499d5d9d246e2afe4506e751ba45ec1e}{MM\+\_\+\+REG\+\_\+\+STRUCT}}(struct\+\_\+name)~  (\mbox{\hyperlink{group__MemoryManagement_ga3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family}}(\#struct\+\_\+name, sizeof(struct\+\_\+name)))
+\#define \mbox{\hyperlink{memory__manager__api_8h_a499d5d9d246e2afe4506e751ba45ec1e}{MM\+\_\+\+REG\+\_\+\+STRUCT}}(struct\+\_\+name)~  (\mbox{\hyperlink{memory__manager_8c_a3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family}}(\#struct\+\_\+name, sizeof(struct\+\_\+name)))
 \begin{DoxyCompactList}\small\item\em Registers a memory structure for page family instantiation. \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{memory__manager__api_8h_a3a295a457410e0dd9a09f7dc73e3b78e}{XCALLOC}}(units,  struct\+\_\+name)~(\mbox{\hyperlink{memory__manager_8c_a99f5a0d88caf5abe330155eb4e2d7aac}{xcalloc}}(\#struct\+\_\+name, units))
 \begin{DoxyCompactList}\small\item\em Macro for allocating memory for multiple instances of a structure and initializing them to zero. \end{DoxyCompactList}\item 
-\#define \mbox{\hyperlink{memory__manager__api_8h_a36a9e17ea9f866a838cf58da2834274a}{XFREE}}(ptr)~(\mbox{\hyperlink{group__FreeVMPageBlock_gae075bb556abb4342aedf495ddb8d390a}{xfree}}(ptr))
+\#define \mbox{\hyperlink{memory__manager__api_8h_a36a9e17ea9f866a838cf58da2834274a}{XFREE}}(ptr)~(\mbox{\hyperlink{memory__manager_8c_ae075bb556abb4342aedf495ddb8d390a}{xfree}}(ptr))
 \begin{DoxyCompactList}\small\item\em Macro for freeing memory using a custom deallocation function. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{group__MemoryManagement_ga0d0d58e2b3f34ada92ab7889d013e717}{mm\+\_\+init}} ()
+void \mbox{\hyperlink{memory__manager__api_8h_a0d0d58e2b3f34ada92ab7889d013e717}{mm\+\_\+init}} ()
 \begin{DoxyCompactList}\small\item\em Initializes the memory manager. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{group__MemoryManagement_ga3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family}} (char \texorpdfstring{$\ast$}{*}struct\+\_\+name, uint32\+\_\+t struct\+\_\+size)
+void \mbox{\hyperlink{memory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family}} (char \texorpdfstring{$\ast$}{*}struct\+\_\+name, uint32\+\_\+t struct\+\_\+size)
 \begin{DoxyCompactList}\small\item\em Instantiates a new page family for a memory structure. \end{DoxyCompactList}\item 
 void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager__api_8h_a99f5a0d88caf5abe330155eb4e2d7aac}{xcalloc}} (char \texorpdfstring{$\ast$}{*}struct\+\_\+name, int units)
 \begin{DoxyCompactList}\small\item\em Allocates and initializes memory for an array of structures. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{group__FreeVMPageBlock_gae075bb556abb4342aedf495ddb8d390a}{xfree}} (void \texorpdfstring{$\ast$}{*}app\+\_\+data)
+void \mbox{\hyperlink{memory__manager__api_8h_ae075bb556abb4342aedf495ddb8d390a}{xfree}} (void \texorpdfstring{$\ast$}{*}app\+\_\+data)
 \begin{DoxyCompactList}\small\item\em Frees memory allocated by the memory manager. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{memory__manager__api_8h_a2c4fac0b5d1557530ea878cf4b84082b}{mm\+\_\+print\+\_\+registered\+\_\+page\+\_\+families}} ()
 \begin{DoxyCompactList}\small\item\em Prints all registered page families. \end{DoxyCompactList}\item 
@@ -59,13 +58,13 @@ This file contains declarations for the Memory Manager API functions. The Memory
 \index{memory\_manager\_api.h@{memory\_manager\_api.h}!MM\_REG\_STRUCT@{MM\_REG\_STRUCT}}
 \index{MM\_REG\_STRUCT@{MM\_REG\_STRUCT}!memory\_manager\_api.h@{memory\_manager\_api.h}}
 \doxysubsubsection{\texorpdfstring{MM\_REG\_STRUCT}{MM\_REG\_STRUCT}}
-{\footnotesize\ttfamily \#define MM\+\_\+\+REG\+\_\+\+STRUCT(\begin{DoxyParamCaption}\item[{}]{struct\+\_\+name }\end{DoxyParamCaption})~  (\mbox{\hyperlink{group__MemoryManagement_ga3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family}}(\#struct\+\_\+name, sizeof(struct\+\_\+name)))}
+{\footnotesize\ttfamily \#define MM\+\_\+\+REG\+\_\+\+STRUCT(\begin{DoxyParamCaption}\item[{}]{struct\+\_\+name }\end{DoxyParamCaption})~  (\mbox{\hyperlink{memory__manager_8c_a3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family}}(\#struct\+\_\+name, sizeof(struct\+\_\+name)))}
 
 
 
 Registers a memory structure for page family instantiation. 
 
-This macro facilitates the registration of a memory structure for page family instantiation within the memory manager. It takes the name of the structure ({\ttfamily struct\+\_\+name}) as a parameter and uses the {\ttfamily \#} operator to stringify it, which is then passed to the {\ttfamily \doxylink{group__MemoryManagement_ga3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family()}} function along with the size of the structure.
+This macro facilitates the registration of a memory structure for page family instantiation within the memory manager. It takes the name of the structure ({\ttfamily struct\+\_\+name}) as a parameter and uses the {\ttfamily \#} operator to stringify it, which is then passed to the {\ttfamily \doxylink{memory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family()}} function along with the size of the structure.
 
 
 \begin{DoxyParams}{Parameters}
@@ -76,7 +75,7 @@ This macro facilitates the registration of a memory structure for page family in
 This macro should be used to register each memory structure before it is instantiated as a page family within the memory manager. It ensures proper initialization of the memory management system and enables efficient allocation and management of memory pages.
 \end{DoxyNote}
 \begin{DoxySeeAlso}{See also}
-\doxylink{group__MemoryManagement_ga3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family()} 
+\doxylink{memory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family()} 
 \end{DoxySeeAlso}
 \Hypertarget{memory__manager__api_8h_a3a295a457410e0dd9a09f7dc73e3b78e}\label{memory__manager__api_8h_a3a295a457410e0dd9a09f7dc73e3b78e} 
 \index{memory\_manager\_api.h@{memory\_manager\_api.h}!XCALLOC@{XCALLOC}}
@@ -104,13 +103,13 @@ A pointer to the allocated memory, initialized to zero, or NULL if allocation fa
 \index{memory\_manager\_api.h@{memory\_manager\_api.h}!XFREE@{XFREE}}
 \index{XFREE@{XFREE}!memory\_manager\_api.h@{memory\_manager\_api.h}}
 \doxysubsubsection{\texorpdfstring{XFREE}{XFREE}}
-{\footnotesize\ttfamily \#define XFREE(\begin{DoxyParamCaption}\item[{}]{ptr }\end{DoxyParamCaption})~(\mbox{\hyperlink{group__FreeVMPageBlock_gae075bb556abb4342aedf495ddb8d390a}{xfree}}(ptr))}
+{\footnotesize\ttfamily \#define XFREE(\begin{DoxyParamCaption}\item[{}]{ptr }\end{DoxyParamCaption})~(\mbox{\hyperlink{memory__manager_8c_ae075bb556abb4342aedf495ddb8d390a}{xfree}}(ptr))}
 
 
 
 Macro for freeing memory using a custom deallocation function. 
 
-This macro is used for freeing memory using a custom deallocation function specified by the user. The macro takes a pointer to the memory to be freed as its argument and passes it to the custom deallocation function \doxylink{group__FreeVMPageBlock_gae075bb556abb4342aedf495ddb8d390a}{xfree()}.
+This macro is used for freeing memory using a custom deallocation function specified by the user. The macro takes a pointer to the memory to be freed as its argument and passes it to the custom deallocation function \doxylink{memory__manager__api_8h_ae075bb556abb4342aedf495ddb8d390a}{xfree()}.
 
 
 \begin{DoxyParams}{Parameters}
@@ -120,6 +119,80 @@ This macro is used for freeing memory using a custom deallocation function speci
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{memory__manager__api_8h_a0d0d58e2b3f34ada92ab7889d013e717}\label{memory__manager__api_8h_a0d0d58e2b3f34ada92ab7889d013e717} 
+\index{memory\_manager\_api.h@{memory\_manager\_api.h}!mm\_init@{mm\_init}}
+\index{mm\_init@{mm\_init}!memory\_manager\_api.h@{memory\_manager\_api.h}}
+\doxysubsubsection{\texorpdfstring{mm\_init()}{mm\_init()}}
+{\footnotesize\ttfamily void mm\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the memory manager. 
+
+This function initializes the memory manager. It sets up necessary configurations and parameters for memory management operations within the program. It specifically determines the system page size using the {\ttfamily getpagesize()} system call and assigns it to the global variable {\ttfamily SYSTEM\+\_\+\+PAGE\+\_\+\+SIZE}.
+
+\begin{DoxyNote}{Note}
+This function should be called before any memory management operations are performed within the program. It is typically called at the beginning of the program execution to ensure proper initialization of memory management functionalities.
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+This function relies on the {\ttfamily getpagesize()} system call to determine the system page size. Therefore, it may not be portable across all platforms. It is primarily intended for use in Unix-\/like systems where {\ttfamily getpagesize()} is available.
+\end{DoxyWarning}
+\begin{DoxySeeAlso}{See also}
+man getpagesize() 
+\end{DoxySeeAlso}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{memory__manager__api_8h_a0d0d58e2b3f34ada92ab7889d013e717_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{memory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf}\label{memory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf} 
+\index{memory\_manager\_api.h@{memory\_manager\_api.h}!mm\_instantiate\_new\_page\_family@{mm\_instantiate\_new\_page\_family}}
+\index{mm\_instantiate\_new\_page\_family@{mm\_instantiate\_new\_page\_family}!memory\_manager\_api.h@{memory\_manager\_api.h}}
+\doxysubsubsection{\texorpdfstring{mm\_instantiate\_new\_page\_family()}{mm\_instantiate\_new\_page\_family()}}
+{\footnotesize\ttfamily void mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{struct\+\_\+name,  }\item[{uint32\+\_\+t}]{struct\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Instantiates a new page family for a memory structure. 
+
+This function creates a new page family for a memory structure identified by its name and size. It allocates memory for the page family and adds it to the existing virtual memory pages if necessary. Each page family can contain multiple memory structures of the same type.
+
+
+\begin{DoxyParams}{Parameters}
+{\em struct\+\_\+name} & The name of the memory structure. \\
+\hline
+{\em struct\+\_\+size} & The size of the memory structure.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+If the size of the memory structure exceeds the system page size, an error message is printed, and the function returns without creating the page family.
+
+This function maintains a linked list of virtual memory pages ({\ttfamily first\+\_\+vm\+\_\+page\+\_\+for\+\_\+families}) to store the page families. If there are no existing pages, it allocates a new page and initializes it with the first page family. If the existing pages are full, it allocates a new page and adds it to the beginning of the linked list.
+
+If a page family with the same name already exists, an assertion error is triggered, indicating a conflict in page family instantiation.
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+This function relies on the {\ttfamily \doxylink{memory__manager_8c_a8b6e564655ddbbb3147b2d28ee398e5c}{mm\+\_\+get\+\_\+new\+\_\+vm\+\_\+page\+\_\+from\+\_\+kernel()}} function to allocate memory from the kernel for the page family. Improper use or misuse of this function can lead to memory leaks or system instability.
+\end{DoxyWarning}
+\begin{DoxySeeAlso}{See also}
+\doxylink{memory__manager_8c_a8b6e564655ddbbb3147b2d28ee398e5c}{mm\+\_\+get\+\_\+new\+\_\+vm\+\_\+page\+\_\+from\+\_\+kernel()} 
+\end{DoxySeeAlso}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{memory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{memory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{memory__manager__api_8h_abc2214ca18f00171e96262019bb84919}\label{memory__manager__api_8h_abc2214ca18f00171e96262019bb84919} 
 \index{memory\_manager\_api.h@{memory\_manager\_api.h}!mm\_print\_block\_usage@{mm\_print\_block\_usage}}
 \index{mm\_print\_block\_usage@{mm\_print\_block\_usage}!memory\_manager\_api.h@{memory\_manager\_api.h}}
@@ -184,9 +257,9 @@ This function prints all page families that have been registered with the Linux 
 This function should be invoked after the application has performed registration for all its structures using the {\ttfamily MM\+\_\+\+REG\+\_\+\+STRUCT} macro. It relies on the {\ttfamily first\+\_\+vm\+\_\+page\+\_\+for\+\_\+families} global variable, which maintains a linked list of virtual memory pages containing page families.
 \end{DoxyNote}
 \begin{DoxySeeAlso}{See also}
-\doxylink{memory__manager__api_8h_a499d5d9d246e2afe4506e751ba45ec1e}{MM\+\_\+\+REG\+\_\+\+STRUCT}
+\doxylink{memory__manager__api_8h_a499d5d9d246e2afe4506e751ba45ec1e}{MM\+\_\+\+REG\+\_\+\+STRUCT} 
 \end{DoxySeeAlso}
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Printing information section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -223,5 +296,29 @@ Here is the call graph for this function\+:\nopagebreak
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{memory__manager__api_8h_a99f5a0d88caf5abe330155eb4e2d7aac_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{memory__manager__api_8h_ae075bb556abb4342aedf495ddb8d390a}\label{memory__manager__api_8h_ae075bb556abb4342aedf495ddb8d390a} 
+\index{memory\_manager\_api.h@{memory\_manager\_api.h}!xfree@{xfree}}
+\index{xfree@{xfree}!memory\_manager\_api.h@{memory\_manager\_api.h}}
+\doxysubsubsection{\texorpdfstring{xfree()}{xfree()}}
+{\footnotesize\ttfamily void xfree (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{app\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Frees memory allocated by the memory manager. 
+
+This function is used to free memory that was previously allocated by the memory manager. It takes a pointer to the memory to be freed as its argument. The pointer is adjusted to point to the block metadata, and then it is passed to the memory manager\textquotesingle{}s free blocks function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em app\+\_\+data} & Pointer to the memory to be freed. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{memory__manager__api_8h_ae075bb556abb4342aedf495ddb8d390a_cgraph}
 \end{center}
 \end{figure}

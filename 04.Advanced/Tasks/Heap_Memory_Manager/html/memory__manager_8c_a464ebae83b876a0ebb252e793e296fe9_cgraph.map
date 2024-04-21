@@ -1,22 +1,22 @@
 <map id="mm_allocate_free_data_block" name="mm_allocate_free_data_block">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,292,181,332"/>
-<area shape="rect" id="Node000002" href="$group__MemoryManagement.html#gacf3ff2e7438d4ae2c531e8851b7270e8" title=" " alt="" coords="229,242,431,267"/>
+<area shape="rect" id="Node000002" href="$memory__manager_8c.html#acf3ff2e7438d4ae2c531e8851b7270e8" title=" " alt="" coords="229,242,431,267"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,289,263,268,264,273,177,295"/>
 <area shape="rect" id="Node000011" href="$memory__manager_8c.html#a28b2162ebaea314c420ca44e29fb9d44" title=" " alt="" coords="248,356,412,396"/>
 <area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="169,330,243,350,242,355,167,335"/>
 <area shape="rect" id="Node000012" href="$memory__manager_8c.html#ab335253cb154c4adb2beb3cea638fb3c" title=" " alt="" coords="250,292,410,332"/>
 <area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="182,309,236,309,236,315,182,315"/>
-<area shape="rect" id="Node000003" href="$group__VMPage.html#gacf4906c4a2cd80f10a570cc1c7411111" title="Allocates a new virtual memory page for a given page family." alt="" coords="505,106,647,131"/>
+<area shape="rect" id="Node000003" href="$memory__manager_8c.html#acf4906c4a2cd80f10a570cc1c7411111" title="Allocates a new virtual memory page for a given page family." alt="" coords="505,106,647,131"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="353,240,538,136,541,141,356,244"/>
-<area shape="rect" id="Node000007" href="$group__FreeVMPageBlock.html#gaa72156192006fd76902b0616def7db4d" title=" " alt="" coords="479,235,673,275"/>
+<area shape="rect" id="Node000007" href="$memory__manager_8c.html#aa72156192006fd76902b0616def7db4d" title=" " alt="" coords="479,235,673,275"/>
 <area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="431,252,465,252,465,257,431,257"/>
 <area shape="rect" id="Node000004" href="$glthread_8c.html#a9e4b763220b1c69da2d9e9f191506f89" title="Initialize a glthread_t structure." alt="" coords="991,274,1095,299"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="647,119,803,135,875,149,904,159,926,170,945,191,952,215,958,237,974,259,982,265,979,270,970,263,953,240,946,216,940,194,922,174,902,164,874,155,802,140,647,125"/>
-<area shape="rect" id="Node000005" href="$group__MemoryManagement.html#ga8b6e564655ddbbb3147b2d28ee398e5c" title=" " alt="" coords="734,5,911,45"/>
+<area shape="rect" id="Node000005" href="$memory__manager_8c.html#a8b6e564655ddbbb3147b2d28ee398e5c" title=" " alt="" coords="734,5,911,45"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="604,103,720,55,742,47,743,52,722,60,606,108"/>
-<area shape="rect" id="Node000006" href="$group__VMPage.html#gae68e468ad150ea915ed9a3b9d899e9df" title=" " alt="" coords="721,69,924,109"/>
+<area shape="rect" id="Node000006" href="$memory__manager_8c.html#ae68e468ad150ea915ed9a3b9d899e9df" title=" " alt="" coords="721,69,924,109"/>
 <area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="647,108,707,100,708,106,648,113"/>
-<area shape="rect" id="Node000008" href="$group__FreeVMPageBlock.html#ga5987bb26622d19dcd8ecfd1416a7f3c6" title=" " alt="" coords="733,184,913,224"/>
+<area shape="rect" id="Node000008" href="$memory__manager_8c.html#a5987bb26622d19dcd8ecfd1416a7f3c6" title=" " alt="" coords="733,184,913,224"/>
 <area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="673,232,719,223,720,228,674,237"/>
 <area shape="rect" id="Node000009" href="$glthread_8c.html#a2f6336d160a55d3adecb11dace34152a" title="Insert a glthread_t structure into a sorted linked list based on priority." alt="" coords="735,249,910,274"/>
 <area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="673,255,722,256,721,261,673,260"/>

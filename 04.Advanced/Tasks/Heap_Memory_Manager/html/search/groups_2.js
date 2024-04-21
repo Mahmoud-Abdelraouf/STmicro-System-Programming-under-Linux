@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['colors_0',['ANSI Colors',['../group__ANSI__Colors.html',1,'']]]
+  ['datatype_20mappings_0',['Datatype Mappings',['../group__DatatypeMappings.html',1,'']]]
 ];

@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="823,78,789,78,789,73,823,73"/>
 <area shape="rect" id="Node000003" href="$memory__manager_8c.html#acf3ff2e7438d4ae2c531e8851b7270e8" title=" " alt="" coords="345,5,547,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="592,55,501,33,502,28,593,50"/>
-<area shape="rect" id="Node000006" href="$memory__manager_8c.html#a2250996fd809506caef0a6e61b6faebb" title="Frees a memory block and performs merging if necessary." alt="" coords="381,120,511,145"/>
+<area shape="rect" id="Node000006" href="$memory__manager_8c.html#a2250996fd809506caef0a6e61b6faebb" title=" " alt="" coords="381,120,511,145"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="593,101,502,123,501,117,592,96"/>
 <area shape="rect" id="Node000008" href="$memory__manager_8c.html#ab335253cb154c4adb2beb3cea638fb3c" title=" " alt="" coords="366,55,526,95"/>
 <area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="581,78,526,78,526,73,581,73"/>

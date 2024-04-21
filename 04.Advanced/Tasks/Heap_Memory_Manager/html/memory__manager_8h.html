@@ -173,7 +173,7 @@ Macros</h2></td></tr>
 <tr class="memitem:add6df20638bfeb770280984d1a88dfe6" id="r_add6df20638bfeb770280984d1a88dfe6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add6df20638bfeb770280984d1a88dfe6">mm_bind_blocks_for_allocation</a>(allocated_meta_block,  free_meta_block)</td></tr>
 <tr class="memdesc:add6df20638bfeb770280984d1a88dfe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds metadata blocks for memory allocation.  <br /></td></tr>
 <tr class="separator:add6df20638bfeb770280984d1a88dfe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ddc0f810ab01f3747ae4793557a746b" id="r_a8ddc0f810ab01f3747ae4793557a746b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ddc0f810ab01f3747ae4793557a746b">MAX_PAGE_ALLOCATABLE_MEMORY</a>(units)&#160;&#160;&#160;  (<a class="el" href="group__VMPage.html#gae68e468ad150ea915ed9a3b9d899e9df">mm_max_page_allocatable_memory</a>(units))</td></tr>
+<tr class="memitem:a8ddc0f810ab01f3747ae4793557a746b" id="r_a8ddc0f810ab01f3747ae4793557a746b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ddc0f810ab01f3747ae4793557a746b">MAX_PAGE_ALLOCATABLE_MEMORY</a>(units)&#160;&#160;&#160;  (<a class="el" href="memory__manager_8c.html#ae68e468ad150ea915ed9a3b9d899e9df">mm_max_page_allocatable_memory</a>(units))</td></tr>
 <tr class="memdesc:a8ddc0f810ab01f3747ae4793557a746b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to calculate the maximum allocatable memory for a given number of units.  <br /></td></tr>
 <tr class="separator:a8ddc0f810ab01f3747ae4793557a746b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -205,18 +205,18 @@ Functions</h2></td></tr>
 <tr class="memitem:aa604b0781f01e3696274d24e45a62ff2" id="r_aa604b0781f01e3696274d24e45a62ff2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa604b0781f01e3696274d24e45a62ff2">GLTHREAD_TO_STRUCT</a> (glthread_to_block_meta_data, <a class="el" href="#a173309530f1b69ddabf71b33b75baf9f">block_meta_data_t</a>, priority_thread_glue, glthread_ptr)</td></tr>
 <tr class="memdesc:aa604b0781f01e3696274d24e45a62ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to declare a conversion function for converting a glthread_t structure to a user-defined structure pointer.  <br /></td></tr>
 <tr class="separator:aa604b0781f01e3696274d24e45a62ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacf4906c4a2cd80f10a570cc1c7411111" id="r_gacf4906c4a2cd80f10a570cc1c7411111"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a3781a6a3593d9877d1c25c4c8e3f1868">vm_page_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__VMPage.html#gacf4906c4a2cd80f10a570cc1c7411111">allocate_vm_page</a> (<a class="el" href="#ad146e732e35bec81b72c7437204e9ee8">vm_page_family_t</a> *vm_page_family)</td></tr>
-<tr class="memdesc:gacf4906c4a2cd80f10a570cc1c7411111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a new virtual memory page for a given page family.  <br /></td></tr>
-<tr class="separator:gacf4906c4a2cd80f10a570cc1c7411111"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3c0f19fa657602a76893a7f53e9f5222" id="r_ga3c0f19fa657602a76893a7f53e9f5222"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__VMPage.html#ga3c0f19fa657602a76893a7f53e9f5222">mm_vm_page_delete_and_free</a> (<a class="el" href="#a3781a6a3593d9877d1c25c4c8e3f1868">vm_page_t</a> *vm_page)</td></tr>
-<tr class="memdesc:ga3c0f19fa657602a76893a7f53e9f5222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes and frees a virtual memory page.  <br /></td></tr>
-<tr class="separator:ga3c0f19fa657602a76893a7f53e9f5222"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab9910db7228c29ee672139e284cd6cec" id="r_gab9910db7228c29ee672139e284cd6cec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad146e732e35bec81b72c7437204e9ee8">vm_page_family_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__MemoryManagement.html#gab9910db7228c29ee672139e284cd6cec">lookup_page_family_by_name</a> (char *struct_name)</td></tr>
-<tr class="memdesc:gab9910db7228c29ee672139e284cd6cec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up a page family by its name.  <br /></td></tr>
-<tr class="separator:gab9910db7228c29ee672139e284cd6cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga38d0ee21c7b3b9b22289786fd969be46" id="r_ga38d0ee21c7b3b9b22289786fd969be46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a8137dde168b63da6dc080c3e41660743">vm_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__VMPage.html#ga38d0ee21c7b3b9b22289786fd969be46">mm_is_vm_page_empty</a> (<a class="el" href="#a3781a6a3593d9877d1c25c4c8e3f1868">vm_page_t</a> *vm_page)</td></tr>
-<tr class="memdesc:ga38d0ee21c7b3b9b22289786fd969be46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a virtual memory page is empty.  <br /></td></tr>
-<tr class="separator:ga38d0ee21c7b3b9b22289786fd969be46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf4906c4a2cd80f10a570cc1c7411111" id="r_acf4906c4a2cd80f10a570cc1c7411111"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a3781a6a3593d9877d1c25c4c8e3f1868">vm_page_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf4906c4a2cd80f10a570cc1c7411111">allocate_vm_page</a> (<a class="el" href="#ad146e732e35bec81b72c7437204e9ee8">vm_page_family_t</a> *vm_page_family)</td></tr>
+<tr class="memdesc:acf4906c4a2cd80f10a570cc1c7411111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a new virtual memory page for a given page family.  <br /></td></tr>
+<tr class="separator:acf4906c4a2cd80f10a570cc1c7411111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c0f19fa657602a76893a7f53e9f5222" id="r_a3c0f19fa657602a76893a7f53e9f5222"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c0f19fa657602a76893a7f53e9f5222">mm_vm_page_delete_and_free</a> (<a class="el" href="#a3781a6a3593d9877d1c25c4c8e3f1868">vm_page_t</a> *vm_page)</td></tr>
+<tr class="memdesc:a3c0f19fa657602a76893a7f53e9f5222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes and frees a virtual memory page.  <br /></td></tr>
+<tr class="separator:a3c0f19fa657602a76893a7f53e9f5222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9910db7228c29ee672139e284cd6cec" id="r_ab9910db7228c29ee672139e284cd6cec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad146e732e35bec81b72c7437204e9ee8">vm_page_family_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9910db7228c29ee672139e284cd6cec">lookup_page_family_by_name</a> (char *struct_name)</td></tr>
+<tr class="memdesc:ab9910db7228c29ee672139e284cd6cec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up a page family by its name.  <br /></td></tr>
+<tr class="separator:ab9910db7228c29ee672139e284cd6cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38d0ee21c7b3b9b22289786fd969be46" id="r_a38d0ee21c7b3b9b22289786fd969be46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a8137dde168b63da6dc080c3e41660743">vm_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38d0ee21c7b3b9b22289786fd969be46">mm_is_vm_page_empty</a> (<a class="el" href="#a3781a6a3593d9877d1c25c4c8e3f1868">vm_page_t</a> *vm_page)</td></tr>
+<tr class="memdesc:a38d0ee21c7b3b9b22289786fd969be46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a virtual memory page is empty.  <br /></td></tr>
+<tr class="separator:a38d0ee21c7b3b9b22289786fd969be46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa72156192006fd76902b0616def7db4d" id="r_aa72156192006fd76902b0616def7db4d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa72156192006fd76902b0616def7db4d">mm_add_free_block_meta_data_to_free_block_list</a> (<a class="el" href="#ad146e732e35bec81b72c7437204e9ee8">vm_page_family_t</a> *vm_page_family, <a class="el" href="#a173309530f1b69ddabf71b33b75baf9f">block_meta_data_t</a> *free_block)</td></tr>
 <tr class="memdesc:aa72156192006fd76902b0616def7db4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a free block's metadata to the free block list of a virtual memory page family.  <br /></td></tr>
 <tr class="separator:aa72156192006fd76902b0616def7db4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -561,7 +561,7 @@ This macro is useful for determining the maximum capacity of a virtual memory pa
           <td class="memname">#define MAX_PAGE_ALLOCATABLE_MEMORY</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname">units</span></td><td>)</td>
-          <td>&#160;&#160;&#160;  (<a class="el" href="group__VMPage.html#gae68e468ad150ea915ed9a3b9d899e9df">mm_max_page_allocatable_memory</a>(units))</td>
+          <td>&#160;&#160;&#160;  (<a class="el" href="memory__manager_8c.html#ae68e468ad150ea915ed9a3b9d899e9df">mm_max_page_allocatable_memory</a>(units))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -885,6 +885,61 @@ This macro is useful for determining the maximum capacity of a virtual memory pa
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="acf4906c4a2cd80f10a570cc1c7411111" name="acf4906c4a2cd80f10a570cc1c7411111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf4906c4a2cd80f10a570cc1c7411111">&#9670;&#160;</a></span>allocate_vm_page()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a3781a6a3593d9877d1c25c4c8e3f1868">vm_page_t</a> * allocate_vm_page </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ad146e732e35bec81b72c7437204e9ee8">vm_page_family_t</a> *</td>          <td class="paramname"><span class="paramname"><em>vm_page_family</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates a new virtual memory page for a given page family. </p>
+<p>This function allocates a new virtual memory page for the specified page family. It initializes the metadata and pointers associated with the page and inserts the page into the linked list of pages belonging to the page family.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vm_page_family</td><td>Pointer to the page family for which the page is being allocated.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the newly allocated virtual memory page. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111_cgraph.png" border="0" usemap="#amemory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111_cgraph" alt=""/></div>
+<map name="amemory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111_cgraph" id="amemory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111_cgraph">
+<area shape="rect" title="Allocates a new virtual memory page for a given page family." alt="" coords="5,63,147,88"/>
+<area shape="rect" href="glthread_8c.html#a9e4b763220b1c69da2d9e9f191506f89" title="Initialize a glthread_t structure." alt="" coords="244,5,348,31"/>
+<area shape="poly" title=" " alt="" coords="123,60,194,41,230,31,231,37,195,46,124,65"/>
+<area shape="rect" href="memory__manager_8c.html#a8b6e564655ddbbb3147b2d28ee398e5c" title=" " alt="" coords="207,55,385,95"/>
+<area shape="poly" title=" " alt="" coords="147,73,194,73,194,78,147,78"/>
+<area shape="rect" href="memory__manager_8c.html#ae68e468ad150ea915ed9a3b9d899e9df" title=" " alt="" coords="195,119,397,159"/>
+<area shape="poly" title=" " alt="" coords="122,86,214,113,213,118,120,91"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111_icgraph.png" border="0" usemap="#amemory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111_icgraph" alt=""/></div>
+<map name="amemory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111_icgraph" id="amemory__manager_8h_acf4906c4a2cd80f10a570cc1c7411111_icgraph">
+<area shape="rect" title="Allocates a new virtual memory page for a given page family." alt="" coords="595,13,736,38"/>
+<area shape="rect" href="memory__manager_8c.html#acf3ff2e7438d4ae2c531e8851b7270e8" title=" " alt="" coords="345,13,547,38"/>
+<area shape="poly" title=" " alt="" coords="581,28,547,28,547,23,581,23"/>
+<area shape="rect" href="memory__manager_8c.html#a464ebae83b876a0ebb252e793e296fe9" title=" " alt="" coords="121,5,297,45"/>
+<area shape="poly" title=" " alt="" coords="332,28,298,28,298,23,332,23"/>
+<area shape="rect" href="memory__manager_8c.html#a99f5a0d88caf5abe330155eb4e2d7aac" title="Allocates and initializes memory for an array of structures." alt="" coords="5,13,73,38"/>
+<area shape="poly" title=" " alt="" coords="107,28,74,28,74,23,107,23"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a5987bb26622d19dcd8ecfd1416a7f3c6" name="a5987bb26622d19dcd8ecfd1416a7f3c6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5987bb26622d19dcd8ecfd1416a7f3c6">&#9670;&#160;</a></span>free_blocks_comparison_function()</h2>
 
@@ -974,6 +1029,54 @@ This macro is useful for determining the maximum capacity of a virtual memory pa
 <p><a class="el" href="#aa604b0781f01e3696274d24e45a62ff2" title="Macro to declare a conversion function for converting a glthread_t structure to a user-defined struct...">GLTHREAD_TO_STRUCT(glthread_to_block_meta_data, block_meta_data_t,
                    priority_thread_glue, glthread_ptr)</a>;</p>
 <p>Now, we can use glthread_to_block_meta_data to convert glthread_t pointers to block_meta_data_t pointers and access the metadata associated with memory blocks. </p>
+
+</div>
+</div>
+<a id="ab9910db7228c29ee672139e284cd6cec" name="ab9910db7228c29ee672139e284cd6cec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9910db7228c29ee672139e284cd6cec">&#9670;&#160;</a></span>lookup_page_family_by_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ad146e732e35bec81b72c7437204e9ee8">vm_page_family_t</a> * lookup_page_family_by_name </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>struct_name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Looks up a page family by its name. </p>
+<p>This function iterates over all virtual memory pages hosting page families and returns a pointer to the page family object identified by the given struct_name. If no such page family object is found, it returns NULL.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">struct_name</td><td>The name of the page family to look up.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the page family object if found, otherwise NULL.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function should be used to retrieve a page family object by its name after the page families have been registered and initialized using the appropriate functions and macros provided by the memory manager.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="memory__manager_8c.html#a0d0d58e2b3f34ada92ab7889d013e717" title="Initializes the memory manager.">mm_init</a> </dd>
+<dd>
+<a class="el" href="memory__manager__api_8h.html#a499d5d9d246e2afe4506e751ba45ec1e" title="Registers a memory structure for page family instantiation.">MM_REG_STRUCT</a> </dd>
+<dd>
+<a class="el" href="#a0cf10cad96e10ff9160b976e509f9462" title="Structure representing a virtual memory page containing families of memory structures.">vm_page_for_families_t</a> </dd>
+<dd>
+<a class="el" href="#ad146e732e35bec81b72c7437204e9ee8" title="Structure representing a page family in virtual memory.">vm_page_family_t</a> </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory__manager_8h_ab9910db7228c29ee672139e284cd6cec_icgraph.png" border="0" usemap="#amemory__manager_8h_ab9910db7228c29ee672139e284cd6cec_icgraph" alt=""/></div>
+<map name="amemory__manager_8h_ab9910db7228c29ee672139e284cd6cec_icgraph" id="amemory__manager_8h_ab9910db7228c29ee672139e284cd6cec_icgraph">
+<area shape="rect" title="Looks up a page family by its name." alt="" coords="328,35,481,75"/>
+<area shape="rect" href="memory__manager_8c.html#a3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure." alt="" coords="121,5,280,45"/>
+<area shape="poly" title=" " alt="" coords="314,44,280,39,281,34,315,39"/>
+<area shape="rect" href="memory__manager_8c.html#a99f5a0d88caf5abe330155eb4e2d7aac" title="Allocates and initializes memory for an array of structures." alt="" coords="5,42,73,67"/>
+<area shape="poly" title=" " alt="" coords="314,59,280,60,121,60,74,59,74,53,121,55,280,55,314,54"/>
+<area shape="poly" title=" " alt="" coords="108,45,74,51,73,46,107,40"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -1244,6 +1347,56 @@ This macro is useful for determining the maximum capacity of a virtual memory pa
 
 </div>
 </div>
+<a id="a38d0ee21c7b3b9b22289786fd969be46" name="a38d0ee21c7b3b9b22289786fd969be46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38d0ee21c7b3b9b22289786fd969be46">&#9670;&#160;</a></span>mm_is_vm_page_empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a8137dde168b63da6dc080c3e41660743">vm_bool_t</a> mm_is_vm_page_empty </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a3781a6a3593d9877d1c25c4c8e3f1868">vm_page_t</a> *</td>          <td class="paramname"><span class="paramname"><em>vm_page</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if a virtual memory page is empty. </p>
+<p>This function determines whether a virtual memory page is empty based on its metadata.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vm_page</td><td>Pointer to the virtual memory page to be checked.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>MM_TRUE if the page is empty.</li>
+<li>MM_FALSE if the page is not empty or if the input pointer is NULL.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>A virtual memory page is considered empty if all the following conditions are met:<ul>
+<li>The 'next_block' pointer in the block metadata is NULL, indicating no next block.</li>
+<li>The 'prev_block' pointer in the block metadata is NULL, indicating no previous block.</li>
+<li>The 'is_free' flag in the block metadata is set to MM_TRUE, indicating the page is free.</li>
+</ul>
+</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>It is important to ensure that the 'vm_page' parameter is a valid pointer to a virtual memory page structure. Passing invalid or uninitialized pointers may result in undefined behavior. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory__manager_8h_a38d0ee21c7b3b9b22289786fd969be46_icgraph.png" border="0" usemap="#amemory__manager_8h_a38d0ee21c7b3b9b22289786fd969be46_icgraph" alt=""/></div>
+<map name="amemory__manager_8h_a38d0ee21c7b3b9b22289786fd969be46_icgraph" id="amemory__manager_8h_a38d0ee21c7b3b9b22289786fd969be46_icgraph">
+<area shape="rect" title="Checks if a virtual memory page is empty." alt="" coords="288,5,471,31"/>
+<area shape="rect" href="memory__manager_8c.html#a2250996fd809506caef0a6e61b6faebb" title=" " alt="" coords="109,5,240,31"/>
+<area shape="poly" title=" " alt="" coords="274,21,240,21,240,15,274,15"/>
+<area shape="rect" href="memory__manager_8c.html#ae075bb556abb4342aedf495ddb8d390a" title="Frees memory allocated by the memory manager." alt="" coords="5,5,61,31"/>
+<area shape="poly" title=" " alt="" coords="96,21,61,21,61,15,96,15"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ae68e468ad150ea915ed9a3b9d899e9df" name="ae68e468ad150ea915ed9a3b9d899e9df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae68e468ad150ea915ed9a3b9d899e9df">&#9670;&#160;</a></span>mm_max_page_allocatable_memory()</h2>
 
@@ -1311,7 +1464,7 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Prints details of a virtual memory page." alt="" coords="349,5,552,31"/>
 <area shape="rect" href="memory__manager_8c.html#a0107300bfc4db599504abef54c980fa6" title="Prints memory usage details related to the memory manager." alt="" coords="108,5,301,31"/>
 <area shape="poly" title=" " alt="" coords="336,21,302,21,302,15,336,15"/>
-<area shape="rect" href="group__BusinessLogic.html#ga3c04138a5bfe5d72780bb7e82a18e627" title="The main function." alt="" coords="5,5,60,31"/>
+<area shape="rect" href="memory__manager__test_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="The main function." alt="" coords="5,5,60,31"/>
 <area shape="poly" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
 </map>
 </div>
@@ -1444,6 +1597,54 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This function is typically used in memory management systems to optimize memory usage by consolidating adjacent free memory blocks. </dd></dl>
+
+</div>
+</div>
+<a id="a3c0f19fa657602a76893a7f53e9f5222" name="a3c0f19fa657602a76893a7f53e9f5222"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c0f19fa657602a76893a7f53e9f5222">&#9670;&#160;</a></span>mm_vm_page_delete_and_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mm_vm_page_delete_and_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a3781a6a3593d9877d1c25c4c8e3f1868">vm_page_t</a> *</td>          <td class="paramname"><span class="paramname"><em>vm_page</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes and frees a virtual memory page. </p>
+<p>This function deletes and frees a virtual memory page. It removes the page from the linked list of pages belonging to its page family and deallocates the memory associated with the page.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vm_page</td><td>Pointer to the virtual memory page to be deleted and freed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222_cgraph.png" border="0" usemap="#amemory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222_cgraph" alt=""/></div>
+<map name="amemory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222_cgraph" id="amemory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222_cgraph">
+<area shape="rect" title="Deletes and frees a virtual memory page." alt="" coords="5,13,232,38"/>
+<area shape="rect" href="memory__manager_8c.html#ab7ac1212082ab9c61aab19e76696d9ec" title=" " alt="" coords="280,5,461,45"/>
+<area shape="poly" title=" " alt="" coords="232,23,266,23,266,28,232,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222_icgraph.png" border="0" usemap="#amemory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222_icgraph" alt=""/></div>
+<map name="amemory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222_icgraph" id="amemory__manager_8h_a3c0f19fa657602a76893a7f53e9f5222_icgraph">
+<area shape="rect" title="Deletes and frees a virtual memory page." alt="" coords="288,5,515,31"/>
+<area shape="rect" href="memory__manager_8c.html#a2250996fd809506caef0a6e61b6faebb" title=" " alt="" coords="109,5,240,31"/>
+<area shape="poly" title=" " alt="" coords="274,21,240,21,240,15,274,15"/>
+<area shape="rect" href="memory__manager_8c.html#ae075bb556abb4342aedf495ddb8d390a" title="Frees memory allocated by the memory manager." alt="" coords="5,5,61,31"/>
+<area shape="poly" title=" " alt="" coords="96,21,61,21,61,15,96,15"/>
+</map>
+</div>
 
 </div>
 </div>

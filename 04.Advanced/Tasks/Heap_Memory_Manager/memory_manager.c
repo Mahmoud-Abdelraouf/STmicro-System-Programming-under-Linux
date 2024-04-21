@@ -61,12 +61,7 @@ static size_t SYSTEM_PAGE_SIZE = 0;
  */
 static vm_page_for_families_t *first_vm_page_for_families = NULL;
 
-/**
- * @defgroup MemoryManagement Memory Management
- * @brief Functions for memory management.
- * @{
- */
-
+//-----------------< MemoryManagement Memory Management -----------------*/
 void mm_init() { SYSTEM_PAGE_SIZE = getpagesize(); }
 
 static void *mm_get_new_vm_page_from_kernel(int units) {
@@ -211,16 +206,7 @@ static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family) {
   return vm_page;
 }
 
-/**
- * @}
- */
-
-/**
- * @defgroup VMPage VM Page
- * @brief Functions related to virtual memory pages.
- * @{
- */
-
+//-----------------< VMPage VM Page -----------------*/
 vm_bool_t mm_is_vm_page_empty(vm_page_t *vm_page) {
   if (vm_page != NULL) {
     // Check if all conditions for an empty page are met
@@ -300,16 +286,7 @@ void mm_vm_page_delete_and_free(vm_page_t *vm_page) {
   mm_return_vm_page_to_kernel((void *)vm_page, 1);
 }
 
-/**
- * @}
- */
-
-/**
- * @defgroup FreeVMPageBlock Free VM Page/Block
- * @brief Functions related to managing free virtual memory pages and blocks.
- * @{
- */
-
+//-----------------< FreeVMPageBlock Free VM Page/Block -----------------/
 static void mm_union_free_blocks(block_meta_data_t *first,
                                  block_meta_data_t *second) {
   // Ensure that both blocks are free
@@ -371,7 +348,7 @@ static int mm_get_hard_internal_memory_frag_size(block_meta_data_t *first,
 }
 
 static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
-  block_meta_data_t *return_block = NULL; ///< Pointer to the freed block
+  block_meta_data_t *return_block = NULL; /// 1 Pointer to the freed block
   assert(to_be_free_block->is_free == MM_FALSE);
 
   // Retrieving hosting page and page family
@@ -380,10 +357,10 @@ static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
 
   // Setting return_block to the block being freed
   return_block = to_be_free_block;
-  to_be_free_block->is_free = MM_TRUE; ///< Marking the block as free
+  to_be_free_block->is_free = MM_TRUE; /// 2 Marking the block as free
 
   block_meta_data_t *next_block =
-      NEXT_META_BLOCK(to_be_free_block); ///< Next block pointer
+      NEXT_META_BLOCK(to_be_free_block); /// 3 Next block pointer
 
   // Handling Hard IF memory
   if (next_block) {
@@ -408,7 +385,7 @@ static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
   // Performing merging with next block if it's free
   if (next_block && next_block->is_free == MM_TRUE) {
     mm_union_free_blocks(to_be_free_block,
-                         next_block); ///< Union two free blocks
+                         next_block); /// 4 Union two free blocks
     return_block = to_be_free_block;
   }
 
@@ -422,7 +399,7 @@ static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
   // Checking if the hosting page becomes empty after freeing this block
   if (mm_is_vm_page_empty(hosting_page)) {
     mm_vm_page_delete_and_free(
-        hosting_page); ///< Delete and free the hosting page
+        hosting_page); /// 5 Delete and free the hosting page
     return NULL;
   }
 
@@ -445,11 +422,7 @@ void xfree(void *app_data) {
   mm_free_blocks(block_meta_data);
 }
 
-/**
- * @}
- */
-
-/**-----------------<  Memory allocation section -----------------*/
+//-----------------<  Memory allocation section -----------------/
 static block_meta_data_t *
 mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
                             uint32_t req_size) {
@@ -635,7 +608,7 @@ void *xcalloc(char *struct_name, int units) {
   return NULL;
 }
 
-/**-----------------< Printing information section -----------------*/
+//-----------------< Printing information section -----------------/
 void mm_print_registered_page_families() {
   vm_page_family_t *vm_page_family_curr =
       NULL;                             // Pointer to the current page family

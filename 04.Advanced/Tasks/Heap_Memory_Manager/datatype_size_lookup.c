@@ -8,12 +8,7 @@
 
 #include "datatype_size_lookup.h"
 
-/**
- * @defgroup DatatypeMappings Datatype Mappings
- * @brief Definitions for data type mappings.
- * @{
- */
-
+//-----------------< DatatypeMappings Datatype Mappings -----------------*/
 /**
  * @brief Structure representing a data type mapping.
  *
@@ -45,10 +40,6 @@ datatype_mapping_t type_mappings[] = {
     {"unsigned long", sizeof(unsigned long)},
     {"unsigned long long", sizeof(unsigned long long)},
 };
-
-/**
- * @}
- */
 
 // TODO: Implement an efficient data type mapping lookup using a hash table.
 //       Consider using a perfect hash function generator like gperf for optimal

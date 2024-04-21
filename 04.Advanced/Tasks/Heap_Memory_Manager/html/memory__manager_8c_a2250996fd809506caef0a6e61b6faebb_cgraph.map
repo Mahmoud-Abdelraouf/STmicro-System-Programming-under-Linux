@@ -1,5 +1,5 @@
 <map id="mm_free_blocks" name="mm_free_blocks">
-<area shape="rect" id="Node000001" title="Frees a memory block and performs merging if necessary." alt="" coords="5,162,136,187"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,162,136,187"/>
 <area shape="rect" id="Node000002" href="$memory__manager_8c.html#aa72156192006fd76902b0616def7db4d" title=" " alt="" coords="200,33,395,73"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,160,125,122,183,83,198,76,201,81,185,88,128,126,86,164"/>
 <area shape="rect" id="Node000007" href="$memory__manager_8c.html#a3635ea0217471faffe42b0c91c4bcc42" title=" " alt="" coords="213,97,382,137"/>

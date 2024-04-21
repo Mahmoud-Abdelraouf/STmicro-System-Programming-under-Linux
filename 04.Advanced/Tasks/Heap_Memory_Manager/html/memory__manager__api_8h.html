@@ -108,30 +108,30 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a499d5d9d246e2afe4506e751ba45ec1e" id="r_a499d5d9d246e2afe4506e751ba45ec1e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a499d5d9d246e2afe4506e751ba45ec1e">MM_REG_STRUCT</a>(struct_name)&#160;&#160;&#160;  (<a class="el" href="group__MemoryManagement.html#ga3ed96883ba6c4711318dbae3f5941bbf">mm_instantiate_new_page_family</a>(#struct_name, sizeof(struct_name)))</td></tr>
+<tr class="memitem:a499d5d9d246e2afe4506e751ba45ec1e" id="r_a499d5d9d246e2afe4506e751ba45ec1e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a499d5d9d246e2afe4506e751ba45ec1e">MM_REG_STRUCT</a>(struct_name)&#160;&#160;&#160;  (<a class="el" href="memory__manager_8c.html#a3ed96883ba6c4711318dbae3f5941bbf">mm_instantiate_new_page_family</a>(#struct_name, sizeof(struct_name)))</td></tr>
 <tr class="memdesc:a499d5d9d246e2afe4506e751ba45ec1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a memory structure for page family instantiation.  <br /></td></tr>
 <tr class="separator:a499d5d9d246e2afe4506e751ba45ec1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a295a457410e0dd9a09f7dc73e3b78e" id="r_a3a295a457410e0dd9a09f7dc73e3b78e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a295a457410e0dd9a09f7dc73e3b78e">XCALLOC</a>(units,  struct_name)&#160;&#160;&#160;(<a class="el" href="memory__manager_8c.html#a99f5a0d88caf5abe330155eb4e2d7aac">xcalloc</a>(#struct_name, units))</td></tr>
 <tr class="memdesc:a3a295a457410e0dd9a09f7dc73e3b78e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro for allocating memory for multiple instances of a structure and initializing them to zero.  <br /></td></tr>
 <tr class="separator:a3a295a457410e0dd9a09f7dc73e3b78e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36a9e17ea9f866a838cf58da2834274a" id="r_a36a9e17ea9f866a838cf58da2834274a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36a9e17ea9f866a838cf58da2834274a">XFREE</a>(ptr)&#160;&#160;&#160;(<a class="el" href="group__FreeVMPageBlock.html#gae075bb556abb4342aedf495ddb8d390a">xfree</a>(ptr))</td></tr>
+<tr class="memitem:a36a9e17ea9f866a838cf58da2834274a" id="r_a36a9e17ea9f866a838cf58da2834274a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36a9e17ea9f866a838cf58da2834274a">XFREE</a>(ptr)&#160;&#160;&#160;(<a class="el" href="memory__manager_8c.html#ae075bb556abb4342aedf495ddb8d390a">xfree</a>(ptr))</td></tr>
 <tr class="memdesc:a36a9e17ea9f866a838cf58da2834274a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro for freeing memory using a custom deallocation function.  <br /></td></tr>
 <tr class="separator:a36a9e17ea9f866a838cf58da2834274a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga0d0d58e2b3f34ada92ab7889d013e717" id="r_ga0d0d58e2b3f34ada92ab7889d013e717"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__MemoryManagement.html#ga0d0d58e2b3f34ada92ab7889d013e717">mm_init</a> ()</td></tr>
-<tr class="memdesc:ga0d0d58e2b3f34ada92ab7889d013e717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the memory manager.  <br /></td></tr>
-<tr class="separator:ga0d0d58e2b3f34ada92ab7889d013e717"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3ed96883ba6c4711318dbae3f5941bbf" id="r_ga3ed96883ba6c4711318dbae3f5941bbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__MemoryManagement.html#ga3ed96883ba6c4711318dbae3f5941bbf">mm_instantiate_new_page_family</a> (char *struct_name, uint32_t struct_size)</td></tr>
-<tr class="memdesc:ga3ed96883ba6c4711318dbae3f5941bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new page family for a memory structure.  <br /></td></tr>
-<tr class="separator:ga3ed96883ba6c4711318dbae3f5941bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d0d58e2b3f34ada92ab7889d013e717" id="r_a0d0d58e2b3f34ada92ab7889d013e717"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d0d58e2b3f34ada92ab7889d013e717">mm_init</a> ()</td></tr>
+<tr class="memdesc:a0d0d58e2b3f34ada92ab7889d013e717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the memory manager.  <br /></td></tr>
+<tr class="separator:a0d0d58e2b3f34ada92ab7889d013e717"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ed96883ba6c4711318dbae3f5941bbf" id="r_a3ed96883ba6c4711318dbae3f5941bbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ed96883ba6c4711318dbae3f5941bbf">mm_instantiate_new_page_family</a> (char *struct_name, uint32_t struct_size)</td></tr>
+<tr class="memdesc:a3ed96883ba6c4711318dbae3f5941bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new page family for a memory structure.  <br /></td></tr>
+<tr class="separator:a3ed96883ba6c4711318dbae3f5941bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99f5a0d88caf5abe330155eb4e2d7aac" id="r_a99f5a0d88caf5abe330155eb4e2d7aac"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99f5a0d88caf5abe330155eb4e2d7aac">xcalloc</a> (char *struct_name, int units)</td></tr>
 <tr class="memdesc:a99f5a0d88caf5abe330155eb4e2d7aac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and initializes memory for an array of structures.  <br /></td></tr>
 <tr class="separator:a99f5a0d88caf5abe330155eb4e2d7aac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae075bb556abb4342aedf495ddb8d390a" id="r_gae075bb556abb4342aedf495ddb8d390a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__FreeVMPageBlock.html#gae075bb556abb4342aedf495ddb8d390a">xfree</a> (void *app_data)</td></tr>
-<tr class="memdesc:gae075bb556abb4342aedf495ddb8d390a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees memory allocated by the memory manager.  <br /></td></tr>
-<tr class="separator:gae075bb556abb4342aedf495ddb8d390a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae075bb556abb4342aedf495ddb8d390a" id="r_ae075bb556abb4342aedf495ddb8d390a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae075bb556abb4342aedf495ddb8d390a">xfree</a> (void *app_data)</td></tr>
+<tr class="memdesc:ae075bb556abb4342aedf495ddb8d390a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees memory allocated by the memory manager.  <br /></td></tr>
+<tr class="separator:ae075bb556abb4342aedf495ddb8d390a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c4fac0b5d1557530ea878cf4b84082b" id="r_a2c4fac0b5d1557530ea878cf4b84082b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c4fac0b5d1557530ea878cf4b84082b">mm_print_registered_page_families</a> ()</td></tr>
 <tr class="memdesc:a2c4fac0b5d1557530ea878cf4b84082b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints all registered page families.  <br /></td></tr>
 <tr class="separator:a2c4fac0b5d1557530ea878cf4b84082b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,13 +156,13 @@ Functions</h2></td></tr>
           <td class="memname">#define MM_REG_STRUCT</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname">struct_name</span></td><td>)</td>
-          <td>&#160;&#160;&#160;  (<a class="el" href="group__MemoryManagement.html#ga3ed96883ba6c4711318dbae3f5941bbf">mm_instantiate_new_page_family</a>(#struct_name, sizeof(struct_name)))</td>
+          <td>&#160;&#160;&#160;  (<a class="el" href="memory__manager_8c.html#a3ed96883ba6c4711318dbae3f5941bbf">mm_instantiate_new_page_family</a>(#struct_name, sizeof(struct_name)))</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Registers a memory structure for page family instantiation. </p>
-<p>This macro facilitates the registration of a memory structure for page family instantiation within the memory manager. It takes the name of the structure (<code>struct_name</code>) as a parameter and uses the <code>#</code> operator to stringify it, which is then passed to the <code><a class="el" href="group__MemoryManagement.html#ga3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure.">mm_instantiate_new_page_family()</a></code> function along with the size of the structure.</p>
+<p>This macro facilitates the registration of a memory structure for page family instantiation within the memory manager. It takes the name of the structure (<code>struct_name</code>) as a parameter and uses the <code>#</code> operator to stringify it, which is then passed to the <code><a class="el" href="#a3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure.">mm_instantiate_new_page_family()</a></code> function along with the size of the structure.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">struct_name</td><td>The name of the memory structure to be registered.</td></tr>
@@ -170,7 +170,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This macro should be used to register each memory structure before it is instantiated as a page family within the memory manager. It ensures proper initialization of the memory management system and enables efficient allocation and management of memory pages.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__MemoryManagement.html#ga3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure.">mm_instantiate_new_page_family()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure.">mm_instantiate_new_page_family()</a> </dd></dl>
 
 </div>
 </div>
@@ -216,13 +216,13 @@ Functions</h2></td></tr>
           <td class="memname">#define XFREE</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname">ptr</span></td><td>)</td>
-          <td>&#160;&#160;&#160;(<a class="el" href="group__FreeVMPageBlock.html#gae075bb556abb4342aedf495ddb8d390a">xfree</a>(ptr))</td>
+          <td>&#160;&#160;&#160;(<a class="el" href="memory__manager_8c.html#ae075bb556abb4342aedf495ddb8d390a">xfree</a>(ptr))</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Macro for freeing memory using a custom deallocation function. </p>
-<p>This macro is used for freeing memory using a custom deallocation function specified by the user. The macro takes a pointer to the memory to be freed as its argument and passes it to the custom deallocation function <a class="el" href="group__FreeVMPageBlock.html#gae075bb556abb4342aedf495ddb8d390a" title="Frees memory allocated by the memory manager.">xfree()</a>.</p>
+<p>This macro is used for freeing memory using a custom deallocation function specified by the user. The macro takes a pointer to the memory to be freed as its argument and passes it to the custom deallocation function <a class="el" href="#ae075bb556abb4342aedf495ddb8d390a" title="Frees memory allocated by the memory manager.">xfree()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ptr</td><td>Pointer to the memory to be freed. UAPI_MM_H_ </td></tr>
@@ -233,6 +233,101 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a0d0d58e2b3f34ada92ab7889d013e717" name="a0d0d58e2b3f34ada92ab7889d013e717"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d0d58e2b3f34ada92ab7889d013e717">&#9670;&#160;</a></span>mm_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mm_init </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the memory manager. </p>
+<p>This function initializes the memory manager. It sets up necessary configurations and parameters for memory management operations within the program. It specifically determines the system page size using the <code>getpagesize()</code> system call and assigns it to the global variable <code>SYSTEM_PAGE_SIZE</code>.</p>
+<dl class="section note"><dt>Note</dt><dd>This function should be called before any memory management operations are performed within the program. It is typically called at the beginning of the program execution to ensure proper initialization of memory management functionalities.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This function relies on the <code>getpagesize()</code> system call to determine the system page size. Therefore, it may not be portable across all platforms. It is primarily intended for use in Unix-like systems where <code>getpagesize()</code> is available.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>man getpagesize() </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory__manager__api_8h_a0d0d58e2b3f34ada92ab7889d013e717_icgraph.png" border="0" usemap="#amemory__manager__api_8h_a0d0d58e2b3f34ada92ab7889d013e717_icgraph" alt=""/></div>
+<map name="amemory__manager__api_8h_a0d0d58e2b3f34ada92ab7889d013e717_icgraph" id="amemory__manager__api_8h_a0d0d58e2b3f34ada92ab7889d013e717_icgraph">
+<area shape="rect" title="Initializes the memory manager." alt="" coords="108,5,184,31"/>
+<area shape="rect" href="memory__manager__test_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="The main function." alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3ed96883ba6c4711318dbae3f5941bbf" name="a3ed96883ba6c4711318dbae3f5941bbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ed96883ba6c4711318dbae3f5941bbf">&#9670;&#160;</a></span>mm_instantiate_new_page_family()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mm_instantiate_new_page_family </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>struct_name</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>struct_size</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Instantiates a new page family for a memory structure. </p>
+<p>This function creates a new page family for a memory structure identified by its name and size. It allocates memory for the page family and adds it to the existing virtual memory pages if necessary. Each page family can contain multiple memory structures of the same type.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">struct_name</td><td>The name of the memory structure. </td></tr>
+    <tr><td class="paramname">struct_size</td><td>The size of the memory structure.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>If the size of the memory structure exceeds the system page size, an error message is printed, and the function returns without creating the page family.</dd>
+<dd>
+This function maintains a linked list of virtual memory pages (<code>first_vm_page_for_families</code>) to store the page families. If there are no existing pages, it allocates a new page and initializes it with the first page family. If the existing pages are full, it allocates a new page and adds it to the beginning of the linked list.</dd>
+<dd>
+If a page family with the same name already exists, an assertion error is triggered, indicating a conflict in page family instantiation.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This function relies on the <code><a class="el" href="memory__manager_8c.html#a8b6e564655ddbbb3147b2d28ee398e5c">mm_get_new_vm_page_from_kernel()</a></code> function to allocate memory from the kernel for the page family. Improper use or misuse of this function can lead to memory leaks or system instability.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="memory__manager_8c.html#a8b6e564655ddbbb3147b2d28ee398e5c">mm_get_new_vm_page_from_kernel()</a> </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf_cgraph.png" border="0" usemap="#amemory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf_cgraph" alt=""/></div>
+<map name="amemory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf_cgraph" id="amemory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf_cgraph">
+<area shape="rect" title="Instantiates a new page family for a memory structure." alt="" coords="5,55,164,95"/>
+<area shape="rect" href="glthread_8c.html#a9e4b763220b1c69da2d9e9f191506f89" title="Initialize a glthread_t structure." alt="" coords="249,5,353,31"/>
+<area shape="poly" title=" " alt="" coords="160,53,238,32,239,37,161,58"/>
+<area shape="rect" href="memory__manager_8c.html#ab9910db7228c29ee672139e284cd6cec" title="Looks up a page family by its name." alt="" coords="224,55,377,95"/>
+<area shape="poly" title=" " alt="" coords="164,73,211,73,211,78,164,78"/>
+<area shape="rect" href="memory__manager_8c.html#a8b6e564655ddbbb3147b2d28ee398e5c" title=" " alt="" coords="212,119,389,159"/>
+<area shape="poly" title=" " alt="" coords="154,93,220,113,219,118,152,98"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf_icgraph.png" border="0" usemap="#amemory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf_icgraph" alt=""/></div>
+<map name="amemory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf_icgraph" id="amemory__manager__api_8h_a3ed96883ba6c4711318dbae3f5941bbf_icgraph">
+<area shape="rect" title="Instantiates a new page family for a memory structure." alt="" coords="121,5,280,45"/>
+<area shape="rect" href="memory__manager_8c.html#a99f5a0d88caf5abe330155eb4e2d7aac" title="Allocates and initializes memory for an array of structures." alt="" coords="5,13,73,38"/>
+<area shape="poly" title=" " alt="" coords="107,28,74,28,74,23,107,23"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="abc2214ca18f00171e96262019bb84919" name="abc2214ca18f00171e96262019bb84919"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc2214ca18f00171e96262019bb84919">&#9670;&#160;</a></span>mm_print_block_usage()</h2>
 
@@ -256,7 +351,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="memory__manager__api_8h_abc2214ca18f00171e96262019bb84919_icgraph.png" border="0" usemap="#amemory__manager__api_8h_abc2214ca18f00171e96262019bb84919_icgraph" alt=""/></div>
 <map name="amemory__manager__api_8h_abc2214ca18f00171e96262019bb84919_icgraph" id="amemory__manager__api_8h_abc2214ca18f00171e96262019bb84919_icgraph">
 <area shape="rect" title="Prints information about the memory block usage." alt="" coords="108,5,281,31"/>
-<area shape="rect" href="group__BusinessLogic.html#ga3c04138a5bfe5d72780bb7e82a18e627" title="The main function." alt="" coords="5,5,60,31"/>
+<area shape="rect" href="memory__manager__test_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="The main function." alt="" coords="5,5,60,31"/>
 <area shape="poly" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
 </map>
 </div>
@@ -302,7 +397,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="memory__manager__api_8h_a0107300bfc4db599504abef54c980fa6_icgraph.png" border="0" usemap="#amemory__manager__api_8h_a0107300bfc4db599504abef54c980fa6_icgraph" alt=""/></div>
 <map name="amemory__manager__api_8h_a0107300bfc4db599504abef54c980fa6_icgraph" id="amemory__manager__api_8h_a0107300bfc4db599504abef54c980fa6_icgraph">
 <area shape="rect" title="Prints memory usage details related to the memory manager." alt="" coords="108,5,301,31"/>
-<area shape="rect" href="group__BusinessLogic.html#ga3c04138a5bfe5d72780bb7e82a18e627" title="The main function." alt="" coords="5,5,60,31"/>
+<area shape="rect" href="memory__manager__test_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="The main function." alt="" coords="5,5,60,31"/>
 <area shape="poly" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
 </map>
 </div>
@@ -327,15 +422,14 @@ Here is the caller graph for this function:</div>
 <p>Prints all registered page families. </p>
 <p>This function prints all page families that have been registered with the Linux Memory Manager. It iterates over all virtual memory pages hosting page families and prints information about each page family, including its name and size.</p>
 <dl class="section note"><dt>Note</dt><dd>This function should be invoked after the application has performed registration for all its structures using the <code>MM_REG_STRUCT</code> macro. It relies on the <code>first_vm_page_for_families</code> global variable, which maintains a linked list of virtual memory pages containing page families.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a499d5d9d246e2afe4506e751ba45ec1e" title="Registers a memory structure for page family instantiation.">MM_REG_STRUCT</a></dd></dl>
-<p>--------------&mdash;&lt; Printing information section --------------&mdash; </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a499d5d9d246e2afe4506e751ba45ec1e" title="Registers a memory structure for page family instantiation.">MM_REG_STRUCT</a> </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="memory__manager__api_8h_a2c4fac0b5d1557530ea878cf4b84082b_icgraph.png" border="0" usemap="#amemory__manager__api_8h_a2c4fac0b5d1557530ea878cf4b84082b_icgraph" alt=""/></div>
 <map name="amemory__manager__api_8h_a2c4fac0b5d1557530ea878cf4b84082b_icgraph" id="amemory__manager__api_8h_a2c4fac0b5d1557530ea878cf4b84082b_icgraph">
 <area shape="rect" title="Prints all registered page families." alt="" coords="108,5,267,45"/>
-<area shape="rect" href="group__BusinessLogic.html#ga3c04138a5bfe5d72780bb7e82a18e627" title="The main function." alt="" coords="5,13,60,38"/>
+<area shape="rect" href="memory__manager__test_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="The main function." alt="" coords="5,13,60,38"/>
 <area shape="poly" title=" " alt="" coords="94,28,60,28,60,23,94,23"/>
 </map>
 </div>
@@ -380,31 +474,31 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="Allocates and initializes memory for an array of structures." alt="" coords="5,118,73,143"/>
 <area shape="rect" href="datatype__size__lookup_8c.html#a65d92569472aecd58e18e5afaa9b41ea" title="Gets the size of a data type by its name." alt="" coords="129,10,290,35"/>
 <area shape="poly" title=" " alt="" coords="50,116,79,85,120,52,149,38,152,43,123,57,83,89,53,120"/>
-<area shape="rect" href="group__MemoryManagement.html#gab9910db7228c29ee672139e284cd6cec" title="Looks up a page family by its name." alt="" coords="369,5,523,45"/>
+<area shape="rect" href="memory__manager_8c.html#ab9910db7228c29ee672139e284cd6cec" title="Looks up a page family by its name." alt="" coords="369,5,523,45"/>
 <area shape="poly" title=" " alt="" coords="69,115,121,96,243,63,356,39,357,44,244,68,122,101,71,120"/>
 <area shape="rect" href="memory__manager_8c.html#a464ebae83b876a0ebb252e793e296fe9" title=" " alt="" coords="121,200,297,240"/>
 <area shape="poly" title=" " alt="" coords="66,141,160,191,157,196,63,146"/>
-<area shape="rect" href="group__MemoryManagement.html#ga3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure." alt="" coords="130,111,289,151"/>
+<area shape="rect" href="memory__manager_8c.html#a3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure." alt="" coords="130,111,289,151"/>
 <area shape="poly" title=" " alt="" coords="74,128,116,128,116,133,74,133"/>
 <area shape="rect" href="parse__datatype_8c.html#a951929580735bed45579ce79ea1d6c71" title="Parses the name of a struct from a string." alt="" coords="136,322,283,347"/>
 <area shape="poly" title=" " alt="" coords="50,142,80,191,123,250,184,311,180,314,119,254,76,194,46,145"/>
-<area shape="rect" href="group__MemoryManagement.html#gacf3ff2e7438d4ae2c531e8851b7270e8" title=" " alt="" coords="345,205,547,230"/>
+<area shape="rect" href="memory__manager_8c.html#acf3ff2e7438d4ae2c531e8851b7270e8" title=" " alt="" coords="345,205,547,230"/>
 <area shape="poly" title=" " alt="" coords="298,216,332,216,332,221,298,222"/>
 <area shape="rect" href="memory__manager_8c.html#a28b2162ebaea314c420ca44e29fb9d44" title=" " alt="" coords="364,319,528,359"/>
 <area shape="poly" title=" " alt="" coords="239,238,288,271,347,304,363,311,361,316,344,309,285,276,236,242"/>
 <area shape="rect" href="memory__manager_8c.html#ab335253cb154c4adb2beb3cea638fb3c" title=" " alt="" coords="366,255,526,295"/>
 <area shape="poly" title=" " alt="" coords="297,237,353,251,352,256,296,243"/>
-<area shape="rect" href="group__VMPage.html#gacf4906c4a2cd80f10a570cc1c7411111" title="Allocates a new virtual memory page for a given page family." alt="" coords="621,189,763,214"/>
+<area shape="rect" href="memory__manager_8c.html#acf4906c4a2cd80f10a570cc1c7411111" title="Allocates a new virtual memory page for a given page family." alt="" coords="621,189,763,214"/>
 <area shape="poly" title=" " alt="" coords="547,208,607,204,608,209,547,213"/>
-<area shape="rect" href="group__FreeVMPageBlock.html#gaa72156192006fd76902b0616def7db4d" title=" " alt="" coords="595,255,789,295"/>
+<area shape="rect" href="memory__manager_8c.html#aa72156192006fd76902b0616def7db4d" title=" " alt="" coords="595,255,789,295"/>
 <area shape="poly" title=" " alt="" coords="502,227,593,249,592,254,501,233"/>
 <area shape="rect" href="glthread_8c.html#a9e4b763220b1c69da2d9e9f191506f89" title="Initialize a glthread_t structure." alt="" coords="1107,250,1211,275"/>
 <area shape="poly" title=" " alt="" coords="763,198,893,202,967,209,1041,220,1115,242,1114,247,1039,225,966,214,892,207,763,203"/>
-<area shape="rect" href="group__MemoryManagement.html#ga8b6e564655ddbbb3147b2d28ee398e5c" title=" " alt="" coords="850,120,1027,160"/>
+<area shape="rect" href="memory__manager_8c.html#a8b6e564655ddbbb3147b2d28ee398e5c" title=" " alt="" coords="850,120,1027,160"/>
 <area shape="poly" title=" " alt="" coords="743,186,844,161,845,166,745,191"/>
-<area shape="rect" href="group__VMPage.html#gae68e468ad150ea915ed9a3b9d899e9df" title=" " alt="" coords="837,235,1040,275"/>
+<area shape="rect" href="memory__manager_8c.html#ae68e468ad150ea915ed9a3b9d899e9df" title=" " alt="" coords="837,235,1040,275"/>
 <area shape="poly" title=" " alt="" coords="752,212,833,229,832,234,751,217"/>
-<area shape="rect" href="group__FreeVMPageBlock.html#ga5987bb26622d19dcd8ecfd1416a7f3c6" title=" " alt="" coords="849,299,1029,339"/>
+<area shape="rect" href="memory__manager_8c.html#a5987bb26622d19dcd8ecfd1416a7f3c6" title=" " alt="" coords="849,299,1029,339"/>
 <area shape="poly" title=" " alt="" coords="790,289,836,298,835,303,789,295"/>
 <area shape="rect" href="glthread_8c.html#a2f6336d160a55d3adecb11dace34152a" title="Insert a glthread_t structure into a sorted linked list based on priority." alt="" coords="851,363,1026,389"/>
 <area shape="poly" title=" " alt="" coords="766,292,791,304,806,316,815,327,824,338,839,348,856,356,854,361,836,353,821,342,811,331,802,320,788,309,764,297"/>
@@ -420,6 +514,62 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="289,129,836,136,836,141,289,134"/>
 <area shape="rect" href="parse__datatype_8c.html#aced8c866b58d74e72f0c67e362c75740" title=" " alt="" coords="401,383,491,409"/>
 <area shape="poly" title=" " alt="" coords="259,345,346,368,388,379,387,384,345,373,257,350"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae075bb556abb4342aedf495ddb8d390a" name="ae075bb556abb4342aedf495ddb8d390a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae075bb556abb4342aedf495ddb8d390a">&#9670;&#160;</a></span>xfree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void xfree </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>app_data</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frees memory allocated by the memory manager. </p>
+<p>This function is used to free memory that was previously allocated by the memory manager. It takes a pointer to the memory to be freed as its argument. The pointer is adjusted to point to the block metadata, and then it is passed to the memory manager's free blocks function.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">app_data</td><td>Pointer to the memory to be freed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="memory__manager__api_8h_ae075bb556abb4342aedf495ddb8d390a_cgraph.png" border="0" usemap="#amemory__manager__api_8h_ae075bb556abb4342aedf495ddb8d390a_cgraph" alt=""/></div>
+<map name="amemory__manager__api_8h_ae075bb556abb4342aedf495ddb8d390a_cgraph" id="amemory__manager__api_8h_ae075bb556abb4342aedf495ddb8d390a_cgraph">
+<area shape="rect" title="Frees memory allocated by the memory manager." alt="" coords="5,162,61,187"/>
+<area shape="rect" href="memory__manager_8c.html#a2250996fd809506caef0a6e61b6faebb" title=" " alt="" coords="109,162,240,187"/>
+<area shape="poly" title=" " alt="" coords="61,172,96,172,96,177,61,177"/>
+<area shape="rect" href="memory__manager_8c.html#aa72156192006fd76902b0616def7db4d" title=" " alt="" coords="304,33,499,73"/>
+<area shape="poly" title=" " alt="" coords="187,160,229,122,287,83,302,76,305,81,289,88,232,126,190,164"/>
+<area shape="rect" href="memory__manager_8c.html#a3635ea0217471faffe42b0c91c4bcc42" title=" " alt="" coords="317,97,486,137"/>
+<area shape="poly" title=" " alt="" coords="225,159,308,138,309,143,226,165"/>
+<area shape="rect" href="memory__manager_8c.html#a38d0ee21c7b3b9b22289786fd969be46" title="Checks if a virtual memory page is empty." alt="" coords="310,162,493,187"/>
+<area shape="poly" title=" " alt="" coords="240,172,296,172,296,177,240,177"/>
+<area shape="rect" href="memory__manager_8c.html#a8b1f18097a67a303b6182eaf288b64f9" title=" " alt="" coords="315,211,488,237"/>
+<area shape="poly" title=" " alt="" coords="234,185,329,206,328,211,233,190"/>
+<area shape="rect" href="memory__manager_8c.html#a3c0f19fa657602a76893a7f53e9f5222" title="Deletes and frees a virtual memory page." alt="" coords="288,261,515,286"/>
+<area shape="poly" title=" " alt="" coords="193,185,235,216,289,246,314,254,312,259,287,250,232,220,190,190"/>
+<area shape="rect" href="memory__manager_8c.html#a5987bb26622d19dcd8ecfd1416a7f3c6" title=" " alt="" coords="563,5,743,45"/>
+<area shape="poly" title=" " alt="" coords="498,40,549,34,550,39,499,45"/>
+<area shape="rect" href="glthread_8c.html#a2f6336d160a55d3adecb11dace34152a" title="Insert a glthread_t structure into a sorted linked list based on priority." alt="" coords="566,70,741,95"/>
+<area shape="poly" title=" " alt="" coords="499,62,553,68,552,74,498,67"/>
+<area shape="rect" href="glthread_8c.html#aa63bf952adace7bfd5bc0cdf970eb4db" title="Adds a new node after the specified current node in the threaded linked list." alt="" coords="792,46,935,71"/>
+<area shape="poly" title=" " alt="" coords="740,70,778,66,778,71,741,75"/>
+<area shape="rect" href="glthread_8c.html#a9e4b763220b1c69da2d9e9f191506f89" title="Initialize a glthread_t structure." alt="" coords="811,95,915,121"/>
+<area shape="poly" title=" " alt="" coords="741,91,798,97,797,103,740,96"/>
+<area shape="rect" href="memory__manager_8c.html#ab7ac1212082ab9c61aab19e76696d9ec" title=" " alt="" coords="563,253,744,293"/>
+<area shape="poly" title=" " alt="" coords="515,271,549,271,549,276,515,276"/>
 </map>
 </div>
 

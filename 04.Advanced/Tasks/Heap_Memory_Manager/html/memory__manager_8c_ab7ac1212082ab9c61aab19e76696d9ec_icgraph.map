@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="563,5,744,45"/>
 <area shape="rect" id="Node000002" href="$memory__manager_8c.html#a3c0f19fa657602a76893a7f53e9f5222" title="Deletes and frees a virtual memory page." alt="" coords="288,13,515,38"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="549,28,515,28,515,23,549,23"/>
-<area shape="rect" id="Node000003" href="$memory__manager_8c.html#a2250996fd809506caef0a6e61b6faebb" title="Frees a memory block and performs merging if necessary." alt="" coords="109,13,240,38"/>
+<area shape="rect" id="Node000003" href="$memory__manager_8c.html#a2250996fd809506caef0a6e61b6faebb" title=" " alt="" coords="109,13,240,38"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="274,28,240,28,240,23,274,23"/>
 <area shape="rect" id="Node000004" href="$memory__manager_8c.html#ae075bb556abb4342aedf495ddb8d390a" title="Frees memory allocated by the memory manager." alt="" coords="5,13,61,38"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="96,28,61,28,61,23,96,23"/>

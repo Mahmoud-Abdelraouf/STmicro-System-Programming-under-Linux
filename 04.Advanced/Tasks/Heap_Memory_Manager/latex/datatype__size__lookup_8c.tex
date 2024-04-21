@@ -26,7 +26,7 @@ size\+\_\+t \mbox{\hyperlink{datatype__size__lookup_8c_a65d92569472aecd58e18e5af
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structdatatype__mapping__t}{datatype\+\_\+mapping\+\_\+t}} \mbox{\hyperlink{group__DatatypeMappings_gabf4afd2b70a7060b1fcbf161723da458}{type\+\_\+mappings}} \mbox{[}$\,$\mbox{]}
+\mbox{\hyperlink{structdatatype__mapping__t}{datatype\+\_\+mapping\+\_\+t}} \mbox{\hyperlink{datatype__size__lookup_8c_abf4afd2b70a7060b1fcbf161723da458}{type\+\_\+mappings}} \mbox{[}$\,$\mbox{]}
 \begin{DoxyCompactList}\small\item\em Array of data type mappings. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -63,3 +63,35 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=288pt]{datatype__size__lookup_8c_a65d92569472aecd58e18e5afaa9b41ea_icgraph}
 \end{center}
 \end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{datatype__size__lookup_8c_abf4afd2b70a7060b1fcbf161723da458}\label{datatype__size__lookup_8c_abf4afd2b70a7060b1fcbf161723da458} 
+\index{datatype\_size\_lookup.c@{datatype\_size\_lookup.c}!type\_mappings@{type\_mappings}}
+\index{type\_mappings@{type\_mappings}!datatype\_size\_lookup.c@{datatype\_size\_lookup.c}}
+\doxysubsubsection{\texorpdfstring{type\_mappings}{type\_mappings}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structdatatype__mapping__t}{datatype\+\_\+mapping\+\_\+t}} type\+\_\+mappings\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}int"{}},\ \textcolor{keyword}{sizeof}(int)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}char"{}},\ \textcolor{keyword}{sizeof}(char)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}float"{}},\ \textcolor{keyword}{sizeof}(float)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}double"{}},\ \textcolor{keyword}{sizeof}(double)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}short"{}},\ \textcolor{keyword}{sizeof}(short)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}long"{}},\ \textcolor{keyword}{sizeof}(long)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}long\ long"{}},\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{long}\ long)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}unsigned\ int"{}},\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ int)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}unsigned\ char"{}},\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ char)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}unsigned\ short"{}},\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ short)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}unsigned\ long"{}},\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ long)\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{stringliteral}{"{}unsigned\ long\ long"{}},\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Array of data type mappings. 
+
+This array contains mappings between data type names and their corresponding sizes. 
