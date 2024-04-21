@@ -64,6 +64,6 @@ doxygen Doxyfile
 Feel free to explore other configuration options available in the `Doxyfile` to customize your documentation according to your project's needs.
 
 For more detailed information about Doxygen and its features, refer to the official [Doxygen documentation](http://www.doxygen.nl/manual/index.html).
-```
+---
 
 This README provides a concise guide for installing Doxygen, generating documentation, and customizing configuration options. Additionally, it includes a link to the official Doxygen documentation for further reference.
