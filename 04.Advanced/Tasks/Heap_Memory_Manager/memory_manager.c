@@ -181,6 +181,22 @@ vm_page_family_t *lookup_page_family_by_name(char *struct_name) {
   return NULL;
 }
 
+static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family) {
+
+  // Allocate a new virtual memory page for the page family
+  vm_page_t *vm_page = allocate_vm_page(vm_page_family);
+
+  // Check if page allocation is successful
+  if (!vm_page) {
+    return NULL;
+  }
+
+  // Add the new page to the free block list of the page family
+  mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
+                                                 &vm_page->block_meta_data);
+
+  return vm_page;
+}
 /**-----------------< VM Page section  -----------------*/
 vm_bool_t mm_is_vm_page_empty(vm_page_t *vm_page) {
   if (vm_page != NULL) {
@@ -313,25 +329,6 @@ mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
                            offset_of(block_meta_data_t, priority_thread_glue));
 }
 
-<<<<<<< HEAD
-static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family) {
-
-  // Allocate a new virtual memory page for the page family
-  vm_page_t *vm_page = allocate_vm_page(vm_page_family);
-
-  // Check if page allocation is successful
-  if (!vm_page) {
-    return NULL;
-  }
-
-  // Add the new page to the free block list of the page family
-  mm_add_free_block_meta_data_to_free_block_list(vm_page_family,
-                                                 &vm_page->block_meta_data);
-
-  return vm_page;
-}
-||||||| 3481314
-=======
 static int mm_get_hard_internal_memory_frag_size(block_meta_data_t *first,
                                                  block_meta_data_t *second) {
   // Get the next block after the first block
@@ -415,7 +412,6 @@ void xfree(void *app_data) {
   mm_free_blocks(block_meta_data);
 }
 
->>>>>>> 633aabe912277621adb34584612e3407afeb8128
 /**-----------------<  Memory allocation section -----------------*/
 static block_meta_data_t *
 mm_allocate_free_data_block(vm_page_family_t *vm_page_family,

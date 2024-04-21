@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
   MM_REG_STRUCT(student_t);
   mm_print_registered_page_families();
 
-  emp_t *emp1 = XCALLOC(20, emp_t);
+  emp_t *emp1 = XCALLOC(20, sizeof(int));
   emp_t *emp2 = XCALLOC(30, emp_t);
   emp_t *emp3 = XCALLOC(60, emp_t);
 
