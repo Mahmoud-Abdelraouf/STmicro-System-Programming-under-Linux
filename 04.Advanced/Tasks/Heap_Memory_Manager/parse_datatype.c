@@ -9,16 +9,17 @@
 
 #include "parse_datatype.h"
 
-void parse_struct_name(char *struct_name, uint8_t *error_flag) {
-  // To store the name extracted from the sizeof()
-  char data_type[MAX_STRUCT_NAME_LEN];
-
+char *parse_struct_name(char *struct_name, char *buffer, uint8_t *error_flag) {
   // Extract data type from size_str
-  if (sscanf(struct_name, "sizeof(%49[^)])", data_type) != 1) {
-    // Set the flag that indicates the struct isn't in form of sizeof(datatype)
+  if (sscanf(struct_name, "sizeof(%49[^)])", buffer) != 1) {
+    // Set the flag that indicates the struct isn't in the form of
+    // sizeof(datatype)
     *error_flag = 1;
+    return NULL;
   } else {
     // Reset the error flag
     *error_flag = 0;
+    // Return a pointer to the extracted data type string
+    return buffer;
   }
 }
