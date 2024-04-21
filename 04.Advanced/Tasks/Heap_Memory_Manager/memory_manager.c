@@ -18,7 +18,6 @@
 #include "datatype_size_lookup.h"
 #include "memory_manager.h"
 #include "memory_manager_api.h"
-#include "parse_datatype.h"
 
 /**-----------------< Global variable section -----------------*/
 /**
@@ -105,32 +104,29 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size) {
     return;
   }
 
-  // Look up the page family in the system by its name and store the result in
-  // 'vm_page_family_curr'.
   vm_page_family_curr = lookup_page_family_by_name(struct_name);
 
   // Trigger an assertion error if a page family with the same name already
-  // exists. This ensures that each page family has a unique name in the system.
+  // exists
   if (vm_page_family_curr) {
-    assert(0); // Assertion fails if a page family with the same name already
-               // exists.
+    assert(0);
   }
 
-  uint32_t pg_family_count = 0;
+  uint32_t count = 0;
 
   // Iterate over existing page families to check if a page family with the same
   // name already exists
   ITERATE_PAGE_FAMILIES_BEGIN(first_vm_page_for_families, vm_page_family_curr) {
     if (strncmp(vm_page_family_curr->struct_name, struct_name,
                 MM_MAX_STRUCT_NAME) != 0) {
-      pg_family_count++;
+      count++;
     }
   }
   ITERATE_PAGE_FAMILIES_END(first_vm_page_for_families, vm_page_family_curr);
 
   // If the existing page is full, allocate a new page and add it to the
   // beginning of the linked list
-  if (pg_family_count == (uint32_t)MAX_FAMILIES_PER_VM_PAGE) {
+  if (count == (uint32_t)MAX_FAMILIES_PER_VM_PAGE) {
     new_vm_page_for_families =
         (vm_page_for_families_t *)mm_get_new_vm_page_from_kernel(1);
     new_vm_page_for_families->next = first_vm_page_for_families;
@@ -197,6 +193,7 @@ static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family) {
 
   return vm_page;
 }
+
 /**-----------------< VM Page section  -----------------*/
 vm_bool_t mm_is_vm_page_empty(vm_page_t *vm_page) {
   if (vm_page != NULL) {
@@ -338,8 +335,22 @@ static int mm_get_hard_internal_memory_frag_size(block_meta_data_t *first,
   return (int)((unsigned long)second - (unsigned long)(next_block));
 }
 
+/**
+ * @brief Frees a memory block and performs merging if necessary.
+ *
+ * This function frees a memory block represented by the given @p
+ * to_be_free_block parameter. It also handles merging of adjacent free blocks
+ * if present.
+ *
+ * @param to_be_free_block The block to be freed.
+ * @return A pointer to the freed block or NULL if the hosting page becomes
+ * empty.
+ *
+ * @note The function assumes that @p to_be_free_block is not NULL and its
+ * is_free flag is set to MM_FALSE (indicating it's not already free).
+ */
 static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
-  block_meta_data_t *return_block = NULL; // Pointer to the freed block
+  block_meta_data_t *return_block = NULL; ///< Pointer to the freed block
   assert(to_be_free_block->is_free == MM_FALSE);
 
   // Retrieving hosting page and page family
@@ -348,10 +359,10 @@ static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
 
   // Setting return_block to the block being freed
   return_block = to_be_free_block;
-  to_be_free_block->is_free = MM_TRUE; // Marking the block as free
+  to_be_free_block->is_free = MM_TRUE; ///< Marking the block as free
 
   block_meta_data_t *next_block =
-      NEXT_META_BLOCK(to_be_free_block); // Next block pointer
+      NEXT_META_BLOCK(to_be_free_block); ///< Next block pointer
 
   // Handling Hard IF memory
   if (next_block) {
@@ -375,7 +386,8 @@ static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
 
   // Performing merging with next block if it's free
   if (next_block && next_block->is_free == MM_TRUE) {
-    mm_union_free_blocks(to_be_free_block, next_block); // Union two free blocks
+    mm_union_free_blocks(to_be_free_block,
+                         next_block); ///< Union two free blocks
     return_block = to_be_free_block;
   }
 
@@ -389,7 +401,7 @@ static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
   // Checking if the hosting page becomes empty after freeing this block
   if (mm_is_vm_page_empty(hosting_page)) {
     mm_vm_page_delete_and_free(
-        hosting_page); // Delete and free the hosting page
+        hosting_page); ///< Delete and free the hosting page
     return NULL;
   }
 
@@ -541,16 +553,15 @@ mm_split_free_data_block_for_allocation(vm_page_family_t *vm_page_family,
 }
 
 void *xcalloc(char *struct_name, int units) {
-  // Initialize variables
+  // To store the name extracted from the sizeof()
   char data_type[MAX_STRUCT_NAME_LEN];
   uint8_t data_type_error_flag = 0;
   vm_page_family_t *pg_family = NULL;
 
-  // Parse the struct name and set the data type error flag
-  parse_struct_name(struct_name, &data_type_error_flag);
-
-  // Check if there was an error parsing the struct name
-  if (data_type_error_flag == 1) {
+  // Extract data type from size_str
+  if (sscanf(struct_name, "sizeof(%49[^)])", data_type) != 1) {
+    // Set the flag that indicates the struct isn't in form of sizeof(datatype)
+    data_type_error_flag = 1;
     // Step 1: Look up the page family associated with the structure name
     pg_family = lookup_page_family_by_name(struct_name);
   } else {
@@ -597,8 +608,8 @@ void mm_print_registered_page_families() {
   vm_page_family_t *vm_page_family_curr =
       NULL;                             // Pointer to the current page family
   char struct_name[MM_MAX_STRUCT_NAME]; // Buffer to store the name of the
-                                        // structure
-  uint32_t struct_size;                 // Size of the structure
+  // structure
+  uint32_t struct_size; // Size of the structure
 
   // Check if there are no registered page families
   if (first_vm_page_for_families == NULL) {
@@ -745,3 +756,4 @@ void mm_print_memory_usage(char *struct_name) {
   printf("Total Memory being used by Memory Manager = %lu Bytes\n",
          cumulative_vm_pages_claimed_from_kernel * SYSTEM_PAGE_SIZE);
 }
+
