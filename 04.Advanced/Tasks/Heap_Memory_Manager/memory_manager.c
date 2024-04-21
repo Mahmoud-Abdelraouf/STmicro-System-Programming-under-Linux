@@ -4,9 +4,19 @@
 /******* Version   : 0.1                        *****************/
 /******* File Name : MemeoryManager.c           *****************/
 /****************************************************************/
-/**-----------------< Includes section -----------------*/
 
-/**< System includes */
+/**
+ * @file memory_manager.c
+ * @brief Implementation file for the Memory Manager module.
+ *
+ * This file contains the implementation of functions declared in
+ * MemoryManager.h. The Memory Manager module is responsible for managing memory
+ * allocation and deallocation, including virtual memory page management, block
+ * metadata handling, and allocation algorithms.
+ */
+
+//-----------------< Includes section -----------------*/
+//---< System includes ---/
 #include <assert.h>
 #include <memory.h>
 #include <stdint.h>
@@ -14,15 +24,14 @@
 #include <string.h>
 #include <sys/mman.h>
 #include <unistd.h>
-/**< Project includes */
+//---< Project includes ---/
 #include "colors.h"
 #include "datatype_size_lookup.h"
 #include "memory_manager.h"
 #include "memory_manager_api.h"
 #include "parse_datatype.h"
 
-/**-----------------< Global variable section -----------------*/
-
+//-----------------< Global variable section -----------------*/
 /**
  * @brief Size of the system page.
  *

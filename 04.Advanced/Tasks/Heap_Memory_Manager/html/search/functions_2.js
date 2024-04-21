@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['delete_5fglthread_5flist_0',['delete_glthread_list',['../glthread_8c.html#a535e3f6499dfcfd78ae9f62ee77923f5',1,'delete_glthread_list(glthread_t *base_glthread):&#160;glthread.c'],['../glthread_8h.html#a535e3f6499dfcfd78ae9f62ee77923f5',1,'delete_glthread_list(glthread_t *base_glthread):&#160;glthread.c']]]
+  ['free_5fblocks_5fcomparison_5ffunction_0',['free_blocks_comparison_function',['../group__FreeVMPageBlock.html#ga5987bb26622d19dcd8ecfd1416a7f3c6',1,'free_blocks_comparison_function(void *_block_meta_data1, void *_block_meta_data2):&#160;memory_manager.c'],['../memory__manager_8h.html#a5987bb26622d19dcd8ecfd1416a7f3c6',1,'free_blocks_comparison_function(void *_block_meta_data1, void *_block_meta_data2):&#160;memory_manager.h']]]
 ];

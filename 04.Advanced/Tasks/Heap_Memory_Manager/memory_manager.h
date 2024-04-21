@@ -4,19 +4,31 @@
 /******* Version   : 0.1                        *****************/
 /******* File Name : MemeoryManager.h           *****************/
 /****************************************************************/
+
+/**
+ * @file memory_manager.h
+ * @brief Header file for the Memory Manager module.
+ *
+ * This file provides declarations for structures, macros, and functions used
+ * in the Memory Manager module. The Memory Manager is responsible for managing
+ * memory allocation and deallocation, including virtual memory page
+ * management, block metadata handling, and allocation algorithms.
+ */
+
 #ifndef MM_H_
 #define MM_H_
-/**-----------------< Includes section -----------------*/
+
+//-----------------< Includes section -----------------/
 /**< System includes */
 #include <stdint.h>
 /**< External includes */
 #include "glthread.h"
 
-/**-----------------< Macros section -----------------*/
+//-----------------< Macros section -----------------/
 #define MM_MAX_STRUCT_NAME 32
 #define MAX_STRUCT_NAME_LEN 50
 
-/**-----------------< user defined data type section -----------------*/
+//-----------------< user defined data type section -----------------/
 /**
  * @brief Represents a boolean value.
  *
@@ -147,7 +159,7 @@ vm_page_t *allocate_vm_page(vm_page_family_t *vm_page_family);
  */
 void mm_vm_page_delete_and_free(vm_page_t *vm_page);
 
-/**-----------------< Public functions interface -----------------*/
+//-----------------< Public functions interface -----------------/
 /**
  * @brief Looks up a page family by its name.
  *
@@ -232,7 +244,7 @@ mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
  */
 void mm_print_vm_page_details(vm_page_t *vm_page);
 
-/**-----------------< Function-like macro section -----------------*/
+//-----------------< Function-like macro section -----------------/
 /**
  * @brief Maximum number of families that can be stored in a single virtual
  * memory page.
@@ -560,7 +572,7 @@ void mm_print_vm_page_details(vm_page_t *vm_page);
 #define MAX_PAGE_ALLOCATABLE_MEMORY(units)                                     \
   (mm_max_page_allocatable_memory(units))
 
-/**-----------------< Private functions interfacce -----------------*/
+//-----------------< Private functions interfacce -----------------/
 /**
  * @brief Allocates a new virtual memory page from the kernel.
  *

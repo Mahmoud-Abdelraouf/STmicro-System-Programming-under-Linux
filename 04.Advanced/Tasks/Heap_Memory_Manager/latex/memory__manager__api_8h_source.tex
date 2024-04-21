@@ -5,31 +5,37 @@
 \DoxyCodeLine{00002\ \textcolor{comment}{/*******\ Author\ \ \ \ :\ Mahmoud\ Abdelraouf\ Mahmoud\ *****************/}}
 \DoxyCodeLine{00003\ \textcolor{comment}{/*******\ Date\ \ \ \ \ \ :\ 8\ Apr\ 2023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *****************/}}
 \DoxyCodeLine{00004\ \textcolor{comment}{/*******\ Version\ \ \ :\ 0.1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *****************/}}
-\DoxyCodeLine{00005\ \textcolor{comment}{/*******\ File\ Name\ :\ UserAPI\_mm.h\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *****************/}}
+\DoxyCodeLine{00005\ \textcolor{comment}{/*******\ File\ Name\ :\ memory\_manager\_api.h\ \ \ \ \ \ \ *****************/}}
 \DoxyCodeLine{00006\ \textcolor{comment}{/****************************************************************/}}
-\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ UAPI\_MM\_H\_}}
-\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ UAPI\_MM\_H\_}}
-\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__MemoryManagement_ga0d0d58e2b3f34ada92ab7889d013e717}{mm\_init}}();}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__MemoryManagement_ga3ed96883ba6c4711318dbae3f5941bbf}{mm\_instantiate\_new\_page\_family}}(\textcolor{keywordtype}{char}\ *struct\_name,\ uint32\_t\ struct\_size);}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00090\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{memory__manager__api_8h_a99f5a0d88caf5abe330155eb4e2d7aac}{xcalloc}}(\textcolor{keywordtype}{char}\ *struct\_name,\ \textcolor{keywordtype}{int}\ units);}
-\DoxyCodeLine{00091\ }
-\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__FreeVMPageBlock_gae075bb556abb4342aedf495ddb8d390a}{xfree}}(\textcolor{keywordtype}{void}\ *app\_data);}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifndef\ UAPI\_MM\_H\_}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ UAPI\_MM\_H\_}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\ Includes\ section\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\ Public\ functions\ interface\ section\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__MemoryManagement_ga0d0d58e2b3f34ada92ab7889d013e717}{mm\_init}}();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__MemoryManagement_ga3ed96883ba6c4711318dbae3f5941bbf}{mm\_instantiate\_new\_page\_family}}(\textcolor{keywordtype}{char}\ *struct\_name,\ uint32\_t\ struct\_size);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{memory__manager__api_8h_a99f5a0d88caf5abe330155eb4e2d7aac}{xcalloc}}(\textcolor{keywordtype}{char}\ *struct\_name,\ \textcolor{keywordtype}{int}\ units);}
 \DoxyCodeLine{00103\ }
-\DoxyCodeLine{00119\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{memory__manager__api_8h_a2c4fac0b5d1557530ea878cf4b84082b}{mm\_print\_registered\_page\_families}}();}
-\DoxyCodeLine{00132\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{memory__manager__api_8h_a0107300bfc4db599504abef54c980fa6}{mm\_print\_memory\_usage}}(\textcolor{keywordtype}{char}\ *struct\_name);}
-\DoxyCodeLine{00133\ }
-\DoxyCodeLine{00142\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{memory__manager__api_8h_abc2214ca18f00171e96262019bb84919}{mm\_print\_block\_usage}}();}
-\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ MM\_REG\_STRUCT(struct\_name)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
-\DoxyCodeLine{00163\ \textcolor{preprocessor}{\ \ (mm\_instantiate\_new\_page\_family(\#struct\_name,\ sizeof(struct\_name)))}}
-\DoxyCodeLine{00164\ }
-\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ XCALLOC(units,\ struct\_name)\ (xcalloc(\#struct\_name,\ units))}}
-\DoxyCodeLine{00181\ }
-\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ XFREE(ptr)\ (xfree(ptr))}}
-\DoxyCodeLine{00192\ }
-\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#endif\ }}
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__FreeVMPageBlock_gae075bb556abb4342aedf495ddb8d390a}{xfree}}(\textcolor{keywordtype}{void}\ *app\_data);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{memory__manager__api_8h_a2c4fac0b5d1557530ea878cf4b84082b}{mm\_print\_registered\_page\_families}}();}
+\DoxyCodeLine{00144\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{memory__manager__api_8h_a0107300bfc4db599504abef54c980fa6}{mm\_print\_memory\_usage}}(\textcolor{keywordtype}{char}\ *struct\_name);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00154\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{memory__manager__api_8h_abc2214ca18f00171e96262019bb84919}{mm\_print\_block\_usage}}();}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/<\ Function-\/like\ macro\ section\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\//}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#define\ MM\_REG\_STRUCT(struct\_name)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\ \ (mm\_instantiate\_new\_page\_family(\#struct\_name,\ sizeof(struct\_name)))}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#define\ XCALLOC(units,\ struct\_name)\ (xcalloc(\#struct\_name,\ units))}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ XFREE(ptr)\ (xfree(ptr))}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#endif\ }}
 
 \end{DoxyCode}

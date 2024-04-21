@@ -1,5 +1,5 @@
 <map id="parse_struct_name" name="parse_struct_name">
-<area shape="rect" id="Node000001" title="Extracts a data type name from a string containing the sizeof operator." alt="" coords="5,5,152,31"/>
+<area shape="rect" id="Node000001" title="Parses the name of a struct from a string." alt="" coords="5,5,152,31"/>
 <area shape="rect" id="Node000002" href="$parse__datatype_8c.html#aced8c866b58d74e72f0c67e362c75740" title=" " alt="" coords="200,5,291,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,15,186,15,186,21,152,21"/>
 </map>

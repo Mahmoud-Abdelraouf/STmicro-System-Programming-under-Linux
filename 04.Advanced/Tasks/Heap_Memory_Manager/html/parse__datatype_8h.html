@@ -77,6 +77,9 @@ $(function() {
   <div class="headertitle"><div class="title">parse_datatype.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Header file for parsing data type names.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;ctype.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
@@ -88,7 +91,7 @@ Include dependency graph for parse_datatype.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="parse__datatype_8h__incl.png" border="0" usemap="#aparse__datatype_8h" alt=""/></div>
 <map name="aparse__datatype_8h" id="aparse__datatype_8h">
-<area shape="rect" title=" " alt="" coords="223,5,357,31"/>
+<area shape="rect" title="Header file for parsing data type names." alt="" coords="223,5,357,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,76,104"/>
 <area shape="poly" title=" " alt="" coords="251,33,90,79,89,74,249,28"/>
 <area shape="rect" title=" " alt="" coords="101,79,183,104"/>
@@ -108,10 +111,10 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="parse__datatype_8h__dep__incl.png" border="0" usemap="#aparse__datatype_8hdep" alt=""/></div>
 <map name="aparse__datatype_8hdep" id="aparse__datatype_8hdep">
-<area shape="rect" title=" " alt="" coords="98,5,233,31"/>
-<area shape="rect" href="memory__manager_8c.html" title=" " alt="" coords="5,79,157,104"/>
+<area shape="rect" title="Header file for parsing data type names." alt="" coords="98,5,233,31"/>
+<area shape="rect" href="memory__manager_8c.html" title="Implementation file for the Memory Manager module." alt="" coords="5,79,157,104"/>
 <area shape="poly" title=" " alt="" coords="143,42,97,80,93,76,140,38"/>
-<area shape="rect" href="parse__datatype_8c.html" title=" " alt="" coords="182,79,317,104"/>
+<area shape="rect" href="parse__datatype_8c.html" title="Extracts a data type name from a string containing the sizeof operator." alt="" coords="182,79,317,104"/>
 <area shape="poly" title=" " alt="" coords="191,38,237,76,234,80,188,42"/>
 </map>
 </div>
@@ -121,6 +124,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a56d7beb47f6bbf896e6f21fb09c73ec5" id="r_a56d7beb47f6bbf896e6f21fb09c73ec5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56d7beb47f6bbf896e6f21fb09c73ec5">MAX_STRUCT_NAME_LEN</a>&#160;&#160;&#160;50</td></tr>
+<tr class="memdesc:a56d7beb47f6bbf896e6f21fb09c73ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length of the data type name.  <br /></td></tr>
 <tr class="separator:a56d7beb47f6bbf896e6f21fb09c73ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -131,11 +135,11 @@ Functions</h2></td></tr>
 <tr class="memitem:aced8c866b58d74e72f0c67e362c75740" id="r_aced8c866b58d74e72f0c67e362c75740"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aced8c866b58d74e72f0c67e362c75740">is_number</a> (const char *str)</td></tr>
 <tr class="memdesc:aced8c866b58d74e72f0c67e362c75740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a string represents a number.  <br /></td></tr>
 <tr class="separator:aced8c866b58d74e72f0c67e362c75740"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4ecb85dd2cb74346908690aaa0f3e5d" id="r_af4ecb85dd2cb74346908690aaa0f3e5d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4ecb85dd2cb74346908690aaa0f3e5d">convert_to_int</a> (const char *str)</td></tr>
-<tr class="memdesc:af4ecb85dd2cb74346908690aaa0f3e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a string representation of a number to an integer.  <br /></td></tr>
-<tr class="separator:af4ecb85dd2cb74346908690aaa0f3e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Header file for parsing data type names. </p>
+<p>This file contains declarations for functions related to parsing data type names from strings. </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a56d7beb47f6bbf896e6f21fb09c73ec5" name="a56d7beb47f6bbf896e6f21fb09c73ec5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a56d7beb47f6bbf896e6f21fb09c73ec5">&#9670;&#160;</a></span>MAX_STRUCT_NAME_LEN</h2>
 
@@ -147,38 +151,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Maximum length of the data type name </p>
+
+<p>Maximum length of the data type name. </p>
+<p>Defines the maximum length allowed for a data type name. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="af4ecb85dd2cb74346908690aaa0f3e5d" name="af4ecb85dd2cb74346908690aaa0f3e5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4ecb85dd2cb74346908690aaa0f3e5d">&#9670;&#160;</a></span>convert_to_int()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int convert_to_int </td>
-          <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>str</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Converts a string representation of a number to an integer. </p>
-<p>This function converts the provided string representation of a number to an integer. It ignores any non-digit characters and suffixes.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">str</td><td>The string representation of the number. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The integer value of the number. PARSE_DATATYPE_H_ </dd></dl>
-
-</div>
-</div>
 <a id="aced8c866b58d74e72f0c67e362c75740" name="aced8c866b58d74e72f0c67e362c75740"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aced8c866b58d74e72f0c67e362c75740">&#9670;&#160;</a></span>is_number()</h2>
 
@@ -210,7 +189,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the string represents a number, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the string represents a number, false otherwise. PARSE_DATATYPE_H_ </dd></dl>
 
 </div>
 </div>
@@ -253,9 +232,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>If the struct name is extracted successfully or it's a number, returns "int". If an error occurs, returns NULL.</dd></dl>
-<p>Parses the name of a struct from a string.</p>
-<p>This program demonstrates how to extract a data type name from a string containing the sizeof operator using the sscanf function in C. </p>
+<dl class="section return"><dt>Returns</dt><dd>If the struct name is extracted successfully or it's a number, returns "int". If an error occurs, returns NULL. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

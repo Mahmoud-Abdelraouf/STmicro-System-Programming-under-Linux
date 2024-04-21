@@ -8,7 +8,7 @@
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="66,141,160,191,157,196,63,146"/>
 <area shape="rect" id="Node000017" href="$group__MemoryManagement.html#ga3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure." alt="" coords="130,111,289,151"/>
 <area shape="poly" id="edge19_Node000001_Node000017" title=" " alt="" coords="74,128,116,128,116,133,74,133"/>
-<area shape="rect" id="Node000018" href="$parse__datatype_8c.html#a951929580735bed45579ce79ea1d6c71" title="Extracts a data type name from a string containing the sizeof operator." alt="" coords="136,322,283,347"/>
+<area shape="rect" id="Node000018" href="$parse__datatype_8c.html#a951929580735bed45579ce79ea1d6c71" title="Parses the name of a struct from a string." alt="" coords="136,322,283,347"/>
 <area shape="poly" id="edge23_Node000001_Node000018" title=" " alt="" coords="50,142,80,191,123,250,184,311,180,314,119,254,76,194,46,145"/>
 <area shape="rect" id="Node000005" href="$group__MemoryManagement.html#gacf3ff2e7438d4ae2c531e8851b7270e8" title=" " alt="" coords="345,205,547,230"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="298,216,332,216,332,221,298,222"/>

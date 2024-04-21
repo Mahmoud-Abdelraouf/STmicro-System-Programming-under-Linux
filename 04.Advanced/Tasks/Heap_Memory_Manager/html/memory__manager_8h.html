@@ -80,6 +80,9 @@ $(function() {
   <div class="headertitle"><div class="title">memory_manager.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Header file for the Memory Manager module.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="glthread_8h_source.html">glthread.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -87,10 +90,10 @@ Include dependency graph for memory_manager.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="memory__manager_8h__incl.png" border="0" usemap="#amemory__manager_8h" alt=""/></div>
 <map name="amemory__manager_8h" id="amemory__manager_8h">
-<area shape="rect" title=" " alt="" coords="16,5,169,31"/>
+<area shape="rect" title="Header file for the Memory Manager module." alt="" coords="16,5,169,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,76,104"/>
 <area shape="poly" title=" " alt="" coords="86,33,59,69,55,66,82,29"/>
-<area shape="rect" href="glthread_8h.html" title=" " alt="" coords="101,79,189,104"/>
+<area shape="rect" href="glthread_8h.html" title="Header file for the Generic Linked List Thread library." alt="" coords="101,79,189,104"/>
 <area shape="poly" title=" " alt="" coords="103,29,130,66,126,69,99,33"/>
 </map>
 </div>
@@ -99,8 +102,8 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="memory__manager_8h__dep__incl.png" border="0" usemap="#amemory__manager_8hdep" alt=""/></div>
 <map name="amemory__manager_8hdep" id="amemory__manager_8hdep">
-<area shape="rect" title=" " alt="" coords="5,5,159,31"/>
-<area shape="rect" href="memory__manager_8c.html" title=" " alt="" coords="6,79,158,104"/>
+<area shape="rect" title="Header file for the Memory Manager module." alt="" coords="5,5,159,31"/>
+<area shape="rect" href="memory__manager_8c.html" title="Implementation file for the Memory Manager module." alt="" coords="6,79,158,104"/>
 <area shape="poly" title=" " alt="" coords="85,44,85,79,79,79,79,44"/>
 </map>
 </div>
@@ -254,7 +257,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2250996fd809506caef0a6e61b6faebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees a memory block and performs merging if necessary.  <br /></td></tr>
 <tr class="separator:a2250996fd809506caef0a6e61b6faebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Header file for the Memory Manager module. </p>
+<p>This file provides declarations for structures, macros, and functions used in the Memory Manager module. The Memory Manager is responsible for managing memory allocation and deallocation, including virtual memory page management, block metadata handling, and allocation algorithms. </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ac15f4fa9d6b78fc0ff539a7d1d4b64d2" name="ac15f4fa9d6b78fc0ff539a7d1d4b64d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac15f4fa9d6b78fc0ff539a7d1d4b64d2">&#9670;&#160;</a></span>ITERATE_PAGE_FAMILIES_BEGIN</h2>
 
@@ -279,8 +285,8 @@ Functions</h2></td></tr>
 <div class="line">             (<a class="code hl_struct" href="structvm__page__family__.html">vm_page_family_t</a> *)&amp;vm_page_for_families_ptr-&gt;vm_page_family[0]; \</div>
 <div class="line">         curr-&gt;struct_size &amp;&amp; _count &lt; <a class="code hl_define" href="#a1144c25dd2f4ee38d1825adf4a316a27">MAX_FAMILIES_PER_VM_PAGE</a>;               \</div>
 <div class="line">         curr++, _count++) {</div>
-<div class="ttc" id="amemory__manager_8h_html_a1144c25dd2f4ee38d1825adf4a316a27"><div class="ttname"><a href="#a1144c25dd2f4ee38d1825adf4a316a27">MAX_FAMILIES_PER_VM_PAGE</a></div><div class="ttdeci">#define MAX_FAMILIES_PER_VM_PAGE</div><div class="ttdoc">Maximum number of families that can be stored in a single virtual memory page.</div><div class="ttdef"><b>Definition</b> memory_manager.h:252</div></div>
-<div class="ttc" id="astructvm__page__family___html"><div class="ttname"><a href="structvm__page__family__.html">vm_page_family_</a></div><div class="ttdoc">Structure representing a page family in virtual memory.</div><div class="ttdef"><b>Definition</b> memory_manager.h:106</div></div>
+<div class="ttc" id="amemory__manager_8h_html_a1144c25dd2f4ee38d1825adf4a316a27"><div class="ttname"><a href="#a1144c25dd2f4ee38d1825adf4a316a27">MAX_FAMILIES_PER_VM_PAGE</a></div><div class="ttdeci">#define MAX_FAMILIES_PER_VM_PAGE</div><div class="ttdoc">Maximum number of families that can be stored in a single virtual memory page.</div><div class="ttdef"><b>Definition</b> memory_manager.h:264</div></div>
+<div class="ttc" id="astructvm__page__family___html"><div class="ttname"><a href="structvm__page__family__.html">vm_page_family_</a></div><div class="ttdoc">Structure representing a page family in virtual memory.</div><div class="ttdef"><b>Definition</b> memory_manager.h:118</div></div>
 </div><!-- fragment -->
 <p>Macro for beginning iteration over page families. </p>
 <p>This macro is used to begin iteration over page families stored within a virtual memory page. It initializes a loop for iterating over page families, using the provided pointers.</p>
@@ -356,8 +362,8 @@ Functions</h2></td></tr>
 <div class="line">    <a class="code hl_struct" href="structblock__meta__data__.html">block_meta_data_t</a> *next = NULL;                                            \</div>
 <div class="line">    for (; curr != NULL; curr = next) {                                        \</div>
 <div class="line">      next = <a class="code hl_define" href="#ac866fe97df08a8d286eafb8243cd63da">NEXT_META_BLOCK</a>(curr);</div>
-<div class="ttc" id="amemory__manager_8h_html_ac866fe97df08a8d286eafb8243cd63da"><div class="ttname"><a href="#ac866fe97df08a8d286eafb8243cd63da">NEXT_META_BLOCK</a></div><div class="ttdeci">#define NEXT_META_BLOCK(block_meta_data_ptr)</div><div class="ttdoc">Macro to get the pointer to the next metadata block.</div><div class="ttdef"><b>Definition</b> memory_manager.h:457</div></div>
-<div class="ttc" id="astructblock__meta__data___html"><div class="ttname"><a href="structblock__meta__data__.html">block_meta_data_</a></div><div class="ttdoc">Structure representing metadata for a memory block.</div><div class="ttdef"><b>Definition</b> memory_manager.h:40</div></div>
+<div class="ttc" id="amemory__manager_8h_html_ac866fe97df08a8d286eafb8243cd63da"><div class="ttname"><a href="#ac866fe97df08a8d286eafb8243cd63da">NEXT_META_BLOCK</a></div><div class="ttdeci">#define NEXT_META_BLOCK(block_meta_data_ptr)</div><div class="ttdoc">Macro to get the pointer to the next metadata block.</div><div class="ttdef"><b>Definition</b> memory_manager.h:469</div></div>
+<div class="ttc" id="astructblock__meta__data___html"><div class="ttname"><a href="structblock__meta__data__.html">block_meta_data_</a></div><div class="ttdoc">Structure representing metadata for a memory block.</div><div class="ttdef"><b>Definition</b> memory_manager.h:52</div></div>
 </div><!-- fragment -->
 <p>Macro to begin iteration over all memory blocks within a virtual memory page. </p>
 <p>This macro initializes the iteration process over all memory blocks within a given virtual memory page.</p>
@@ -430,8 +436,8 @@ Functions</h2></td></tr>
 <div class="line">    <a class="code hl_struct" href="structvm__page__.html">vm_page_t</a> *next = NULL;                                                    \</div>
 <div class="line">    for (; curr != NULL; curr = next) {                                        \</div>
 <div class="line">      next = curr-&gt;<a class="code hl_variable" href="structvm__page__.html#a87995cd55301183d3d7c94ae9cfc0bfb">next</a>;</div>
-<div class="ttc" id="astructvm__page___html"><div class="ttname"><a href="structvm__page__.html">vm_page_</a></div><div class="ttdoc">Structure representing a virtual memory page.</div><div class="ttdef"><b>Definition</b> memory_manager.h:89</div></div>
-<div class="ttc" id="astructvm__page___html_a87995cd55301183d3d7c94ae9cfc0bfb"><div class="ttname"><a href="structvm__page__.html#a87995cd55301183d3d7c94ae9cfc0bfb">vm_page_::next</a></div><div class="ttdeci">struct vm_page_ * next</div><div class="ttdef"><b>Definition</b> memory_manager.h:90</div></div>
+<div class="ttc" id="astructvm__page___html"><div class="ttname"><a href="structvm__page__.html">vm_page_</a></div><div class="ttdoc">Structure representing a virtual memory page.</div><div class="ttdef"><b>Definition</b> memory_manager.h:101</div></div>
+<div class="ttc" id="astructvm__page___html_a87995cd55301183d3d7c94ae9cfc0bfb"><div class="ttname"><a href="structvm__page__.html#a87995cd55301183d3d7c94ae9cfc0bfb">vm_page_::next</a></div><div class="ttdeci">struct vm_page_ * next</div><div class="ttdef"><b>Definition</b> memory_manager.h:102</div></div>
 </div><!-- fragment -->
 <p>Macro to iterate over virtual memory pages beginning from the first page of a page family. </p>
 <p>This macro allows for iterating over virtual memory pages starting from the first page of a specified page family.</p>
@@ -497,7 +503,7 @@ Functions</h2></td></tr>
 <div class="line">    (vm_page_t_ptr)-&gt;block_meta_data.prev_block = NULL;                        \</div>
 <div class="line">    (vm_page_t_ptr)-&gt;block_meta_data.is_free = <a class="code hl_enumvalue" href="#a8137dde168b63da6dc080c3e41660743a60caf413ecbcbf918d0b0e19c9772556">MM_TRUE</a>;                        \</div>
 <div class="line">  } <span class="keywordflow">while</span> (0)</div>
-<div class="ttc" id="amemory__manager_8h_html_a8137dde168b63da6dc080c3e41660743a60caf413ecbcbf918d0b0e19c9772556"><div class="ttname"><a href="#a8137dde168b63da6dc080c3e41660743a60caf413ecbcbf918d0b0e19c9772556">MM_TRUE</a></div><div class="ttdeci">@ MM_TRUE</div><div class="ttdef"><b>Definition</b> memory_manager.h:29</div></div>
+<div class="ttc" id="amemory__manager_8h_html_a8137dde168b63da6dc080c3e41660743a60caf413ecbcbf918d0b0e19c9772556"><div class="ttname"><a href="#a8137dde168b63da6dc080c3e41660743a60caf413ecbcbf918d0b0e19c9772556">MM_TRUE</a></div><div class="ttdeci">@ MM_TRUE</div><div class="ttdef"><b>Definition</b> memory_manager.h:41</div></div>
 </div><!-- fragment -->
 <p>Macro to mark a virtual memory page as empty. </p>
 <p>This macro is heavily documented to provide detailed information about its purpose, usage, and behavior.</p>
@@ -534,11 +540,10 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  (<a class="code hl_variable" href="memory__manager_8c.html#a556910a8e507af29f88df82ead01d5af">SYSTEM_PAGE_SIZE</a> - <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structvm__page__for__families__.html">vm_page_for_families_</a> *)) /                \</div>
 <div class="line">      sizeof(<span class="keyword">struct</span> <a class="code hl_struct" href="structvm__page__family__.html">vm_page_family_</a>)</div>
-<div class="ttc" id="amemory__manager_8c_html_a556910a8e507af29f88df82ead01d5af"><div class="ttname"><a href="memory__manager_8c.html#a556910a8e507af29f88df82ead01d5af">SYSTEM_PAGE_SIZE</a></div><div class="ttdeci">static size_t SYSTEM_PAGE_SIZE</div><div class="ttdoc">Size of the system page.</div><div class="ttdef"><b>Definition</b> memory_manager.c:38</div></div>
-<div class="ttc" id="astructvm__page__for__families___html"><div class="ttname"><a href="structvm__page__for__families__.html">vm_page_for_families_</a></div><div class="ttdoc">Structure representing a virtual memory page containing families of memory structures.</div><div class="ttdef"><b>Definition</b> memory_manager.h:118</div></div>
+<div class="ttc" id="amemory__manager_8c_html_a556910a8e507af29f88df82ead01d5af"><div class="ttname"><a href="memory__manager_8c.html#a556910a8e507af29f88df82ead01d5af">SYSTEM_PAGE_SIZE</a></div><div class="ttdeci">static size_t SYSTEM_PAGE_SIZE</div><div class="ttdoc">Size of the system page.</div><div class="ttdef"><b>Definition</b> memory_manager.c:47</div></div>
+<div class="ttc" id="astructvm__page__for__families___html"><div class="ttname"><a href="structvm__page__for__families__.html">vm_page_for_families_</a></div><div class="ttdoc">Structure representing a virtual memory page containing families of memory structures.</div><div class="ttdef"><b>Definition</b> memory_manager.h:130</div></div>
 </div><!-- fragment -->
 <p>Maximum number of families that can be stored in a single virtual memory page. </p>
-<p>--------------&mdash;&lt; Function-like macro section --------------&mdash; </p>
 <p>This macro calculates the maximum number of families that can be stored in a single virtual memory page based on the system page size and the sizes of the <code>vm_page_for_families_t</code> and <code>vm_page_family_t</code> structures. It accounts for the space occupied by the <code>next</code> pointer in <code>vm_page_for_families_t</code>.</p>
 <dl class="section note"><dt>Note</dt><dd>The calculation subtracts the size of the <code>next</code> pointer from the total system page size, and then divides the remaining size by the size of a single <code>vm_page_family_t</code> structure.</dd>
 <dd>
@@ -663,7 +668,7 @@ This macro is useful for determining the maximum capacity of a virtual memory pa
         </tr>
       </table>
 </div><div class="memdoc">
-<p>--------------&mdash;&lt; Includes section --------------&mdash; &lt; System includes &lt; External includes --------------&mdash;&lt; Macros section --------------&mdash; </p>
+<p>&lt; System includes &lt; External includes </p>
 
 </div>
 </div>
@@ -869,7 +874,6 @@ This macro is useful for determining the maximum capacity of a virtual memory pa
 </div><div class="memdoc">
 
 <p>Represents a boolean value. </p>
-<p>--------------&mdash;&lt; user defined data type section --------------&mdash; </p>
 <p>The <code>vm_bool_t</code> type represents a boolean value, which can have one of two states: <code>VM_TRUE</code> or <code>VM_FALSE</code>. It is used to store boolean values in the program. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8137dde168b63da6dc080c3e41660743a5fa86d930835744d22245a6bef510f24" name="a8137dde168b63da6dc080c3e41660743a5fa86d930835744d22245a6bef510f24"></a>MM_FALSE&#160;</td><td class="fielddoc"><p>Represents the false state. </p>
@@ -1226,7 +1230,6 @@ This macro is useful for determining the maximum capacity of a virtual memory pa
 </div><div class="memdoc">
 
 <p>Allocates a new virtual memory page from the kernel. </p>
-<p>--------------&mdash;&lt; Private functions interfacce --------------&mdash; </p>
 <p>This function allocates a new virtual memory page from the kernel and returns a pointer to the allocated memory block. It uses the <code>mmap()</code> system call to request the allocation of memory from the kernel.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

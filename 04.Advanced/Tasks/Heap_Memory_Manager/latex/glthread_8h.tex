@@ -1,5 +1,10 @@
 \doxysection{glthread.\+h File Reference}
 \hypertarget{glthread_8h}{}\label{glthread_8h}\index{glthread.h@{glthread.h}}
+
+
+Header file for the Generic Linked List Thread library.  
+
+
 This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -25,7 +30,7 @@ struct \mbox{\hyperlink{structglthread__}{glthread\+\_\+}}
 \begin{DoxyCompactList}\small\item\em Macro to begin iterating over a linked list of glthread\+\_\+t structures. \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{glthread_8h_a6a3240e33c08a20fbe58f26c45b33fa9}{ITERATE\+\_\+\+GLTHREAD\+\_\+\+END}}(glthreadptrstart,  glthreadptr)
 \begin{DoxyCompactList}\small\item\em Macro to end iteration over a linked list of glthread\+\_\+t structures. \end{DoxyCompactList}\item 
-\#define \mbox{\hyperlink{glthread_8h_a4462265e043c8a84bc2970bb6e6d477f}{GLTHREAD\+\_\+\+GET\+\_\+\+USER\+\_\+\+DATA\+\_\+\+FROM\+\_\+\+OFFSET}}(glthreadptr,  offset)~    (void \texorpdfstring{$\ast$}{*})((char \texorpdfstring{$\ast$}{*})(glthreadptr) -\/ offset)
+\#define \mbox{\hyperlink{glthread_8h_a4462265e043c8a84bc2970bb6e6d477f}{GLTHREAD\+\_\+\+GET\+\_\+\+USER\+\_\+\+DATA\+\_\+\+FROM\+\_\+\+OFFSET}}(glthreadptr,  offset)~  (void \texorpdfstring{$\ast$}{*})((char \texorpdfstring{$\ast$}{*})(glthreadptr)-\/offset)
 \begin{DoxyCompactList}\small\item\em Macro to get a pointer to user-\/defined data from a glthread\+\_\+t pointer and offset. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -55,6 +60,11 @@ void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{glthread_8h_ae9c3167c02163fc248
 \begin{DoxyCompactList}\small\item\em Search for a specific glthread\+\_\+t structure in the linked list. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Header file for the Generic Linked List Thread library. 
+
+This header file contains the interface for the Generic Linked List Thread library, which provides functionality for managing generic linked lists using threaded linking. 
+
 \doxysubsection{Macro Definition Documentation}
 \Hypertarget{glthread_8h_af64cb523b5609d6e3bb4189e5d1d36e7}\label{glthread_8h_af64cb523b5609d6e3bb4189e5d1d36e7} 
 \index{glthread.h@{glthread.h}!BASE@{BASE}}
@@ -80,7 +90,7 @@ glthread\+\_\+t\texorpdfstring{$\ast$}{*} Pointer to the base of the linked list
 \index{glthread.h@{glthread.h}!GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET@{GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET}}
 \index{GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET@{GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET}!glthread.h@{glthread.h}}
 \doxysubsubsection{\texorpdfstring{GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET}{GLTHREAD\_GET\_USER\_DATA\_FROM\_OFFSET}}
-{\footnotesize\ttfamily \#define GLTHREAD\+\_\+\+GET\+\_\+\+USER\+\_\+\+DATA\+\_\+\+FROM\+\_\+\+OFFSET(\begin{DoxyParamCaption}\item[{}]{glthreadptr,  }\item[{}]{offset }\end{DoxyParamCaption})~    (void \texorpdfstring{$\ast$}{*})((char \texorpdfstring{$\ast$}{*})(glthreadptr) -\/ offset)}
+{\footnotesize\ttfamily \#define GLTHREAD\+\_\+\+GET\+\_\+\+USER\+\_\+\+DATA\+\_\+\+FROM\+\_\+\+OFFSET(\begin{DoxyParamCaption}\item[{}]{glthreadptr,  }\item[{}]{offset }\end{DoxyParamCaption})~  (void \texorpdfstring{$\ast$}{*})((char \texorpdfstring{$\ast$}{*})(glthreadptr)-\/offset)}
 
 
 
@@ -143,8 +153,6 @@ Now, we can use {\ttfamily glthread\+\_\+to\+\_\+block\+\_\+meta\+\_\+data} to c
 
 Macro to check if a linked list of glthread\+\_\+t structures is empty. 
 
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Function-\/like macro section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
-
 This macro checks if a linked list of glthread\+\_\+t structures is empty. It evaluates to true if both the right and left pointers of the provided glthread\+\_\+t structure are NULL, indicating an empty list.
 
 
@@ -163,11 +171,11 @@ int Returns 1 if the linked list is empty, 0 otherwise.
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structglthread__}{glthread\_t}}\ *\_glthread\_ptr\ =\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ glthreadptr\ =\ \mbox{\hyperlink{glthread_8h_af64cb523b5609d6e3bb4189e5d1d36e7}{BASE}}(glthreadptrstart);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ for(;\ glthreadptr!=\ NULL;\ glthreadptr\ =\ \_glthread\_ptr)\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ \_glthread\_ptr\ =\ (glthreadptr)-\/>right;}
+\DoxyCodeLine{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structglthread__}{glthread\_t}}\ *\_glthread\_ptr\ =\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ glthreadptr\ =\ \mbox{\hyperlink{glthread_8h_af64cb523b5609d6e3bb4189e5d1d36e7}{BASE}}(glthreadptrstart);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ for\ (;\ glthreadptr\ !=\ NULL;\ glthreadptr\ =\ \_glthread\_ptr)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \_glthread\_ptr\ =\ (glthreadptr)-\/>right;}
 
 \end{DoxyCode}
 
@@ -220,8 +228,6 @@ This macro marks the end of the loop initiated by ITERATE\+\_\+\+GLTHREAD\+\_\+\
 
 
 Structure representing a generic linked list node for threaded linking. 
-
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} user defined data type section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
 
 This structure defines a generic linked list node for threaded linking. It consists of left and right pointers for threading the nodes together. 
 
@@ -404,14 +410,12 @@ void\texorpdfstring{$\ast$}{*} Pointer to the user-\/defined structure correspon
 
 Initialize a glthread\+\_\+t structure. 
 
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Public functions interface -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
-
 
 \begin{DoxyParams}{Parameters}
 {\em glthread} & Pointer to the glthread\+\_\+t structure to be initialized.\\
 \hline
 \end{DoxyParams}
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Includes section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \texorpdfstring{$<$}{<} System includes \texorpdfstring{$<$}{<} Project includes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Functions implementation section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:\nopagebreak
+\texorpdfstring{$<$}{<} System includes \texorpdfstring{$<$}{<} Project includes Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

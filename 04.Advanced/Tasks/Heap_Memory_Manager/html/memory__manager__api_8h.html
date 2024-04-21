@@ -77,13 +77,16 @@ $(function() {
   <div class="headertitle"><div class="title">memory_manager_api.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Header file for the Memory Manager API.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for memory_manager_api.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="memory__manager__api_8h__incl.png" border="0" usemap="#amemory__manager__api_8h" alt=""/></div>
 <map name="amemory__manager__api_8h" id="amemory__manager__api_8h">
-<area shape="rect" title=" " alt="" coords="5,5,187,31"/>
+<area shape="rect" title="Header file for the Memory Manager API." alt="" coords="5,5,187,31"/>
 <area shape="rect" title=" " alt="" coords="61,79,131,104"/>
 <area shape="poly" title=" " alt="" coords="99,31,99,65,93,65,93,31"/>
 </map>
@@ -93,11 +96,11 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="memory__manager__api_8h__dep__incl.png" border="0" usemap="#amemory__manager__api_8hdep" alt=""/></div>
 <map name="amemory__manager__api_8hdep" id="amemory__manager__api_8hdep">
-<area shape="rect" title=" " alt="" coords="63,5,244,31"/>
-<area shape="rect" href="memory__manager_8c.html" title=" " alt="" coords="5,79,157,104"/>
-<area shape="poly" title=" " alt="" coords="133,43,95,80,91,77,130,39"/>
-<area shape="rect" href="test__app_8c.html" title=" " alt="" coords="182,79,271,104"/>
-<area shape="poly" title=" " alt="" coords="177,38,217,77,213,80,173,42"/>
+<area shape="rect" title="Header file for the Memory Manager API." alt="" coords="87,5,268,31"/>
+<area shape="rect" href="memory__manager_8c.html" title="Implementation file for the Memory Manager module." alt="" coords="5,79,157,104"/>
+<area shape="poly" title=" " alt="" coords="152,41,99,81,95,76,149,37"/>
+<area shape="rect" href="memory__manager__test_8c.html" title="Test file for Memory Manager functionality." alt="" coords="182,79,367,104"/>
+<area shape="poly" title=" " alt="" coords="206,37,260,76,257,81,203,41"/>
 </map>
 </div>
 </div>
@@ -139,7 +142,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:abc2214ca18f00171e96262019bb84919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints information about the memory block usage.  <br /></td></tr>
 <tr class="separator:abc2214ca18f00171e96262019bb84919"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Header file for the Memory Manager API. </p>
+<p>This file contains declarations for the Memory Manager API functions. The Memory Manager API provides functions for initializing the memory manager, managing page families, allocating and freeing memory, and printing memory usage details. </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a499d5d9d246e2afe4506e751ba45ec1e" name="a499d5d9d246e2afe4506e751ba45ec1e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a499d5d9d246e2afe4506e751ba45ec1e">&#9670;&#160;</a></span>MM_REG_STRUCT</h2>
 
@@ -156,7 +162,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Registers a memory structure for page family instantiation. </p>
-<p>--------------&mdash;&lt; Function-like macro section --------------&mdash; </p>
 <p>This macro facilitates the registration of a memory structure for page family instantiation within the memory manager. It takes the name of the structure (<code>struct_name</code>) as a parameter and uses the <code>#</code> operator to stringify it, which is then passed to the <code><a class="el" href="group__MemoryManagement.html#ga3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure.">mm_instantiate_new_page_family()</a></code> function along with the size of the structure.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -381,7 +386,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="66,141,160,191,157,196,63,146"/>
 <area shape="rect" href="group__MemoryManagement.html#ga3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure." alt="" coords="130,111,289,151"/>
 <area shape="poly" title=" " alt="" coords="74,128,116,128,116,133,74,133"/>
-<area shape="rect" href="parse__datatype_8c.html#a951929580735bed45579ce79ea1d6c71" title="Extracts a data type name from a string containing the sizeof operator." alt="" coords="136,322,283,347"/>
+<area shape="rect" href="parse__datatype_8c.html#a951929580735bed45579ce79ea1d6c71" title="Parses the name of a struct from a string." alt="" coords="136,322,283,347"/>
 <area shape="poly" title=" " alt="" coords="50,142,80,191,123,250,184,311,180,314,119,254,76,194,46,145"/>
 <area shape="rect" href="group__MemoryManagement.html#gacf3ff2e7438d4ae2c531e8851b7270e8" title=" " alt="" coords="345,205,547,230"/>
 <area shape="poly" title=" " alt="" coords="298,216,332,216,332,221,298,222"/>

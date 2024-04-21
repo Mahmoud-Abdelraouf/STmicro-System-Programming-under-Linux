@@ -79,17 +79,20 @@ $(function() {
   <div class="headertitle"><div class="title">glthread.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Header file for the Generic Linked List Thread library.  
+<a href="#details">More...</a></p>
 <div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="glthread_8h__dep__incl.png" border="0" usemap="#aglthread_8hdep" alt=""/></div>
 <map name="aglthread_8hdep" id="aglthread_8hdep">
-<area shape="rect" title=" " alt="" coords="77,5,165,31"/>
-<area shape="rect" href="glthread_8c.html" title=" " alt="" coords="5,79,92,104"/>
+<area shape="rect" title="Header file for the Generic Linked List Thread library." alt="" coords="77,5,165,31"/>
+<area shape="rect" href="glthread_8c.html" title="Implementation file for the Generic Linked List Thread library." alt="" coords="5,79,92,104"/>
 <area shape="poly" title=" " alt="" coords="101,43,62,80,58,77,97,39"/>
-<area shape="rect" href="memory__manager_8h.html" title=" " alt="" coords="116,79,269,104"/>
+<area shape="rect" href="memory__manager_8h.html" title="Header file for the Memory Manager module." alt="" coords="116,79,269,104"/>
 <area shape="poly" title=" " alt="" coords="144,39,183,77,179,80,141,43"/>
-<area shape="rect" href="memory__manager_8c.html" title=" " alt="" coords="117,152,269,177"/>
+<area shape="rect" href="memory__manager_8c.html" title="Implementation file for the Memory Manager module." alt="" coords="117,152,269,177"/>
 <area shape="poly" title=" " alt="" coords="195,118,195,152,190,152,190,118"/>
 </map>
 </div>
@@ -119,7 +122,7 @@ Macros</h2></td></tr>
 <tr class="memitem:a6a3240e33c08a20fbe58f26c45b33fa9" id="r_a6a3240e33c08a20fbe58f26c45b33fa9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a3240e33c08a20fbe58f26c45b33fa9">ITERATE_GLTHREAD_END</a>(glthreadptrstart,  glthreadptr)</td></tr>
 <tr class="memdesc:a6a3240e33c08a20fbe58f26c45b33fa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to end iteration over a linked list of glthread_t structures.  <br /></td></tr>
 <tr class="separator:a6a3240e33c08a20fbe58f26c45b33fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4462265e043c8a84bc2970bb6e6d477f" id="r_a4462265e043c8a84bc2970bb6e6d477f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4462265e043c8a84bc2970bb6e6d477f">GLTHREAD_GET_USER_DATA_FROM_OFFSET</a>(glthreadptr,  offset)&#160;&#160;&#160;    (void *)((char *)(glthreadptr) - offset)</td></tr>
+<tr class="memitem:a4462265e043c8a84bc2970bb6e6d477f" id="r_a4462265e043c8a84bc2970bb6e6d477f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4462265e043c8a84bc2970bb6e6d477f">GLTHREAD_GET_USER_DATA_FROM_OFFSET</a>(glthreadptr,  offset)&#160;&#160;&#160;  (void *)((char *)(glthreadptr)-offset)</td></tr>
 <tr class="memdesc:a4462265e043c8a84bc2970bb6e6d477f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to get a pointer to user-defined data from a glthread_t pointer and offset.  <br /></td></tr>
 <tr class="separator:a4462265e043c8a84bc2970bb6e6d477f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -159,7 +162,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ae9c3167c02163fc2484c65b0dce9a8b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for a specific glthread_t structure in the linked list.  <br /></td></tr>
 <tr class="separator:ae9c3167c02163fc2484c65b0dce9a8b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Header file for the Generic Linked List Thread library. </p>
+<p>This header file contains the interface for the Generic Linked List Thread library, which provides functionality for managing generic linked lists using threaded linking. </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="af64cb523b5609d6e3bb4189e5d1d36e7" name="af64cb523b5609d6e3bb4189e5d1d36e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af64cb523b5609d6e3bb4189e5d1d36e7">&#9670;&#160;</a></span>BASE</h2>
 
@@ -201,7 +207,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">offset</span>&#160;)&#160;&#160;&#160;    (void *)((char *)(glthreadptr) - offset)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname">offset</span>&#160;)&#160;&#160;&#160;  (void *)((char *)(glthreadptr)-offset)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -251,7 +257,7 @@ Functions</h2></td></tr>
 <div class="line">    return (structure_name *)((<span class="keywordtype">char</span> *)(glthreadptr) -                          \</div>
 <div class="line">                              (<span class="keywordtype">char</span> *)&amp;(((structure_name *)0)-&gt;field_name));   \</div>
 <div class="line">  }</div>
-<div class="ttc" id="astructglthread___html"><div class="ttname"><a href="structglthread__.html">glthread_</a></div><div class="ttdoc">Structure representing a generic linked list node for threaded linking.</div><div class="ttdef"><b>Definition</b> glthread.h:18</div></div>
+<div class="ttc" id="astructglthread___html"><div class="ttname"><a href="structglthread__.html">glthread_</a></div><div class="ttdoc">Structure representing a generic linked list node for threaded linking.</div><div class="ttdef"><b>Definition</b> glthread.h:28</div></div>
 </div><!-- fragment -->
 <p>Macro to convert a glthread_t structure to a user-defined structure. </p>
 <p>This macro provides a convenient way to convert a glthread_t structure to a user-defined structure. It creates a conversion function that takes a glthread_t pointer and returns a pointer to the user-defined structure. This is particularly useful when you have a glthread_t structure embedded within a user-defined structure and need to access the user-defined data.</p>
@@ -287,7 +293,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Macro to check if a linked list of glthread_t structures is empty. </p>
-<p>--------------&mdash;&lt; Function-like macro section --------------&mdash; </p>
 <p>This macro checks if a linked list of glthread_t structures is empty. It evaluates to true if both the right and left pointers of the provided glthread_t structure are NULL, indicating an empty list.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -317,12 +322,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{                                                                                                  \</div>
-<div class="line">    <a class="code hl_struct" href="structglthread__.html">glthread_t</a> *_glthread_ptr = NULL;                                                              \</div>
-<div class="line">    glthreadptr = <a class="code hl_define" href="#af64cb523b5609d6e3bb4189e5d1d36e7">BASE</a>(glthreadptrstart);                                                          \</div>
-<div class="line">    for(; glthreadptr!= NULL; glthreadptr = _glthread_ptr){                                        \</div>
-<div class="line">        _glthread_ptr = (glthreadptr)-&gt;right;</div>
-<div class="ttc" id="aglthread_8h_html_af64cb523b5609d6e3bb4189e5d1d36e7"><div class="ttname"><a href="#af64cb523b5609d6e3bb4189e5d1d36e7">BASE</a></div><div class="ttdeci">#define BASE(glthreadptr)</div><div class="ttdoc">Macro to retrieve the base of a linked list.</div><div class="ttdef"><b>Definition</b> glthread.h:180</div></div>
+<b>Value:</b><div class="fragment"><div class="line">  {                                                                            \</div>
+<div class="line">    <a class="code hl_struct" href="structglthread__.html">glthread_t</a> *_glthread_ptr = NULL;                                          \</div>
+<div class="line">    glthreadptr = <a class="code hl_define" href="#af64cb523b5609d6e3bb4189e5d1d36e7">BASE</a>(glthreadptrstart);                                      \</div>
+<div class="line">    for (; glthreadptr != NULL; glthreadptr = _glthread_ptr) {                 \</div>
+<div class="line">      _glthread_ptr = (glthreadptr)-&gt;right;</div>
+<div class="ttc" id="aglthread_8h_html_af64cb523b5609d6e3bb4189e5d1d36e7"><div class="ttname"><a href="#af64cb523b5609d6e3bb4189e5d1d36e7">BASE</a></div><div class="ttdeci">#define BASE(glthreadptr)</div><div class="ttdoc">Macro to retrieve the base of a linked list.</div><div class="ttdef"><b>Definition</b> glthread.h:190</div></div>
 </div><!-- fragment -->
 <p>Macro to begin iterating over a linked list of glthread_t structures. </p>
 <p>This macro sets up a loop to iterate over a linked list of glthread_t structures. It initializes necessary variables and pointers for the iteration.</p>
@@ -383,7 +388,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Structure representing a generic linked list node for threaded linking. </p>
-<p>--------------&mdash;&lt; user defined data type section --------------&mdash; </p>
 <p>This structure defines a generic linked list node for threaded linking. It consists of left and right pointers for threading the nodes together. </p>
 
 </div>
@@ -716,14 +720,13 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Initialize a glthread_t structure. </p>
-<p>--------------&mdash;&lt; Public functions interface --------------&mdash; </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">glthread</td><td>Pointer to the glthread_t structure to be initialized.</td></tr>
   </table>
   </dd>
 </dl>
-<p>--------------&mdash;&lt; Includes section --------------&mdash; &lt; System includes &lt; Project includes --------------&mdash;&lt; Functions implementation section --------------&mdash; </p>
+<p>&lt; System includes &lt; Project includes </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

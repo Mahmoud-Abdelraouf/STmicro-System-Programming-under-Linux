@@ -1,5 +1,10 @@
 \doxysection{memory\+\_\+manager.\+h File Reference}
 \hypertarget{memory__manager_8h}{}\label{memory__manager_8h}\index{memory\_manager.h@{memory\_manager.h}}
+
+
+Header file for the Memory Manager module.  
+
+
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include "{}glthread.\+h"{}}\newline
 Include dependency graph for memory\+\_\+manager.\+h\+:\nopagebreak
@@ -122,6 +127,11 @@ static int \mbox{\hyperlink{memory__manager_8h_a3635ea0217471faffe42b0c91c4bcc42
 static \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{memory__manager_8h_a2250996fd809506caef0a6e61b6faebb}{mm\+\_\+free\+\_\+blocks}} (\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}to\+\_\+be\+\_\+free\+\_\+block)
 \begin{DoxyCompactList}\small\item\em Frees a memory block and performs merging if necessary. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Header file for the Memory Manager module. 
+
+This file provides declarations for structures, macros, and functions used in the Memory Manager module. The Memory Manager is responsible for managing memory allocation and deallocation, including virtual memory page management, block metadata handling, and allocation algorithms. 
 
 \doxysubsection{Macro Definition Documentation}
 \Hypertarget{memory__manager_8h_ac15f4fa9d6b78fc0ff539a7d1d4b64d2}\label{memory__manager_8h_ac15f4fa9d6b78fc0ff539a7d1d4b64d2} 
@@ -373,8 +383,6 @@ This macro is typically used in memory management systems as part of memory recy
 
 Maximum number of families that can be stored in a single virtual memory page. 
 
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Function-\/like macro section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
-
 This macro calculates the maximum number of families that can be stored in a single virtual memory page based on the system page size and the sizes of the {\ttfamily vm\+\_\+page\+\_\+for\+\_\+families\+\_\+t} and {\ttfamily vm\+\_\+page\+\_\+family\+\_\+t} structures. It accounts for the space occupied by the {\ttfamily next} pointer in {\ttfamily vm\+\_\+page\+\_\+for\+\_\+families\+\_\+t}.
 
 \begin{DoxyNote}{Note}
@@ -468,7 +476,7 @@ Pointer to the virtual memory page.
 \doxysubsubsection{\texorpdfstring{MM\_MAX\_STRUCT\_NAME}{MM\_MAX\_STRUCT\_NAME}}
 {\footnotesize\ttfamily \#define MM\+\_\+\+MAX\+\_\+\+STRUCT\+\_\+\+NAME~32}
 
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Includes section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \texorpdfstring{$<$}{<} System includes \texorpdfstring{$<$}{<} External includes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Macros section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \Hypertarget{memory__manager_8h_ac866fe97df08a8d286eafb8243cd63da}\label{memory__manager_8h_ac866fe97df08a8d286eafb8243cd63da} 
+\texorpdfstring{$<$}{<} System includes \texorpdfstring{$<$}{<} External includes \Hypertarget{memory__manager_8h_ac866fe97df08a8d286eafb8243cd63da}\label{memory__manager_8h_ac866fe97df08a8d286eafb8243cd63da} 
 \index{memory\_manager.h@{memory\_manager.h}!NEXT\_META\_BLOCK@{NEXT\_META\_BLOCK}}
 \index{NEXT\_META\_BLOCK@{NEXT\_META\_BLOCK}!memory\_manager.h@{memory\_manager.h}}
 \doxysubsubsection{\texorpdfstring{NEXT\_META\_BLOCK}{NEXT\_META\_BLOCK}}
@@ -626,8 +634,6 @@ This structure represents a virtual memory page used in memory management system
 
 
 Represents a boolean value. 
-
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} user defined data type section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
 
 The {\ttfamily vm\+\_\+bool\+\_\+t} type represents a boolean value, which can have one of two states\+: {\ttfamily VM\+\_\+\+TRUE} or {\ttfamily VM\+\_\+\+FALSE}. It is used to store boolean values in the program. \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{MM\_FALSE@{MM\_FALSE}!memory\_manager.h@{memory\_manager.h}}\index{memory\_manager.h@{memory\_manager.h}!MM\_FALSE@{MM\_FALSE}}}\Hypertarget{memory__manager_8h_a8137dde168b63da6dc080c3e41660743a5fa86d930835744d22245a6bef510f24}\label{memory__manager_8h_a8137dde168b63da6dc080c3e41660743a5fa86d930835744d22245a6bef510f24} 
@@ -844,8 +850,6 @@ The size of hard internal memory fragmentation between the two memory blocks.
 
 Allocates a new virtual memory page from the kernel. 
 
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Private functions interfacce -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
-
 This function allocates a new virtual memory page from the kernel and returns a pointer to the allocated memory block. It uses the {\ttfamily mmap()} system call to request the allocation of memory from the kernel.
 
 
@@ -905,8 +909,7 @@ This function prints detailed information about a virtual memory page, including
 {\em vm\+\_\+page} & Pointer to the virtual memory page. \\
 \hline
 \end{DoxyParams}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

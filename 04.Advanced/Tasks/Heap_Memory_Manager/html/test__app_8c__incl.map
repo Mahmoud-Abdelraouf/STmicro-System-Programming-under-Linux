@@ -1,6 +1,6 @@
 <map id="test_app.c" name="test_app.c">
 <area shape="rect" id="Node000001" title=" " alt="" coords="179,5,269,31"/>
-<area shape="rect" id="Node000002" href="$memory__manager__api_8h.html" title=" " alt="" coords="5,79,187,104"/>
+<area shape="rect" id="Node000002" href="$memory__manager__api_8h.html" title="Header file for the Memory Manager API." alt="" coords="5,79,187,104"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,33,130,74,128,69,202,28"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="125,152,195,177"/>
 <area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="224,32,216,65,201,105,179,142,175,139,196,103,211,64,219,31"/>

@@ -1,5 +1,10 @@
 \doxysection{memory\+\_\+manager.\+c File Reference}
 \hypertarget{memory__manager_8c}{}\label{memory__manager_8c}\index{memory\_manager.c@{memory\_manager.c}}
+
+
+Implementation file for the Memory Manager module.  
+
+
 {\ttfamily \#include $<$assert.\+h$>$}\newline
 {\ttfamily \#include $<$memory.\+h$>$}\newline
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
@@ -79,6 +84,11 @@ static \mbox{\hyperlink{memory__manager_8h_a0cf10cad96e10ff9160b976e509f9462}{vm
 \begin{DoxyCompactList}\small\item\em Pointer to the first virtual memory page for page families. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Implementation file for the Memory Manager module. 
+
+This file contains the implementation of functions declared in Memory\+Manager.\+h. The Memory Manager module is responsible for managing memory allocation and deallocation, including virtual memory page management, block metadata handling, and allocation algorithms. 
+
 \doxysubsection{Function Documentation}
 \Hypertarget{memory__manager_8c_a464ebae83b876a0ebb252e793e296fe9}\label{memory__manager_8c_a464ebae83b876a0ebb252e793e296fe9} 
 \index{memory\_manager.c@{memory\_manager.c}!mm\_allocate\_free\_data\_block@{mm\_allocate\_free\_data\_block}}
@@ -123,8 +133,7 @@ Here is the caller graph for this function\+:\nopagebreak
 
 Prints information about the memory block usage. 
 
-This function iterates through all virtual memory pages and their associated memory block families to print information about the memory block usage, including the total block count, free block count, occupied block count, and application memory usage. Here is the caller graph for this function\+:
-\nopagebreak
+This function iterates through all virtual memory pages and their associated memory block families to print information about the memory block usage, including the total block count, free block count, occupied block count, and application memory usage. Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -155,8 +164,7 @@ Here is the call graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{memory__manager_8c_a0107300bfc4db599504abef54c980fa6_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -173,8 +181,7 @@ Here is the caller graph for this function\+:
 
 Prints all registered page families. 
 
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Printing information section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:
-\nopagebreak
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Printing information section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -198,8 +205,7 @@ This function prints detailed information about a virtual memory page, including
 {\em vm\+\_\+page} & Pointer to the virtual memory page. \\
 \hline
 \end{DoxyParams}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -251,8 +257,7 @@ A pointer to the allocated memory if successful, or NULL if the allocation fails
 \begin{DoxyNote}{Note}
 This function assumes that the specified structure type has been registered with the Memory Manager using the mm\+\_\+register\+\_\+structure function. It also assumes that the specified structure type has a corresponding page family registered with the Memory Manager. 
 \end{DoxyNote}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -286,8 +291,6 @@ This variable is static and should be accessible only within the scope of the fi
 
 
 Size of the system page. 
-
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Includes section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \texorpdfstring{$<$}{<} System includes \texorpdfstring{$<$}{<} Project includes -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Global variable section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
 
 This static variable holds the size of the system page. It is initialized to 0 and should be updated to the actual size of the system page during program initialization using a system-\/specific function or method.
 

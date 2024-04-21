@@ -4,21 +4,31 @@
 /******* Version   : 0.1                           *****************/
 /******* File Name : Generic Linked List Thread.c  *****************/
 /*******************************************************************/
-/**-----------------< Includes section -----------------*/
+
+/**
+ * @file glthread.c
+ * @brief Implementation file for the Generic Linked List Thread library.
+ *
+ * This file contains the implementation of the Generic Linked List Thread
+ * library, which provides functionality for managing generic linked lists using
+ * threads.
+ */
+
+//-----------------< Includes section -----------------/
 /**< System includes */
 #include <stdlib.h>
 /**< Project includes */
 #include "glthread.h"
 
-/**-----------------< Functions implementation section -----------------*/
+//-----------------< Functions implementation section -----------------/
 void init_glthread(glthread_t *glthread) {
   glthread->left = NULL;  // Set the left pointer of the glthread to NULL
   glthread->right = NULL; // Set the right pointer of the glthread to NULL
 }
 
 void glthread_add_next(glthread_t *curr_glthread, glthread_t *new_glthread) {
-  if(!new_glthread || !curr_glthread) {
-      return;
+  if (!new_glthread || !curr_glthread) {
+    return;
   }
 
   if (!curr_glthread->right) {
@@ -57,7 +67,7 @@ void remove_glthread(glthread_t *curr_glthread) {
     // If the current node has a right neighbor
     if (curr_glthread->right) {
       curr_glthread->right->left =
-          NULL;                    // Update the left neighbor of the right node
+          NULL;                 // Update the left neighbor of the right node
       curr_glthread->right = 0; // Remove the link to the right node
       return;
     }
@@ -74,7 +84,7 @@ void remove_glthread(glthread_t *curr_glthread) {
   curr_glthread->left->right =
       curr_glthread->right; // Update the right neighbor of the left node
   curr_glthread->right->left =
-      curr_glthread->left;     // Update the left neighbor of the right node
+      curr_glthread->left;  // Update the left neighbor of the right node
   curr_glthread->left = 0;  // Remove the link to the left node
   curr_glthread->right = 0; // Remove the link to the right node
 }
@@ -137,7 +147,8 @@ void glthread_priority_insert(glthread_t *base_glthread, glthread_t *glthread,
 
   /**< Only one node */
   if (base_glthread->right &&
-      !base_glthread->right->right) { // Check if there is only one node in the list
+      !base_glthread->right
+           ->right) { // Check if there is only one node in the list
     if (comp_fn(
             GLTHREAD_GET_USER_DATA_FROM_OFFSET(base_glthread->right, offset),
             GLTHREAD_GET_USER_DATA_FROM_OFFSET(glthread, offset)) == -1) {
@@ -179,8 +190,8 @@ void glthread_priority_insert(glthread_t *base_glthread, glthread_t *glthread,
 }
 
 void *glthread_search(glthread_t *base_glthread,
-                       void *(*thread_to_struct_fn)(glthread_t *), void *key,
-                       int (*comparison_fn)(void *, void *)) {
+                      void *(*thread_to_struct_fn)(glthread_t *), void *key,
+                      int (*comparison_fn)(void *, void *)) {
   glthread_t *curr = NULL;
 
   ITERATE_GLTHREAD_BEGIN(base_glthread, curr) { // Iterate over the linked list

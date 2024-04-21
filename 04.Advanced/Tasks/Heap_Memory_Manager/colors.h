@@ -1,5 +1,5 @@
 /**
- * @file color.h
+ * @file colors.h
  * @brief Header file for ANSI color definitions.
  *
  * This file contains ANSI color definitions used for terminal output coloring.

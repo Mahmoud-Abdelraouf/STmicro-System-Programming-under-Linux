@@ -77,6 +77,9 @@ $(function() {
   <div class="headertitle"><div class="title">memory_manager.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation file for the Memory Manager module.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;assert.h&gt;</code><br />
 <code>#include &lt;memory.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
@@ -94,7 +97,7 @@ Include dependency graph for memory_manager.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="memory__manager_8c__incl.png" border="0" usemap="#amemory__manager_8c" alt=""/></div>
 <map name="amemory__manager_8c" id="amemory__manager_8c">
-<area shape="rect" title=" " alt="" coords="651,5,803,31"/>
+<area shape="rect" title="Implementation file for the Memory Manager module." alt="" coords="651,5,803,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,80,104"/>
 <area shape="poly" title=" " alt="" coords="651,26,407,44,253,60,94,81,94,76,252,54,406,38,650,21"/>
 <area shape="rect" title=" " alt="" coords="105,79,191,104"/>
@@ -109,22 +112,22 @@ Include dependency graph for memory_manager.c:</div>
 <area shape="poly" title=" " alt="" coords="802,28,1098,76,1097,81,801,33"/>
 <area shape="rect" title=" " alt="" coords="1239,79,1313,104"/>
 <area shape="poly" title=" " alt="" coords="803,23,991,43,1226,76,1225,81,991,48,803,28"/>
-<area shape="rect" href="colors_8h.html" title=" " alt="" coords="1338,79,1411,104"/>
+<area shape="rect" href="colors_8h.html" title="Header file for ANSI color definitions." alt="" coords="1338,79,1411,104"/>
 <area shape="poly" title=" " alt="" coords="803,21,1032,40,1176,55,1325,76,1324,81,1176,61,1032,45,802,26"/>
 <area shape="rect" href="datatype__size__lookup_8h.html" title="Header file for data type size lookup functionality and mappings." alt="" coords="702,79,877,104"/>
 <area shape="poly" title=" " alt="" coords="739,29,772,66,768,70,735,33"/>
-<area shape="rect" href="memory__manager_8h.html" title=" " alt="" coords="473,79,626,104"/>
+<area shape="rect" href="memory__manager_8h.html" title="Header file for the Memory Manager module." alt="" coords="473,79,626,104"/>
 <area shape="poly" title=" " alt="" coords="699,33,592,76,590,71,697,28"/>
-<area shape="rect" href="memory__manager__api_8h.html" title=" " alt="" coords="267,79,448,104"/>
+<area shape="rect" href="memory__manager__api_8h.html" title="Header file for the Memory Manager API." alt="" coords="267,79,448,104"/>
 <area shape="poly" title=" " alt="" coords="668,33,431,79,430,73,667,28"/>
-<area shape="rect" href="parse__datatype_8h.html" title=" " alt="" coords="953,79,1087,104"/>
+<area shape="rect" href="parse__datatype_8h.html" title="Header file for parsing data type names." alt="" coords="953,79,1087,104"/>
 <area shape="poly" title=" " alt="" coords="774,28,960,73,959,78,773,33"/>
 <area shape="poly" title=" " alt="" coords="777,106,728,145,725,141,774,102"/>
 <area shape="poly" title=" " alt="" coords="810,102,877,142,874,147,807,106"/>
 <area shape="rect" title=" " alt="" coords="759,152,833,177"/>
 <area shape="poly" title=" " alt="" coords="793,104,796,138,791,139,788,105"/>
 <area shape="poly" title=" " alt="" coords="527,106,439,148,437,144,524,102"/>
-<area shape="rect" href="glthread_8h.html" title=" " alt="" coords="505,152,593,177"/>
+<area shape="rect" href="glthread_8h.html" title="Header file for the Generic Linked List Thread library." alt="" coords="505,152,593,177"/>
 <area shape="poly" title=" " alt="" coords="552,104,552,138,547,138,547,104"/>
 <area shape="poly" title=" " alt="" coords="367,103,389,139,385,142,362,106"/>
 <area shape="poly" title=" " alt="" coords="953,103,494,155,450,160,450,155,493,149,952,97"/>
@@ -211,7 +214,10 @@ Variables</h2></td></tr>
 <tr class="memdesc:a9363a68925f63b40408e858451abc9e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the first virtual memory page for page families.  <br /></td></tr>
 <tr class="separator:a9363a68925f63b40408e858451abc9e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation file for the Memory Manager module. </p>
+<p>This file contains the implementation of functions declared in MemoryManager.h. The Memory Manager module is responsible for managing memory allocation and deallocation, including virtual memory page management, block metadata handling, and allocation algorithms. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a464ebae83b876a0ebb252e793e296fe9" name="a464ebae83b876a0ebb252e793e296fe9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a464ebae83b876a0ebb252e793e296fe9">&#9670;&#160;</a></span>mm_allocate_free_data_block()</h2>
 
@@ -579,7 +585,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="66,141,160,191,157,196,63,146"/>
 <area shape="rect" href="group__MemoryManagement.html#ga3ed96883ba6c4711318dbae3f5941bbf" title="Instantiates a new page family for a memory structure." alt="" coords="130,111,289,151"/>
 <area shape="poly" title=" " alt="" coords="74,128,116,128,116,133,74,133"/>
-<area shape="rect" href="parse__datatype_8c.html#a951929580735bed45579ce79ea1d6c71" title="Extracts a data type name from a string containing the sizeof operator." alt="" coords="136,322,283,347"/>
+<area shape="rect" href="parse__datatype_8c.html#a951929580735bed45579ce79ea1d6c71" title="Parses the name of a struct from a string." alt="" coords="136,322,283,347"/>
 <area shape="poly" title=" " alt="" coords="50,142,80,191,123,250,184,311,180,314,119,254,76,194,46,145"/>
 <area shape="rect" href="group__MemoryManagement.html#gacf3ff2e7438d4ae2c531e8851b7270e8" title=" " alt="" coords="345,205,547,230"/>
 <area shape="poly" title=" " alt="" coords="298,216,332,216,332,221,298,222"/>
@@ -666,7 +672,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Size of the system page. </p>
-<p>--------------&mdash;&lt; Includes section --------------&mdash; &lt; System includes &lt; Project includes --------------&mdash;&lt; Global variable section --------------&mdash; </p>
 <p>This static variable holds the size of the system page. It is initialized to 0 and should be updated to the actual size of the system page during program initialization using a system-specific function or method.</p>
 <dl class="section note"><dt>Note</dt><dd>This variable should be initialized to the size of the system page before any memory management operations are performed within the program. The actual size of the system page depends on the underlying operating system and hardware architecture. </dd></dl>
 

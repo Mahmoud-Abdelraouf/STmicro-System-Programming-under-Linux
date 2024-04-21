@@ -2,12 +2,22 @@
 /******* Author    : Mahmoud Abdelraouf Mahmoud    *****************/
 /******* Date      : 13 Apr 2023                   *****************/
 /******* Version   : 0.1                           *****************/
-/******* File Name : Generic Linked List Thread.c  *****************/
+/******* File Name : Generic Linked List Thread.h  *****************/
 /*******************************************************************/
+
+/**
+ * @file glthread.h
+ * @brief Header file for the Generic Linked List Thread library.
+ *
+ * This header file contains the interface for the Generic Linked List Thread
+ * library, which provides functionality for managing generic linked lists using
+ * threaded linking.
+ */
+
 #ifndef GLUETHREAD_H_
 #define GLUETHREAD_H_
 
-/**-----------------< user defined data type section -----------------*/
+//-----------------< user defined data type section -----------------/
 /**
  * @brief Structure representing a generic linked list node for threaded
  * linking.
@@ -20,7 +30,7 @@ typedef struct glthread_ {
   struct glthread_ *right; /**< Pointer to the right node in the linked list. */
 } glthread_t;
 
-/**-----------------< Public functions interface -----------------*/
+//-----------------< Public functions interface -----------------/
 /**
  * @brief Initialize a glthread_t structure.
  *
@@ -114,9 +124,9 @@ void glthread_priority_insert(glthread_t *base_glthread, glthread_t *glthread,
  * found glthread_t structure, or NULL if not found.
  */
 void *glthread_search(glthread_t *base_glthread,
-                       void *(*thread_to_struct_fn)(glthread_t *), void *key,
-                       int (*comparison_fn)(void *, void *));
-/**-----------------< Function-like macro section -----------------*/
+                      void *(*thread_to_struct_fn)(glthread_t *), void *key,
+                      int (*comparison_fn)(void *, void *));
+//-----------------< Function-like macro section -----------------/
 /**
  * @brief Macro to check if a linked list of glthread_t structures is empty.
  *
@@ -191,12 +201,12 @@ void *glthread_search(glthread_t *base_glthread,
  * @param glthreadptr Pointer to the current glthread_t structure being
  * iterated.
  */
-#define ITERATE_GLTHREAD_BEGIN(glthreadptrstart, glthreadptr)                                      \
-{                                                                                                  \
-    glthread_t *_glthread_ptr = NULL;                                                              \
-    glthreadptr = BASE(glthreadptrstart);                                                          \
-    for(; glthreadptr!= NULL; glthreadptr = _glthread_ptr){                                        \
-        _glthread_ptr = (glthreadptr)->right;
+#define ITERATE_GLTHREAD_BEGIN(glthreadptrstart, glthreadptr)                  \
+  {                                                                            \
+    glthread_t *_glthread_ptr = NULL;                                          \
+    glthreadptr = BASE(glthreadptrstart);                                      \
+    for (; glthreadptr != NULL; glthreadptr = _glthread_ptr) {                 \
+      _glthread_ptr = (glthreadptr)->right;
 
 /**
  * @brief Macro to end iteration over a linked list of glthread_t structures.
@@ -227,7 +237,7 @@ void *glthread_search(glthread_t *base_glthread,
  * structure.
  * @return Pointer to the user-defined data.
  */
-#define GLTHREAD_GET_USER_DATA_FROM_OFFSET(glthreadptr, offset)  \
-    (void *)((char *)(glthreadptr) - offset)
+#define GLTHREAD_GET_USER_DATA_FROM_OFFSET(glthreadptr, offset)                \
+  (void *)((char *)(glthreadptr)-offset)
 
 #endif /**< GLUETHREAD_H_ */

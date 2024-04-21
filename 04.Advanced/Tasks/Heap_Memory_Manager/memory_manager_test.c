@@ -2,9 +2,19 @@
 /******* Author    : Mahmoud Abdelraouf Mahmoud *****************/
 /******* Date      : 8 Apr 2023                 *****************/
 /******* Version   : 0.1                        *****************/
-/******* File Name : MemeoryManager.h           *****************/
+/******* File Name : MemeoryManager.c           *****************/
 /****************************************************************/
-/**-----------------< Includes section -----------------*/
+
+/**
+ * @file memory_manager_test.c
+ * @brief Test file for Memory Manager functionality.
+ *
+ * This file is used to test the Memory Manager module on a Linux system.
+ * It includes the main function to initialize necessary components, register
+ * structure types, and print registered page families. Additionally, it
+ * contains sample allocations to test memory management operations.
+ */
+
 #include "memory_manager_api.h"
 #include <stdint.h>
 #include <stdio.h>

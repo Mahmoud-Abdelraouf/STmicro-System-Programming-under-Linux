@@ -1,4 +1,12 @@
+/*****************************************************************/
+/******* Author    : Mahmoud Abdelraouf Mahmoud ******************/
+/******* Date      : 8 Apr 2023                 ******************/
+/******* Version   : 0.1                        ******************/
+/******* File Name : parse_datatype.c           ******************/
+/*****************************************************************/
+
 /**
+ * @file parse_datatype.c
  * @brief Extracts a data type name from a string containing the sizeof
  * operator.
  *
@@ -59,5 +67,3 @@ static bool is_number(const char *str) {
 
   return true;
 }
-
-int convert_to_int(const char *str) { return atoi(str); }

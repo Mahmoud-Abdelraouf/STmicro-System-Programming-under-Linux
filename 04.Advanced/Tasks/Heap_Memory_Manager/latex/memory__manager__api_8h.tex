@@ -1,5 +1,10 @@
 \doxysection{memory\+\_\+manager\+\_\+api.\+h File Reference}
 \hypertarget{memory__manager__api_8h}{}\label{memory__manager__api_8h}\index{memory\_manager\_api.h@{memory\_manager\_api.h}}
+
+
+Header file for the Memory Manager API.  
+
+
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 Include dependency graph for memory\+\_\+manager\+\_\+api.\+h\+:\nopagebreak
 \begin{figure}[H]
@@ -8,11 +13,12 @@ Include dependency graph for memory\+\_\+manager\+\_\+api.\+h\+:\nopagebreak
 \includegraphics[width=216pt]{memory__manager__api_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=280pt]{memory__manager__api_8h__dep__incl}
+\includegraphics[width=350pt]{memory__manager__api_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsubsection*{Macros}
@@ -43,6 +49,11 @@ void \mbox{\hyperlink{memory__manager__api_8h_abc2214ca18f00171e96262019bb84919}
 \begin{DoxyCompactList}\small\item\em Prints information about the memory block usage. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Header file for the Memory Manager API. 
+
+This file contains declarations for the Memory Manager API functions. The Memory Manager API provides functions for initializing the memory manager, managing page families, allocating and freeing memory, and printing memory usage details. 
+
 \doxysubsection{Macro Definition Documentation}
 \Hypertarget{memory__manager__api_8h_a499d5d9d246e2afe4506e751ba45ec1e}\label{memory__manager__api_8h_a499d5d9d246e2afe4506e751ba45ec1e} 
 \index{memory\_manager\_api.h@{memory\_manager\_api.h}!MM\_REG\_STRUCT@{MM\_REG\_STRUCT}}
@@ -53,8 +64,6 @@ void \mbox{\hyperlink{memory__manager__api_8h_abc2214ca18f00171e96262019bb84919}
 
 
 Registers a memory structure for page family instantiation. 
-
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Function-\/like macro section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
 
 This macro facilitates the registration of a memory structure for page family instantiation within the memory manager. It takes the name of the structure ({\ttfamily struct\+\_\+name}) as a parameter and uses the {\ttfamily \#} operator to stringify it, which is then passed to the {\ttfamily \doxylink{group__MemoryManagement_ga3ed96883ba6c4711318dbae3f5941bbf}{mm\+\_\+instantiate\+\_\+new\+\_\+page\+\_\+family()}} function along with the size of the structure.
 
@@ -121,8 +130,7 @@ This macro is used for freeing memory using a custom deallocation function speci
 
 Prints information about the memory block usage. 
 
-This function iterates through all virtual memory pages and their associated memory block families to print information about the memory block usage, including the total block count, free block count, occupied block count, and application memory usage. Here is the caller graph for this function\+:
-\nopagebreak
+This function iterates through all virtual memory pages and their associated memory block families to print information about the memory block usage, including the total block count, free block count, occupied block count, and application memory usage. Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -153,8 +161,7 @@ Here is the call graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{memory__manager__api_8h_a0107300bfc4db599504abef54c980fa6_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -179,8 +186,7 @@ This function should be invoked after the application has performed registration
 \begin{DoxySeeAlso}{See also}
 \doxylink{memory__manager__api_8h_a499d5d9d246e2afe4506e751ba45ec1e}{MM\+\_\+\+REG\+\_\+\+STRUCT}
 \end{DoxySeeAlso}
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Printing information section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:
-\nopagebreak
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Printing information section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -212,8 +218,7 @@ A pointer to the allocated memory if successful, or NULL if the allocation fails
 \begin{DoxyNote}{Note}
 This function assumes that the specified structure type has been registered with the Memory Manager using the mm\+\_\+register\+\_\+structure function. It also assumes that the specified structure type has a corresponding page family registered with the Memory Manager. 
 \end{DoxyNote}
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

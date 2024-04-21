@@ -38,8 +38,6 @@ Functions for memory management.
 
 Looks up a page family by its name. 
 
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Public functions interface -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
-
 This function iterates over all virtual memory pages hosting page families and returns a pointer to the page family object identified by the given struct\+\_\+name. If no such page family object is found, it returns NULL.
 
 
@@ -112,8 +110,6 @@ Here is the caller graph for this function\+:\nopagebreak
 
 Initializes the memory manager. 
 
--\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Includes section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$<$}{<} Public functions interface section -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- 
-
 This function initializes the memory manager. It sets up necessary configurations and parameters for memory management operations within the program. It specifically determines the system page size using the {\ttfamily getpagesize()} system call and assigns it to the global variable {\ttfamily SYSTEM\+\_\+\+PAGE\+\_\+\+SIZE}.
 
 \begin{DoxyNote}{Note}
@@ -125,8 +121,7 @@ This function relies on the {\ttfamily getpagesize()} system call to determine t
 \begin{DoxySeeAlso}{See also}
 man getpagesize() 
 \end{DoxySeeAlso}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

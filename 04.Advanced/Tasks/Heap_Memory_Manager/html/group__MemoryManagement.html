@@ -117,7 +117,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Looks up a page family by its name. </p>
-<p>--------------&mdash;&lt; Public functions interface --------------&mdash; </p>
 <p>This function iterates over all virtual memory pages hosting page families and returns a pointer to the page family object identified by the given struct_name. If no such page family object is found, it returns NULL.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -272,7 +271,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Initializes the memory manager. </p>
-<p>--------------&mdash;&lt; Includes section --------------&mdash; --------------&mdash;&lt; Public functions interface section --------------&mdash; </p>
 <p>This function initializes the memory manager. It sets up necessary configurations and parameters for memory management operations within the program. It specifically determines the system page size using the <code>getpagesize()</code> system call and assigns it to the global variable <code>SYSTEM_PAGE_SIZE</code>.</p>
 <dl class="section note"><dt>Note</dt><dd>This function should be called before any memory management operations are performed within the program. It is typically called at the beginning of the program execution to ensure proper initialization of memory management functionalities.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This function relies on the <code>getpagesize()</code> system call to determine the system page size. Therefore, it may not be portable across all platforms. It is primarily intended for use in Unix-like systems where <code>getpagesize()</code> is available.</dd></dl>

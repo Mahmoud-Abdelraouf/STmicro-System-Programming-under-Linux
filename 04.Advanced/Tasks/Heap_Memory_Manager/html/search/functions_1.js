@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['convert_5fto_5fint_0',['convert_to_int',['../parse__datatype_8c.html#af4ecb85dd2cb74346908690aaa0f3e5d',1,'convert_to_int(const char *str):&#160;parse_datatype.c'],['../parse__datatype_8h.html#af4ecb85dd2cb74346908690aaa0f3e5d',1,'convert_to_int(const char *str):&#160;parse_datatype.c']]]
+  ['delete_5fglthread_5flist_0',['delete_glthread_list',['../glthread_8c.html#a535e3f6499dfcfd78ae9f62ee77923f5',1,'delete_glthread_list(glthread_t *base_glthread):&#160;glthread.c'],['../glthread_8h.html#a535e3f6499dfcfd78ae9f62ee77923f5',1,'delete_glthread_list(glthread_t *base_glthread):&#160;glthread.c']]]
 ];

@@ -2,14 +2,26 @@
 /******* Author    : Mahmoud Abdelraouf Mahmoud *****************/
 /******* Date      : 8 Apr 2023                 *****************/
 /******* Version   : 0.1                        *****************/
-/******* File Name : UserAPI_mm.h               *****************/
+/******* File Name : memory_manager_api.h       *****************/
 /****************************************************************/
+
+/**
+ * @file memory_manager_api.h
+ * @brief Header file for the Memory Manager API.
+ *
+ * This file contains declarations for the Memory Manager API functions.
+ * The Memory Manager API provides functions for initializing the memory
+ * manager, managing page families, allocating and freeing memory, and printing
+ * memory usage details.
+ */
+
 #ifndef UAPI_MM_H_
 #define UAPI_MM_H_
-/**-----------------< Includes section -----------------*/
+
+//-----------------< Includes section -----------------/
 #include <stdint.h>
 
-/**-----------------< Public functions interface section -----------------*/
+//-----------------< Public functions interface section -----------------/
 /**
  * @brief Initializes the memory manager.
  *
@@ -140,7 +152,8 @@ void mm_print_memory_usage(char *struct_name);
  * application memory usage.
  */
 void mm_print_block_usage();
-/**-----------------< Function-like macro section -----------------*/
+
+//-----------------< Function-like macro section -----------------/
 /**
  * @brief Registers a memory structure for page family instantiation.
  *

@@ -1,9 +1,18 @@
 /*****************************************************************/
-/******* \Author    : Mahmoud Abdelraouf Mahmoud *****************/
-/******* \Date      : 8 Apr 2023                 *****************/
-/******* \Version   : 0.1                        *****************/
-/******* \File Name : parse_datatype.h           *****************/
+/******* Author    : Mahmoud Abdelraouf Mahmoud ******************/
+/******* Date      : 8 Apr 2023                 ******************/
+/******* Version   : 0.1                        ******************/
+/******* File Name : parse_datatype.h           ******************/
 /*****************************************************************/
+
+/**
+ * @file parse_datatype.h
+ * @brief Header file for parsing data type names.
+ *
+ * This file contains declarations for functions related to parsing data type
+ * names from strings.
+ */
+
 #ifndef PARSE_DATATYPE_H_
 #define PARSE_DATATYPE_H_
 
@@ -14,7 +23,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_STRUCT_NAME_LEN 50 /**< Maximum length of the data type name */
+/**
+ * @def MAX_STRUCT_NAME_LEN
+ * @brief Maximum length of the data type name.
+ *
+ * Defines the maximum length allowed for a data type name.
+ */
+#define MAX_STRUCT_NAME_LEN 50
 
 /**
  * @brief Parses the name of a struct from a string.
@@ -52,16 +67,5 @@ char *parse_struct_name(char *struct_name, char *buffer, uint8_t *error_flag);
  * @return true if the string represents a number, false otherwise.
  */
 static bool is_number(const char *str);
-
-/**
- * @brief Converts a string representation of a number to an integer.
- *
- * This function converts the provided string representation of a number
- * to an integer. It ignores any non-digit characters and suffixes.
- *
- * @param str The string representation of the number.
- * @return The integer value of the number.
- */
-int convert_to_int(const char *str);
 
 #endif /**< PARSE_DATATYPE_H_ */
