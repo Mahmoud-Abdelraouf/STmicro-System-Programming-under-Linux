@@ -90,6 +90,18 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size);
 void *xcalloc(char *struct_name, int units);
 
 /**
+ * @brief Frees memory allocated by the memory manager.
+ *
+ * This function is used to free memory that was previously allocated by the
+ * memory manager. It takes a pointer to the memory to be freed as its argument.
+ * The pointer is adjusted to point to the block metadata, and then it is passed
+ * to the memory manager's free blocks function.
+ *
+ * @param app_data Pointer to the memory to be freed.
+ */
+void xfree(void *app_data);
+
+/**
  * @brief Prints all registered page families.
  *
  * This function prints all page families that have been registered with the
@@ -165,6 +177,17 @@ void mm_print_block_usage();
  * @return A pointer to the allocated memory, initialized to zero, or NULL if
  * allocation fails.
  */
-#define Xcalloc(units, struct_name) (xcalloc(#struct_name, units))
+#define XCALLOC(units, struct_name) (xcalloc(#struct_name, units))
+
+/**
+ * @brief Macro for freeing memory using a custom deallocation function.
+ *
+ * This macro is used for freeing memory using a custom deallocation function
+ * specified by the user. The macro takes a pointer to the memory to be freed as
+ * its argument and passes it to the custom deallocation function xfree().
+ *
+ * @param ptr Pointer to the memory to be freed.
+ */
+#define XFREE(ptr) (xfree(ptr))
 
 #endif /**< UAPI_MM_H_ */

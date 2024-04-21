@@ -104,26 +104,32 @@ void mm_instantiate_new_page_family(char *struct_name, uint32_t struct_size) {
     return;
   }
 
-  uint32_t page_count = 0;
+  // Look up the page family in the system by its name and store the result in
+  // 'vm_page_family_curr'.
+  vm_page_family_curr = lookup_page_family_by_name(struct_name);
+
+  // Trigger an assertion error if a page family with the same name already
+  // exists. This ensures that each page family has a unique name in the system.
+  if (vm_page_family_curr) {
+    assert(0); // Assertion fails if a page family with the same name already
+               // exists.
+  }
+
+  uint32_t pg_family_count = 0;
 
   // Iterate over existing page families to check if a page family with the same
   // name already exists
   ITERATE_PAGE_FAMILIES_BEGIN(first_vm_page_for_families, vm_page_family_curr) {
     if (strncmp(vm_page_family_curr->struct_name, struct_name,
                 MM_MAX_STRUCT_NAME) != 0) {
-      page_count = count;
-      continue;
+      pg_family_count++;
     }
-
-    // Trigger an assertion error if a page family with the same name already
-    // exists
-    assert(0);
   }
   ITERATE_PAGE_FAMILIES_END(first_vm_page_for_families, vm_page_family_curr);
 
   // If the existing page is full, allocate a new page and add it to the
   // beginning of the linked list
-  if (page_count == (uint32_t)MAX_FAMILIES_PER_VM_PAGE) {
+  if (pg_family_count == (uint32_t)MAX_FAMILIES_PER_VM_PAGE) {
     new_vm_page_for_families =
         (vm_page_for_families_t *)mm_get_new_vm_page_from_kernel(1);
     new_vm_page_for_families->next = first_vm_page_for_families;
@@ -306,6 +312,7 @@ mm_add_free_block_meta_data_to_free_block_list(vm_page_family_t *vm_page_family,
                            offset_of(block_meta_data_t, priority_thread_glue));
 }
 
+<<<<<<< HEAD
 static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family) {
 
   // Allocate a new virtual memory page for the page family
@@ -322,6 +329,92 @@ static vm_page_t *mm_family_new_page_add(vm_page_family_t *vm_page_family) {
 
   return vm_page;
 }
+||||||| 3481314
+=======
+static int mm_get_hard_internal_memory_frag_size(block_meta_data_t *first,
+                                                 block_meta_data_t *second) {
+  // Get the next block after the first block
+  block_meta_data_t *next_block = NEXT_META_BLOCK_BY_SIZE(first);
+
+  // Calculate the size of hard internal memory fragmentation
+  return (int)((unsigned long)second - (unsigned long)(next_block));
+}
+
+static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
+  block_meta_data_t *return_block = NULL; // Pointer to the freed block
+  assert(to_be_free_block->is_free == MM_FALSE);
+
+  // Retrieving hosting page and page family
+  vm_page_t *hosting_page = MM_GET_PAGE_FROM_META_BLOCK(to_be_free_block);
+  vm_page_family_t *vm_page_family = hosting_page->pg_family;
+
+  // Setting return_block to the block being freed
+  return_block = to_be_free_block;
+  to_be_free_block->is_free = MM_TRUE; // Marking the block as free
+
+  block_meta_data_t *next_block =
+      NEXT_META_BLOCK(to_be_free_block); // Next block pointer
+
+  // Handling Hard IF memory
+  if (next_block) {
+    // Scenario 1: When data block to be freed is not the last uppermost meta
+    // block in a VM data page
+    to_be_free_block->block_size +=
+        mm_get_hard_internal_memory_frag_size(to_be_free_block, next_block);
+  } else {
+    // Scenario 2: Page Boundary condition
+    // Block being freed is the uppermost free data block in a VM data page,
+    // checking for hard internal fragmented memory and merge
+    char *end_address_of_vm_page =
+        (char *)((char *)hosting_page + SYSTEM_PAGE_SIZE);
+    char *end_address_of_free_data_block =
+        (char *)(to_be_free_block + 1) + to_be_free_block->block_size;
+    int internal_mem_fragmentation =
+        (int)((unsigned long)end_address_of_vm_page -
+              (unsigned long)end_address_of_free_data_block);
+    to_be_free_block->block_size += internal_mem_fragmentation;
+  }
+
+  // Performing merging with next block if it's free
+  if (next_block && next_block->is_free == MM_TRUE) {
+    mm_union_free_blocks(to_be_free_block, next_block); // Union two free blocks
+    return_block = to_be_free_block;
+  }
+
+  // Checking the previous block if it was free and merging if necessary
+  block_meta_data_t *prev_block = PREV_META_BLOCK(to_be_free_block);
+  if (prev_block && prev_block->is_free) {
+    mm_union_free_blocks(prev_block, to_be_free_block);
+    return_block = prev_block;
+  }
+
+  // Checking if the hosting page becomes empty after freeing this block
+  if (mm_is_vm_page_empty(hosting_page)) {
+    mm_vm_page_delete_and_free(
+        hosting_page); // Delete and free the hosting page
+    return NULL;
+  }
+
+  // Adding the freed block metadata to the free block list
+  mm_add_free_block_meta_data_to_free_block_list(hosting_page->pg_family,
+                                                 return_block);
+
+  return return_block;
+}
+
+void xfree(void *app_data) {
+  // Adjust the pointer to point to the block metadata
+  block_meta_data_t *block_meta_data =
+      (block_meta_data_t *)((char *)app_data - sizeof(block_meta_data_t));
+
+  // Ensure that the block is not already free
+  assert(block_meta_data->is_free == MM_FALSE);
+
+  // Call the memory manager's free blocks function
+  mm_free_blocks(block_meta_data);
+}
+
+>>>>>>> 633aabe912277621adb34584612e3407afeb8128
 /**-----------------<  Memory allocation section -----------------*/
 static block_meta_data_t *
 mm_allocate_free_data_block(vm_page_family_t *vm_page_family,
@@ -469,7 +562,7 @@ void *xcalloc(char *struct_name, int units) {
 
   // If the page family is not registered, register it
   if (!pg_family && !data_type_error_flag) {
-    mm_instantiate_new_page_family(data_type, getSizeOfDataType(data_type));
+    mm_instantiate_new_page_family(data_type, get_size_of_datatype(data_type));
     pg_family = lookup_page_family_by_name(data_type);
   } else if (!pg_family) {
     printf("Error: Structure %s not registered with Memory Manager\n",

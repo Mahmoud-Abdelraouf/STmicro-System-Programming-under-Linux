@@ -1,7 +1,7 @@
 #include "datatype_size_lookup.h"
 
 // Define a lookup table for data type mappings
-DataTypeMapping_t typeMappings[] = {
+datatype_mapping_t type_mappings[] = {
     {"int", sizeof(int)},
     {"char", sizeof(char)},
     {"float", sizeof(float)},
@@ -21,11 +21,12 @@ DataTypeMapping_t typeMappings[] = {
 //       performance.
 // REFER_TO: gperf.md
 
-size_t getSizeOfDataType(const char *data_type) {
+size_t get_size_of_datatype(const char *data_type) {
   // Iterate over the mappings and find the matching data type
-  for (size_t i = 0; i < sizeof(typeMappings) / sizeof(typeMappings[0]); ++i) {
-    if (strcmp(data_type, typeMappings[i].name) == 0) {
-      return typeMappings[i].size;
+  for (size_t i = 0; i < sizeof(type_mappings) / sizeof(type_mappings[0]);
+       ++i) {
+    if (strcmp(data_type, type_mappings[i].name) == 0) {
+      return type_mappings[i].size;
     }
   }
   return 0; // Return 0 if data type is not found

@@ -10,7 +10,7 @@
 typedef struct datatype_mapping_ {
   char name[MAX_STRUCT_NAME_LEN];
   size_t size;
-} DataTypeMapping_t;
+} datatype_mapping_t;
 
 /**
  * @brief Gets the size of a data type by its name.
@@ -21,6 +21,6 @@ typedef struct datatype_mapping_ {
  * @param data_type The name of the data type to get the size of.
  * @return The size of the data type if found, otherwise 0.
  */
-size_t getSizeOfDataType(const char *data_type);
+size_t get_size_of_datatype(const char *data_type);
 
 #endif /**< DATATYPE_SIZE_LOOKUP_H_ */
