@@ -21,7 +21,7 @@ HDR = colors.h \
 OBJ = $(SRC:.c=.o)
 
 # Name of the executable
-TARGET = Linux_MM
+TARGET = exe
 
 # Command to remove files
 RM = rm -f
@@ -32,11 +32,11 @@ all: $(TARGET)
 # Rules to link object files and create the executable
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
-
+	
 # Rule to compile C source files object files
 %.o: %.c $(HDR)
 	$(CC) $(CFLAGS) -c $< -o $@
-
+	
 # Clean target
 clean:
 	$(RM) $(OBJ) $(TARGET)
