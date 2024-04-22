@@ -1,12 +1,12 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -std=c11
+cc = gcc
+CFLAGS = -Wall -Wextra 
 
-# List of source files
+#List of Source files
 SRC = datatype_size_lookup.c \
       glthread.c \
       memory_manager.c \
       memory_manager_test.c \
-      parse_datatype.c
+      parse_datatype.c \
 
 # List of header files
 HDR = colors.h \
@@ -14,26 +14,30 @@ HDR = colors.h \
       glthread.h \
       memory_manager.h \
       memory_manager_api.h \
-      parse_datatype.h
+      parse_datatype.h \
+      memory_manager_api.h
 
 # List of object files
 OBJ = $(SRC:.c=.o)
 
 # Name of the executable
-TARGET = my_project
+TARGET = Linux_MM
+
+# Command to remove files
+RM = rm -f
 
 # Default target
 all: $(TARGET)
 
-# Rule to link the object files and create the executable
+# Rules to link object files and create the executable
 $(TARGET): $(OBJ)
-      $(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
-# Rule to compile C source files into object files
+# Rule to compile C source files object files
 %.o: %.c $(HDR)
-      $(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean target
 clean:
-      $(RM) $(OBJ) $(TARGET)
-
+	$(RM) $(OBJ) $(TARGET)
+	
