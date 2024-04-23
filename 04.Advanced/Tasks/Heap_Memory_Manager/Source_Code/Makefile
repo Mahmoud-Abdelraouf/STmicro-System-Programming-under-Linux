@@ -32,12 +32,11 @@ all: $(TARGET)
 # Rules to link object files and create the executable
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
-	
+
 # Rule to compile C source files object files
 %.o: %.c $(HDR)
 	$(CC) $(CFLAGS) -c $< -o $@
-	
+
 # Clean target
 clean:
-	$(RM) $(OBJ) $(TARGET)
-	
+	$(RM) $(OBJ) $(TARGET)	
