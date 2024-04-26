@@ -1,7 +1,0 @@
-My guess to what is happening here is you have a Makefile that is mixing both spaces and tabs (at least it appears so in the video). AstroNvim uses guess-indent.nvim to calculate what the indentation used in a file that is opened to set it in a smart manner. This is probably what is messing things up. I would recommend avoiding mixing spaces and tabs for alignment in programming as this can cause a lot of confusion. You can either:
-
-    unmix the tab/spaces from your Makefile
-    remove the guess-indent.nvim plugin
-    further configure the guess-indent.nvim plugin to fit your needs (such as exclude Makefile filetype)
-    Set up an .editorconfig to manually specify that Makefiles in the project should be indented with tabs (https://editorconfig.org/)
-

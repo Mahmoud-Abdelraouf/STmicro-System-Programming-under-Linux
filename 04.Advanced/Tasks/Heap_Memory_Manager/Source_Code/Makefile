@@ -1,5 +1,7 @@
+.PHONY: clean_all clean_obj doc
+
 cc = gcc
-CFLAGS = -Wall -Wextra 
+CFLAGS = -Wall -Wextra
 
 #List of Source files
 SRC = datatype_size_lookup.c \
@@ -15,13 +17,19 @@ HDR = colors.h \
       memory_manager.h \
       memory_manager_api.h \
       parse_datatype.h \
-      memory_manager_api.h
+      memory_manager_api.h \
 
 # List of object files
 OBJ = $(SRC:.c=.o)
 
 # Name of the executable
-TARGET = exe
+TARGET = hmm
+
+# Name of the static library
+STATIC_LIB = lib$(TARGET).a
+
+# Name of the shared library
+SHARED_LIB = lib$(TARGET).so
 
 # Command to remove files
 RM = rm -f
@@ -37,6 +45,22 @@ $(TARGET): $(OBJ)
 %.o: %.c $(HDR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Static library target
+static: $(OBJ)
+	ar rcs $(STATIC_LIB) $(OBJ)
+
+# Shared library target
+shared: $(OBJ)
+	$(CC) -shared -o $(SHARED_LIB) $(OBJ)
+
 # Clean target
-clean:
+clean_all:
 	$(RM) $(OBJ) $(TARGET)	
+
+# Clean object files
+clean_obj:
+	$(RM) $(OBJ)
+
+# Generate documentation
+doc:
+	doxygen Doxyfile
