@@ -19,6 +19,7 @@ HDR = colors.h \
       parse_datatype.h \
       memory_manager_api.h \
 
+
 # List of object files
 OBJ = $(SRC:.c=.o)
 
