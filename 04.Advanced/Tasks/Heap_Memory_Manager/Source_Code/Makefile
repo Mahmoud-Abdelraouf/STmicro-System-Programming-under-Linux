@@ -4,27 +4,22 @@ cc = gcc
 CFLAGS = -Wall -Wextra
 
 #List of Source files
-SRC = datatype_size_lookup.c \
-      glthread.c \
-      memory_manager.c \
-      memory_manager_test.c \
-      parse_datatype.c \
+SRC = $(wildcard *.c)
+
+#List of Source files except the memory_manager_test
+LIB_SRC = $(filter-out memory_manager_test.c, $(wildcard *.c))
 
 # List of header files
-HDR = colors.h \
-      datatype_size_lookup.h \
-      glthread.h \
-      memory_manager.h \
-      memory_manager_api.h \
-      parse_datatype.h \
-      memory_manager_api.h \
+HDR = $(wildcard *.h) 
 
+# List of object files
+OBJ = $(SRC:.c=.o)
 
 # List of object files for shared build
-OBJ_SHARED = $(SRC:.c=_shared.o)
+OBJ_SHARED = $(LIB_SRC:.c=_shared.o)
 
 # List of object files for static build
-OBJ_STATIC = $(SRC:.c=_static.o)
+OBJ_STATIC = $(LIB_SRC:.c=_static.o)
 
 # Name of the executable
 TARGET = hmm
@@ -42,16 +37,8 @@ RM = rm -f
 all: $(TARGET)
 
 # Rules to link object files and create the executable
-$(TARGET): $(OBJ_STATIC)
+$(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
-
-# Rule to compile C source files to object files for shared build
-%_shared.o: %.c $(HDR)
-	$(CC) $(CFLAGS) -fPIC -c $< -o $@
-
-# Rule to compile C source files to object files for static build
-%_static.o: %.c $(HDR)
-	$(CC) $(CFLAGS) -c $< -o $@
 
 # Static library target
 static: $(OBJ_STATIC)
@@ -61,9 +48,21 @@ static: $(OBJ_STATIC)
 shared: $(OBJ_SHARED)
 	$(CC) -shared -o $(SHARED_LIB) $(OBJ_SHARED)
 
+# Rule to compile C source files into object files
+%.o: %.c $(HDR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Rule to compile C source files to object files for shared build
+%_shared.o: %.c $(HDR)
+	$(CC) $(CFLAGS) -fPIC -c $< -o $@
+
+# Rule to compile C source files to object files for static build
+%_static.o: %.c $(HDR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 # Clean target
 clean_all:
-	$(RM) $(TARGET)	$(OBJ_STATIC) $(OBJ_SHARED) $(STATIC_LIB) $(SHARED_LIB)
+	$(RM) $(TARGET)	$(OBJ) $(OBJ_STATIC) $(OBJ_SHARED) $(STATIC_LIB) $(SHARED_LIB)
 
 # Clean object files
 clean_obj:
