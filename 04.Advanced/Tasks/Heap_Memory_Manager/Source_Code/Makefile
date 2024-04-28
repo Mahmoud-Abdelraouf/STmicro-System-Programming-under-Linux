@@ -6,11 +6,11 @@ CFLAGS = -Wall -Wextra
 #List of Source files
 SRC = $(wildcard *.c)
 
-#List of Source files except the memory_manager_test
-LIB_SRC = $(filter-out memory_manager_test.c, $(wildcard *.c))
-
 # List of header files
 HDR = $(wildcard *.h) 
+
+#List of Source files except the memory_manager_test
+LIB_SRC = $(filter-out memory_manager_test.c, $(wildcard *.c))
 
 # List of object files
 OBJ = $(SRC:.c=.o)
