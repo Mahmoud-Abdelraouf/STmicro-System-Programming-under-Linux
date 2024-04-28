@@ -23,6 +23,9 @@ This project provides a comprehensive memory management solution for Linux syste
 ## Documentation
 - Detailed documentation and API references are available in the project website: [Linux Memory Manager Documentation](https://mahmoud-abdelraouf.github.io/STM_System-Programming-under-Linux/)
 
+## EditorConfig:
+   - The project includes an `.editorconfig` file to ensure consistent coding styles and formatting across different editors and IDEs.
+  
 ## Contributing
 - Contributions are welcome! Fork the repository, make your changes, and submit a pull request.
 - Report any issues or suggestions by opening an issue on GitHub.
