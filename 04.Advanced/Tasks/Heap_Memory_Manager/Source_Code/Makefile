@@ -39,14 +39,17 @@ all: $(TARGET)
 # Rules to link object files and create the executable
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
+	$(RM) $(OBJ)
 
 # Static library target
 static: $(OBJ_STATIC)
 	ar rcs $(STATIC_LIB) $(OBJ_STATIC)
+	$(RM) $(OBJ_STATIC)
 
 # Shared library target
 shared: $(OBJ_SHARED)
 	$(CC) -shared -o $(SHARED_LIB) $(OBJ_SHARED)
+	$(RM) $(OBJ_SHARED)
 
 # Rule to compile C source files into object files
 %.o: %.c $(HDR)
