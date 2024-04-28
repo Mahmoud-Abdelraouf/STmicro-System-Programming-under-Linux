@@ -31,6 +31,7 @@
  */
 #define MAX_STRUCT_NAME_LEN 50
 
+//-----------------< Public functions interfacce -----------------/
 /**
  * @brief Parses the name of a struct from a string.
  *
@@ -55,17 +56,5 @@
  * returns "int". If an error occurs, returns NULL.
  */
 char *parse_struct_name(char *struct_name, char *buffer, uint8_t *error_flag);
-
-/**
- * @brief Checks if a string represents a number.
- *
- * This function checks if the provided string represents a number.
- * It allows for digits (0-9) and an optional decimal point.
- * It ignores leading and trailing whitespace.
- *
- * @param str The string to check.
- * @return true if the string represents a number, false otherwise.
- */
-static bool is_number(const char *str);
 
 #endif /**< PARSE_DATATYPE_H_ */

@@ -20,8 +20,11 @@ HDR = colors.h \
       memory_manager_api.h \
 
 
-# List of object files
-OBJ = $(SRC:.c=.o)
+# List of object files for shared build
+OBJ_SHARED = $(SRC:.c=_shared.o)
+
+# List of object files for static build
+OBJ_STATIC = $(SRC:.c=_static.o)
 
 # Name of the executable
 TARGET = hmm
@@ -39,28 +42,32 @@ RM = rm -f
 all: $(TARGET)
 
 # Rules to link object files and create the executable
-$(TARGET): $(OBJ)
+$(TARGET): $(OBJ_STATIC)
 	$(CC) $(CFLAGS) -o $@ $^
 
-# Rule to compile C source files object files
-%.o: %.c $(HDR)
+# Rule to compile C source files to object files for shared build
+%_shared.o: %.c $(HDR)
+	$(CC) $(CFLAGS) -fPIC -c $< -o $@
+
+# Rule to compile C source files to object files for static build
+%_static.o: %.c $(HDR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Static library target
-static: $(OBJ)
-	ar rcs $(STATIC_LIB) $(OBJ)
+static: $(OBJ_STATIC)
+	ar rcs $(STATIC_LIB) $(OBJ_STATIC)
 
 # Shared library target
-shared: $(OBJ)
-	$(CC) -shared -o $(SHARED_LIB) $(OBJ)
+shared: $(OBJ_SHARED)
+	$(CC) -shared -o $(SHARED_LIB) $(OBJ_SHARED)
 
 # Clean target
 clean_all:
-	$(RM) $(OBJ) $(TARGET)	
+	$(RM) $(TARGET)	$(OBJ_STATIC) $(OBJ_SHARED) $(STATIC_LIB) $(SHARED_LIB)
 
 # Clean object files
 clean_obj:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ_SHARED) $(OBJ_STATIC)
 
 # Generate documentation
 doc:

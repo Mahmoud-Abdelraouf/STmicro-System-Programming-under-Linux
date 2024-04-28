@@ -60,7 +60,7 @@ typedef struct student_ {
  * @return An integer indicating the exit status of the program.
  */
 
-int main(int argc, char **argv) {
+int main(void) {
 
   int wait;
   mm_init();

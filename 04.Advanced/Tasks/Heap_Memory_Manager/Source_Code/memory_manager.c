@@ -353,7 +353,6 @@ static block_meta_data_t *mm_free_blocks(block_meta_data_t *to_be_free_block) {
 
   // Retrieving hosting page and page family
   vm_page_t *hosting_page = MM_GET_PAGE_FROM_META_BLOCK(to_be_free_block);
-  vm_page_family_t *vm_page_family = hosting_page->pg_family;
 
   // Setting return_block to the block being freed
   return_block = to_be_free_block;
@@ -713,7 +712,6 @@ void mm_print_vm_page_details(vm_page_t *vm_page) {
 }
 
 void mm_print_memory_usage(char *struct_name) {
-  uint32_t i = 0;
   vm_page_t *vm_page = NULL;
   vm_page_family_t *vm_page_family_curr;
   uint32_t number_of_struct_families = 0;
@@ -739,7 +737,6 @@ void mm_print_memory_usage(char *struct_name) {
     printf(ANSI_COLOR_GREEN
            "vm_page_family : %s, struct size = %u\n" ANSI_COLOR_RESET,
            vm_page_family_curr->struct_name, vm_page_family_curr->struct_size);
-    i = 0;
 
     // Iterate over each virtual memory page within the family
     ITERATE_VM_PAGE_BEGIN(vm_page_family_curr, vm_page) {

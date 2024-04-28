@@ -16,6 +16,20 @@
 
 #include "parse_datatype.h"
 
+//-----------------< Private functions declaration -----------------/
+/**
+ * @brief Checks if a string represents a number.
+ *
+ * This function checks if the provided string represents a number.
+ * It allows for digits (0-9) and an optional decimal point.
+ * It ignores leading and trailing whitespace.
+ *
+ * @param str The string to check.
+ * @return true if the string represents a number, false otherwise.
+ */
+static bool is_number(const char *str);
+
+//-----------------< Functions implementation/Definition -----------------/
 char *parse_struct_name(char *struct_name, char *buffer, uint8_t *error_flag) {
   // Extract data type from struct_name
   if (sscanf(struct_name, "sizeof(%49[^)])", buffer) != 1) {
