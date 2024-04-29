@@ -1,0 +1,18 @@
+set logging file gdb.out
+set logging redirect on
+set logging overwrite on
+set logging enabled on
+
+set $x = head
+
+while ($x != 0)
+    p/x $x
+    p/x *(node *)$x
+    if ((((node *)$x)->next != 0) && (((node *)$x)->next != (char *)$x + ((node *)$x)->size + sizeof(node)) )
+       p "Error in the following node"
+       p/x $x
+    end
+    set $x = ((node *)$x)->next
+end
+
+set logging enabled off
