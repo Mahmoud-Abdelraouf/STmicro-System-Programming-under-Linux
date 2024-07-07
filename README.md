@@ -8,16 +8,16 @@ During my training with STMicroelectronics, I underwent an extensive learning jo
 
 1. [Overview](#overview)
 2. [Training Content](#training-content)
-   - [Part 1: Basic Internship](#part-1-basic-internship)
+   - [Part 1: Introductory Training](#part-1-introductory-training)
      - [Linux History](#linux-history)
      - [Command Line Usage and Build Process](#command-line-usage-and-build-process)
      - [Process Management](#process-management)
      - [User Management](#user-management)
      - [Filesystem Management](#filesystem-management)
-   - [Part 2: Advanced Training](#part-2-advanced-training)
+   - [Part 2: Intermediate Training](#part-2-intermediate-training)
      - [The Linux Programming Interface](#the-linux-programming-interface)
      - [Project: Linux Memory Manager](#project-linux-memory-manager)
-   - [Part 3: Current Training](#part-3-current-training)
+   - [Part 3: Advanced Training](#part-3-advanced-training)
      - [Introduction to Assembly Language](#introduction-to-assembly-language)
      - [Tutorial on POSIX Threads](#tutorial-on-posix-threads)
      - [Signals as a Means of Interprocess Communications](#signals-as-a-means-of-interprocess-communications)
@@ -33,7 +33,7 @@ During my training with STMicroelectronics, I underwent an extensive learning jo
 
 ## Training Content
 
-### Part 1: Basic Internship
+### Part 1: Introductory Training
 
 #### Linux History
 
@@ -75,7 +75,7 @@ We covered user management concepts, including user account administration, perm
 
 - **Implementing “ls”:** Developing a simplified version of the `ls` command to list directory contents.
 
-### Part 2: Advanced Training
+### Part 2: Intermediate Training
 
 #### The Linux Programming Interface
 
@@ -89,7 +89,7 @@ As a practical application of the concepts learned, we developed a project focus
 - **Memory Mapping:** Understanding and utilizing memory mapping techniques.
 - **Virtual Memory Management:** Exploring virtual memory concepts and implementing a basic virtual memory manager.
 
-### Part 3: Current Training
+### Part 3: Advanced Training
 
 #### Introduction to Assembly Language
 
