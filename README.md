@@ -172,7 +172,7 @@ As a practical application of the concepts learned, we developed a project focus
 
 **Instructor:** Reda Maher
 
-**LinkedIn:** [Instructor's LinkedIn Profile URL](https://www.linkedin.com/in/redamaher/)
+**LinkedIn:** [Instructor's LinkedIn Profile URL](https://www.linkedin.com/in/reda-maher/)
 
 ---
 
