@@ -1,4 +1,4 @@
-# Comprehensive Readme for Linux Systems Programming Course - Session 01
+# Session 01: Intro to Containers in Linux - System Programming under Linux
 
 ## Table of Contents
 
