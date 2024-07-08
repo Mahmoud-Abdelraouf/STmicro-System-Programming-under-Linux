@@ -1,5 +1,9 @@
 # Linux Namespaces
 
+## Overview
+
+Linux namespaces provide a way to create isolation for various system resources. This README covers the eight types of namespaces in Linux, how to create them using different syscalls, and how to add namespaces to a container.
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -25,10 +29,6 @@
 7. [References](#references)
 
 ---
-
-## Overview
-
-Linux namespaces provide a way to create isolation for various system resources. This README covers the eight types of namespaces in Linux, how to create them using different syscalls, and how to add namespaces to a container.
 
 ## Types of Namespaces
 
