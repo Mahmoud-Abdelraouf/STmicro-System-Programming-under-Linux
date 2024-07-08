@@ -1,4 +1,4 @@
-# Session 03: Working with Podman and Docker - System Programming under Linux
+# Session 02: Working with Podman and Docker - System Programming under Linux
 
 ## Overview
 
