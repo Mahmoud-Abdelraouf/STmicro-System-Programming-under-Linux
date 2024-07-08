@@ -1,4 +1,4 @@
-# Comprehensive Readme for Linux Systems Programming Course - Session 02
+# Session 03: Working with Podman and Docker - System Programming under Linux
 
 ## Overview
 
