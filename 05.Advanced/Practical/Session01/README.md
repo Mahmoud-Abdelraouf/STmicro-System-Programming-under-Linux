@@ -1,7 +1,5 @@
 # Comprehensive Readme for Linux Systems Programming Course - Session 01
 
----
-
 ## Table of Contents
 
 1. [Introduction](#introduction)
