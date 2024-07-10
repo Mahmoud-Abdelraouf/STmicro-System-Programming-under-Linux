@@ -4,6 +4,8 @@
 
 This README provides a structured guide to setting up and working with Yocto, a powerful build system for creating custom Linux distributions for embedded devices. It includes steps for installing necessary prerequisites, downloading recipes, building images, and adding additional layers.
 
+For more detailed documentation, refer to the [Yocto Project Documentation](https://docs.yoctoproject.org/index.html).
+
 ## Table of Contents
 
 1. [Install Prerequisites](#install-prerequisites)
@@ -107,4 +109,4 @@ The first three layers are added by default by Poky.
 
 ---
 
-By following these steps, you will be able to set up and work with Yocto to create custom Linux distributions tailored to your needs. This guide covers the essentials of installing prerequisites, downloading and setting up Yocto, building images, and adding additional layers to enhance functionality.
+By following these steps, you will be able to set up and work with Yocto to create custom Linux distributions tailored to your needs. This guide covers the essentials of installing prerequisites, downloading and setting up Yocto, building images, and adding additional layers to enhance functionality. For more detailed information, visit the [Yocto Project Documentation](https://docs.yoctoproject.org/index.html).
