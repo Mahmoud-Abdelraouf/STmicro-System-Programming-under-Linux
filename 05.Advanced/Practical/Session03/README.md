@@ -109,4 +109,4 @@ The first three layers are added by default by Poky.
 
 ---
 
-By following these steps, you will be able to set up and work with Yocto to create custom Linux distributions tailored to your needs. This guide covers the essentials of installing prerequisites, downloading and setting up Yocto, building images, and adding additional layers to enhance functionality. For more detailed information, visit the [Yocto Project Documentation](https://docs.yoctoproject.org/index.html).
+By following these steps, you will be able to set up and work with Yocto to create custom Linux distributions tailored to your needs. This guide covers the essentials of installing prerequisites, downloading and setting up Yocto, building images, and adding additional layers to enhance functionality.
