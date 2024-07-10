@@ -15,7 +15,7 @@ This README provides a structured guide to setting up and working with Yocto, a 
 
 ## Install Prerequisites
 
-Before setting up Yocto, ensure you have the required packages installed on your system. Follow the instructions provided in the [Yocto Project Quick Start Guide](https://docs.yoctoproject.org/).
+Before setting up Yocto, ensure you have the required packages installed on your system. Follow the instructions provided in the [Yocto Project Quick Start Guide](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html).
 
 Run the following command to install the prerequisites:
 
