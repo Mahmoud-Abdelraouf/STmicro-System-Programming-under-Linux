@@ -57,7 +57,7 @@ sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
 
    ```sh
    MACHINE ??= "qemuarm64"
-   DL_DIR ?= "/work/hazem/yocto2024/alexandria/downloads"
+   DL_DIR ?= "/home/mahmoud/yocto2024/alexandria/downloads"
    ```
 
 2. **Build the Image**
