@@ -98,10 +98,10 @@ You can add more layers to enhance your Yocto build. While this is not necessary
 
    ```sh
    BBLAYERS ?= " \
-     /work/hazem/yocto2024/alexandria/poky/meta \
-     /work/hazem/yocto2024/alexandria/poky/meta-poky \
-     /work/hazem/yocto2024/alexandria/poky/meta-yocto-bsp \
-     /work/hazem/yocto2024/alexandria/poky/meta-odroid \
+     /home/mahmoud/yocto2024/kirkstone/poky/meta \
+     /home/mahmoud/yocto2024/kirkstone/poky/meta-poky \
+     /home/mahmoud/yocto2024/kirkstone/poky/meta-yocto-bsp \
+     /home/mahmoud/yocto2024/kirkstone/poky/meta-odroid \
    "
    ```
 
