@@ -4,6 +4,8 @@
 
 This README provides a structured guide to setting up and working with Yocto, a powerful build system for creating custom Linux distributions for embedded devices. It includes steps for installing necessary prerequisites, downloading recipes, building images, and adding additional layers.
 
+For more detailed documentation, refer to the [Yocto Project Documentation](https://docs.yoctoproject.org/index.html).
+
 ## Table of Contents
 
 1. [Install Prerequisites](#install-prerequisites)
@@ -15,13 +17,13 @@ This README provides a structured guide to setting up and working with Yocto, a 
 
 ## Install Prerequisites
 
-Before setting up Yocto, ensure you have the required packages installed on your system. Follow the instructions provided in the [Yocto Project Quick Start Guide](https://docs.yoctoproject.org/2.0/yocto-project-qs/yocto-project-qs.html).
+Before setting up Yocto, ensure you have the required packages installed on your system. Follow the instructions provided in the [Yocto Project Quick Start Guide](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html).
 
 Run the following command to install the prerequisites:
 
 ```sh
 sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
-    build-essential chrpath socat libsdl1.2-dev xterm
+    build-essential chrpath socat libsdl1.2-dev xterm lz4
 ```
 
 ---
@@ -55,7 +57,7 @@ sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
 
    ```sh
    MACHINE ??= "qemuarm64"
-   DL_DIR ?= "/work/hazem/yocto2024/alexandria/downloads"
+   DL_DIR ?= "/home/mahmoud/yocto2024/alexandria/downloads"
    ```
 
 2. **Build the Image**
@@ -96,10 +98,10 @@ You can add more layers to enhance your Yocto build. While this is not necessary
 
    ```sh
    BBLAYERS ?= " \
-     /work/hazem/yocto2024/alexandria/poky/meta \
-     /work/hazem/yocto2024/alexandria/poky/meta-poky \
-     /work/hazem/yocto2024/alexandria/poky/meta-yocto-bsp \
-     /work/hazem/yocto2024/alexandria/poky/meta-odroid \
+     /home/mahmoud/yocto2024/kirkstone/poky/meta \
+     /home/mahmoud/yocto2024/kirkstone/poky/meta-poky \
+     /home/mahmoud/yocto2024/kirkstone/poky/meta-yocto-bsp \
+     /home/mahmoud/yocto2024/kirkstone/poky/meta-odroid \
    "
    ```
 
