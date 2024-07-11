@@ -135,7 +135,7 @@ The first three layers are added by default by Poky.
 
    ```sh
    cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ../qemux84-demo
-   cp tmp/deploy/images/qemux86-64/bz-imagez-qemux86-64.bin ../qemux84-demo # You may need to check the spelling of the file
+   cp tmp/deploy/images/qemux86-64/bz-imagez-qemux86-64.bin ../qemux84-demo 
    ```
 
 5. **Run Your Saved Image**
