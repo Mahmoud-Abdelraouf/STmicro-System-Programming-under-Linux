@@ -126,7 +126,7 @@ The first three layers are added by default by Poky.
 3. **Run the Image**
 
    ```sh
-   runqemu core-minimal-qemux86-64 nographics
+   runqemu core-minimal-qemux86-64 nographic
    ```
 
 4. **Save the Image File System and Your Information**
@@ -165,7 +165,7 @@ This will launch the QEMU emulator with a graphical interface where you can inte
 In some cases, such as when you are working on a server without a graphical interface or when you want to run QEMU in the background, you can use the `nographics` option:
 
 ```sh
-runqemu core-image-minimal-qemux86-64 nographics
+runqemu core-image-minimal-qemux86-64 nographic
 ```
 
 This will run QEMU without opening a graphical window. You can interact with the virtual machine through the terminal.
