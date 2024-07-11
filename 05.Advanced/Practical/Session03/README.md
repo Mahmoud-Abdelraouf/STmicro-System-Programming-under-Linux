@@ -1,3 +1,5 @@
+Here's the updated README file with your additional instructions:
+
 # Session 03: Working with Yocto - System Programming under Linux
 
 ## Overview
@@ -12,6 +14,7 @@ For more detailed documentation, refer to the [Yocto Project Documentation](http
 2. [Downloading and Setting Up Yocto](#downloading-and-setting-up-yocto)
 3. [Building an Image](#building-an-image)
 4. [Adding More Layers](#adding-more-layers)
+5. [Post-Build Steps](#post-build-steps)
 
 ---
 
@@ -106,6 +109,41 @@ You can add more layers to enhance your Yocto build. While this is not necessary
    ```
 
 The first three layers are added by default by Poky.
+
+---
+
+## Post-Build Steps
+
+1. **Build Finished**
+
+   After the build is finished, you will find the image in `tmp/deploy/images/`.
+
+2. **Navigate to the Image Directory**
+
+   ```sh
+   cd tmp/deploy/images/qemux86-64
+   ```
+
+3. **Run the Image**
+
+   ```sh
+   runqemu core-minimal-qemux86-64 nographics
+   ```
+
+4. **Save the Image File System and Your Information**
+
+   Copy the `.ext4` and `.bin` files to a new directory to save your image file system and information:
+
+   ```sh
+   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ../qemux84-demo
+   cp tmp/deploy/images/qemux86-64/bz-imagez-qemux86-64.bin ../qemux84-demo 
+   ```
+
+5. **Run Your Saved Image**
+
+   ```sh
+   runqemu new.ext4 new.bin nographics
+   ```
 
 ---
 
