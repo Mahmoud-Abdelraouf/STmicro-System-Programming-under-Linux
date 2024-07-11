@@ -261,4 +261,6 @@ systemd-nspawn --directory=./<root_directory> --boot
 - Ensure that you have appropriate permissions and the necessary packages installed before running these commands.
 - Always verify the URLs and package names according to your distribution's repository.
 
+---
+
 By following this guide, you can create and manage various Linux container environments for different architectures, ensuring a robust and versatile development setup.
