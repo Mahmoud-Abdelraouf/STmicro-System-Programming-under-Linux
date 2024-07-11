@@ -1,195 +1,264 @@
-# Session 03: Working with Yocto - System Programming under Linux
-
-## Overview
-
-This README provides a structured guide to setting up and working with Yocto, a powerful build system for creating custom Linux distributions for embedded devices. It includes steps for installing necessary prerequisites, downloading recipes, building images, and adding additional layers.
-
-For more detailed documentation, refer to the [Yocto Project Documentation](https://docs.yoctoproject.org/index.html).
+# Session 01: Intro to Containers in Linux - System Programming under Linux
 
 ## Table of Contents
 
-1. [Install Prerequisites](#install-prerequisites)
-2. [Downloading and Setting Up Yocto](#downloading-and-setting-up-yocto)
-3. [Building an Image](#building-an-image)
-4. [Adding More Layers](#adding-more-layers)
-5. [Post-Build Steps](#post-build-steps)
-6. [QEMU Monitor and Running QEMU](#qemu-monitor-and-running-qemu)
+1. [Introduction](#introduction)
+2. [Prerequisites](#prerequisites)
+3. [Creating Root Filesystems](#creating-root-filesystems)
+   - [Step-by-Step Instructions](#step-by-step-instructions)
+     - [Install Debootstrap and Systemd-Nspawn](#1-install-debootstrap-and-systemd-nspawn)
+     - [Create Root Filesystems](#2-create-root-filesystems)
+   - [Ubuntu Jammy](#ubuntu-jammy)
+   - [Debian Bookworm](#debian-bookworm)
+     - [AMD64 Architecture](#amd64-architecture)
+     - [ARM64 Architecture](#arm64-architecture)
+     - [ARMEL Architecture](#armel-architecture)
+     - [ARMHF Architecture](#armhf-architecture)
+     - [I386 Architecture](#i386-architecture)
+4. [Setting Up and Managing Containers](#setting-up-and-managing-containers)
+   - [Set Root Password](#set-root-password)
+   - [Booting Containers](#booting-containers)
+5. [Notes](#notes)
 
 ---
 
-## Install Prerequisites
+## Introduction
 
-Before setting up Yocto, ensure you have the required packages installed on your system. Follow the instructions provided in the [Yocto Project Quick Start Guide](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html).
+This README provides a structured guide to setting up and managing Linux containers using debootstrap and systemd-nspawn. It includes detailed instructions for installing necessary packages, downloading and creating root filesystems for various architectures, setting root passwords, and booting into these environments.
 
-Run the following command to install the prerequisites:
+---
+
+## Prerequisites
+
+Ensure you have the following packages installed:
 
 ```sh
-sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
-    build-essential chrpath socat libsdl1.2-dev xterm lz4
+sudo apt install debootstrap
+sudo apt install systemd-container
+sudo apt install qemu-user-static  # Needed for non-Intel containers
 ```
 
 ---
 
-## Downloading and Setting Up Yocto
+## Creating Root Filesystems
 
-1. **Clone the Poky Repository**
+### Step-by-Step Instructions
 
-   Download the Yocto recipes by cloning the Poky repository. Make sure to use the appropriate branch (e.g., scarthgap):
+#### 1. Install Debootstrap and Systemd-Nspawn
 
-   ```sh
-   git clone -b scarthgap git://git.yoctoproject.org/poky
-   ```
-
-2. **Set Up the Build Environment**
-
-   Navigate to the poky directory and set up the build environment:
-
-   ```sh
-   cd poky
-   source oe-init-build-env ../build-qemuarm64
-   ```
-
----
-
-## Building an Image
-
-1. **Configure Local Settings**
-
-   Inside the build directory, update the machine and download directories in `conf/local.conf`:
-
-   ```sh
-   MACHINE ??= "qemuarm64"
-   DL_DIR ?= "/home/mahmoud/yocto2024/alexandria/downloads"
-   ```
-
-2. **Build the Image**
-
-   In the build directory, issue the following command to build a minimal core image:
-
-   ```sh
-   bitbake core-image-minimal
-   ```
-
----
-
-## Adding More Layers
-
-You can add more layers to enhance your Yocto build. While this is not necessary, it is recommended.
-
-1. **Clone Additional Layers**
-
-   For example, to add the `meta-odroid` layer, clone the repository:
-
-   ```sh
-   cd poky
-   git clone https://github.com/akuster/meta-odroid
-   ```
-
-2. **Check Out the Correct Branch**
-
-   Ensure that the layer is on the same release branch as Yocto (Poky). For instance, if Poky is on the `scarthgap` branch:
-
-   ```sh
-   cd meta-odroid
-   git checkout scarthgap
-   ```
-
-3. **Update `bblayers.conf`**
-
-   Update `conf/bblayers.conf` to include the new layer:
-
-   ```sh
-   BBLAYERS ?= " \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta-poky \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta-yocto-bsp \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta-odroid \
-   "
-   ```
-
-The first three layers are added by default by Poky.
-
----
-
-## Post-Build Steps
-
-1. **Build Finished**
-
-   After the build is finished, you will find the image in `tmp/deploy/images/`.
-
-2. **Navigate to the Image Directory**
-
-   ```sh
-   cd tmp/deploy/images/qemux86-64
-   ```
-
-3. **Run the Image**
-
-   ```sh
-   runqemu core-minimal-qemux86-64 nographic
-   ```
-
-4. **Save the Image File System and Your Information**
-
-   Copy the `.ext4` and `.bin` files to a new directory to save your image file system and information:
-
-   ```sh
-   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ../qemux84-demo
-   cp tmp/deploy/images/qemux86-64/bz-imagez-qemux86-64.bin ../qemux84-demo 
-   ```
-
-5. **Run Your Saved Image**
-
-   ```sh
-   runqemu new.ext4 new.bin nographics
-   ```
-
----
-
-## QEMU Monitor and Running QEMU
-
-QEMU Monitor is a command-line interface that allows you to control and interact with QEMU while it is running. It provides various commands to manage the virtual machine.
-
-### Running QEMU Normally
-
-To run QEMU with a graphical interface (default mode), you can use the following command:
+Ensure that `debootstrap` and `systemd-container` are installed on your system:
 
 ```sh
-runqemu core-image-minimal-qemux86-64
+sudo apt install debootstrap
+sudo apt install systemd-container
+sudo apt install qemu-user-static  # Needed for non-Intel containers
 ```
 
-This will launch the QEMU emulator with a graphical interface where you can interact with your running image.
+#### 2. Create Root Filesystems
 
-### Running QEMU in `nographics` Mode
+You need to specify the Debian release and the target directory for the root filesystem. Here are the steps for different architectures.
 
-In some cases, such as when you are working on a server without a graphical interface or when you want to run QEMU in the background, you can use the `nographics` option:
+---
+
+### Ubuntu Jammy
+
+#### Create Root Filesystem
 
 ```sh
-runqemu core-image-minimal-qemux86-64 nographic
+debootstrap jammy ./jammy
 ```
 
-This will run QEMU without opening a graphical window. You can interact with the virtual machine through the terminal.
+This command downloads the Ubuntu Jammy release and installs it into the `./jammy` directory.
 
-### Using QEMU Monitor
-
-When running QEMU, you can access the QEMU Monitor by pressing `Ctrl + Alt + 2`. This will switch the terminal to the QEMU Monitor interface. To switch back to the guest console, press `Ctrl + Alt + 1`.
-
-In the QEMU Monitor, you can use various commands to control the VM, such as:
-
-- `info`: Display information about the VM.
-- `stop`: Stop the VM.
-- `cont`: Continue running the VM.
-- `quit`: Quit QEMU.
-
-Example commands:
+#### Set Root Password
 
 ```sh
-info status
-stop
-cont
-quit
+systemd-nspawn --directory=./jammy passwd
+```
+
+#### Boot the Container
+
+```sh
+systemd-nspawn --directory=./jammy --boot
 ```
 
 ---
 
-By following these steps, you will be able to set up and work with Yocto to create custom Linux distributions tailored to your needs. This guide covers the essentials of installing prerequisites, downloading and setting up Yocto, building images, adding additional layers, and using QEMU Monitor for managing your virtual machines.
+### Debian Bookworm
+
+#### AMD64 Architecture
+
+##### Create Root Filesystem
+
+```sh
+debootstrap --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch amd64 bookworm ./amd64root http://ftp.debian.org/debian/
+```
+
+##### Create a Tarball
+
+To reuse this root filesystem, you can create a tarball:
+
+```sh
+debootstrap --make-tarball=./amd64gcc.tar --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch amd64 bookworm ./amd64root http://ftp.debian.org/debian/
+```
+
+##### Unpack from Tarball
+
+If you have an existing tarball, you can unpack it:
+
+```sh
+debootstrap --unpack-tarball=/root/amd64gcc.tar --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch amd64 bookworm ./amd64root http://ftp.debian.org/debian/
+```
+
+##### Set Root Password and Boot
+
+```sh
+systemd-nspawn --directory=./amd64root passwd
+systemd-nspawn --directory=./amd64root --boot
+```
+
+---
+
+### ARM64 Architecture
+
+#### Create Root Filesystem
+
+```sh
+debootstrap --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch arm64 bookworm ./arm64root http://ftp.debian.org/debian/
+```
+
+#### Create a Tarball
+
+```sh
+debootstrap --make-tarball=./arm64gcc.tar --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch arm64 bookworm ./arm64root http://ftp.debian.org/debian/
+```
+
+#### Unpack from Tarball
+
+```sh
+debootstrap --unpack-tarball=/root/arm64gcc.tar --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch arm64 bookworm ./arm64root http://ftp.debian.org/debian/
+```
+
+#### Set Root Password and Boot
+
+```sh
+systemd-nspawn --directory=./arm64root passwd
+systemd-nspawn --directory=./arm64root --boot
+```
+
+---
+
+### ARMEL Architecture
+
+#### Create Root Filesystem
+
+```sh
+debootstrap --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch armel bookworm ./armelroot http://ftp.debian.org/debian/
+```
+
+#### Create a Tarball
+
+```sh
+debootstrap --make-tarball=./armelgcc.tar --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch armel bookworm ./armelroot http://ftp.debian.org/debian/
+```
+
+#### Unpack from Tarball
+
+```sh
+debootstrap --unpack-tarball=/root/armelgcc.tar --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch armel bookworm ./armelroot http://ftp.debian.org/debian/
+```
+
+#### Set Root Password and Boot
+
+```sh
+systemd-nspawn --directory=./armelroot passwd
+systemd-nspawn --directory=./armelroot --boot
+```
+
+---
+
+### ARMHF Architecture
+
+#### Create Root Filesystem
+
+```sh
+debootstrap --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch armhf bookworm ./armhfroot http://ftp.debian.org/debian/
+```
+
+#### Create a Tarball
+
+```sh
+debootstrap --make-tarball=./armhfgcc.tar --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch armhf bookworm ./armhfroot http://ftp.debian.org/debian/
+```
+
+#### Unpack from Tarball
+
+```sh
+debootstrap --unpack-tarball=/root/armhfgcc.tar --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch armhf bookworm ./armhfroot http://ftp.debian.org/debian/
+```
+
+#### Set Root Password and Boot
+
+```sh
+systemd-nspawn --directory=./armhfroot passwd
+systemd-nspawn --directory=./armhfroot --boot
+```
+
+---
+
+### I386 Architecture
+
+#### Create Root Filesystem
+
+```sh
+debootstrap --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch i386 bookworm ./i386root http://ftp.debian.org/debian/
+```
+
+#### Create a Tarball
+
+```sh
+debootstrap --make-tarball=./i386gcc.tar --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch i386 bookworm ./i386root http://ftp.debian.org/debian/
+```
+
+#### Unpack from Tarball
+
+```sh
+debootstrap --unpack-tarball=/root/i386gcc.tar --include=systemd-sysv,net-tools,iproute2,vlan,iputils-ping,ssh,gcc,binutils,build-essential --arch i386 bookworm ./i386root http://ftp.debian.org/debian/
+```
+
+#### Set Root Password and Boot
+
+```sh
+systemd-nspawn --directory=./i386root passwd
+systemd-nspawn --directory=./i386root --boot
+```
+
+---
+
+## Setting Up and Managing Containers
+
+### Set Root Password
+
+To set the root password for a container:
+
+```sh
+systemd-nspawn --directory=./<root_directory> passwd
+```
+
+### Booting Containers
+
+To boot a container:
+
+```sh
+systemd-nspawn --directory=./<root_directory> --boot
+```
+
+---
+
+## Notes
+
+- Replace `<root_directory>` with the appropriate directory for your container.
+- Ensure that you have appropriate permissions and the necessary packages installed before running these commands.
+- Always verify the URLs and package names according to your distribution's repository.
+
+By following this guide, you can create and manage various Linux container environments for different architectures, ensuring a robust and versatile development setup.
