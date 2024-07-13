@@ -1,7 +1,5 @@
 # Setting Up and Running a CentOS Container on Ubuntu using Rinse and Systemd-nspawn
 
-### Setting Up and Running a CentOS Container on Ubuntu using Rinse and Systemd-nspawn
-
 ## Overview
 
 This guide provides step-by-step instructions to download CentOS and run it within a container using `rinse` and `systemd-nspawn` on an Ubuntu system.
