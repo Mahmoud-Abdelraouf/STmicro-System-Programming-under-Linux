@@ -1,5 +1,7 @@
 # Setting Up and Running a CentOS Container on Ubuntu using Rinse and Systemd-nspawn
 
+### Setting Up and Running a CentOS Container on Ubuntu using Rinse and Systemd-nspawn
+
 ## Overview
 
 This guide provides step-by-step instructions to download CentOS and run it within a container using `rinse` and `systemd-nspawn` on an Ubuntu system.
@@ -37,10 +39,34 @@ Use `rinse` to create a CentOS root filesystem.
    sudo mkdir -p /var/lib/machines/centos7
    ```
 
-2. **Use rinse to install CentOS into this directory:**
+2. **Update the Rinse Configuration**
+
+   Edit the `/etc/rinse/rinse.conf` file to ensure it has the correct CentOS 7 entries:
+
+   ```sh
+   sudo nano /etc/rinse/rinse.conf
+   ```
+
+   Ensure it contains:
+
+   ```conf
+   [centos-7]
+   mirror=http://vault.centos.org/7.9.2009/os/x86_64/Packages/
+   baseurl=http://vault.centos.org/7.9.2009/os/x86_64/
+   ```
+
+3. **Use rinse to install CentOS into this directory:**
 
    ```sh
    sudo rinse --distribution centos-7 --directory /var/lib/machines/centos7 --arch amd64
+   ```
+
+   If you encounter the error `failed to extract initscripts`, you can manually download and extract the `initscripts` package:
+
+   ```sh
+   cd /var/lib/machines/centos7
+   wget http://vault.centos.org/7.9.2009/os/x86_64/Packages/initscripts-9.49.53-1.el7.x86_64.rpm
+   sudo rpm2cpio initscripts-9.49.53-1.el7.x86_64.rpm | sudo cpio -idmv
    ```
 
 ---
@@ -52,6 +78,8 @@ Use `rinse` to create a CentOS root filesystem.
    ```sh
    sudo systemd-nspawn -D /var/lib/machines/centos7 passwd
    ```
+
+   If you encounter errors regarding missing libraries, download and extract these libraries similarly as above.
 
 2. **Configure the container network (optional):**
 
@@ -135,40 +163,24 @@ Aborting
    sudo rinse --distribution centos-7 --directory /var/lib/machines/centos7 --arch amd64
    ```
 
-### Alternative Method: Using Docker Image
+### Problem: Missing Libraries or Commands
 
-If the above steps still result in an error, you can use a Docker image to set up CentOS 7:
+If you encounter errors regarding missing libraries or commands, download and extract the missing packages manually:
 
-1. **Install Docker**:
+1. **Download and Extract Missing Packages**:
+
+   For example, if `libpopt.so.0` is missing:
 
    ```sh
-   sudo apt-get update
-   sudo apt-get install docker.io
+   cd /var/lib/machines/centos7
+   wget http://vault.centos.org/7.9.2009/os/x86_64/Packages/popt-1.13-16.el7.x86_64.rpm
+   sudo rpm2cpio popt-1.13-16.el7.x86_64.rpm | sudo cpio -idmv
    ```
 
-2. **Pull the CentOS 7 Docker Image**:
+2. **Retry the `passwd` Command**:
 
    ```sh
-   sudo docker pull centos:7
-   ```
-
-3. **Export the Docker Image to a Tar File**:
-
-   ```sh
-   sudo docker save centos:7 -o centos7.tar
-   ```
-
-4. **Create the CentOS 7 Filesystem**:
-
-   ```sh
-   sudo mkdir -p /var/lib/machines/centos7
-   sudo tar -xf centos7.tar -C /var/lib/machines/centos7
-   ```
-
-5. **Start the Container with systemd-nspawn**:
-
-   ```sh
-   sudo systemd-nspawn -bD /var/lib/machines/centos7
+   sudo systemd-nspawn -D /var/lib/machines/centos7 passwd
    ```
 
 ---
