@@ -63,22 +63,183 @@ Use `rinse` to create a Fedora root filesystem.
    Add the following content:
 
    ```sh
+   # fedora-33.packages
+   # This is a package list for Fedora 33, used by rinse to create a minimal installation.
+
+   # Basic system packages
    acl
    audit-libs
    basesystem
    bash
+   bzip2-libs
+   ca-certificates
+   chkconfig
    coreutils
-   findutils
+   coreutils-common
+   coreutils-single
+   cpio
+   cracklib
+   crypto-policies
+   cryptsetup-libs
+   curl
+   curl-minimal
+   cyrus-sasl-lib
+   dbus
+   dbus-libs
+   device-mapper
+   device-mapper-libs
+   diffutils
+   dnf
+   dnf-automatic
+   dnf-data
+   dnf-plugin-diff
+   dnf-plugin-ovl
+   dnf-plugin-subscription-manager
+   dnf-plugin-swidtags
+   dnf-plugins-core
+   dnf-utils
+   elfutils-default-yama-scope
+   elfutils-libelf
+   elfutils-libs
+   expat
+   fedora-gpg-keys
+   fedora-release
+   fedora-repos
+   file-libs
+   filesystem
+   gawk
+   gdbm
+   gdbm-libs
+   generic-release
+   glib2
+   glibc
+   glibc-common
+   glibc-minimal-langpack
+   gmp
+   gnupg2
+   gnutls
+   gobject-introspection
+   gpgme
    grep
    gzip
-   iputils
-   net-tools
-   procps-ng
+   ima-evm-utils
+   info
+   iptables-libs
+   json-c
+   keyutils-libs
+   kmod-libs
+   krb5-libs
+   libacl
+   libarchive
+   libargon2
+   libassuan
+   libattr
+   libblkid
+   libcap
+   libcap-ng
+   libcom_err
+   libcomps
+   libcurl
+   libcurl-minimal
+   libdb
+   libdb-utils
+   libdnf
+   libeconf
+   libibverbs
+   libnl
+   libfdisk
+   libffi
+   libgcc
+   libgcrypt
+   libgpg-error
+   libidn2
+   libksba
+   libmetalink
+   libmodulemd
+   libmount
+   libnghttp2
+   libnsl2
+   libpcap
+   libpsl
+   libpwquality
+   librepo
+   libreport-filesystem
+   libseccomp
+   libselinux
+   libsemanage
+   libsepol
+   libsigsegv
+   libsmartcols
+   libsolv
+   libstdc++
+   libssh
+   libtasn1
+   libtirpc
+   libunistring
+   libusbx
+   libzck
+   libutempter
+   libuuid
+   libverto
+   libxcrypt
+   libxml2
+   libyaml
+   libzstd
+   lua-libs
+   lz4-libs
+   mpfr
+   ncurses
+   ncurses-base
+   ncurses-libs
+   nettle
+   npth
+   nspr
+   nss
+   nss-softokn
+   nss-softokn-freebl
+   nss-sysinit
+   nss-util
+   openldap
+   openssl-libs
+   p11-kit
+   p11-kit-trust
+   pam
+   pcre
+   pcre2
+   popt
+   publicsuffix-list-dafsa
+   python3
+   python3-dnf
+   python3-gobject-base
+   python3-gpg
+   python3-hawkey
+   python3-iniparse
+   python3-libcomps
+   python3-librepo
+   python3-libs
+   python3-pip
+   python3-rpm
+   python3-setuptools
+   python3-six
+   python3-smartcols
+   qrencode-libs
+   readline
+   rpm
+   rpm-build-libs
+   rpm-libs
+   rpm-plugin-selinux
+   sed
+   setup
    shadow-utils
+   sqlite-libs
+   systemd
+   systemd-libs
+   systemd-pam
+   tzdata
    util-linux
-   vim-minimal
-   yum
-   ```
+   xz-libs
+   zlib
+```
 
 4. **Use rinse to install Fedora into this directory:**
 
