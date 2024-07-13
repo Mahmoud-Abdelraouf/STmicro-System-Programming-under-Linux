@@ -41,7 +41,7 @@ Use `rinse` to create a Fedora root filesystem.
    Edit the `/etc/rinse/rinse.conf` file to ensure it has the correct Fedora 33 entries:
 
    ```sh
-   sudo nano /etc/rinse/rinse.conf
+   sudo vi /etc/rinse/rinse.conf
    ```
 
    Ensure it contains:
@@ -57,7 +57,7 @@ Use `rinse` to create a Fedora root filesystem.
    Create and edit the `fedora-33.packages` file:
 
    ```sh
-   sudo nano /etc/rinse/fedora-33.packages
+   sudo vi /etc/rinse/fedora-33.packages
    ```
 
    Add the following content:
@@ -103,7 +103,7 @@ Use `rinse` to create a Fedora root filesystem.
    If you encounter any missing packages during the rinse process, you can manually add them to the `fedora-33.packages` file and re-run rinse:
 
    ```sh
-   sudo nano /etc/rinse/fedora-33.packages
+   sudo vi /etc/rinse/fedora-33.packages
    ```
 
    Add the missing package names to the file, save, and exit.
@@ -150,7 +150,7 @@ Use `rinse` to create a Fedora root filesystem.
    If you want to set up networking for the container, you can create a configuration file:
 
    ```sh
-   sudo nano /etc/systemd/nspawn/fedora33.nspawn
+   sudo vi /etc/systemd/nspawn/fedora33.nspawn
    ```
 
    Add the following lines to configure the network:
