@@ -1,7 +1,3 @@
-Certainly! Here's an updated version of the README that includes the problem and solution you encountered.
-
----
-
 # Setting Up and Running a CentOS Container on Ubuntu using Rinse and Systemd-nspawn
 
 ## Overview
