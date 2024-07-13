@@ -86,6 +86,55 @@ Use `rinse` to create a Fedora root filesystem.
    sudo rinse --distribution fedora-33 --directory /var/lib/machines/fedora33 --arch amd64
    ```
 
+5. **Unpack and Remove the RPM Packages**
+
+   Navigate to the directory where the RPM packages are stored and run the following script to unpack and then remove the RPM packages:
+
+   ```sh
+   cd /var/lib/machines/fedora33
+   for pkg in *.rpm; do
+       sudo rpm2cpio $pkg | sudo cpio -idmv
+       sudo rm -f $pkg
+   done
+   ```
+
+6. **Handling Missing Packages**
+
+   If you encounter any missing packages during the rinse process, you can manually add them to the `fedora-33.packages` file and re-run rinse:
+
+   ```sh
+   sudo nano /etc/rinse/fedora-33.packages
+   ```
+
+   Add the missing package names to the file, save, and exit.
+
+   Re-run rinse:
+
+   ```sh
+   sudo rinse --distribution fedora-33 --directory /var/lib/machines/fedora33 --arch amd64
+   ```
+
+   Unpack the newly downloaded packages using the same script as above:
+
+   ```sh
+   cd /var/lib/machines/fedora33
+   for pkg in *.rpm; do
+       sudo rpm2cpio $pkg | sudo cpio -idmv
+       sudo rm -f $pkg
+   done
+   ```
+
+7. **Quick Way to Install Needed Extra Packages**
+
+   For any additional packages needed, you can manually download and unpack them:
+
+   ```sh
+   cd /var/lib/machines/fedora33
+   wget [URL to the RPM package]
+   sudo rpm2cpio [package-name].rpm | sudo cpio -idmv
+   sudo rm -f [package-name].rpm
+   ```
+
 ---
 
 ## Configure the Fedora Container
