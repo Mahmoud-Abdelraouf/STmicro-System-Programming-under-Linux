@@ -1,3 +1,9 @@
+# Converting Executable to Assembly in Linux
+
+### Overview
+
+Converting an executable to assembly code is useful for understanding how high-level code is translated to machine instructions. This guide covers the steps to compile a simple C/C++ program, generate an executable, and then disassemble it to view the corresponding assembly code. Additionally, it covers using NASM (Netwide Assembler) for writing and compiling assembly code directly.
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -17,12 +23,6 @@
 7. [Conclusion](#conclusion)
 
 ---
-
-## Converting Executable to Assembly in Linux
-
-### Overview
-
-Converting an executable to assembly code is useful for understanding how high-level code is translated to machine instructions. This guide covers the steps to compile a simple C/C++ program, generate an executable, and then disassemble it to view the corresponding assembly code. Additionally, it covers using NASM (Netwide Assembler) for writing and compiling assembly code directly.
 
 ### Prerequisites
 
