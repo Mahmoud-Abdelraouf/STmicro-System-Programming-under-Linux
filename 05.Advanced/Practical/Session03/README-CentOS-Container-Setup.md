@@ -21,7 +21,7 @@ Ensure you have `rinse`, `debootstrap`, `systemd-container`, and `qemu-user-stat
 
 ```sh
 sudo apt update
-sudo apt install rinse debootstrap systemd-container qemu-user-static
+sudo apt install rinse debootstrap systemd-container qemu-user-static dnf
 ```
 
 ---
