@@ -73,7 +73,6 @@ Use `rinse` to create a Fedora root filesystem.
 
    # Basic system packages
    acl
-   audit-libs
    basesystem
    bash
    bzip2-libs
