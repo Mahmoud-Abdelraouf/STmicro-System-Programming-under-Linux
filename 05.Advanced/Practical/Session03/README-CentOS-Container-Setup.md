@@ -307,9 +307,7 @@ Use `rinse` to create a Fedora root filesystem.
 
    ```sh
    zchunk-libs-1.4.0-1.fc39.aarch64.rpm
-   zchunk-libs-1.4
-
-.0-1.fc39.x86_64.rpm
+   zchunk-libs-1.4.0-1.fc39.x86_64.rpm
    zchunk-libs-1.3.1-2.fc39.aarch64.rpm
    ```
 
