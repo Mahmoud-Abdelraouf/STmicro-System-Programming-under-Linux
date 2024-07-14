@@ -317,9 +317,7 @@ Use `rinse` to create a Fedora root filesystem.
 
    ```sh
    sudo vi /etc/systemd/nspawn/fedora33.nspawn
-  
-
- ```
+   ```
 
    Add the following lines to configure the network:
 
