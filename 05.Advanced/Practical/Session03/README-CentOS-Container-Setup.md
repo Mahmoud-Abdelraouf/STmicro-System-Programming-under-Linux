@@ -151,7 +151,7 @@ Use `rinse` to create a Fedora root filesystem.
    libdnf
    libeconf
    libibverbs
-   libnl
+   libnl3
    libfdisk
    libffi
    libgcc
