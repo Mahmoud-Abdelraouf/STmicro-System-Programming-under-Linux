@@ -52,6 +52,11 @@ Use `rinse` to create a Fedora root filesystem.
    mirror.amd64=http://archives.fedoraproject.org/pub/archive/fedora/linux/releases/33/Everything/x86_64/os/Packages/
    ```
 
+   **Fedora Package Links:**
+
+   - All versions: [Fedora Archives](https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/)
+   - Fedora 33 packages: [Fedora 33 Packages](https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/33/Everything/x86_64/os/Packages/)
+
 3. **Create the `fedora-33.packages` File**
 
    Create and edit the `fedora-33.packages` file:
@@ -287,13 +292,13 @@ Use `rinse` to create a Fedora root filesystem.
 
 7. **Quick Way to Install Needed Extra Packages**
 
-   For any additional packages needed, you can manually download and unpack them:
+   For any additional packages needed, you can manually download and unpack them. For example, to manually install `shadow-utils`:
 
    ```sh
    cd /var/lib/machines/fedora33
-   wget [URL to the RPM package]
-   sudo rpm2cpio [package-name].rpm | sudo cpio -idmv
-   sudo rm -f [package-name].rpm
+   wget https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/33/Everything/x86_64/os/Packages/s/shadow-utils-4.8.1-4.fc33.x86_64.rpm
+   sudo rpm2cpio shadow-utils-4.8.1-4.fc33.x86_64.rpm | sudo cpio -idmv
+   sudo rm -f shadow-utils-4.8.1-4.fc33.x86_64.rpm
    ```
 
 ---
@@ -312,7 +317,9 @@ Use `rinse` to create a Fedora root filesystem.
 
    ```sh
    sudo vi /etc/systemd/nspawn/fedora33.nspawn
-   ```
+  
+
+ ```
 
    Add the following lines to configure the network:
 
