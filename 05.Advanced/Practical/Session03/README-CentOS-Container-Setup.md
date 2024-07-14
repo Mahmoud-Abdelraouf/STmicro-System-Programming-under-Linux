@@ -244,6 +244,7 @@ Use `rinse` to create a Fedora root filesystem.
    util-linux
    xz-libs
    zlib
+   zchunk-libs
    ```
 
 4. **Use rinse to install Fedora into this directory:**
