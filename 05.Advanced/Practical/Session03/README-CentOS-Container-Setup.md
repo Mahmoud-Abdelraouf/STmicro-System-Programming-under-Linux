@@ -301,6 +301,27 @@ Use `rinse` to create a Fedora root filesystem.
    sudo rm -f shadow-utils-4.8.1-4.fc33.x86_64.rpm
    ```
 
+8. **Alternative Packages**
+
+   If certain packages are not available in Fedora 33, you can use alternative packages from newer versions. For example, `zchunk-libs` has alternatives in Fedora 39:
+
+   ```sh
+   zchunk-libs-1.4.0-1.fc39.aarch64.rpm
+   zchunk-libs-1.4
+
+.0-1.fc39.x86_64.rpm
+   zchunk-libs-1.3.1-2.fc39.aarch64.rpm
+   ```
+
+   To install the alternative package:
+
+   ```sh
+   cd /var/lib/machines/fedora33
+   wget https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/39/Everything/x86_64/os/Packages/z/zchunk-libs-1.4.0-1.fc39.x86_64.rpm
+   sudo rpm2cpio zchunk-libs-1.4.0-1.fc39.x86_64.rpm | sudo cpio -idmv
+   sudo rm -f zchunk-libs-1.4.0-1.fc39.x86_64.rpm
+   ```
+
 ---
 
 ## Configure the Fedora Container
