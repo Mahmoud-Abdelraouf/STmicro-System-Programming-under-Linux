@@ -302,39 +302,64 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
 
 ## Practical Scripts
 
-### Cleanup Script for Three Machines
+### Start Script for Two Machines
 ```sh
 #!/bin/bash
 
-ip link set dev vport11 nomaster
-ip tuntap del mode tap vport11
+# Create a bridge device named br1
+ip link add name br1 type bridge
+# Set the bridge device br1 up
+ip link set br1 up
 
-ip link set dev vport12 nomaster
-ip tuntap del mode tap vport12
+# Create a tap device named vport11
+ip tuntap add mode tap vport11
+# Set the tap device vport11 up
+ip link set vport11 up
+# Add the tap device vport11 to the bridge br1
+ip link set vport11 master br1
 
-ip link set dev vport21 nomaster
-ip tuntap del mode tap vport21
+# Create a tap device named vport12
+ip tuntap add mode tap vport12
+# Set the tap device vport12 up
+ip link set vport12 up
+# Add the tap device vport12 to the bridge br1
+ip link set vport12 master br1
 
-ip link set dev vport22 nomaster
-ip tuntap del mode tap vport22
+# Start the first virtual machine h1 using QEMU
+qemu-system-x86_64 -kernel vms2/bzImageh1.bin -m 1G \
+    -drive "file=vms2/h1.ext4,if=virtio,format=raw" \
+    -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
+    -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
+    -name h1 -daemonize --append "root=/dev/vda rw"
 
-ip link delete dev br1
-ip link delete dev br2
+# Start the second virtual machine h2 using QEMU
+qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
+    -drive "file=vms2/h2.ext4,if=virtio,format=raw" \
+    -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
+    -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
+    -name h2 -daemonize --append "root=/dev/vda rw"
 ```
 
 ### Cleanup Script for Two Machines
 ```sh
 #!/bin/bash
 
+# Detach the virtual ethernet device veth0 from its bridge
 ip link set dev veth0 nomaster
+# Delete the virtual ethernet device veth0
 ip link del dev veth0
 
+# Detach the tap device vport11 from its bridge
 ip link set dev vport11 nomaster
+# Delete the tap device vport11
 ip tuntap del mode tap vport11
 
+# Detach the tap device vport12 from its bridge
 ip link set dev vport12 nomaster
+# Delete the tap device vport12
 ip tuntap del mode tap vport12
 
+# Delete the bridge device br1
 ip link delete dev br1
 ```
 
@@ -342,34 +367,52 @@ ip link delete dev br1
 ```sh
 #!/bin/bash
 
+# Create a bridge device named br1
 ip link add name br1 type bridge
+# Set the bridge device br1 up
 ip link set br1 up
 
+# Create a bridge device named br2
 ip link add name br2 type bridge
+# Set the bridge device br2 up
 ip link set br2 up
 
+# Create a tap device named vport11
 ip tuntap add mode tap vport11
+# Set the tap device vport11 up
 ip link set vport11 up
+# Add the tap device vport11 to the bridge br1
 ip link set vport11 master br1
 
+# Create a tap device named vport12
 ip tuntap add mode tap vport12
+# Set the tap device vport12 up
 ip link set vport12 up
+# Add the tap device vport12 to the bridge br1
 ip link set vport12 master br1
 
+# Create a tap device named vport21
 ip tuntap add mode tap vport21
+# Set the tap device vport21 up
 ip link set vport21 up
+# Add the tap device vport21 to the bridge br2
 ip link set vport21 master br2
 
+# Create a tap device named vport22
 ip tuntap add mode tap vport22
+# Set the tap device vport22 up
 ip link set vport22 up
+# Add the tap device vport22 to the bridge br2
 ip link set vport22 master br2
 
+# Start the first virtual machine h1 using QEMU
 qemu-system-x86_64 -kernel vms3/bzImageh1.bin -m 1G \
     -drive "file=vms3/h1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
     -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
     -name h1 -daemonize --append "root=/dev/vda rw"
 
+# Start the second virtual machine rt2 using QEMU
 qemu-system-x86_64 -kernel vms3/bzImagert2.bin -m 1G \
     -drive "file=vms3/rt2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' \
@@ -378,6 +421,7 @@ qemu-system-x86_64 -kernel vms3/bzImagert2.bin -m 1G \
     -netdev tap,id=net1,ifname=vport22,script=no,downscript=no \
     -name rt2 -daemonize --append "root=/dev/vda rw"
 
+# Start the third virtual machine h2 using QEMU
 qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
     -drive "file=vms3/h2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
@@ -385,32 +429,34 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
     -name h2 -daemonize --append "root=/dev/vda rw"
 ```
 
-### Start Script for Two Machines
+### Cleanup Script for Three Machines
 ```sh
 #!/bin/bash
 
-ip link add name br1 type bridge
-ip link set br1 up
+# Detach the tap device vport11 from its bridge
+ip link set dev vport11 nomaster
+# Delete the tap device vport11
+ip tuntap del mode tap vport11
 
-ip tuntap add mode tap vport11
-ip link set vport11 up
-ip link set vport11 master br1
+# Detach the tap device vport12 from its bridge
+ip link set dev vport12 nomaster
+# Delete the tap device vport12
+ip tuntap del mode tap vport12
 
-ip tuntap add mode tap vport12
-ip link set vport12 up
-ip link set vport12 master br1
+# Detach the tap device vport21 from its bridge
+ip link set dev vport21 nomaster
+# Delete the tap device vport21
+ip tuntap del mode tap vport21
 
-qemu-system-x86_64 -kernel vms2/bzImageh1.bin -m 1G \
-    -drive "file=vms2/h1.ext4,if=virtio,format=raw" \
-    -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
-    -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
-    -name h1 -daemonize --append "root=/dev/vda rw"
+# Detach the tap device vport22 from its bridge
+ip link set dev vport22 nomaster
+# Delete the tap device vport22
+ip tuntap del mode tap vport22
 
-qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
-    -drive "file=vms2/h2.ext4,if=virtio,format=raw" \
-    -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
-    -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
-    -name h2 -daemonize --append "root=/dev/vda rw"
+# Delete the bridge device br1
+ip link delete dev br1
+# Delete the bridge device br2
+ip link delete dev br2
 ```
 
 ---
