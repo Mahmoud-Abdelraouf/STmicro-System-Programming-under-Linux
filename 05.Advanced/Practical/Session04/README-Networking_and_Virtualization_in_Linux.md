@@ -464,7 +464,7 @@ ip link delete dev br2
 ## Resources
 
 - [IPv4 Classes and Private IP Ranges](https://www.meridianoutpost.com/resources/articles/IP-classes.php)
-- [Linux `ip` Command Examples](https://www.tecmint.com/15-practical-examples-of-linux-ip-command-for-interfaces/)
+- [Linux `ip` Command Examples](https://www.tecmint.com/ip-command-examples/)
 - [QEMU Documentation](https://www.qemu.org/documentation/)
 - [TUN/TAP Interface Configuration](https://www.kernel.org/doc/Documentation/networking/tuntap.txt)
 
