@@ -179,9 +179,7 @@ Ethernet operates by transmitting data in packets called frames between devices 
 
 - **Preamble**: `10101010 10101010 10101010 10101010 10101010 10101010 10101010`
 - **SFD**: `10101011`
-- **Destination MAC**: `
-
-00:14:22:01:23:45`
+- **Destination MAC**: `00:14:22:01:23:45`
 - **Source MAC**: `00:14:22:01:23:46`
 - **Type**: `0800` (IPv4)
 - **Payload**: Data from higher layer protocols.
