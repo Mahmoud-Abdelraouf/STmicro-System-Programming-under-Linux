@@ -79,10 +79,10 @@ The provided C program (`tapClient.c`) demonstrates how to create and use a TAP 
     #include <string.h>
     #include <arpa/inet.h>
     #include <unistd.h>
-    #include "arp.h"
-    #include "ethernet.h"
-    #include "icmp.h"
-    #include "IPv4.h"
+    #include "arp_protocol_handler.h"
+    #include "ethernet_frame_handler.h"
+    #include "icmp_protocol_handler.h"
+    #include "ipv4_protocol_handler.h"
     ```
 
 2. **Define the TAP device name:**
@@ -229,9 +229,7 @@ The provided C program (`tapClient.c`) demonstrates how to create and use a TAP 
             printf("IPv4 checksum computed=%x\n", htons(internetChecksum(ipv4PacketPointer_copy, sizeof(ipv4Packet_t), 0)));
 
             if (ipv4PacketPointer->protocol == 1) {
-                tempIP
-
- = ipv4PacketPointer->destIP.iIP4;
+                tempIP = ipv4PacketPointer->destIP.iIP4;
                 ipv4PacketPointer->destIP.iIP4 = ipv4PacketPointer->sourceIP.iIP4;
                 ipv4PacketPointer->sourceIP.iIP4 = tempIP;
                 ipv4PacketPointer->identification = ++id;

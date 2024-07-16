@@ -28,16 +28,16 @@ This session was focused on practical implementations and theoretical understand
 
 - **tap_client_and_clone_device_example/**: Contains the example project for TAP client and clone device.
   - **src/**: Source files for the project.
-    - **arp.c**: Functions related to ARP packets.
-    - **ethernet.c**: Functions related to Ethernet frames.
-    - **icmp.c**: Functions related to ICMP packets.
-    - **ipv4.c**: Functions related to IPv4 packets.
-    - **main.c**: Main program to create and manage TAP devices.
+    - **internet_checksum.c**: Function to compute the internet checksum.
+    - **reply_to_ping.c**: Function to reply to ping requests.
+    - **tap_device_client.c**: Main program to create and manage TAP devices.
+    - **tun_alloc.c**: Function to allocate TUN/TAP devices.
   - **include/**: Header files for the project.
-    - **arp.h**: Definitions and structures for ARP.
-    - **ethernet.h**: Definitions and structures for Ethernet.
-    - **icmp.h**: Definitions and structures for ICMP.
-    - **ipv4.h**: Definitions and structures for IPv4.
+    - **arp_protocol_handler.h**: Definitions and structures for ARP.
+    - **ethernet_frame_handler.h**: Definitions and structures for Ethernet.
+    - **icmp_protocol_handler.h**: Definitions and structures for ICMP.
+    - **ipv4_protocol_handler.h**: Definitions and structures for IPv4.
+    - **tap_device_client.h**: Declarations for the TAP device client functions.
   - **obj/**: Directory for object files.
   - **lib/**: Directory for static libraries.
   - **Makefile**: Makefile to build the project.
@@ -65,7 +65,6 @@ During this session, we achieved the following:
 - [Linux Kernel Documentation on TUN/TAP](https://www.kernel.org/doc/Documentation/networking/tuntap.txt)
 - [ioctl Manual](http://man7.org/linux/man-pages/man2/ioctl.2.html)
 - [QEMU Documentation](https://www.qemu.org/documentation/)
-- [Network Programming Guide](https://www.oreilly.com/library/view/linux-network-programming/9780596002558/)
+- [Network Programming Guide](https://developer.ibm.com/tutorials/l-sock/)
 
 By following this session's materials and guides, you should have a solid understanding of how VMs interact with network interfaces, how to create and manage virtual network devices, and how to implement both static and dynamic routing in a virtualized environment.
-
