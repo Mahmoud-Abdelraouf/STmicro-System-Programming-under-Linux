@@ -350,8 +350,7 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
 - **Assign IP Address**:
   ```sh
   sudo ip addr add 
-
-192.168.1.10/24 dev eth0
+  192.168.1.10/24 dev eth0
   ```
 
 - **Add Default Gateway**:
@@ -553,9 +552,7 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 - **Create a TAP device**:
   ```sh
   sudo ip tuntap add dev tap0 mode tap
-  sudo
-
- ip link set dev tap0 up
+  sudo ip link set dev tap0 up
   ```
 - **Create a TUN device**:
   ```sh
