@@ -1,0 +1,5 @@
+<map id="mm_allocate_free_data_block" name="mm_allocate_free_data_block">
+<area shape="rect" id="Node000001" title=" " alt="" coords="121,5,297,45"/>
+<area shape="rect" id="Node000002" href="$memory__manager_8c.html#a99f5a0d88caf5abe330155eb4e2d7aac" title="Allocates and initializes memory for an array of structures." alt="" coords="5,13,73,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,28,74,28,74,23,107,23"/>
+</map>
