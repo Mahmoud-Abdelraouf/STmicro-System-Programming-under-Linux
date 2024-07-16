@@ -8,13 +8,13 @@ This guide covers the essential aspects of networking, including different topol
 
 1. [Networking Topologies](#networking-topologies)
 2. [Networking Layers](#networking-layers)
-3. [Ethernet Packets](#ethernet-packets)
-4. [IP Addressing and Subnetting](#ip-addressing-and-subnetting)
-5. [IPv4 Addressing](#ipv4-addressing)
-6. [IPv6 Addressing](#ipv6-addressing)
-7. [ICMP Packets](#icmp-packets)
-8. [ARP Packets](#arp-packets)
-9. [MAC and IP Address Resolution](#mac-and-ip-address-resolution)
+3. [MAC and IP Address Resolution](#mac-and-ip-address-resolution)
+4. [Ethernet Packets](#ethernet-packets)
+5. [IP Addressing and Subnetting](#ip-addressing-and-subnetting)
+6. [IPv4 Addressing](#ipv4-addressing)
+7. [IPv6 Addressing](#ipv6-addressing)
+8. [ICMP Packets](#icmp-packets)
+9. [ARP Packets](#arp-packets)
 10. [Default Router in Linux](#default-router-in-linux)
 11. [Virtual Network Devices](#virtual-network-devices)
 12. [TAP and TUN Devices](#tap-and-tun-devices)
@@ -142,6 +142,42 @@ This guide covers the essential aspects of networking, including different topol
   - **Hardware Devices**: Hubs, repeaters, network adapters
   - **Signaling**: Electrical signals, light signals
   
+---
+
+## MAC and IP Address Resolution
+
+### MAC Address
+
+- A unique identifier assigned to network interfaces for communications at the data link layer.
+- Format: 48-bit address, usually written as six groups of two hexadecimal digits separated by colons.
+
+### IP Address
+- A numerical label assigned to each device connected to a computer network that uses the Internet Protocol for communication.
+
+### ARP Process in Detail
+1. **Device A wants to communicate with Device B** within the same network.
+2. **Device A broadcasts an ARP request** to all devices on the local network: "Who has IP address 192.168.1.2? Tell 192.168.1.1."
+3. **Device B receives the ARP request** and replies with its MAC address: "192.168.1.2 is at MAC address 00:14:22:01:23:45."
+4. **Device A stores the MAC address** in its ARP cache and uses it to send packets directly to Device B.
+
+### Communicating with a Device on a Different Network
+1. **Device A wants to communicate with Device B** on a different network.
+2. **Device A checks its routing table** and finds the route to the default gateway (router).
+3. **Device A sends packets to the router's MAC address**.
+4. **The router forwards the packets** to Device B's network, using its routing table to determine the next hop.
+5. **Device B receives the packets** and sends responses back to Device A through the router.
+
+### Default Router in Linux
+- A default router (or gateway) is the device that routes traffic from a local network to other networks or the internet.
+- **Configuring the Default Gateway**:
+  ```sh
+  sudo ip route add default via <router-ip>
+  ```
+- **Example**:
+  ```sh
+  sudo ip route add default via 192.168.1.1
+  ```
+
 ---
 
 ## IP Addressing and Subnetting
@@ -423,43 +459,6 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 - Device A wants to communicate with Device B.
 - Device A sends an ARP request: "Who has IP address 192.168.1.2? Tell 192.168.1.1."
 - Device B responds: "192.168.1.2 is at MAC address 00:14:22:01:23:45."
-
----
-
-## MAC and IP Address Resolution
-
-### MAC Address
-
-
-- A unique identifier assigned to network interfaces for communications at the data link layer.
-- Format: 48-bit address, usually written as six groups of two hexadecimal digits separated by colons.
-
-### IP Address
-- A numerical label assigned to each device connected to a computer network that uses the Internet Protocol for communication.
-
-### ARP Process in Detail
-1. **Device A wants to communicate with Device B** within the same network.
-2. **Device A broadcasts an ARP request** to all devices on the local network: "Who has IP address 192.168.1.2? Tell 192.168.1.1."
-3. **Device B receives the ARP request** and replies with its MAC address: "192.168.1.2 is at MAC address 00:14:22:01:23:45."
-4. **Device A stores the MAC address** in its ARP cache and uses it to send packets directly to Device B.
-
-### Communicating with a Device on a Different Network
-1. **Device A wants to communicate with Device B** on a different network.
-2. **Device A checks its routing table** and finds the route to the default gateway (router).
-3. **Device A sends packets to the router's MAC address**.
-4. **The router forwards the packets** to Device B's network, using its routing table to determine the next hop.
-5. **Device B receives the packets** and sends responses back to Device A through the router.
-
-### Default Router in Linux
-- A default router (or gateway) is the device that routes traffic from a local network to other networks or the internet.
-- **Configuring the Default Gateway**:
-  ```sh
-  sudo ip route add default via <router-ip>
-  ```
-- **Example**:
-  ```sh
-  sudo ip route add default via 192.168.1.1
-  ```
 
 ---
 
