@@ -144,16 +144,16 @@ This guide covers the essential aspects of networking, including different topol
   
 ---
 
-## 1. IP Addressing and Subnetting
+## IP Addressing and Subnetting
 
-### 1.1. IPv4 Addressing
+### IPv4 Addressing
 
-#### 1.1.1. IP Address Format
+#### IP Address Format
 - **IPv4**: 32-bit address, divided into four 8-bit octets.
 - **Netmask**: Defines the network portion of the IP address.
 - **CIDR Notation**: The `/` notation following an IP address indicates the number of bits used for the network portion (e.g., `192.168.1.0/24`).
 
-#### 1.1.2. IPv4 Classes
+#### IPv4 Classes
 IPv4 addresses are divided into five classes, based on the leading bits:
 
 - **Class A**
@@ -185,14 +185,14 @@ IPv4 addresses are divided into five classes, based on the leading bits:
   - **Range**: `240.0.0.0` to `255.255.255.255`
   - **Reserved for**: Future use and research.
 
-#### 1.1.3. Subnetting and Netmask
+#### Subnetting and Netmask
 Subnetting allows dividing a larger network into smaller sub-networks, which helps in efficient IP management and security.
 
 ##### Subnet Mask
 - **Purpose**: Determines which portion of an IP address is the network and which part is the host.
 - **Example**: `255.255.255.0` (binary: `11111111.11111111.11111111.00000000`)
 
-#### 1.1.4. Numerical Example for Subnetting
+#### Numerical Example for Subnetting
 Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
 
 1. **Original Network**: `192.168.1.0/24`
@@ -257,7 +257,7 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
      - **First Address (Binary)**: `11000000.10101000.00000001.11000000`
      - **Last Address (Binary)**: `11000000.10101000.00000001.11111111`
 
-#### 1.1.5. Practical Commands for IPv4
+#### Practical Commands for IPv4
 
 - **View IP Address**:
   ```sh
@@ -279,18 +279,18 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ip route show
   ```
 
-#### 1.1.6. Routing and Default Gateway
+#### Routing and Default Gateway
 A router forwards data packets between computer networks. A default gateway routes traffic from a local network to other networks or the internet.
 
 - **Example**:
   - To set a default gateway: `sudo ip route add default via 192.168.1.1`
   - To view the routing table: `ip route show`
 
-#### 1.1.7. ICMP and ARP
+#### ICMP and ARP
 - **ICMP (Internet Control Message Protocol)**: Used for error messages and operational information (e.g., `ping` command).
 - **ARP (Address Resolution Protocol)**: Resolves IP addresses to MAC (hardware) addresses within a local network.
 
-#### 1.1.8. Data Transmission in a Network
+#### Data Transmission in a Network
 When a device wants to communicate with another device:
 
 1. **Local Network**:
@@ -305,7 +305,7 @@ When a device wants to communicate with another device:
    - The router forwards the data to the next router, and this process continues until the data reaches the recipient’s network.
    - ARP is used within each local network to resolve MAC addresses.
 
-#### 1.1.9. ARP and ICMP
+#### ARP and ICMP
 - **ARP (Address Resolution Protocol)**: Resolves IP addresses to MAC (hardware) addresses within a local network. 
 - **ICMP (Internet Control Message Protocol)**: Used for error messages and operational information (e.g., `ping` command).
 
@@ -325,7 +325,7 @@ When a device wants to communicate with another device:
 - **Broadcast**: Communication from one sender to all possible receivers in the network.
 - **Multicast**: Communication from one sender to a group of receivers.
 
-#### 1.1.10. ARP Packet
+#### ARP Packet
 - **Purpose**: Determine the MAC address corresponding to an IP address.
 - **Process**: 
   - **Sender**: Broadcasts an ARP request asking "Who has IP address X?"
@@ -333,22 +333,22 @@ When a device wants to communicate with another device:
 
 ---
 
-## 2. IPv6 Addressing
+## IPv6 Addressing
 
-### 2.1. IP Address Format
+### IP Address Format
 - **IPv6**: 128-bit address, written as eight groups of four hexadecimal digits (e.g., `2001:0db8:85a3:0000:0000:8a2e:0370:7334`).
 
-### 2.2. IPv6 Features
+### IPv6 Features
 - **Larger Address Space**: Provides a virtually unlimited number of IP addresses.
 - **Simplified Header**: Improves routing efficiency and performance.
 - **Auto-Configuration**: Devices can automatically configure their own IP addresses.
 - **Integrated Security**: IPsec is mandatory in IPv6.
 - **No Broadcasts**: Uses multicast and anycast instead of broadcast.
 
-### 2.3. Example Address
+### Example Address
 - `2001:0db8:85a3:0000:0000:8a2e:0370:7334`
 
-### 2.4. Subnetting in IPv6
+### Subnetting in IPv6
 IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 
 - **Example**:
@@ -356,12 +356,12 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
   - Subnet ID: `2001:0db8:abcd::/48`
   - Interface ID: `2001:0db8:abcd:0012:0000:0000:0000:0001/64`
 
-### 2.5. Transition from IPv4 to IPv6
+### Transition from IPv4 to IPv6
 - **Dual Stack**: Devices run both IPv4 and IPv6.
 - **Tunneling**: Encapsulating IPv6 traffic within IPv4 packets.
 - **Translation**: Converting IPv6 packets to IPv4 packets and vice versa.
 
-### 2.6. Practical Usage
+### Practical Usage
 - Configure IPv6 on a network interface:
   ```sh
   sudo ip -6 addr add 2001:db8::1/64 dev eth0
@@ -371,7 +371,7 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
   sudo ip -6 route add 2001:db8:abcd::/64 via 2001:db8::1
   ```
   
-### 2.7. Address Types
+### Address Types
 - **Unicast**: Identifies a single network interface.
 - **Multicast**: Identifies multiple network interfaces.
 - **Anycast**: Identifies the nearest of multiple network interfaces.
