@@ -28,21 +28,25 @@ This guide covers the essential aspects of networking, including different topol
 ## Networking Topologies
 
 ### Bus Topology
+
 - A single central cable (the bus) to which all network devices are connected.
 - **Advantages**: Simple, easy to implement.
 - **Disadvantages**: Limited cable length, difficult to troubleshoot.
 
 ### Star Topology
+
 - All network devices are connected to a central hub or switch.
 - **Advantages**: Easy to manage, scalable.
 - **Disadvantages**: Single point of failure (the hub/switch).
 
 ### Mesh Topology
+
 - Devices are interconnected, allowing for multiple paths for data to travel.
 - **Advantages**: High redundancy, reliable.
 - **Disadvantages**: Expensive, complex setup.
 
 ### Wireless Topology
+
 - Devices are connected using wireless signals.
 - **Advantages**: Mobility, easy to set up.
 - **Disadvantages**: Limited range, potential interference.
@@ -52,6 +56,7 @@ This guide covers the essential aspects of networking, including different topol
 ## Networking Layers
 
 ### OSI Model Layers
+
 1. **Application Layer**
 2. **Presentation Layer**
 3. **Session Layer**
@@ -63,6 +68,7 @@ This guide covers the essential aspects of networking, including different topol
 ### Detailed Explanation
 
 #### 1. Application Layer
+
 - **Function**: Interfaces directly with end-user applications, providing network services.
 - **Protocols**: HTTP, FTP, SMTP, DNS, Telnet, SSH
 - **Examples**:
@@ -77,6 +83,7 @@ This guide covers the essential aspects of networking, including different topol
   - **Remote Access Protocols**: Telnet, SSH
 
 #### 2. Presentation Layer
+
 - **Function**: Responsible for data translation, encryption, and compression.
 - **Examples**:
   - **Data Translation**: Converts data formats like EBCDIC to ASCII.
@@ -88,6 +95,7 @@ This guide covers the essential aspects of networking, including different topol
   - **Compression**: MPEG, GIF
 
 #### 3. Session Layer
+
 - **Function**: Manages sessions between applications. It establishes, manages, and terminates connections between applications.
 - **Examples**:
   - **Session Management**: In web conferencing, it manages the session to ensure all participants can communicate in real-time.
@@ -98,6 +106,7 @@ This guide covers the essential aspects of networking, including different topol
   - **Synchronization**: PPTP (Point-to-Point Tunneling Protocol)
 
 #### 4. Transport Layer
+
 - **Function**: Ensures reliable data transfer with error correction and flow control. It segments and reassembles data into a data stream.
 - **Protocols**: TCP, UDP
 - **Examples**:
@@ -109,6 +118,7 @@ This guide covers the essential aspects of networking, including different topol
   - **Message-Oriented**: SCTP (Stream Control Transmission Protocol)
 
 #### 5. Network Layer
+
 - **Function**: Handles logical addressing and routing. It determines the best path to move data from source to destination.
 - **Protocols**: IP, ICMP, IGMP
 - **Examples**:
@@ -121,6 +131,7 @@ This guide covers the essential aspects of networking, including different topol
   - **Multicast Protocols**: IGMP (Internet Group Management Protocol)
 
 #### 6. Data Link Layer
+
 - **Function**: Manages physical addressing and error detection. It ensures that data transferred is free from errors.
 - **Protocols**: Ethernet, PPP, Switches, Bridges
 - **Examples**:
@@ -132,6 +143,7 @@ This guide covers the essential aspects of networking, including different topol
   - **Error Detection**: CRC (Cyclic Redundancy Check)
 
 #### 7. Physical Layer
+
 - **Function**: Deals with the physical connection between devices. It transmits raw bitstreams over a physical medium.
 - **Components**: Cables, switches, hubs, network adapters
 - **Examples**:
@@ -152,15 +164,18 @@ This guide covers the essential aspects of networking, including different topol
 - Format: 48-bit address, usually written as six groups of two hexadecimal digits separated by colons.
 
 ### IP Address
+
 - A numerical label assigned to each device connected to a computer network that uses the Internet Protocol for communication.
 
 ### ARP Process in Detail
+
 1. **Device A wants to communicate with Device B** within the same network.
 2. **Device A broadcasts an ARP request** to all devices on the local network: "Who has IP address 192.168.1.2? Tell 192.168.1.1."
 3. **Device B receives the ARP request** and replies with its MAC address: "192.168.1.2 is at MAC address 00:14:22:01:23:45."
 4. **Device A stores the MAC address** in its ARP cache and uses it to send packets directly to Device B.
 
 ### Communicating with a Device on a Different Network
+
 1. **Device A wants to communicate with Device B** on a different network.
 2. **Device A checks its routing table** and finds the route to the default gateway (router).
 3. **Device A sends packets to the router's MAC address**.
@@ -168,12 +183,16 @@ This guide covers the essential aspects of networking, including different topol
 5. **Device B receives the packets** and sends responses back to Device A through the router.
 
 ### Default Router in Linux
+
 - A default router (or gateway) is the device that routes traffic from a local network to other networks or the internet.
 - **Configuring the Default Gateway**:
+
   ```sh
   sudo ip route add default via <router-ip>
   ```
+
 - **Example**:
+
   ```sh
   sudo ip route add default via 192.168.1.1
   ```
@@ -183,9 +202,11 @@ This guide covers the essential aspects of networking, including different topol
 ## Ethernet Packets and Ethernet Explanation
 
 ### What is Ethernet?
+
 Ethernet is a family of wired networking technologies commonly used in local area networks (LANs), metropolitan area networks (MANs), and wide area networks (WANs). It defines wiring and signaling standards for the physical layer and data packet formats and protocols for the data link layer of the OSI model.
 
 ### Ethernet Frame Structure
+
 An Ethernet frame is a data packet that includes information needed for data link layer transmission. The Ethernet frame format is standardized and consists of several fields:
 
 1. **Preamble**: 7 bytes used to synchronize receiver clock.
@@ -199,7 +220,7 @@ An Ethernet frame is a data packet that includes information needed for data lin
 ### Ethernet Frame Format
 
 | Field                 | Size (Bytes) |
-|-----------------------|--------------|
+| --------------------- | ------------ |
 | Preamble              | 7            |
 | Start Frame Delimiter | 1            |
 | Destination MAC       | 6            |
@@ -209,6 +230,7 @@ An Ethernet frame is a data packet that includes information needed for data lin
 | Frame Check Sequence  | 4            |
 
 ### Ethernet Operation
+
 Ethernet operates by transmitting data in packets called frames between devices connected via cables. Each device on an Ethernet network has a unique MAC address, which it uses to communicate with other devices.
 
 ### Example Ethernet Frame
@@ -222,6 +244,7 @@ Ethernet operates by transmitting data in packets called frames between devices 
 - **FCS**: CRC value for error checking.
 
 ### Ethernet Transmission Process
+
 1. **Frame Creation**: The sending device creates an Ethernet frame encapsulating the data to be sent.
 2. **Frame Transmission**: The frame is transmitted over the Ethernet cable to the destination device.
 3. **Frame Reception**: The receiving device captures the frame and checks the destination MAC address.
@@ -229,6 +252,7 @@ Ethernet operates by transmitting data in packets called frames between devices 
 5. **Frame Processing**: If no errors are found, the receiving device processes the payload.
 
 ### Advantages and Disadvantages of Ethernet
+
 - **Advantages**:
   - High speed and reliability.
   - Widely used and standardized.
@@ -240,55 +264,65 @@ Ethernet operates by transmitting data in packets called frames between devices 
 ### Practical Commands for Ethernet
 
 - **View Ethernet Interfaces**:
+
   ```sh
   ip link show
   ```
 
 - **Bring Up an Ethernet Interface**:
+
   ```sh
   sudo ip link set dev eth0 up
   ```
 
 - **Assign an IP Address to an Ethernet Interface**:
+
   ```sh
   sudo ip addr add 192.168.1.10/24 dev eth0
   ```
 
 - **View MAC Address of an Interface**:
+
   ```sh
   ip link show eth0
   ```
 
 - **Bring Down an Ethernet Interface**:
+
   ```sh
   sudo ip link set dev eth0 down
   ```
 
 - **Delete an IP Address from an Ethernet Interface**:
+
   ```sh
   sudo ip addr del 192.168.1.10/24 dev eth0
   ```
 
 - **Set a Static MAC Address**:
+
   ```sh
   sudo ip link set dev eth0 address 00:14:22:01:23:45
   ```
 
 - **Add a Static ARP Entry**:
+
   ```sh
   sudo ip neigh add 192.168.1.20 lladdr 00:14:22:01:23:46 dev eth0
   ```
 
 - **Delete a Static ARP Entry**:
+
   ```sh
   sudo ip neigh del 192.168.1.20 dev eth0
   ```
 
 - **View ARP Table**:
+
   ```sh
   ip neigh show
   ```
-  
+
 ---
 
 ## IP Addressing and Subnetting
@@ -296,14 +330,17 @@ Ethernet operates by transmitting data in packets called frames between devices 
 ### IPv4 Addressing
 
 #### IP Address Format
+
 - **IPv4**: 32-bit address, divided into four 8-bit octets.
 - **Netmask**: Defines the network portion of the IP address.
 - **CIDR Notation**: The `/` notation following an IP address indicates the number of bits used for the network portion (e.g., `192.168.1.0/24`).
 
 #### IPv4 Classes
+
 IPv4 addresses are divided into five classes, based on the leading bits:
 
 - **Class A**
+
   - **Range**: `1.0.0.0` to `126.0.0.0`
   - **Default Subnet Mask**: `255.0.0.0`
   - **Number of Networks**: 128 (2^7)
@@ -311,6 +348,7 @@ IPv4 addresses are divided into five classes, based on the leading bits:
   - **Example**: `10.0.0.0` (Private Range)
 
 - **Class B**
+
   - **Range**: `128.0.0.0` to `191.255.0.0`
   - **Default Subnet Mask**: `255.255.0.0`
   - **Number of Networks**: 16,384 (2^14)
@@ -318,6 +356,7 @@ IPv4 addresses are divided into five classes, based on the leading bits:
   - **Example**: `172.16.0.0` (Private Range)
 
 - **Class C**
+
   - **Range**: `192.0.0.0` to `223.255.255.0`
   - **Default Subnet Mask**: `255.255.255.0`
   - **Number of Networks**: 2,097,152 (2^21)
@@ -325,6 +364,7 @@ IPv4 addresses are divided into five classes, based on the leading bits:
   - **Example**: `192.168.0.0` (Private Range)
 
 - **Class D**
+
   - **Range**: `224.0.0.0` to `239.255.255.255`
   - **Used for**: Multicast.
 
@@ -333,29 +373,36 @@ IPv4 addresses are divided into five classes, based on the leading bits:
   - **Reserved for**: Future use and research.
 
 #### Subnetting and Netmask
+
 Subnetting allows dividing a larger network into smaller sub-networks, which helps in efficient IP management and security.
 
 ##### Subnet Mask
+
 - **Purpose**: Determines which portion of an IP address is the network and which part is the host.
 - **Example**: `255.255.255.0` (binary: `11111111.11111111.11111111.00000000`)
 
 #### Numerical Example for Subnetting
+
 Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
 
 1. **Original Network**: `192.168.1.0/24`
+
    - **Subnet Mask**: `255.255.255.0`
    - **Number of Subnets**: 1
    - **Number of Hosts**: 256 - 2 = 254
    - **Binary Subnet Mask**: `11111111.11111111.11111111.00000000`
 
 2. **Subnet into Two**: `192.168.1.0/25` and `192.168.1.128/25`
+
    - **Subnet Mask**: `255.255.255.128`
    - **Number of Subnets**: 2
    - **Number of Hosts**: 128 - 2 = 126
    - **Binary Subnet Mask**: `11111111.11111111.11111111.10000000`
 
    **Explanation**:
+
    - **192.168.1.0/25**:
+
      - Binary: `11000000.10101000.00000001.0XXXXXXX`
      - First Address: `192.168.1.0`
      - Last Address: `192.168.1.127`
@@ -370,13 +417,16 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
      - **Last Address (Binary)**: `11000000.10101000.00000001.11111111`
 
 3. **Subnet into Four**: `192.168.1.0/26`, `192.168.1.64/26`, `192.168.1.128/26`, and `192.168.1.192/26`
+
    - **Subnet Mask**: `255.255.255.192`
    - **Number of Subnets**: 4
    - **Number of Hosts**: 64 - 2 = 62
    - **Binary Subnet Mask**: `11111111.11111111.11111111.11000000`
 
    **Explanation**:
+
    - **192.168.1.0/26**:
+
      - Binary: `11000000.10101000.00000001.00XXXXXX`
      - First Address: `192.168.1.0`
      - Last Address: `192.168.1.63`
@@ -384,6 +434,7 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
      - **Last Address (Binary)**: `11000000.10101000.00000001.00111111`
 
    - **192.168.1.64/26**:
+
      - Binary: `11000000.10101000.00000001.01XXXXXX`
      - First Address: `192.168.1.64`
      - Last Address: `192.168.1.127`
@@ -391,6 +442,7 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
      - **Last Address (Binary)**: `11000000.10101000.00000001.01111111`
 
    - **192.168.1.128/26**:
+
      - Binary: `11000000.10101000.00000001.10XXXXXX`
      - First Address: `192.168.1.128`
      - Last Address: `192.168.1.191`
@@ -407,27 +459,32 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
 #### Practical Commands for IPv4
 
 - **View IP Address**:
+
   ```sh
   ip addr show
   ```
 
 - **Assign IP Address**:
+
   ```sh
-  sudo ip addr add 
+  sudo ip addr add
   192.168.1.10/24 dev eth0
   ```
 
 - **Add Default Gateway**:
+
   ```sh
   sudo ip route add default via 192.168.1.1
   ```
 
 - **View Routing Table**:
+
   ```sh
   ip route show
   ```
 
 #### Routing and Default Gateway
+
 A router forwards data packets between computer networks. A default gateway routes traffic from a local network to other networks or the internet.
 
 - **Example**:
@@ -435,13 +492,16 @@ A router forwards data packets between computer networks. A default gateway rout
   - To view the routing table: `ip route show`
 
 #### ICMP and ARP
+
 - **ICMP (Internet Control Message Protocol)**: Used for error messages and operational information (e.g., `ping` command).
 - **ARP (Address Resolution Protocol)**: Resolves IP addresses to MAC (hardware) addresses within a local network.
 
 #### Data Transmission in a Network
+
 When a device wants to communicate with another device:
 
 1. **Local Network**:
+
    - The sender sends an ARP request to get the MAC address of the recipient.
    - If the recipient is in the same network, it responds with its MAC address.
    - Data is then sent directly to the recipient using the MAC address.
@@ -452,11 +512,14 @@ When a device wants to communicate with another device:
    - ARP is used within each local network to resolve MAC addresses.
 
 #### ARP and ICMP
-- **ARP (Address Resolution Protocol)**: Resolves IP addresses to MAC (hardware) addresses within a local network. 
+
+- **ARP (Address Resolution Protocol)**: Resolves IP addresses to MAC (hardware) addresses within a local network.
 - **ICMP (Internet Control Message Protocol)**: Used for error messages and operational information (e.g., `ping` command).
 
 ##### Example of ARP
+
 1. **Local Network Communication**:
+
    - **Sender**: Sends an ARP request to get the MAC address of the recipient.
    - **Recipient**: If in the same network, it responds with its MAC address.
    - **Data Transmission**: Data is sent directly to the recipient using the MAC address.
@@ -467,13 +530,15 @@ When a device wants to communicate with another device:
    - **ARP**: Used within each local network to resolve MAC addresses.
 
 ##### Types of Casts
+
 - **Unicast**: Communication between a single sender and a single receiver.
 - **Broadcast**: Communication from one sender to all possible receivers in the network.
 - **Multicast**: Communication from one sender to a group of receivers.
 
 #### ARP Packet
+
 - **Purpose**: Determine the MAC address corresponding to an IP address.
-- **Process**: 
+- **Process**:
   - **Sender**: Broadcasts an ARP request asking "Who has IP address X?"
   - **Recipient**: Responds with its MAC address.
 
@@ -482,9 +547,11 @@ When a device wants to communicate with another device:
 ## IPv6 Addressing
 
 ### IP Address Format
+
 - **IPv6**: 128-bit address, written as eight groups of four hexadecimal digits (e.g., `2001:0db8:85a3:0000:0000:8a2e:0370:7334`).
 
 ### IPv6 Features
+
 - **Larger Address Space**: Provides a virtually unlimited number of IP addresses.
 - **Simplified Header**: Improves routing efficiency and performance.
 - **Auto-Configuration**: Devices can automatically configure their own IP addresses.
@@ -492,9 +559,11 @@ When a device wants to communicate with another device:
 - **No Broadcasts**: Uses multicast and anycast instead of broadcast.
 
 ### Example Address
+
 - `2001:0db8:85a3:0000:0000:8a2e:0370:7334`
 
 ### Subnetting in IPv6
+
 IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 
 - **Example**:
@@ -503,21 +572,27 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
   - Interface ID: `2001:0db8:abcd:0012:0000:0000:0000:0001/64`
 
 ### Transition from IPv4 to IPv6
+
 - **Dual Stack**: Devices run both IPv4 and IPv6.
 - **Tunneling**: Encapsulating IPv6 traffic within IPv4 packets.
 - **Translation**: Converting IPv6 packets to IPv4 packets and vice versa.
 
 ### Practical Usage
+
 - Configure IPv6 on a network interface:
+
   ```sh
   sudo ip -6 addr add 2001:db8::1/64 dev eth0
   ```
+
 - Add an IPv6 route:
+
   ```sh
   sudo ip -6 route add 2001:db8:abcd::/64 via 2001:db8::1
   ```
-  
+
 ### Address Types
+
 - **Unicast**: Identifies a single network interface.
 - **Multicast**: Identifies multiple network interfaces.
 - **Anycast**: Identifies the nearest of multiple network interfaces.
@@ -527,16 +602,19 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 ## ICMP Packets
 
 ### ICMP (Internet Control Message Protocol)
+
 - Used for error messages and operational information.
 - Common messages: Echo Request (ping), Echo Reply (pong), Destination Unreachable.
 
 ### Packet Structure
+
 1. **Type**: 8 bits, indicates the type of message.
 2. **Code**: 8 bits, provides further information about the type.
 3. **Checksum**: 16 bits, for error-checking.
 4. **Rest of the Header**: Varies based on the type and code.
 
 ### Example
+
 - **Ping**:
   - Type: 8 (Echo Request)
   - Code: 0
@@ -546,13 +624,16 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 ## ARP Packets
 
 ### ARP (Address Resolution Protocol)
+
 - Used to map an IP address to a MAC address within a local network.
 
 ### ARP Process
+
 1. **ARP Request**: Broadcasted by a device to find the MAC address associated with an IP address.
 2. **ARP Reply**: Sent by the device with the requested IP address, containing its MAC address.
 
 ### Packet Structure
+
 1. **Hardware Type**: 16 bits, indicates the network type (e.g., Ethernet).
 2. **Protocol Type**: 16 bits, indicates the protocol (e.g., IP).
 3. **Hardware Address Length**: 8 bits.
@@ -564,6 +645,7 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 9. **Target Protocol Address**: 32 bits.
 
 ### Example of ARP Communication
+
 - Device A wants to communicate with Device B.
 - Device A sends an ARP request: "Who has IP address 192.168.1.2? Tell 192.168.1.1."
 - Device B responds: "192.168.1.2 is at MAC address 00:14:22:01:23:45."
@@ -576,12 +658,15 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 
 TUN and TAP are virtual network kernel devices. They provide network interfaces that can be used by user-space programs to interact with the network stack.
 
+![alt text](Tun-tap-osilayers-diagram.png)
+
 - **TAP Device**: Emulates an Ethernet device and operates with layer 2 packets such as Ethernet frames. It is used to create a network bridge, where multiple virtual machines or containers can communicate as if they are on the same physical network.
 - **TUN Device**: Emulates a network layer device and operates with layer 3 packets such as IP packets. It is commonly used for routing purposes and can be used to create VPNs.
 
 ### Creating and Managing TAP/TUN Devices
 
 #### Create a TAP Device
+
 To create a TAP device, use the following commands:
 
 ```sh
@@ -590,6 +675,7 @@ sudo ip link set dev tap0 up
 ```
 
 #### Create a TUN Device
+
 To create a TUN device, use the following commands:
 
 ```sh
@@ -600,6 +686,7 @@ sudo ip link set dev tun0 up
 ### Practical Commands for Managing TUN/TAP Devices
 
 #### View TUN/TAP Devices
+
 To list all TUN/TAP devices, use the following command:
 
 ```sh
@@ -607,6 +694,7 @@ ip link show type tuntap
 ```
 
 #### Set IP Address for TAP Device
+
 To assign an IP address to a TAP device:
 
 ```sh
@@ -614,6 +702,7 @@ sudo ip addr add 192.168.1.100/24 dev tap0
 ```
 
 #### Set IP Address for TUN Device
+
 To assign an IP address to a TUN device:
 
 ```sh
@@ -621,6 +710,7 @@ sudo ip addr add 10.0.0.1/24 dev tun0
 ```
 
 #### Bring Down a TAP/TUN Device
+
 To bring down (disable) a TAP or TUN device:
 
 ```sh
@@ -629,6 +719,7 @@ sudo ip link set dev tun0 down
 ```
 
 #### Delete a TAP/TUN Device
+
 To delete a TAP or TUN device:
 
 ```sh
@@ -637,6 +728,7 @@ sudo ip tuntap del dev tun0 mode tun
 ```
 
 #### Create a TAP Device with Specific MAC Address
+
 To create a TAP device with a specific MAC address:
 
 ```sh
@@ -646,6 +738,7 @@ sudo ip link set dev tap0 up
 ```
 
 #### Create a TUN Device with Specific MTU
+
 To create a TUN device with a specific Maximum Transmission Unit (MTU):
 
 ```sh
@@ -655,6 +748,7 @@ sudo ip link set dev tun0 up
 ```
 
 #### Create a TAP Device with User Ownership
+
 To create a TAP device and set the user ownership:
 
 ```sh
@@ -670,24 +764,24 @@ To create a network bridge and add a TAP device to it:
 
 1. **Create a bridge device**:
 
-    ```sh
-    sudo ip link add name br0 type bridge
-    sudo ip link set dev br0 up
-    ```
+   ```sh
+   sudo ip link add name br0 type bridge
+   sudo ip link set dev br0 up
+   ```
 
 2. **Add TAP device to the bridge**:
 
-    ```sh
-    sudo ip link set dev tap0 master br0
-    sudo ip link set dev tap0 up
-    ```
+   ```sh
+   sudo ip link set dev tap0 master br0
+   sudo ip link set dev tap0 up
+   ```
 
 3. **Add Ethernet device to the bridge**:
 
-    ```sh
-    sudo ip link set dev eth0 master br0
-    sudo ip link set dev eth0 up
-    ```
+   ```sh
+   sudo ip link set dev eth0 master br0
+   sudo ip link set dev eth0 up
+   ```
 
 #### Configuring TUN Device for VPN
 
@@ -695,28 +789,28 @@ To configure a TUN device for VPN use:
 
 1. **Create a TUN device**:
 
-    ```sh
-    sudo ip tuntap add dev tun0 mode tun
-    sudo ip link set dev tun0 up
-    ```
+   ```sh
+   sudo ip tuntap add dev tun0 mode tun
+   sudo ip link set dev tun0 up
+   ```
 
 2. **Assign IP addresses**:
 
-    ```sh
-    sudo ip addr add 10.0.0.1/24 dev tun0
-    ```
+   ```sh
+   sudo ip addr add 10.0.0.1/24 dev tun0
+   ```
 
 3. **Enable IP forwarding**:
 
-    ```sh
-    sudo sysctl -w net.ipv4.ip_forward=1
-    ```
+   ```sh
+   sudo sysctl -w net.ipv4.ip_forward=1
+   ```
 
 4. **Add IP routes**:
 
-    ```sh
-    sudo ip route add 10.0.0.0/24 dev tun0
-    ```
+   ```sh
+   sudo ip route add 10.0.0.0/24 dev tun0
+   ```
 
 #### Configuring TAP Device for Virtual Machine Networking
 
@@ -724,30 +818,31 @@ To configure a TAP device for use with a virtual machine:
 
 1. **Create a TAP device**:
 
-    ```sh
-    sudo ip tuntap add dev tap0 mode tap
-    sudo ip link set dev tap0 up
-    ```
+   ```sh
+   sudo ip tuntap add dev tap0 mode tap
+   sudo ip link set dev tap0 up
+   ```
 
 2. **Assign an IP address**:
 
-    ```sh
-    sudo ip addr add 192.168.100.1/24 dev tap0
-    ```
+   ```sh
+   sudo ip addr add 192.168.100.1/24 dev tap0
+   ```
 
 3. **Configure the virtual machine to use the TAP device**:
 
-    In the virtual machine configuration, specify the TAP device `tap0` as the network interface.
+   In the virtual machine configuration, specify the TAP device `tap0` as the network interface.
 
 4. **Enable packet forwarding** (if needed):
 
-    ```sh
-    sudo sysctl -w net.ipv4.ip_forward=1
-    ```
+   ```sh
+   sudo sysctl -w net.ipv4.ip_forward=1
+   ```
 
 ### Additional Commands and Configurations
 
 #### Change the Name of a TUN/TAP Device
+
 To rename a TUN/TAP device:
 
 ```sh
@@ -756,6 +851,7 @@ sudo ip link set dev tun0 name mytun0
 ```
 
 #### Set a Description for a TUN/TAP Device
+
 To set a description for a TUN/TAP device:
 
 ```sh
@@ -764,6 +860,7 @@ sudo ip link set dev tun0 alias "My TUN Device"
 ```
 
 #### Monitor TUN/TAP Device Traffic
+
 To monitor the traffic on a TUN/TAP device, you can use tools like `tcpdump`:
 
 ```sh
@@ -772,6 +869,7 @@ sudo tcpdump -i tun0
 ```
 
 #### Adjusting MTU
+
 To adjust the MTU (Maximum Transmission Unit) for a TAP/TUN device:
 
 ```sh
@@ -780,6 +878,7 @@ sudo ip link set dev tun0 mtu 1400
 ```
 
 ### Conclusion
+
 TUN and TAP devices are powerful tools for creating virtual network interfaces, allowing for flexible networking configurations in various scenarios such as VPNs, virtual machines, and network bridges. By understanding their functionalities and using the practical commands provided, you can effectively manage and utilize TUN/TAP devices for your networking needs.
 
 ---
@@ -787,36 +886,43 @@ TUN and TAP devices are powerful tools for creating virtual network interfaces, 
 ## VirtIO and Virtual Machines
 
 ### VirtIO
+
 VirtIO is a virtualization standard for network and disk device drivers. It provides a generic interface between the guest virtual machine (VM) and the hypervisor, allowing for efficient data exchange. VirtIO drivers are designed to offer near-native performance by reducing the overhead typically associated with emulating hardware.
 
 #### Advantages of VirtIO
+
 - **Efficiency**: Reduces the overhead of emulating hardware devices, resulting in improved performance.
 - **Standardization**: Provides a consistent and standardized interface for various types of devices.
 - **Compatibility**: Supported by major hypervisors, including KVM (Kernel-based Virtual Machine) and QEMU (Quick Emulator).
 - **Scalability**: Suitable for high-performance and scalable virtualized environments.
 
 ### VirtIO Network Device (virtio-net)
+
 VirtIO network device (virtio-net) is a paravirtualized network driver that allows VMs to communicate with the host system's network stack. It provides a more efficient interface compared to traditional network emulation, resulting in improved network performance.
 
 #### How VirtIO Emulates the Network Interface Card (NIC)
+
 1. **Initialization**: When a VM starts, the hypervisor initializes the virtio-net device and assigns it to the VM.
 2. **Device Discovery**: The guest kernel detects the virtio-net device during boot and loads the appropriate virtio-net driver.
 3. **Queue Pairs**: Virtio-net uses a pair of virtqueues (one for transmitting and one for receiving) to handle network packets. Each queue consists of a descriptor ring, available ring, and used ring.
-4. **Data Transmission**: 
-    - **Guest to Host**: The guest places network packets into the transmit virtqueue. The hypervisor processes these packets and forwards them to the host network stack.
-    - **Host to Guest**: The hypervisor places incoming packets into the receive virtqueue. The guest kernel processes these packets and forwards them to the appropriate application.
+4. **Data Transmission**:
+   - **Guest to Host**: The guest places network packets into the transmit virtqueue. The hypervisor processes these packets and forwards them to the host network stack.
+   - **Host to Guest**: The hypervisor places incoming packets into the receive virtqueue. The guest kernel processes these packets and forwards them to the appropriate application.
 5. **Efficient I/O**: Virtio-net reduces the need for costly device emulation by directly sharing memory pages between the guest and host. This allows for efficient data transfer and reduces CPU overhead.
 
 #### Key Components of VirtIO-net
+
 - **Virtqueues**: Circular buffer structures used for efficient communication between the guest and host.
 - **Descriptor Ring**: Holds descriptors that describe the location and size of network packets in memory.
 - **Available Ring**: Indicates which descriptors are available for processing.
 - **Used Ring**: Indicates which descriptors have been processed and are ready to be reused.
 
 ### Running Virtual Machines with QEMU
+
 QEMU (Quick Emulator) is a popular open-source emulator and virtualization tool that supports VirtIO. QEMU can run VMs with various configurations, including using VirtIO for network and disk devices.
 
 #### Example Command to Run a VM with QEMU and VirtIO
+
 ```sh
 qemu-system-x86_64 -kernel bzImage -m 1G \
   -drive file=rootfs.img,if=virtio \
@@ -826,6 +932,7 @@ qemu-system-x86_64 -kernel bzImage -m 1G \
 ```
 
 #### Explanation of the Command
+
 - **qemu-system-x86_64**: Invokes the QEMU emulator for x86_64 architecture.
 - **-kernel bzImage**: Specifies the kernel image to boot.
 - **-m 1G**: Allocates 1 GB of memory to the VM.
@@ -838,62 +945,72 @@ qemu-system-x86_64 -kernel bzImage -m 1G \
 ### Detailed Steps to Set Up VirtIO Network with QEMU
 
 1. **Install QEMU and KVM**:
-    ```sh
-    sudo apt-get install qemu-kvm qemu-utils
-    ```
+
+   ```sh
+   sudo apt-get install qemu-kvm qemu-utils
+   ```
 
 2. **Create a TAP Device**:
-    ```sh
-    sudo ip tuntap add dev tap0 mode tap
-    sudo ip link set dev tap0 up
-    sudo ip addr add 192.168.1.1/24 dev tap0
-    ```
+
+   ```sh
+   sudo ip tuntap add dev tap0 mode tap
+   sudo ip link set dev tap0 up
+   sudo ip addr add 192.168.1.1/24 dev tap0
+   ```
 
 3. **Create a Bridge Device (Optional)**:
-    ```sh
-    sudo ip link add name br0 type bridge
-    sudo ip link set dev br0 up
-    sudo ip link set dev tap0 master br0
-    sudo ip addr add 192.168.1.1/24 dev br0
-    ```
+
+   ```sh
+   sudo ip link add name br0 type bridge
+   sudo ip link set dev br0 up
+   sudo ip link set dev tap0 master br0
+   sudo ip addr add 192.168.1.1/24 dev br0
+   ```
 
 4. **Prepare the Disk Image**:
-    ```sh
-    qemu-img create -f qcow2 rootfs.img 10G
-    ```
+
+   ```sh
+   qemu-img create -f qcow2 rootfs.img 10G
+   ```
 
 5. **Run the VM with QEMU**:
-    ```sh
-    qemu-system-x86_64 -kernel bzImage -m 1G \
-      -drive file=rootfs.img,if=virtio \
-      -netdev tap,id=net0,ifname=tap0,script=no,downscript=no \
-      -device virtio-net-pci,netdev=net0 \
-      -append "root=/dev/vda rw" -daemonize
-    ```
+
+   ```sh
+   qemu-system-x86_64 -kernel bzImage -m 1G \
+     -drive file=rootfs.img,if=virtio \
+     -netdev tap,id=net0,ifname=tap0,script=no,downscript=no \
+     -device virtio-net-pci,netdev=net0 \
+     -append "root=/dev/vda rw" -daemonize
+   ```
 
 ### Monitoring and Managing VirtIO Devices
 
 #### Check VirtIO Devices in the Guest
+
 To check the VirtIO devices in the guest VM, use the following commands inside the VM:
 
 - **List all network interfaces**:
-    ```sh
-    ip link show
-    ```
+
+  ```sh
+  ip link show
+  ```
 
 - **Check VirtIO block devices**:
-    ```sh
-    lsblk
-    ```
+
+  ```sh
+  lsblk
+  ```
 
 - **Check loaded VirtIO drivers**:
-    ```sh
-    lsmod | grep virtio
-    ```
+
+  ```sh
+  lsmod | grep virtio
+  ```
 
 ### Advanced Configuration and Optimization
 
 #### Enable Multiqueue for VirtIO-net
+
 Multiqueue improves network performance by allowing multiple CPU cores to process network packets simultaneously. To enable multiqueue, use the following QEMU command options:
 
 ```sh
@@ -905,6 +1022,7 @@ qemu-system-x86_64 -kernel bzImage -m 1G \
 ```
 
 #### Enable Offloading Features
+
 To further optimize network performance, enable offloading features such as checksum offloading and TCP segmentation offloading (TSO):
 
 ```sh
@@ -913,6 +1031,7 @@ ethtool -K eth0 tso off
 ```
 
 #### Configure NUMA for Better Performance
+
 Non-Uniform Memory Access (NUMA) configuration can improve performance for VMs with high memory and CPU usage:
 
 ```sh
@@ -936,45 +1055,62 @@ By using VirtIO for network and disk devices, you can achieve high-performance v
 Static routing is a type of network routing technique in which routes are manually configured and managed by the network administrator. Unlike dynamic routing, where routes are automatically adjusted by network protocols, static routing requires manual updates whenever the network topology changes. Static routes are useful for small networks or networks with a predictable and stable topology.
 
 #### How Static Routing Works
+
 Static routing involves manually adding routes to the routing table of a router or host. The routing table is a data structure that contains information about the paths that data packets take to reach their destinations. Each entry in the routing table specifies:
+
 - **Destination Network**: The network that the route leads to.
 - **Subnet Mask**: Defines the range of IP addresses within the destination network.
 - **Next-hop IP Address (Gateway)**: The IP address of the next router that packets should be sent to.
 
 #### Adding a Static Route
+
 To add a static route, you use the `ip route add` command followed by the destination network and the gateway IP address.
 
 - **Command**:
+
   ```sh
   sudo ip route add <network> via <gateway-ip>
   ```
+
   **Explanation**:
+
   - `sudo`: Runs the command with superuser privileges.
   - `ip route add`: Adds a new route to the routing table.
   - `<network>`: Specifies the destination network in CIDR notation (e.g., `192.168.2.0/24`).
   - `via <gateway-ip>`: Specifies the IP address of the next-hop router.
 
 - **Example**:
+
   To add a route to the network `192.168.2.0/24` via the gateway `192.168.1.1`, you would use the following command:
+
   ```sh
   sudo ip route add 192.168.2.0/24 via 192.168.1.1
   ```
+
   This command tells the system that any traffic destined for the `192.168.2.0/24` network should be sent through the gateway `192.168.1.1`.
 
 #### Viewing the Routing Table
+
 To view the current routing table and verify the added routes:
+
 ```sh
 ip route show
 ```
+
 **Explanation**:
+
 - `ip route show`: Displays the current routing table, listing all active routes.
 
 #### Deleting a Static Route
+
 To remove a static route from the routing table:
+
 ```sh
 sudo ip route del <network> via <gateway-ip>
 ```
+
 **Explanation**:
+
 - `sudo`: Runs the command with superuser privileges.
 - `ip route del`: Deletes a route from the routing table.
 - `<network> via <gateway-ip>`: Specifies the route to be deleted.
@@ -984,32 +1120,39 @@ sudo ip route del <network> via <gateway-ip>
 Bridging is a technique used to connect two or more network segments, making them function as a single network. A network bridge forwards traffic between these segments based on MAC addresses, effectively making the separate segments behave as one. This can help extend the network and improve performance without adding routers.
 
 #### How Bridging Works
+
 A bridge operates at the Data Link layer (Layer 2) of the OSI model and connects different network segments by filtering and forwarding traffic based on MAC addresses. By doing so, it reduces the collision domain but maintains the broadcast domain. This is useful in scenarios where you want to extend the network without adding routers.
 
 #### Creating a Network Bridge
+
 To create a bridge, you use the `ip link add` command to create a bridge interface, and the `ip link set` command to bring the bridge interface up.
 
 - **Commands**:
+
   ```sh
   sudo ip link add name br0 type bridge
   sudo ip link set dev br0 up
   ```
 
   **Explanation**:
+
   - `sudo`: Runs the command with superuser privileges.
   - `ip link add name br0 type bridge`: Creates a new bridge device named `br0`.
   - `ip link set dev br0 up`: Activates the bridge device `br0`.
 
 #### Adding Interfaces to the Bridge
+
 Once the bridge is created, you can add network interfaces to it. This is done by using the `ip link set` command to set the network interfaces as members of the bridge.
 
 - **Commands**:
+
   ```sh
   sudo ip link set dev eth0 master br0
   sudo ip link set dev tap0 master br0
   ```
 
   **Explanation**:
+
   - `sudo`: Runs the command with superuser privileges.
   - `ip link set dev eth0 master br0`: Adds the Ethernet interface `eth0` to the bridge `br0`.
   - `ip link set dev tap0 master br0`: Adds the TAP interface `tap0` to the bridge `br0`.
@@ -1017,63 +1160,86 @@ Once the bridge is created, you can add network interfaces to it. This is done b
 #### Practical Examples
 
 ##### Adding a Static Route
+
 ```sh
 sudo ip route add 192.168.2.0/24 via 192.168.1.1
 ```
+
 **Explanation**:
+
 - Adds a static route to the network `192.168.2.0/24`.
 - Specifies `192.168.1.1` as the gateway for this route.
 
 ##### Creating a Bridge
+
 ```sh
 sudo ip link add name br0 type bridge
 sudo ip link set dev br0 up
 ```
+
 **Explanation**:
+
 - Creates a bridge interface named `br0`.
 - Activates the bridge interface.
 
 ##### Adding Interfaces to the Bridge
+
 ```sh
 sudo ip link set dev eth0 master br0
 sudo ip link set dev tap0 master br0
 ```
+
 **Explanation**:
+
 - Adds the Ethernet interface `eth0` to the bridge `br0`.
 - Adds the TAP interface `tap0` to the bridge `br0`.
 
 #### Additional Commands and Configurations
 
 ##### View Bridge Details
+
 To view the details of the bridge and its interfaces:
+
 ```sh
 brctl show
 ```
+
 **Explanation**:
+
 - `brctl show`: Displays the current bridge configuration and the interfaces attached to each bridge.
 
 ##### Remove Interface from Bridge
+
 To remove an interface from a bridge:
+
 ```sh
 sudo ip link set dev eth0 nomaster
 ```
+
 **Explanation**:
+
 - `sudo`: Runs the command with superuser privileges.
 - `ip link set dev eth0 nomaster`: Removes the Ethernet interface `eth0` from any bridge it is part of.
 
 ##### Delete a Bridge
+
 To delete a bridge interface:
+
 ```sh
 sudo ip link delete br0
 ```
+
 **Explanation**:
+
 - `sudo`: Runs the command with superuser privileges.
 - `ip link delete br0`: Deletes the bridge interface `br0`.
 
 ##### Persisting Static Routes and Bridge Configurations
+
 To make static routes and bridge configurations persistent across reboots, you can add them to your network configuration files (e.g., `/etc/network/interfaces` for Debian-based systems, `/etc/sysconfig/network-scripts/ifcfg-br0` for Red Hat-based systems) or use a network management tool like `NetworkManager`.
 
 ##### Example for Debian-based Systems
+
 Add the following lines to `/etc/network/interfaces`:
 
 ```sh
@@ -1095,6 +1261,7 @@ By understanding and utilizing static routing and bridging, network administrato
 ### Start Script for Two Machines
 
 #### Script
+
 ```sh
 #!/bin/bash
 
@@ -1135,72 +1302,91 @@ qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
 #### Explanation
 
 1. **Create a bridge device named br1**:
-    ```sh
-    ip link add name br1 type bridge
-    ```
-    - `ip link add name br1 type bridge`: Adds a new network bridge device named `br1`.
+
+   ```sh
+   ip link add name br1 type bridge
+   ```
+
+   - `ip link add name br1 type bridge`: Adds a new network bridge device named `br1`.
 
 2. **Set the bridge device br1 up**:
-    ```sh
-    ip link set br1 up
-    ```
-    - `ip link set br1 up`: Brings the bridge device `br1` up (activates it).
+
+   ```sh
+   ip link set br1 up
+   ```
+
+   - `ip link set br1 up`: Brings the bridge device `br1` up (activates it).
 
 3. **Create a tap device named vport11**:
-    ```sh
-    ip tuntap add mode tap vport11
-    ```
-    - `ip tuntap add mode tap vport11`: Creates a new TAP device named `vport11`.
+
+   ```sh
+   ip tuntap add mode tap vport11
+   ```
+
+   - `ip tuntap add mode tap vport11`: Creates a new TAP device named `vport11`.
 
 4. **Set the tap device vport11 up**:
-    ```sh
-    ip link set vport11 up
-    ```
-    - `ip link set vport11 up`: Brings the TAP device `vport11` up (activates it).
+
+   ```sh
+   ip link set vport11 up
+   ```
+
+   - `ip link set vport11 up`: Brings the TAP device `vport11` up (activates it).
 
 5. **Add the tap device vport11 to the bridge br1**:
-    ```sh
-    ip link set vport11 master br1
-    ```
-    - `ip link set vport11 master br1`: Adds the TAP device `vport11` to the bridge `br1`.
+
+   ```sh
+   ip link set vport11 master br1
+   ```
+
+   - `ip link set vport11 master br1`: Adds the TAP device `vport11` to the bridge `br1`.
 
 6. **Create a tap device named vport12**:
-    ```sh
-    ip tuntap add mode tap vport12
-    ```
-    - `ip tuntap add mode tap vport12`: Creates a new TAP device named `vport12`.
+
+   ```sh
+   ip tuntap add mode tap vport12
+   ```
+
+   - `ip tuntap add mode tap vport12`: Creates a new TAP device named `vport12`.
 
 7. **Set the tap device vport12 up**:
-    ```sh
-    ip link set vport12 up
-    ```
-    - `ip link set vport12 up`: Brings the TAP device `vport12` up (activates it).
+
+   ```sh
+   ip link set vport12 up
+   ```
+
+   - `ip link set vport12 up`: Brings the TAP device `vport12` up (activates it).
 
 8. **Add the tap device vport12 to the bridge br1**:
-    ```sh
-    ip link set vport12 master br1
-    ```
-    - `ip link set vport12 master br1`: Adds the TAP device `vport12` to the bridge `br1`.
+
+   ```sh
+   ip link set vport12 master br1
+   ```
+
+   - `ip link set vport12 master br1`: Adds the TAP device `vport12` to the bridge `br1`.
 
 9. **Start the first virtual machine h1 using QEMU**:
-    ```sh
-    qemu-system-x86_64 -kernel vms2/bzImageh1.bin -m 1G \
-        -drive "file=vms2/h1.ext4,if=virtio,format=raw" \
-        -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
-        -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
-        -name h1 -daemonize --append "root=/dev/vda rw"
-    ```
-    - `qemu-system-x86_64`: Runs the QEMU emulator for x86_64 architecture.
-    - `-kernel vms2/bzImageh1.bin`: Specifies the kernel image for the VM.
-    - `-m 1G`: Allocates 1 GB of RAM to the VM.
-    - `-drive "file=vms2/h1.ext4,if=virtio,format=raw"`: Specifies the disk image for the VM, using the VirtIO interface.
-    - `-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B'`: Adds a VirtIO network device with the specified MAC address.
-    - `-netdev tap,id=net0,ifname=vport11,script=no,downscript=no`: Specifies the network backend using the TAP device `vport11`.
-    - `-name h1`: Sets the name of the VM to `h1`.
-    - `-daemonize`: Runs QEMU in the background.
-    - `--append "root=/dev/vda rw"`: Specifies the kernel parameters to mount the root filesystem as read-write.
+
+   ```sh
+   qemu-system-x86_64 -kernel vms2/bzImageh1.bin -m 1G \
+       -drive "file=vms2/h1.ext4,if=virtio,format=raw" \
+       -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
+       -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
+       -name h1 -daemonize --append "root=/dev/vda rw"
+   ```
+
+   - `qemu-system-x86_64`: Runs the QEMU emulator for x86_64 architecture.
+   - `-kernel vms2/bzImageh1.bin`: Specifies the kernel image for the VM.
+   - `-m 1G`: Allocates 1 GB of RAM to the VM.
+   - `-drive "file=vms2/h1.ext4,if=virtio,format=raw"`: Specifies the disk image for the VM, using the VirtIO interface.
+   - `-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B'`: Adds a VirtIO network device with the specified MAC address.
+   - `-netdev tap,id=net0,ifname=vport11,script=no,downscript=no`: Specifies the network backend using the TAP device `vport11`.
+   - `-name h1`: Sets the name of the VM to `h1`.
+   - `-daemonize`: Runs QEMU in the background.
+   - `--append "root=/dev/vda rw"`: Specifies the kernel parameters to mount the root filesystem as read-write.
 
 10. **Start the second virtual machine h2 using QEMU**:
+
     ```sh
     qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
         -drive "file=vms2/h2.ext4,if=virtio,format=raw" \
@@ -1208,11 +1394,13 @@ qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
         -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
         -name h2 -daemonize --append "root=/dev/vda rw"
     ```
+
     - Similar to the previous QEMU command, but for the second VM (`h2`) using the TAP device `vport12`.
 
 ### Cleanup Script for Two Machines
 
 #### Script
+
 ```sh
 #!/bin/bash
 
@@ -1238,50 +1426,65 @@ ip link delete dev br1
 #### Explanation
 
 1. **Detach the virtual ethernet device veth0 from its bridge**:
-    ```sh
-    ip link set dev veth0 nomaster
-    ```
-    - `ip link set dev veth0 nomaster`: Detaches the virtual Ethernet device `veth0` from its bridge.
+
+   ```sh
+   ip link set dev veth0 nomaster
+   ```
+
+   - `ip link set dev veth0 nomaster`: Detaches the virtual Ethernet device `veth0` from its bridge.
 
 2. **Delete the virtual ethernet device veth0**:
-    ```sh
-    ip link del dev veth0
-    ```
-    - `ip link del dev veth0`: Deletes the virtual Ethernet device `veth0`.
+
+   ```sh
+   ip link del dev veth0
+   ```
+
+   - `ip link del dev veth0`: Deletes the virtual Ethernet device `veth0`.
 
 3. **Detach the tap device vport11 from its bridge**:
-    ```sh
-    ip link set dev vport11 nomaster
-    ```
-    - `ip link set dev vport11 nomaster`: Detaches the TAP device `vport11` from its bridge.
+
+   ```sh
+   ip link set dev vport11 nomaster
+   ```
+
+   - `ip link set dev vport11 nomaster`: Detaches the TAP device `vport11` from its bridge.
 
 4. **Delete the tap device vport11**:
-    ```sh
-    ip tuntap del mode tap vport11
-    ```
-    - `ip tuntap del mode tap vport11`: Deletes the TAP device `vport11`.
+
+   ```sh
+   ip tuntap del mode tap vport11
+   ```
+
+   - `ip tuntap del mode tap vport11`: Deletes the TAP device `vport11`.
 
 5. **Detach the tap device vport12 from its bridge**:
-    ```sh
-    ip link set dev vport12 nomaster
-    ```
-    - `ip link set dev vport12 nomaster`: Detaches the TAP device `vport12` from its bridge.
+
+   ```sh
+   ip link set dev vport12 nomaster
+   ```
+
+   - `ip link set dev vport12 nomaster`: Detaches the TAP device `vport12` from its bridge.
 
 6. **Delete the tap device vport12**:
-    ```sh
-    ip tuntap del mode tap vport12
-    ```
-    - `ip tuntap del mode tap vport12`: Deletes the TAP device `vport12`.
+
+   ```sh
+   ip tuntap del mode tap vport12
+   ```
+
+   - `ip tuntap del mode tap vport12`: Deletes the TAP device `vport12`.
 
 7. **Delete the bridge device br1**:
-    ```sh
-    ip link delete dev br1
-    ```
-    - `ip link delete dev br1`: Deletes the bridge device `br1`.
+
+   ```sh
+   ip link delete dev br1
+   ```
+
+   - `ip link delete dev br1`: Deletes the bridge device `br1`.
 
 ### Start Script for Three Machines
 
 #### Script
+
 ```sh
 #!/bin/bash
 
@@ -1352,102 +1555,135 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
 #### Explanation
 
 1. **Create a bridge device named br1**:
-    ```sh
-    ip link add name br1 type bridge
-    ```
-    - Adds a new network bridge device named `br1`.
+
+   ```sh
+   ip link add name br1 type bridge
+   ```
+
+   - Adds a new network bridge device named `br1`.
 
 2. **Set the bridge device br1 up**:
-    ```sh
-    ip link set br1 up
-    ```
-    - Brings the bridge device `br1` up (activates it).
+
+   ```sh
+   ip link set br1 up
+   ```
+
+   - Brings the bridge device `br1` up (activates it).
 
 3. **Create a bridge device named br2**:
-    ```sh
-    ip link add name br2 type bridge
-    ```
-    - Adds a new network bridge device named `br2`.
+
+   ```sh
+   ip link add name br2 type bridge
+   ```
+
+   - Adds a new network bridge device named `br2`.
 
 4. **Set the bridge device br2 up**:
-    ```sh
-    ip link set br2 up
-    ```
-    - Brings the bridge device `br2` up (activates it).
+
+   ```sh
+   ip link set br2 up
+   ```
+
+   - Brings the bridge device `br2` up (activates it).
 
 5. **Create a tap device named vport11**:
-    ```sh
-    ip tuntap add mode tap vport11
-    ```
-    - Creates a new TAP device named `vport11`.
+
+   ```sh
+   ip tuntap add mode tap vport11
+   ```
+
+   - Creates a new TAP device named `vport11`.
 
 6. **Set the tap device vport11 up**:
-    ```sh
-    ip link set vport11 up
-    ```
-    - Brings the TAP device `vport11` up (activates it).
+
+   ```sh
+   ip link set vport11 up
+   ```
+
+   - Brings the TAP device `vport11` up (activates it).
 
 7. **Add the tap device vport11 to the bridge br1**:
-    ```sh
-    ip link set vport11 master br1
-    ```
-    - Adds the TAP device `vport11` to the bridge `br1`.
+
+   ```sh
+   ip link set vport11 master br1
+   ```
+
+   - Adds the TAP device `vport11` to the bridge `br1`.
 
 8. **Create a tap device named vport12**:
-    ```sh
-    ip tuntap add mode tap vport12
-    ```
-    - Creates a new TAP device named `vport12`.
+
+   ```sh
+   ip tuntap add mode tap vport12
+   ```
+
+   - Creates a new TAP device named `vport12`.
 
 9. **Set the tap device vport12 up**:
-    ```sh
-    ip link set vport12 up
-    ```
-    - Brings the TAP device `vport12` up (activates it).
+
+   ```sh
+   ip link set vport12 up
+   ```
+
+   - Brings the TAP device `vport12` up (activates it).
 
 10. **Add the tap device vport12 to the bridge br1**:
+
     ```sh
     ip link set vport12 master br1
     ```
+
     - Adds the TAP device `vport12` to the bridge `br1`.
 
 11. **Create a tap device named vport21**:
+
     ```sh
     ip tuntap add mode tap vport21
     ```
+
     - Creates a new TAP device named `vport21`.
 
 12. **Set the tap device vport21 up**:
+
     ```sh
     ip link set vport21 up
     ```
+
     - Brings the TAP device `vport21` up (activates it).
 
 13. **Add the tap device vport21 to the bridge br2**:
+
     ```sh
     ip link set vport21 master br2
     ```
+
     - Adds the TAP device `vport21` to the bridge `br2`.
 
 14. **Create a tap device named vport22**:
+
     ```sh
     ip tuntap add mode tap vport22
     ```
+
     - Creates a new TAP device named `vport22`.
 
 15. **Set the tap device vport22 up**:
+
     ```sh
     ip link set vport22 up
     ```
+
     - Brings the TAP device `vport22` up (activates it).
 
 16. **Add the tap device vport22 to the bridge br2**:
+
     ```sh
     ip link set vport22 master br2
     ```
+
     - Adds the TAP device `vport22` to the bridge `br2`.
 
 17. **Start the first virtual machine h1 using QEMU**:
+
     ```sh
     qemu-system-x86_64 -kernel vms3/bzImageh1.bin -m 1G \
         -drive "file=vms3/h1.ext4,if=virtio,format=raw" \
@@ -1455,9 +1691,11 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
         -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
         -name h1 -daemonize --append "root=/dev/vda rw"
     ```
+
     - Similar to the previous QEMU command, but for the first VM (`h1`) using the TAP device `vport11`.
 
 18. **Start the second virtual machine rt2 using QEMU**:
+
     ```sh
     qemu-system-x86_64 -kernel vms3/bzImagert2.bin -m 1G \
         -drive "file=vms3/rt2.ext4,if=virtio,format=raw" \
@@ -1467,9 +1705,11 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
         -netdev tap,id=net1,ifname=vport22,script=no,downscript=no \
         -name rt2 -daemonize --append "root=/dev/vda rw"
     ```
+
     - Similar to the previous QEMU command, but for the second VM (`rt2`) using the TAP devices `vport12` and `vport22`.
 
 19. **Start the third virtual machine h2 using QEMU**:
+
     ```sh
     qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
         -drive "file=vms3/h2.ext4,if=virtio,format=raw" \
@@ -1477,11 +1717,13 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
         -netdev tap,id=net0,ifname=vport21,script=no,downscript=no \
         -name h2 -daemonize --append "root=/dev/vda rw"
     ```
+
     - Similar to the previous QEMU command, but for the third VM (`h2`) using the TAP device `vport21`.
 
 ### Cleanup Script for Three Machines
 
 #### Script
+
 ```sh
 #!/bin/bash
 
@@ -1516,63 +1758,83 @@ ip link delete dev br2
 #### Explanation
 
 1. **Detach the tap device vport11 from its bridge**:
-    ```sh
-    ip link set dev vport11 nomaster
-    ```
-    - Detaches the TAP device `vport11` from its bridge.
+
+   ```sh
+   ip link set dev vport11 nomaster
+   ```
+
+   - Detaches the TAP device `vport11` from its bridge.
 
 2. **Delete the tap device vport11**:
-    ```sh
-    ip tuntap del mode tap vport11
-    ```
-    - Deletes the TAP device `vport11`.
+
+   ```sh
+   ip tuntap del mode tap vport11
+   ```
+
+   - Deletes the TAP device `vport11`.
 
 3. **Detach the tap device vport12 from its bridge**:
-    ```sh
-    ip link set dev vport12 nomaster
-    ```
-    - Detaches the TAP device `vport12` from its bridge.
+
+   ```sh
+   ip link set dev vport12 nomaster
+   ```
+
+   - Detaches the TAP device `vport12` from its bridge.
 
 4. **Delete the tap device vport12**:
-    ```sh
-    ip tuntap del mode tap vport12
-    ```
-    - Deletes the TAP device `vport12`.
+
+   ```sh
+   ip tuntap del mode tap vport12
+   ```
+
+   - Deletes the TAP device `vport12`.
 
 5. **Detach the tap device vport21 from its bridge**:
-    ```sh
-    ip link set dev vport21 nomaster
-    ```
-    - Detaches the TAP device `vport21` from its bridge.
+
+   ```sh
+   ip link set dev vport21 nomaster
+   ```
+
+   - Detaches the TAP device `vport21` from its bridge.
 
 6. **Delete the tap device vport21**:
-    ```sh
-    ip tuntap del mode tap vport21
-    ```
-    - Deletes the TAP device `vport21`.
+
+   ```sh
+   ip tuntap del mode tap vport21
+   ```
+
+   - Deletes the TAP device `vport21`.
 
 7. **Detach the tap device vport22 from its bridge**:
-    ```sh
-    ip link set dev vport22 nomaster
-    ```
-    - Detaches the TAP device `vport22` from its bridge.
+
+   ```sh
+   ip link set dev vport22 nomaster
+   ```
+
+   - Detaches the TAP device `vport22` from its bridge.
 
 8. **Delete the tap device vport22**:
-    ```sh
-    ip tuntap del mode tap vport22
-    ```
-    - Deletes the TAP device `vport22`.
+
+   ```sh
+   ip tuntap del mode tap vport22
+   ```
+
+   - Deletes the TAP device `vport22`.
 
 9. **Delete the bridge device br1**:
-    ```sh
-    ip link delete dev br1
-    ```
-    - Deletes the bridge device `br1`.
+
+   ```sh
+   ip link delete dev br1
+   ```
+
+   - Deletes the bridge device `br1`.
 
 10. **Delete the bridge device br2**:
+
     ```sh
     ip link delete dev br2
     ```
+
     - Deletes the bridge device `br2`.
 
 ### Conclusion
@@ -1584,12 +1846,15 @@ In the case of three devices, one of the virtual machines (`rt2`) acts as a rout
 To enable IP forwarding on the router (rt2), you need to modify the kernel parameter in the `/proc/sys/net/ipv4/ip_forward` file. This can be done by writing `1` to this file to enable routing or `0` to disable it.
 
 #### Enabling IP Forwarding on the Router
+
 To enable routing, execute the following command on the router (`rt2`):
+
 ```sh
 echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 
 To disable routing, execute the following command:
+
 ```sh
 echo 0 > /proc/sys/net/ipv4/ip_forward
 ```
