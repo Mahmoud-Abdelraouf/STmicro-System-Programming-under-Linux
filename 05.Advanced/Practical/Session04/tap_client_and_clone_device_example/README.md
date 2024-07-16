@@ -1,4 +1,4 @@
-# README - Discovering How VMs Deal with TAP Devices
+# Discovering How VMs Deal with TAP Devices
 
 ## Overview
 
@@ -90,41 +90,53 @@ The provided C program (`tapClient.c`) demonstrates how to create and use a TAP 
     #define TAP_DEVICE "tap4"
     ```
 
-3. **Function to create TAP device:**
+3. **Function to create TAP device (tun_alloc.c):**
     ```c
-    int create_tap_device(char *dev) {
+    /**
+     * @file tun_alloc.c
+     * @brief Function to allocate and configure a TAP device.
+     */
+
+    #include "tap_device_client.h"
+
+    int tun_alloc(char *dev, int flags) {
         struct ifreq ifr;
         int fd, err;
+        char *clonedev = "/dev/net/tun";
 
         // Open the clone device
-        if ((fd = open("/dev/net/tun", O_RDWR)) < 0) {
-            perror("Opening /dev/net/tun");
+        if ((fd = open(clonedev, O_RDWR)) < 0) {
             return fd;
         }
 
         // Preparation of the struct ifr, of type "struct ifreq"
         memset(&ifr, 0, sizeof(ifr));
-        ifr.ifr_flags = IFF_TAP | IFF_NO_PI;
+        ifr.ifr_flags = flags;
         if (*dev) {
             strncpy(ifr.ifr_name, dev, IFNAMSIZ);
         }
 
         // Try to create the device
         if ((err = ioctl(fd, TUNSETIFF, (void *)&ifr)) < 0) {
-            perror("ioctl(TUNSETIFF)");
             close(fd);
             return err;
         }
 
-        // If the operation was successful, write back the name of the
-        // interface to the variable "dev", so the caller can know it.
+        // Write back the name of the interface to the variable "dev"
         strcpy(dev, ifr.ifr_name);
         return fd;
     }
     ```
 
-4. **Main function:**
+4. **Main function (tap_device_client.c):**
     ```c
+    /**
+     * @file tap_device_client.c
+     * @brief Main program for the TAP device client.
+     */
+
+    #include "tap_device_client.h"
+
     int main(int argc, char** argv) {
         char tap_name[IFNAMSIZ];
         int tap_fd;
@@ -133,41 +145,49 @@ The provided C program (`tapClient.c`) demonstrates how to create and use a TAP 
         int i;
 
         // Connect to the tap device
-        strcpy(tap_name, "tap4");
-        tap_fd = create_tap_device(tap_name, IFF_TAP | IFF_NO_PI);
+        strcpy(tap_name, TAP_DEVICE);
+        tap_fd = tun_alloc(tap_name, IFF_TAP | IFF_NO_PI);
 
-        if(tap_fd < 0){
+        if (tap_fd < 0) {
             perror("Allocating interface");
             exit(1);
         }
 
-        // Now read data coming from the kernel
-        while(1) {
-            // Note that "buffer" should be at least the MTU size of the interface, eg 1500 bytes
-            nread = read(tap_fd,buffer,sizeof(buffer));
-            if(nread < 0) {
+        // Read data coming from the kernel
+        while (1) {
+            nread = read(tap_fd, buffer, sizeof(buffer));
+            if (nread < 0) {
                 perror("Reading from interface");
                 close(tap_fd);
                 exit(1);
             }
-            printf("\n =========================================================\n");        
-            for(i=0; i < nread; i++){
-                printf("%x ",buffer[i]);
-                if(!(i%10) ) printf("\n");
+
+            printf("\n =========================================================\n");
+            for (i = 0; i < nread; i++) {
+                printf("%x ", buffer[i]);
+                if (!(i % 10)) printf("\n");
             }
-            // Now Send a ping reply
-            replyToPing(tap_fd , buffer, nread);
+            // Send a ping reply
+            replyToPing(tap_fd, buffer, nread);
         }
+        return 0;
     }
     ```
 
-5. **Function to reply to ping requests:**
+5. **Function to reply to ping requests (reply_to_ping.c):**
     ```c
-    void replyToPing(int fd , unsigned char* buff, int buffSize) {
+    /**
+     * @file reply_to_ping.c
+     * @brief Function to send a reply to a received ping (ICMP Echo Request).
+     */
+
+    #include "tap_device_client.h"
+
+    void replyToPing(int fd, unsigned char* buff, int buffSize) {
         uint8_t myMacAddress[6] = {0xe4, 0xfa, 0xff, 0xaa, 0xba, 0xcc};
         static uint16_t id = 0;
         int nWrite;
-        ethernet_t  *ethernetPacketPointer;
+        ethernet_t *ethernetPacketPointer;
         unsigned char copy_buff[1500];
 
         ethernetPacketPointer = (ethernet_t *) buff;
@@ -175,70 +195,60 @@ The provided C program (`tapClient.c`) demonstrates how to create and use a TAP 
         memcpy(ethernetPacketPointer->send_mac, myMacAddress, 6);
 
         // ARP Protocol
-        if(ntohs(ethernetPacketPointer->type_len) == 0x0806) {
-            arpPacket_t *arpPacketPointel;
+        if (ntohs(ethernetPacketPointer->type_len) == 0x0806) {
+            arpPacket_t *arpPacketPointer;
             uint32_t tempIP;
 
-            arpPacketPointel = (arpPacket_t* )(buff + sizeof(ethernet_t));
-            tempIP = arpPacketPointel->destIP.iIP4;
-            arpPacketPointel->destIP.iIP4 = arpPacketPointel->sourceIP.iIP4;
-            arpPacketPointel->sourceIP.iIP4 = tempIP;
+            arpPacketPointer = (arpPacket_t *)(buff + sizeof(ethernet_t));
+            tempIP = arpPacketPointer->destIP.iIP4;
+            arpPacketPointer->destIP.iIP4 = arpPacketPointer->sourceIP.iIP4;
+            arpPacketPointer->sourceIP.iIP4 = tempIP;
 
-            // 1 for Request 2 for Reply
-            arpPacketPointel->operation = ntohs(2);
-            memcpy(arpPacketPointel->dest_mac, arpPacketPointel->source_mac, 6);
-            memcpy(arpPacketPointel->source_mac, myMacAddress, 6);
+            arpPacketPointer->operation = ntohs(2);
+            memcpy(arpPacketPointer->dest_mac, arpPacketPointer->source_mac, 6);
+            memcpy(arpPacketPointer->source_mac, myMacAddress, 6);
 
-            nWrite = write(fd , buff , buffSize);
-            if(nWrite < 0) {
+            nWrite = write(fd, buff, buffSize);
+            if (nWrite < 0) {
                 perror("Writing to interface");
                 close(fd);
                 exit(1);
             }
         }
-
-        // IPV4 Protocol
-        else if(ntohs(ethernetPacketPointer->type_len) == 0x0800) {
+        // IPv4 Protocol
+        else if (ntohs(ethernetPacketPointer->type_len) == 0x0800) {
             ipv4Packet_t *ipv4PacketPointer;
             ipv4Packet_t *ipv4PacketPointer_copy;
             uint32_t tempIP;
-            uint16_t tmpchecksum; 
-            ipv4PacketPointer = (ipv4Packet_t* )(buff + sizeof(ethernet_t));
-            printf("IPv4 checksum=%x\n",ipv4PacketPointer->checksum);
-            memcpy(copy_buff,buff,buffSize);
-            ipv4PacketPointer_copy = (ipv4Packet_t* )(copy_buff + sizeof(ethernet_t));
-            ipv4PacketPointer_copy->checksum=0;
-            printf("IPv4 checksum computed=%x\n",htons(internetChecksum(ipv4PacketPointer_copy,
-                                                                    sizeof(ipv4Packet_t), 
-                                                                    0)));
+            uint16_t tmpchecksum;
+            ipv4PacketPointer = (ipv4Packet_t *)(buff + sizeof(ethernet_t));
+            printf("IPv4 checksum=%x\n", ipv4PacketPointer->checksum);
+            memcpy(copy_buff, buff, buffSize);
+            ipv4PacketPointer_copy = (ipv4Packet_t *)(copy_buff + sizeof(ethernet_t));
+            ipv4PacketPointer_copy->checksum = 0;
+            printf("IPv4 checksum computed=%x\n", htons(internetChecksum(ipv4PacketPointer_copy, sizeof(ipv4Packet_t), 0)));
 
-            // ICMP Protocol Only
-            if(ipv4PacketPointer->protocol == 1) {
-                tempIP = ipv4PacketPointer->destIP.iIP4;
-                ipv4PacketPointer->destIP.iIP4   = ipv4PacketPointer->sourceIP.iIP4;
+            if (ipv4PacketPointer->protocol == 1) {
+                tempIP
+
+ = ipv4PacketPointer->destIP.iIP4;
+                ipv4PacketPointer->destIP.iIP4 = ipv4PacketPointer->sourceIP.iIP4;
                 ipv4PacketPointer->sourceIP.iIP4 = tempIP;
-                ipv4PacketPointer->identification = ++id
-
-;
+                ipv4PacketPointer->identification = ++id;
                 ipv4PacketPointer->checksum = 0;
-                ipv4PacketPointer->checksum = htons(internetChecksum(ipv4PacketPointer,
-                                                                    sizeof(ipv4Packet_t), 
-                                                                    0));
-                int icmpDataLength = buffSize - (sizeof(ethernet_t)
-                                                +sizeof(ipv4Packet_t)
-                                                +sizeof(icmpheader_t));
+                ipv4PacketPointer->checksum = htons(internetChecksum(ipv4PacketPointer, sizeof(ipv4Packet_t), 0));
+                int icmpDataLength = buffSize - (sizeof(ethernet_t) + sizeof(ipv4Packet_t) + sizeof(icmpheader_t));
                 icmpheader_t *icmpPacketPointer;
-                icmpPacketPointer = (icmpheader_t* )(buff + sizeof(ethernet_t)
-                                                    + sizeof(ipv4Packet_t));
+                icmpPacketPointer = (icmpheader_t *)(buff + sizeof(ethernet_t) + sizeof(ipv4Packet_t));
                 icmpPacketPointer->type = ICMP_ECHO_REPLY;
                 printf("--------ICMP CHECKSUM \n");
                 icmpPacketPointer->checksum = 0;
-                tmpchecksum = internetChecksum(icmpPacketPointer, sizeof(icmpheader_t) +icmpDataLength, 0);
+                tmpchecksum = internetChecksum(icmpPacketPointer, sizeof(icmpheader_t) + icmpDataLength, 0);
                 icmpPacketPointer->checksum = htons(tmpchecksum);
-                printf("debug id=%d checksum=%x\n",id,tmpchecksum);
-                printf("debug icmpPacketPointer->id=%d icmpPacketPointer->seqnumber=%d\n",icmpPacketPointer->id,icmpPacketPointer->seqnumber);
-                nWrite = write(fd , buff , buffSize);
-                if(nWrite < 0) {
+                printf("debug id=%d checksum=%x\n", id, tmpchecksum);
+                printf("debug icmpPacketPointer->id=%d icmpPacketPointer->seqnumber=%d\n", icmpPacketPointer->id, icmpPacketPointer->seqnumber);
+                nWrite = write(fd, buff, buffSize);
+                if (nWrite < 0) {
                     perror("Writing to interface");
                     close(fd);
                     exit(1);
@@ -248,31 +258,34 @@ The provided C program (`tapClient.c`) demonstrates how to create and use a TAP 
     }
     ```
 
-6. **Function to calculate the internet checksum:**
+6. **Function to calculate the internet checksum (internet_checksum.c):**
     ```c
+    /**
+     * @file internet_checksum.c
+     * @brief Function to calculate the Internet checksum.
+     */
+
+    #include "tap_device_client.h"
+
     uint16_t internetChecksum(const void* addr, size_t count, uint32_t pseudoHeaderChecksum) {
-        uint32_t sum  = pseudoHeaderChecksum;
+        uint32_t sum = pseudoHeaderChecksum;
         const uint8_t* data = addr;
 
-        // Inner loop
         while (count > 1) {
-            printf("data[%ld]=%x data[%ld]=%x\n",count,data[0],count-1,data[1]);
-            // Big Endian
-            sum   += (data[0] << 8) | data[1];
-            data  += 2;
+            printf("data[%ld]=%x data[%ld]=%x\n", count, data[0], count-1, data[1]);
+            sum += (data[0] << 8) | data[1];
+            data += 2;
             count -= 2;
         }
 
-        // Add left-over byte, if any
         if (count > 0) {
             sum += data[0] << 8;
         }
 
-        // Fold 32-bit sum to 16 bits
         while (sum >> 16) {
             sum = (sum & 0xFFFF) + (sum >> 16);
         }
-        printf("-----Checksum return=%x\n",(~sum & 0xFFFF));
+        printf("-----Checksum return=%x\n", (~sum & 0xFFFF));
         return ~sum & 0xFFFF;
     }
     ```
@@ -281,12 +294,12 @@ The provided C program (`tapClient.c`) demonstrates how to create and use a TAP 
 
 1. **Compile the program:**
     ```sh
-    gcc -o tapClient tapClient.c
+    gcc -o tap_device_client tap_device_client.c tun_alloc.c internet_checksum.c reply_to_ping.c
     ```
 
 2. **Run the program with root privileges:**
     ```sh
-    sudo ./tapClient
+    sudo ./tap_device_client
     ```
 
 3. **Run the script to ping:**
