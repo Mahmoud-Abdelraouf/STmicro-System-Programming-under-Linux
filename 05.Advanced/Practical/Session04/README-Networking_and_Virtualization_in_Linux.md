@@ -259,6 +259,36 @@ Ethernet operates by transmitting data in packets called frames between devices 
   ip link show eth0
   ```
 
+- **Bring Down an Ethernet Interface**:
+  ```sh
+  sudo ip link set dev eth0 down
+  ```
+
+- **Delete an IP Address from an Ethernet Interface**:
+  ```sh
+  sudo ip addr del 192.168.1.10/24 dev eth0
+  ```
+
+- **Set a Static MAC Address**:
+  ```sh
+  sudo ip link set dev eth0 address 00:14:22:01:23:45
+  ```
+
+- **Add a Static ARP Entry**:
+  ```sh
+  sudo ip neigh add 192.168.1.20 lladdr 00:14:22:01:23:46 dev eth0
+  ```
+
+- **Delete a Static ARP Entry**:
+  ```sh
+  sudo ip neigh del 192.168.1.20 dev eth0
+  ```
+
+- **View ARP Table**:
+  ```sh
+  ip neigh show
+  ```
+  
 ---
 
 ## IP Addressing and Subnetting
