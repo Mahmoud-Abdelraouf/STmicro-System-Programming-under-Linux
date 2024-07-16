@@ -9,18 +9,19 @@ This guide covers the essential aspects of networking, including different topol
 1. [Networking Topologies](#networking-topologies)
 2. [Networking Layers](#networking-layers)
 3. [Ethernet Packets](#ethernet-packets)
-4. [IPv4 Addressing](#ipv4-addressing)
-5. [IPv6 Addressing](#ipv6-addressing)
-6. [ICMP Packets](#icmp-packets)
-7. [ARP Packets](#arp-packets)
-8. [MAC and IP Address Resolution](#mac-and-ip-address-resolution)
-9. [Default Router in Linux](#default-router-in-linux)
-10. [Virtual Network Devices](#virtual-network-devices)
-11. [TAP and TUN Devices](#tap-and-tun-devices)
-12. [VirtIO and Virtual Machines](#virtio-and-virtual-machines)
-13. [Static Routing and Bridging](#static-routing-and-bridging)
-14. [Practical Scripts](#practical-scripts)
-15. [Resources](#resources)
+4. [IP Addressing and Subnetting](#ip-addressing-and-subnetting)
+5. [IPv4 Addressing](#ipv4-addressing)
+6. [IPv6 Addressing](#ipv6-addressing)
+7. [ICMP Packets](#icmp-packets)
+8. [ARP Packets](#arp-packets)
+9. [MAC and IP Address Resolution](#mac-and-ip-address-resolution)
+10. [Default Router in Linux](#default-router-in-linux)
+11. [Virtual Network Devices](#virtual-network-devices)
+12. [TAP and TUN Devices](#tap-and-tun-devices)
+13. [VirtIO and Virtual Machines](#virtio-and-virtual-machines)
+14. [Static Routing and Bridging](#static-routing-and-bridging)
+15. [Practical Scripts](#practical-scripts)
+16. [Resources](#resources)
 
 ---
 
@@ -52,101 +53,325 @@ This guide covers the essential aspects of networking, including different topol
 
 ### OSI Model Layers
 1. **Application Layer**
-2. **Transport Layer**
-3. **Network Layer**
-4. **Data Link Layer**
-5. **Physical Layer**
+2. **Presentation Layer**
+3. **Session Layer**
+4. **Transport Layer**
+5. **Network Layer**
+6. **Data Link Layer**
+7. **Physical Layer**
 
 ### Detailed Explanation
-- **Application Layer**: Interfaces directly with end-user applications, providing services like HTTP, FTP, SMTP, etc.
-- **Transport Layer**: Manages end-to-end communication, reliability, and flow control. Protocols: TCP, UDP.
-- **Network Layer**: Handles logical addressing and routing. Protocol: IP.
-- **Data Link Layer**: Manages physical addressing and error detection. Protocols: Ethernet, PPP.
-- **Physical Layer**: Deals with the physical connection between devices. Components: Cables, switches, etc.
 
+#### 1. Application Layer
+- **Function**: Interfaces directly with end-user applications, providing network services.
+- **Protocols**: HTTP, FTP, SMTP, DNS, Telnet, SSH
+- **Examples**:
+  - **HTTP**: Used by web browsers to fetch web pages from web servers.
+  - **FTP**: Used to transfer files between computers on a network.
+  - **SMTP**: Used for sending emails.
+- **Types**:
+  - **Web Protocols**: HTTP, HTTPS
+  - **File Transfer Protocols**: FTP, TFTP
+  - **Email Protocols**: SMTP, IMAP, POP3
+  - **Directory Services**: LDAP
+  - **Remote Access Protocols**: Telnet, SSH
+
+#### 2. Presentation Layer
+- **Function**: Responsible for data translation, encryption, and compression.
+- **Examples**:
+  - **Data Translation**: Converts data formats like EBCDIC to ASCII.
+  - **Encryption**: SSL/TLS protocols used to secure data transmission over the internet.
+  - **Compression**: Reduces the number of bits that need to be transmitted on the network.
+- **Types**:
+  - **Data Formats**: JPEG, GIF, TIFF
+  - **Encryption**: SSL/TLS, Kerberos
+  - **Compression**: MPEG, GIF
+
+#### 3. Session Layer
+- **Function**: Manages sessions between applications. It establishes, manages, and terminates connections between applications.
+- **Examples**:
+  - **Session Management**: In web conferencing, it manages the session to ensure all participants can communicate in real-time.
+  - **Synchronization**: In a file transfer, it ensures the file transfer can be resumed from the same point if the connection drops.
+- **Types**:
+  - **Session Management**: NetBIOS
+  - **Dialog Control**: RPC (Remote Procedure Call)
+  - **Synchronization**: PPTP (Point-to-Point Tunneling Protocol)
+
+#### 4. Transport Layer
+- **Function**: Ensures reliable data transfer with error correction and flow control. It segments and reassembles data into a data stream.
+- **Protocols**: TCP, UDP
+- **Examples**:
+  - **TCP**: Ensures reliable, ordered, and error-checked delivery of a stream of data between applications.
+  - **UDP**: Provides a simpler, connectionless communication model with minimal protocol mechanism.
+- **Types**:
+  - **Connection-Oriented**: TCP (Transmission Control Protocol)
+  - **Connectionless**: UDP (User Datagram Protocol)
+  - **Message-Oriented**: SCTP (Stream Control Transmission Protocol)
+
+#### 5. Network Layer
+- **Function**: Handles logical addressing and routing. It determines the best path to move data from source to destination.
+- **Protocols**: IP, ICMP, IGMP
+- **Examples**:
+  - **IP**: Responsible for addressing and routing packets of data so they can travel across networks and arrive at the correct destination.
+  - **ICMP**: Used for diagnostic purposes like the ping command to test connectivity between hosts.
+- **Types**:
+  - **Routing Protocols**: OSPF (Open Shortest Path First), BGP (Border Gateway Protocol)
+  - **Addressing Protocols**: IPv4, IPv6
+  - **Messaging Protocols**: ICMP (Internet Control Message Protocol)
+  - **Multicast Protocols**: IGMP (Internet Group Management Protocol)
+
+#### 6. Data Link Layer
+- **Function**: Manages physical addressing and error detection. It ensures that data transferred is free from errors.
+- **Protocols**: Ethernet, PPP, Switches, Bridges
+- **Examples**:
+  - **Ethernet**: Defines wiring and signaling standards for the physical layer, as well as data packet formats and protocols for the data link layer.
+  - **MAC Addressing**: Provides unique identifiers assigned to network interfaces for communications on the physical network segment.
+- **Types**:
+  - **LLC (Logical Link Control)**: Manages frames to identify network layer protocols.
+  - **MAC (Media Access Control)**: Manages protocols for accessing the physical medium.
+  - **Error Detection**: CRC (Cyclic Redundancy Check)
+
+#### 7. Physical Layer
+- **Function**: Deals with the physical connection between devices. It transmits raw bitstreams over a physical medium.
+- **Components**: Cables, switches, hubs, network adapters
+- **Examples**:
+  - **Cables**: Coaxial, optical fiber, and twisted pair cables.
+  - **Physical Transmission**: The actual hardware that transmits the raw data bits over the network medium, such as Ethernet cables or fiber optics.
+- **Types**:
+  - **Transmission Media**: Copper cables, fiber optic cables, wireless
+  - **Hardware Devices**: Hubs, repeaters, network adapters
+  - **Signaling**: Electrical signals, light signals
+  
 ---
 
-## Ethernet Packets
+## 1. IP Addressing and Subnetting
 
-Ethernet packets are the fundamental unit of data transmitted over Ethernet networks. They consist of several fields:
+### 1.1. IPv4 Addressing
 
-1. **Preamble**: 7 bytes, used for synchronization.
-2. **Start Frame Delimiter (SFD)**: 1 byte, indicates the start of the frame.
-3. **Destination MAC Address**: 6 bytes, address of the receiving device.
-4. **Source MAC Address**: 6 bytes, address of the sending device.
-5. **EtherType**: 2 bytes, indicates the protocol used in the payload.
-6. **Payload**: 46-1500 bytes, the actual data being transmitted.
-7. **Frame Check Sequence (FCS)**: 4 bytes, error checking code.
-
----
-
-## IPv4 Addressing
-
-### IP Address Format
+#### 1.1.1. IP Address Format
 - **IPv4**: 32-bit address, divided into four 8-bit octets.
 - **Netmask**: Defines the network portion of the IP address.
+- **CIDR Notation**: The `/` notation following an IP address indicates the number of bits used for the network portion (e.g., `192.168.1.0/24`).
 
-### IPv4 Classes
+#### 1.1.2. IPv4 Classes
 IPv4 addresses are divided into five classes, based on the leading bits:
 
 - **Class A**
-  - Range: `1.0.0.0` to `126.0.0.0`
-  - Default Subnet Mask: `255.0.0.0`
-  - Number of Networks: 128 (2^7)
-  - Number of Hosts per Network: 16,777,214 (2^24 - 2)
-  - Example: `10.0.0.0` (Private Range)
+  - **Range**: `1.0.0.0` to `126.0.0.0`
+  - **Default Subnet Mask**: `255.0.0.0`
+  - **Number of Networks**: 128 (2^7)
+  - **Number of Hosts per Network**: 16,777,214 (2^24 - 2)
+  - **Example**: `10.0.0.0` (Private Range)
 
 - **Class B**
-  - Range: `128.0.0.0` to `191.255.0.0`
-  - Default Subnet Mask: `255.255.0.0`
-  - Number of Networks: 16,384 (2^14)
-  - Number of Hosts per Network: 65,534 (2^16 - 2)
-  - Example: `172.16.0.0` (Private Range)
+  - **Range**: `128.0.0.0` to `191.255.0.0`
+  - **Default Subnet Mask**: `255.255.0.0`
+  - **Number of Networks**: 16,384 (2^14)
+  - **Number of Hosts per Network**: 65,534 (2^16 - 2)
+  - **Example**: `172.16.0.0` (Private Range)
 
 - **Class C**
-  - Range: `192.0.0.0` to `223.255.255.0`
-  - Default Subnet Mask: `255.255.255.0`
-  - Number of Networks: 2,097,152 (2^21)
-  - Number of Hosts per Network: 254 (2^8 - 2)
-  - Example: `192.168.0.0` (Private Range)
+  - **Range**: `192.0.0.0` to `223.255.255.0`
+  - **Default Subnet Mask**: `255.255.255.0`
+  - **Number of Networks**: 2,097,152 (2^21)
+  - **Number of Hosts per Network**: 254 (2^8 - 2)
+  - **Example**: `192.168.0.0` (Private Range)
 
 - **Class D**
-  - Range: `224.0.0.0` to `239.255.255.255`
-  - Used for multicast.
+  - **Range**: `224.0.0.0` to `239.255.255.255`
+  - **Used for**: Multicast.
 
 - **Class E**
-  - Range: `240.0.0.0` to `255.255.255.255`
-  - Reserved for future use and research.
+  - **Range**: `240.0.0.0` to `255.255.255.255`
+  - **Reserved for**: Future use and research.
 
-### Numerical Example for Subnetting
+#### 1.1.3. Subnetting and Netmask
+Subnetting allows dividing a larger network into smaller sub-networks, which helps in efficient IP management and security.
+
+##### Subnet Mask
+- **Purpose**: Determines which portion of an IP address is the network and which part is the host.
+- **Example**: `255.255.255.0` (binary: `11111111.11111111.11111111.00000000`)
+
+#### 1.1.4. Numerical Example for Subnetting
 Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
 
 1. **Original Network**: `192.168.1.0/24`
-   - Subnet Mask: `255.255.255.0`
-   - Number of Subnets: 1
-   - Number of Hosts: 256 - 2 = 254
+   - **Subnet Mask**: `255.255.255.0`
+   - **Number of Subnets**: 1
+   - **Number of Hosts**: 256 - 2 = 254
+   - **Binary Subnet Mask**: `11111111.11111111.11111111.00000000`
 
 2. **Subnet into Two**: `192.168.1.0/25` and `192.168.1.128/25`
-   - Subnet Mask: `255.255.255.128`
-   - Number of Subnets: 2
-   - Number of Hosts: 128 - 2 = 126
+   - **Subnet Mask**: `255.255.255.128`
+   - **Number of Subnets**: 2
+   - **Number of Hosts**: 128 - 2 = 126
+   - **Binary Subnet Mask**: `11111111.11111111.11111111.10000000`
+
+   **Explanation**:
+   - **192.168.1.0/25**:
+     - Binary: `11000000.10101000.00000001.0XXXXXXX`
+     - First Address: `192.168.1.0`
+     - Last Address: `192.168.1.127`
+     - **First Address (Binary)**: `11000000.10101000.00000001.00000000`
+     - **Last Address (Binary)**: `11000000.10101000.00000001.01111111`
+
+   - **192.168.1.128/25**:
+     - Binary: `11000000.10101000.00000001.1XXXXXXX`
+     - First Address: `192.168.1.128`
+     - Last Address: `192.168.1.255`
+     - **First Address (Binary)**: `11000000.10101000.00000001.10000000`
+     - **Last Address (Binary)**: `11000000.10101000.00000001.11111111`
 
 3. **Subnet into Four**: `192.168.1.0/26`, `192.168.1.64/26`, `192.168.1.128/26`, and `192.168.1.192/26`
-   - Subnet Mask: `255.255.255.192`
-   - Number of Subnets: 4
-   - Number of Hosts: 64 - 2 = 62
+   - **Subnet Mask**: `255.255.255.192`
+   - **Number of Subnets**: 4
+   - **Number of Hosts**: 64 - 2 = 62
+   - **Binary Subnet Mask**: `11111111.11111111.11111111.11000000`
+
+   **Explanation**:
+   - **192.168.1.0/26**:
+     - Binary: `11000000.10101000.00000001.00XXXXXX`
+     - First Address: `192.168.1.0`
+     - Last Address: `192.168.1.63`
+     - **First Address (Binary)**: `11000000.10101000.00000001.00000000`
+     - **Last Address (Binary)**: `11000000.10101000.00000001.00111111`
+
+   - **192.168.1.64/26**:
+     - Binary: `11000000.10101000.00000001.01XXXXXX`
+     - First Address: `192.168.1.64`
+     - Last Address: `192.168.1.127`
+     - **First Address (Binary)**: `11000000.10101000.00000001.01000000`
+     - **Last Address (Binary)**: `11000000.10101000.00000001.01111111`
+
+   - **192.168.1.128/26**:
+     - Binary: `11000000.10101000.00000001.10XXXXXX`
+     - First Address: `192.168.1.128`
+     - Last Address: `192.168.1.191`
+     - **First Address (Binary)**: `11000000.10101000.00000001.10000000`
+     - **Last Address (Binary)**: `11000000.10101000.00000001.10111111`
+
+   - **192.168.1.192/26**:
+     - Binary: `11000000.10101000.00000001.11XXXXXX`
+     - First Address: `192.168.1.192`
+     - Last Address: `192.168.1.255`
+     - **First Address (Binary)**: `11000000.10101000.00000001.11000000`
+     - **Last Address (Binary)**: `11000000.10101000.00000001.11111111`
+
+#### 1.1.5. Practical Commands for IPv4
+
+- **View IP Address**:
+  ```sh
+  ip addr show
+  ```
+
+- **Assign IP Address**:
+  ```sh
+  sudo ip addr add 192.168.1.10/24 dev eth0
+  ```
+
+- **Add Default Gateway**:
+  ```sh
+  sudo ip route add default via 192.168.1.1
+  ```
+
+- **View Routing Table**:
+  ```sh
+  ip route show
+  ```
+
+#### 1.1.6. Routing and Default Gateway
+A router forwards data packets between computer networks. A default gateway routes traffic from a local network to other networks or the internet.
+
+- **Example**:
+  - To set a default gateway: `sudo ip route add default via 192.168.1.1`
+  - To view the routing table: `ip route show`
+
+#### 1.1.7. ICMP and ARP
+- **ICMP (Internet Control Message Protocol)**: Used for error messages and operational information (e.g., `ping` command).
+- **ARP (Address Resolution Protocol)**: Resolves IP addresses to MAC (hardware) addresses within a local network.
+
+#### 1.1.8. Data Transmission in a Network
+When a device wants to communicate with another device:
+
+1. **Local Network**:
+   - The sender sends an ARP request to get the MAC address of the recipient.
+   - If the recipient is in the same network, it responds with its
+
+ MAC address.
+   - Data is then sent directly to the recipient using the MAC address.
+
+2. **Different Network**:
+   - The sender sends data to the default gateway (router).
+   - The router forwards the data to the next router, and this process continues until the data reaches the recipient’s network.
+   - ARP is used within each local network to resolve MAC addresses.
+
+#### 1.1.9. ARP and ICMP
+- **ARP (Address Resolution Protocol)**: Resolves IP addresses to MAC (hardware) addresses within a local network. 
+- **ICMP (Internet Control Message Protocol)**: Used for error messages and operational information (e.g., `ping` command).
+
+##### Example of ARP
+1. **Local Network Communication**:
+   - **Sender**: Sends an ARP request to get the MAC address of the recipient.
+   - **Recipient**: If in the same network, it responds with its MAC address.
+   - **Data Transmission**: Data is sent directly to the recipient using the MAC address.
+
+2. **Different Network Communication**:
+   - **Sender**: Sends data to the default gateway (router).
+   - **Router**: Forwards the data to the next router, and this process continues until the data reaches the recipient’s network.
+   - **ARP**: Used within each local network to resolve MAC addresses.
+
+##### Types of Casts
+- **Unicast**: Communication between a single sender and a single receiver.
+- **Broadcast**: Communication from one sender to all possible receivers in the network.
+- **Multicast**: Communication from one sender to a group of receivers.
+
+#### 1.1.10. ARP Packet
+- **Purpose**: Determine the MAC address corresponding to an IP address.
+- **Process**: 
+  - **Sender**: Broadcasts an ARP request asking "Who has IP address X?"
+  - **Recipient**: Responds with its MAC address.
 
 ---
 
-## IPv6 Addressing
+## 2. IPv6 Addressing
 
-### IP Address Format
-- **IPv6**: 128-bit address, written as eight groups of four hexadecimal digits.
+### 2.1. IP Address Format
+- **IPv6**: 128-bit address, written as eight groups of four hexadecimal digits (e.g., `2001:0db8:85a3:0000:0000:8a2e:0370:7334`).
 
-### Example Address
+### 2.2. IPv6 Features
+- **Larger Address Space**: Provides a virtually unlimited number of IP addresses.
+- **Simplified Header**: Improves routing efficiency and performance.
+- **Auto-Configuration**: Devices can automatically configure their own IP addresses.
+- **Integrated Security**: IPsec is mandatory in IPv6.
+- **No Broadcasts**: Uses multicast and anycast instead of broadcast.
+
+### 2.3. Example Address
 - `2001:0db8:85a3:0000:0000:8a2e:0370:7334`
 
-### Address Types
+### 2.4. Subnetting in IPv6
+IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
+
+- **Example**:
+  - Global Unicast Address: `2001:0db8::/32`
+  - Subnet ID: `2001:0db8:abcd::/48`
+  - Interface ID: `2001:0db8:abcd:0012:0000:0000:0000:0001/64`
+
+### 2.5. Transition from IPv4 to IPv6
+- **Dual Stack**: Devices run both IPv4 and IPv6.
+- **Tunneling**: Encapsulating IPv6 traffic within IPv4 packets.
+- **Translation**: Converting IPv6 packets to IPv4 packets and vice versa.
+
+### 2.6. Practical Usage
+- Configure IPv6 on a network interface:
+  ```sh
+  sudo ip -6 addr add 2001:db8::1/64 dev eth0
+  ```
+- Add an IPv6 route:
+  ```sh
+  sudo ip -6 route add 2001:db8:abcd::/64 via 2001:db8::1
+  ```
+  
+### 2.7. Address Types
 - **Unicast**: Identifies a single network interface.
 - **Multicast**: Identifies multiple network interfaces.
 - **Anycast**: Identifies the nearest of multiple network interfaces.
@@ -346,7 +571,6 @@ sudo ip link set dev tap0 master br0
 
 By understanding and utilizing static routing and bridging, network administrators can effectively manage and optimize network traffic, ensuring efficient and reliable communication within and across networks.
 
-
 ---
 
 ## Practical Scripts
@@ -507,7 +731,6 @@ ip link delete dev br1
 # Delete the bridge device br2
 ip link delete dev br2
 ```
-
 
 ---
 
