@@ -178,7 +178,9 @@ IPv4 addresses are divided into five classes, based on the leading bits:
   - **Example**: `192.168.0.0` (Private Range)
 
 - **Class D**
-  - **Range**: `224.0.0.0` to `239.255.255.255`
+  - **Range**: `224.0.0.0` to
+
+ `239.255.255.255`
   - **Used for**: Multicast.
 
 - **Class E**
@@ -295,9 +297,7 @@ When a device wants to communicate with another device:
 
 1. **Local Network**:
    - The sender sends an ARP request to get the MAC address of the recipient.
-   - If the recipient is in the same network, it responds with its
-
- MAC address.
+   - If the recipient is in the same network, it responds with its MAC address.
    - Data is then sent directly to the recipient using the MAC address.
 
 2. **Different Network**:
@@ -346,7 +346,9 @@ When a device wants to communicate with another device:
 - **No Broadcasts**: Uses multicast and anycast instead of broadcast.
 
 ### Example Address
-- `2001:0db8:85a3:0000:0000:8a2e:0370:7334`
+- `2001:0db8:85a3
+
+:0000:0000:8a2e:0370:7334`
 
 ### Subnetting in IPv6
 IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
@@ -548,7 +550,9 @@ Once the bridge is created, you can add network interfaces to it. This is done b
   sudo ip link set dev tap0 master br0
   ```
 
-In this example, `eth0` and `tap0` are added to the bridge `br0`. This effectively makes `eth0` and `tap0` part of the same network segment.
+In this example, `eth0` and `tap0` are added to the bridge `br0`. This effectively makes `eth0` and
+
+ `tap0` part of the same network segment.
 
 ### Practical Examples
 
