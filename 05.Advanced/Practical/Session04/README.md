@@ -65,7 +65,7 @@ During this session, we achieved the following:
 - [Linux Kernel Documentation on TUN/TAP](https://www.kernel.org/doc/Documentation/networking/tuntap.txt)
 - [ioctl Manual](http://man7.org/linux/man-pages/man2/ioctl.2.html)
 - [QEMU Documentation](https://www.qemu.org/documentation/)
-- [Network Programming Guide](https://www.oreilly.com/library/view/linux-network-programming/9780596002558/)
+- [Network Programming Guide](https://developer.ibm.com/tutorials/l-sock/)
 
 By following this session's materials and guides, you should have a solid understanding of how VMs interact with network interfaces, how to create and manage virtual network devices, and how to implement both static and dynamic routing in a virtualized environment.
 
