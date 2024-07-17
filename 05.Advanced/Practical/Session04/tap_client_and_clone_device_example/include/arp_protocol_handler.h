@@ -9,25 +9,24 @@
 #include "ipv4_protocol_handler.h"
 
 /// Time in minutes to check the ARP table entries
-#define ARP_TABLE_TIME_TO_CHECK   2    
+#define ARP_TABLE_TIME_TO_CHECK   2
 
 /// Time in minutes to delete the ARP table entries
-#define ARP_TABLE_TIME_TO_DELETE 10    
+#define ARP_TABLE_TIME_TO_DELETE 10
 
 /**
  * @brief Structure representing an ARP packet.
  *
- * This structure contains all the necessary fields for an ARP packet, 
- * including hardware and protocol address types, sizes, operation, 
+ * This structure contains all the necessary fields for an ARP packet,
+ * including hardware and protocol address types, sizes, operation,
  * and MAC and IP addresses for both source and destination.
  *
- * The `__attribute__((packed))` ensures that the compiler does not add 
- * any padding between the fields of the structure. This is important 
- * because ARP packets have a specific format that must be followed 
+ * The `__attribute__((packed))` ensures that the compiler does not add
+ * any padding between the fields of the structure. This is important
+ * because ARP packets have a specific format that must be followed
  * exactly when sending and receiving packets over the network.
  */
-typedef struct
-{
+typedef struct {
     uint16_t hardware_addresstype;    ///< Type of hardware address
     uint16_t protocol_addresstype;    ///< Type of protocol address
     uint8_t  hardware_addresssize;    ///< Size of hardware address

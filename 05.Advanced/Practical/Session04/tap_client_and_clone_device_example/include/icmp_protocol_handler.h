@@ -38,16 +38,15 @@
 /**
  * @brief Structure representing an ICMP header.
  *
- * This structure contains the essential fields for an ICMP message, 
+ * This structure contains the essential fields for an ICMP message,
  * including the type, code, checksum, identifier, and sequence number.
  *
- * The `__attribute__((packed))` ensures that the compiler does not add 
- * any padding between the fields of the structure. This is important 
- * because ICMP messages have a specific format that must be followed 
+ * The `__attribute__((packed))` ensures that the compiler does not add
+ * any padding between the fields of the structure. This is important
+ * because ICMP messages have a specific format that must be followed
  * exactly when sending and receiving messages over the network.
  */
-typedef struct
-{
+typedef struct {
     uint8_t type;        ///< ICMP message type
     uint8_t code;        ///< ICMP message code
     uint16_t checksum;   ///< ICMP message checksum
