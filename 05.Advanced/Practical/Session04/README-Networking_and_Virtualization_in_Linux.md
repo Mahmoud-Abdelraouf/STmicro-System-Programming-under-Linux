@@ -381,6 +381,12 @@ Subnetting allows dividing a larger network into smaller sub-networks, which hel
 - **Purpose**: Determines which portion of an IP address is the network and which part is the host.
 - **Example**: `255.255.255.0` (binary: `11111111.11111111.11111111.00000000`)
 
+#### CIDR Notation
+
+- **Purpose**: CIDR (Classless Inter-Domain Routing) notation provides a shorthand method for defining the subnet mask.
+- **Example**: `192.168.1.0/24` means the first 24 bits are the network portion, and the remaining 8 bits are for host addresses.
+- **Shortcut**: Instead of writing the full subnet mask (`255.255.255.0`), the `/24` notation is used, which represents the number of bits used for the network portion.
+
 #### Numerical Example for Subnetting
 
 Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
@@ -455,6 +461,8 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
      - Last Address: `192.168.1.255`
      - **First Address (Binary)**: `11000000.10101000.00000001.11000000`
      - **Last Address (Binary)**: `11000000.10101000.00000001.11111111`
+
+**Note**: The number after the slash (`/`) in CIDR notation represents the number of bits used for the network portion of the address. This is a shorthand for writing out the subnet mask. For example, `/24` is equivalent to `255.255.255.0`, indicating that the first 24 bits are used for the network address, leaving the remaining bits for host addresses.
 
 #### Practical Commands for IPv4
 
