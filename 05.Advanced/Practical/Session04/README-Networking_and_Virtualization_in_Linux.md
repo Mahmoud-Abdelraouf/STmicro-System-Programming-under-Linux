@@ -475,8 +475,7 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
 - **Assign IP Address**:
 
   ```sh
-  sudo ip addr add
-  192.168.1.10/24 dev eth0
+  sudo ip addr add 192.168.1.10/24 dev eth0
   ```
 
 - **Add Default Gateway**:
