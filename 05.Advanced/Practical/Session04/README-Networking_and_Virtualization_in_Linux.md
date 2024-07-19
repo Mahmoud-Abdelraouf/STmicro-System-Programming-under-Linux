@@ -471,11 +471,29 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   ip addr show
   ```
+  Equivalent `net-tools` command:
+  ```sh
+  ifconfig
+  ```
 
 - **Assign IP Address**:
 
   ```sh
   sudo ip addr add 192.168.1.10/24 dev eth0
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 192.168.1.10 netmask 255.255.255.0
+  ```
+
+- **Delete IP Address**:
+
+  ```sh
+  sudo ip addr del 192.168.1.10/24 dev eth0
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 del 192.168.1.10
   ```
 
 - **Add Default Gateway**:
@@ -483,12 +501,84 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   sudo ip route add default via 192.168.1.1
   ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo route add default gw 192.168.1.1
+  ```
+
+- **Delete Default Gateway**:
+
+  ```sh
+  sudo ip route del default
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo route del default
+  ```
 
 - **View Routing Table**:
 
   ```sh
   ip route show
   ```
+  Equivalent `net-tools` command:
+  ```sh
+  route -n
+  ```
+
+- **Flush All IP Addresses on an Interface**:
+
+  ```sh
+  sudo ip addr flush dev eth0
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 0.0.0.0
+  ```
+
+- **Bring Up an Interface**:
+
+  ```sh
+  sudo ip link set dev eth0 up
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 up
+  ```
+
+- **Bring Down an Interface**:
+
+  ```sh
+  sudo ip link set dev eth0 down
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 down
+  ```
+
+- **Enable/Disable Multicast on an Interface**:
+
+  ```sh
+  sudo ip link set dev eth0 multicast on
+  sudo ip link set dev eth0 multicast off
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 multicast
+  sudo ifconfig eth0 -multicast
+  ```
+
+- **Show Network Statistics**:
+
+  ```sh
+  ip -s link
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  netstat -i
+  ```
+  
+These commands provide a comprehensive overview of how to manage IPv4 settings using both `iproute2` and `net-tools` utilities.
 
 #### Routing and Default Gateway
 
