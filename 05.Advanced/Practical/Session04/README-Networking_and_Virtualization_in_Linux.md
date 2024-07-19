@@ -578,15 +578,29 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   netstat -i
   ```
   
-These commands provide a comprehensive overview of how to manage IPv4 settings using both `iproute2` and `net-tools` utilities.
-
-#### Routing and Default Gateway
+### Routing and Default Gateway
 
 A router forwards data packets between computer networks. A default gateway routes traffic from a local network to other networks or the internet.
 
-- **Example**:
-  - To set a default gateway: `sudo ip route add default via 192.168.1.1`
-  - To view the routing table: `ip route show`
+- **Setting a Default Gateway:**
+  - Using `iproute2`:
+    ```sh
+    sudo ip route add default via 192.168.1.1
+    ```
+  - Equivalent `net-tools` command:
+    ```sh
+    sudo route add default gw 192.168.1.1
+    ```
+
+- **Viewing the Routing Table:**
+  - Using `iproute2`:
+    ```sh
+    ip route show
+    ```
+  - Equivalent `net-tools` command:
+    ```sh
+    route -n
+    ```
 
 #### ICMP and ARP
 
