@@ -1506,6 +1506,20 @@ iface eth0 inet static
 up route add default gw 10.20.60.1 dev eth0
 ```
 
+**Machine 3:**
+```sh
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.60.2
+    netmask 255.255.255.0
+    broadcast 10.20.60.255
+    network 10.20.60.0
+
+up route add default gw 10.20.60.1 dev eth0
+```
+
 **Explanation**: This note provides specific network interface configurations for two machines. It ensures that both machines are configured with static IP addresses and default gateway routes so that they can communicate with each other on the same subnet.
 
 ## About the `/etc/network/interfaces` File
