@@ -466,6 +466,44 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
 
 **Note**: The number after the slash (`/`) in CIDR notation represents the number of bits used for the network portion of the address. This is a shorthand for writing out the subnet mask. For example, `/24` is equivalent to `255.255.255.0`, indicating that the first 24 bits are used for the network address, leaving the remaining bits for host addresses.
 
+### IPv4 Header Format
+
+![alt text](./images/IPv4-Header-Format.png)
+
+The IPv4 header is a crucial part of the Internet Protocol, containing essential information for routing and delivering packets. Here is the structure of the IPv4 header:
+
+1. **Version (4 bits)**: Indicates the IP version (e.g., 4 for IPv4).
+2. **Header Length (4 bits)**: Specifies the length of the IP header in 32-bit words.
+3. **Type of Service (8 bits)**: Used for quality of service features.
+4. **Total Length (16 bits)**: The total length of the IP packet, including header and data.
+5. **Identification (16 bits)**: Used for uniquely identifying fragments of an original IP packet.
+6. **Flags (3 bits)**: Controls or identifies fragments.
+   - **Bit 0**: Reserved, must be zero.
+   - **Bit 1**: Don't Fragment (DF).
+   - **Bit 2**: More Fragments (MF
+
+). 7. **Fragment Offset (13 bits)**: Indicates the position of the fragment in the original IP packet. 8. **Time to Live (TTL) (8 bits)**: Limits the packet's lifetime to prevent it from circulating indefinitely. 9. **Protocol (8 bits)**: Indicates the protocol used in the data portion of the IP datagram (e.g., TCP, UDP). 10. **Header Checksum (16 bits)**: Used for error-checking of the header. 11. **Source Address (32 bits)**: The IP address of the sender. 12. **Destination Address (32 bits)**: The IP address of the receiver. 13. **Options (variable)**: Optional fields used for various network functions.
+
+Here is an example of how the IPv4 header is structured in C:
+
+```c
+typedef struct {
+    uint8_t  ipHeaderLength   : 4;
+    uint8_t  version          : 4;
+    uint8_t  typeOfService;
+    uint16_t length;
+    uint16_t identification;
+    uint16_t fragmentation;
+    uint8_t  ttl;
+    uint8_t  protocol;
+    uint16_t checksum;
+    IP4_t    sourceIP;
+    IP4_t    destIP;
+} __attribute__((packed)) ipv4Packet_t;
+```
+
+This structure shows the fields of the IPv4 header, defining how each piece of data is stored within the packet.
+
 #### Practical Commands for IPv4
 
 - **View IP Address**:
