@@ -14,6 +14,7 @@ For more detailed documentation, refer to the [Yocto Project Documentation](http
 4. [Adding More Layers](#adding-more-layers)
 5. [Post-Build Steps](#post-build-steps)
 6. [QEMU Monitor and Running QEMU](#qemu-monitor-and-running-qemu)
+7. [Saving the Kernel and Root Filesystem](#saving-the-kernel-and-root-filesystem)
 
 ---
 
@@ -126,22 +127,23 @@ The first three layers are added by default by Poky.
 3. **Run the Image**
 
    ```sh
-   runqemu core-minimal-qemux86-64 nographic
+   runqemu core-image-minimal-qemux86-64 nographic
    ```
 
 4. **Save the Image File System and Your Information**
 
-   Copy the `.ext4` and `.bin` files to a new directory to save your image file system and information:
+   It is recommended to copy the `bzImage-qemux86-64.bin` and `core-image-minimal-qemux86-64.ext4` files to a new directory. This is because any further changes you make in the Yocto build environment may overwrite your current image:
 
    ```sh
-   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ../qemux84-demo
-   cp tmp/deploy/images/qemux86-64/bz-imagez-qemux86-64.bin ../qemux84-demo 
+   mkdir -p ~/qemux86-64-demo
+   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ~/qemux86-64-demo
+   cp tmp/deploy/images/qemux86-64/bzImage-qemux86-64.bin ~/qemux86-64-demo 
    ```
 
 5. **Run Your Saved Image**
 
    ```sh
-   runqemu new.ext4 new.bin nographics
+   runqemu ~/qemux86-64-demo/core-image-minimal-qemux86-64.ext4 ~/qemux86-64-demo/bzImage-qemux86-64.bin nographic
    ```
 
 ---
@@ -160,9 +162,9 @@ runqemu core-image-minimal-qemux86-64
 
 This will launch the QEMU emulator with a graphical interface where you can interact with your running image.
 
-### Running QEMU in `nographics` Mode
+### Running QEMU in `nographic` Mode
 
-In some cases, such as when you are working on a server without a graphical interface or when you want to run QEMU in the background, you can use the `nographics` option:
+In some cases, such as when you are working on a server without a graphical interface or when you want to run QEMU in the background, you can use the `nographic` option:
 
 ```sh
 runqemu core-image-minimal-qemux86-64 nographic
@@ -189,6 +191,31 @@ stop
 cont
 quit
 ```
+
+---
+
+## Saving the Kernel and Root Filesystem
+
+After building the image with Yocto, it is recommended to save the kernel and root filesystem files (`bzImage-qemux86-64.bin` and `core-image-minimal-qemux86-64.ext4`) to a separate directory. This helps prevent any changes made in the Yocto environment from affecting your built image.
+
+1. **Create a New Directory:**
+
+   ```sh
+   mkdir -p ~/saved-images
+   ```
+
+2. **Copy the Image Files:**
+
+   ```sh
+   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ~/saved-images
+   cp tmp/deploy/images/qemux86-64/bzImage-qemux86-64.bin ~/saved-images
+   ```
+
+3. **Run Your Saved Image:**
+
+   ```sh
+   runqemu ~/saved-images/core-image-minimal-qemux86-64.ext4 ~/saved-images/bzImage-qemux86-64.bin nographic
+   ```
 
 ---
 
