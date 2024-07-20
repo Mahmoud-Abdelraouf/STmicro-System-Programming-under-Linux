@@ -104,9 +104,7 @@ This guide covers the essential aspects of networking, including different topol
    - 9.8 [Advanced Configuration and Optimization](#advanced-configuration-and-optimization)
      - 9.8.1 [Enable Multiqueue for VirtIO-net](#enable-multiqueue-for-virtio-net)
      - 9.8.2 [Enable Offloading Features](#enable-offloading-features)
-     - 9.
-
-8.3 [Configure NUMA for Better Performance](#configure-numa-for-better-performance)
+     - 9.8.3 [Configure NUMA for Better Performance](#configure-numa-for-better-performance)
 10. [KVM (Kernel-based Virtual Machine)](#kvm-kernel-based-virtual-machine)
 11. [QEMU (Quick Emulator)](#qemu-quick-emulator)
 12. [Relationship between KVM and QEMU](#relationship-between-kvm-and-qemu)
