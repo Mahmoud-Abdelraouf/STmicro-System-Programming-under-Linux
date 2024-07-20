@@ -38,7 +38,7 @@ sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
    Download the Yocto recipes by cloning the Poky repository. Make sure to use the appropriate branch (e.g., scarthgap):
 
    ```sh
-   git clone -b scarthgap git://git.yoctoproject.org/poky
+   git clone -b <release-name> git://git.yoctoproject.org/poky
    ```
 
 2. **Set Up the Build Environment**
@@ -101,10 +101,10 @@ You can add more layers to enhance your Yocto build. While this is not necessary
 
    ```sh
    BBLAYERS ?= " \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta-poky \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta-yocto-bsp \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta-odroid \
+     /home/mahmoud/yocto2024/<release-name>/poky/meta \
+     /home/mahmoud/yocto2024/<release-name>/poky/meta-poky \
+     /home/mahmoud/yocto2024/<release-name>/poky/meta-yocto-bsp \
+     /home/mahmoud/yocto2024/<release-name>/poky/meta-odroid \
    "
    ```
 
