@@ -1680,11 +1680,6 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 ```sh
 #!/bin/bash
 
-# Detach the virtual ethernet device veth0 from its bridge
-ip link set dev veth0 nomaster
-# Delete the virtual ethernet device veth0
-ip link del dev veth0
-
 # Detach the tap device vport11 from its bridge
 ip link set dev vport11 nomaster
 # Delete the tap device vport11
@@ -1701,23 +1696,7 @@ ip link delete dev br1
 
 #### Explanation
 
-1. **Detach the virtual ethernet device veth0 from its bridge**:
-
-   ```sh
-   ip link set dev veth0 nomaster
-   ```
-
-   - `ip link set dev veth0 nomaster`: Detaches the virtual Ethernet device `veth0` from its bridge.
-
-2. **Delete the virtual ethernet device veth0**:
-
-   ```sh
-   ip link del dev veth0
-   ```
-
-   - `ip link del dev veth0`: Deletes the virtual Ethernet device `veth0`.
-
-3. **Detach the tap device vport11 from its bridge**:
+1. **Detach the tap device vport11 from its bridge**:
 
    ```sh
    ip link set dev vport11 nomaster
@@ -1725,7 +1704,7 @@ ip link delete dev br1
 
    - `ip link set dev vport11 nomaster`: Detaches the TAP device `vport11` from its bridge.
 
-4. **Delete the tap device vport11**:
+2. **Delete the tap device vport11**:
 
    ```sh
    ip tuntap del mode tap vport11
@@ -1733,7 +1712,7 @@ ip link delete dev br1
 
    - `ip tuntap del mode tap vport11`: Deletes the TAP device `vport11`.
 
-5. **Detach the tap device vport12 from its bridge**:
+3. **Detach the tap device vport12 from its bridge**:
 
    ```sh
    ip link set dev vport12 nomaster
@@ -1741,7 +1720,7 @@ ip link delete dev br1
 
    - `ip link set dev vport12 nomaster`: Detaches the TAP device `vport12` from its bridge.
 
-6. **Delete the tap device vport12**:
+4. **Delete the tap device vport12**:
 
    ```sh
    ip tuntap del mode tap vport12
@@ -1749,7 +1728,7 @@ ip link delete dev br1
 
    - `ip tuntap del mode tap vport12`: Deletes the TAP device `vport12`.
 
-7. **Delete the bridge device br1**:
+5. **Delete the bridge device br1**:
 
    ```sh
    ip link delete dev br1
