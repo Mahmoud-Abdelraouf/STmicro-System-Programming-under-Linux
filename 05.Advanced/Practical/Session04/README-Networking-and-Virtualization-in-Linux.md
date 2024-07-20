@@ -1698,9 +1698,9 @@ sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-image
    ```
 
    - `qemu-system-x86_64`: Runs the QEMU emulator for x86_64 architecture.
-   - `-kernel vms2/bzImageh1.bin`: Specifies the kernel image for the VM.
+   - `-kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin`: Specifies the kernel image for the VM.
    - `-m 1G`: Allocates 1 GB of RAM to the VM.
-   - `-drive "file=vms2/h1.ext4,if=virtio,format=raw"`: Specifies the disk image for the VM, using the VirtIO interface.
+   - `-drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h1.ext4,if=virtio,format=raw"`: Specifies the disk image for the VM, using the VirtIO interface.
    - `-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B'`: Adds a VirtIO network device with the specified MAC address.
    - `-netdev tap,id=net0,ifname=vport11,script=no,downscript=no`: Specifies the network backend using the TAP device `vport11`.
    - `-name h1`: Sets the name of the VM to `h1`.
