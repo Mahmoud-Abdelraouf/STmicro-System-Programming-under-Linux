@@ -381,6 +381,12 @@ Subnetting allows dividing a larger network into smaller sub-networks, which hel
 - **Purpose**: Determines which portion of an IP address is the network and which part is the host.
 - **Example**: `255.255.255.0` (binary: `11111111.11111111.11111111.00000000`)
 
+#### CIDR Notation
+
+- **Purpose**: CIDR (Classless Inter-Domain Routing) notation provides a shorthand method for defining the subnet mask.
+- **Example**: `192.168.1.0/24` means the first 24 bits are the network portion, and the remaining 8 bits are for host addresses.
+- **Shortcut**: Instead of writing the full subnet mask (`255.255.255.0`), the `/24` notation is used, which represents the number of bits used for the network portion.
+
 #### Numerical Example for Subnetting
 
 Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
@@ -456,6 +462,8 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
      - **First Address (Binary)**: `11000000.10101000.00000001.11000000`
      - **Last Address (Binary)**: `11000000.10101000.00000001.11111111`
 
+**Note**: The number after the slash (`/`) in CIDR notation represents the number of bits used for the network portion of the address. This is a shorthand for writing out the subnet mask. For example, `/24` is equivalent to `255.255.255.0`, indicating that the first 24 bits are used for the network address, leaving the remaining bits for host addresses.
+
 #### Practical Commands for IPv4
 
 - **View IP Address**:
@@ -463,12 +471,29 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   ip addr show
   ```
+  Equivalent `net-tools` command:
+  ```sh
+  ifconfig
+  ```
 
 - **Assign IP Address**:
 
   ```sh
-  sudo ip addr add
-  192.168.1.10/24 dev eth0
+  sudo ip addr add 192.168.1.10/24 dev eth0
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 192.168.1.10 netmask 255.255.255.0
+  ```
+
+- **Delete IP Address**:
+
+  ```sh
+  sudo ip addr del 192.168.1.10/24 dev eth0
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 del 192.168.1.10
   ```
 
 - **Add Default Gateway**:
@@ -476,20 +501,106 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   sudo ip route add default via 192.168.1.1
   ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo route add default gw 192.168.1.1
+  ```
+
+- **Delete Default Gateway**:
+
+  ```sh
+  sudo ip route del default
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo route del default
+  ```
 
 - **View Routing Table**:
 
   ```sh
   ip route show
   ```
+  Equivalent `net-tools` command:
+  ```sh
+  route -n
+  ```
 
-#### Routing and Default Gateway
+- **Flush All IP Addresses on an Interface**:
+
+  ```sh
+  sudo ip addr flush dev eth0
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 0.0.0.0
+  ```
+
+- **Bring Up an Interface**:
+
+  ```sh
+  sudo ip link set dev eth0 up
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 up
+  ```
+
+- **Bring Down an Interface**:
+
+  ```sh
+  sudo ip link set dev eth0 down
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 down
+  ```
+
+- **Enable/Disable Multicast on an Interface**:
+
+  ```sh
+  sudo ip link set dev eth0 multicast on
+  sudo ip link set dev eth0 multicast off
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  sudo ifconfig eth0 multicast
+  sudo ifconfig eth0 -multicast
+  ```
+
+- **Show Network Statistics**:
+
+  ```sh
+  ip -s link
+  ```
+  Equivalent `net-tools` command:
+  ```sh
+  netstat -i
+  ```
+  
+### Routing and Default Gateway
 
 A router forwards data packets between computer networks. A default gateway routes traffic from a local network to other networks or the internet.
 
-- **Example**:
-  - To set a default gateway: `sudo ip route add default via 192.168.1.1`
-  - To view the routing table: `ip route show`
+- **Setting a Default Gateway:**
+  - Using `iproute2`:
+    ```sh
+    sudo ip route add default via 192.168.1.1
+    ```
+  - Equivalent `net-tools` command:
+    ```sh
+    sudo route add default gw 192.168.1.1
+    ```
+
+- **Viewing the Routing Table:**
+  - Using `iproute2`:
+    ```sh
+    ip route show
+    ```
+  - Equivalent `net-tools` command:
+    ```sh
+    route -n
+    ```
 
 #### ICMP and ARP
 
