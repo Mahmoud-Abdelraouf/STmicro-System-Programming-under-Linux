@@ -60,7 +60,7 @@ sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
 
    ```sh
    MACHINE ??= "qemuarm64"
-   DL_DIR ?= "/home/mahmoud/yocto2024/alexandria/downloads"
+   DL_DIR ?= "/home/mahmoud/yocto2024/<release-name>/downloads"
    ```
 
 2. **Build the Image**
@@ -135,15 +135,15 @@ The first three layers are added by default by Poky.
    It is recommended to copy the `bzImage-qemux86-64.bin` and `core-image-minimal-qemux86-64.ext4` files to a new directory. This is because any further changes you make in the Yocto build environment may overwrite your current image:
 
    ```sh
-   mkdir -p ~/qemux86-64-demo
-   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ~/qemux86-64-demo
-   cp tmp/deploy/images/qemux86-64/bzImage-qemux86-64.bin ~/qemux86-64-demo 
+   mkdir -p ~/yocto2024/<release-name>/qemux86-64-demo
+   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ~/yocto2024/<release-name>/qemux86-64-demo
+   cp tmp/deploy/images/qemux86-64/bzImage-qemux86-64.bin ~/yocto2024/<release-name>/qemux86-64-demo 
    ```
 
 5. **Run Your Saved Image**
 
    ```sh
-   runqemu ~/qemux86-64-demo/core-image-minimal-qemux86-64.ext4 ~/qemux86-64-demo/bzImage-qemux86-64.bin nographic
+   runqemu ~/yocto2024/<release-name>/qemux86-64-demo/core-image-minimal-qemux86-64.ext4 ~/yocto2024/<release-name>/qemux86-64-demo/bzImage-qemux86-64.bin nographic
    ```
 
 ---
@@ -201,20 +201,20 @@ After building the image with Yocto, it is recommended to save the kernel and ro
 1. **Create a New Directory:**
 
    ```sh
-   mkdir -p ~/saved-images
+   mkdir -p ~/yocto2024/<release-name>/saved-images
    ```
 
 2. **Copy the Image Files:**
 
    ```sh
-   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ~/saved-images
-   cp tmp/deploy/images/qemux86-64/bzImage-qemux86-64.bin ~/saved-images
+   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ~/yocto2024/<release-name>/saved-images
+   cp tmp/deploy/images/qemux86-64/bzImage-qemux86-64.bin ~/yocto2024/<release-name>/saved-images
    ```
 
 3. **Run Your Saved Image:**
 
    ```sh
-   runqemu ~/saved-images/core-image-minimal-qemux86-64.ext4 ~/saved-images/bzImage-qemux86-64.bin nographic
+   runqemu ~/yocto2024/<release-name>/saved-images/core-image-minimal-qemux86-64.ext4 ~/yocto2024/<release-name>/saved-images/bzImage-qemux86-64.bin nographic
    ```
 
 ---
