@@ -481,7 +481,13 @@ The IPv4 header is a crucial part of the Internet Protocol, containing essential
    - **Bit 0**: Reserved, must be zero.
    - **Bit 1**: Don't Fragment (DF).
    - **Bit 2**: More Fragments (MF).
-7. **Fragment Offset (13 bits)**: Indicates the position of the fragment in the original IP packet. 8. **Time to Live (TTL) (8 bits)**: Limits the packet's lifetime to prevent it from circulating indefinitely. 9. **Protocol (8 bits)**: Indicates the protocol used in the data portion of the IP datagram (e.g., TCP, UDP). 10. **Header Checksum (16 bits)**: Used for error-checking of the header. 11. **Source Address (32 bits)**: The IP address of the sender. 12. **Destination Address (32 bits)**: The IP address of the receiver. 13. **Options (variable)**: Optional fields used for various network functions.
+7. **Fragment Offset (13 bits)**: Indicates the position of the fragment in the original IP packet.
+8. **Time to Live (TTL) (8 bits)**: Limits the packet's lifetime to prevent it from circulating indefinitely.
+9. **Protocol (8 bits)**: Indicates the protocol used in the data portion of the IP datagram (e.g., TCP, UDP).
+10. **Header Checksum (16 bits)**: Used for error-checking of the header.
+11. **Source Address (32 bits)**: The IP address of the sender.
+12. **Destination Address (32 bits)**: The IP address of the receiver.
+13. **Options (variable)**: Optional fields used for various network functions.
 
 Here is an example of how the IPv4 header is structured in C:
 
