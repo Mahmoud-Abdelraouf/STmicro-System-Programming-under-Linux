@@ -100,7 +100,7 @@ To unmount a device, use the `umount` command followed by the mount point or the
 | List all storage devices             | `sudo blkid`                                 |
 | Create a mount point                 | `sudo mkdir -p /mnt/my_mount_point`          |
 | Mount a device                       | `sudo mount /dev/sdb1 /mnt/my_mount_point`   |
-| Verify the mount                     | `df -h | grep /mnt/my_mount_point`           |
+| Verify the mount                     | `df -h `| `grep /mnt/my_mount_point`           |
 | Unmount using the mount point        | `sudo umount /mnt/my_mount_point`            |
 | Unmount using the device name        | `sudo umount /dev/sdb1`                      |
 | Force unmount                        | `sudo umount -f /mnt/my_mount_point`         |
