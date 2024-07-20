@@ -1,4 +1,4 @@
-# README - Introductory Training in Linux Systems Programming
+# Introductory Training in Linux Systems Programming
 
 ## Overview
 

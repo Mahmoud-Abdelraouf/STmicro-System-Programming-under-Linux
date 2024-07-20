@@ -14,6 +14,8 @@ For more detailed documentation, refer to the [Yocto Project Documentation](http
 4. [Adding More Layers](#adding-more-layers)
 5. [Post-Build Steps](#post-build-steps)
 6. [QEMU Monitor and Running QEMU](#qemu-monitor-and-running-qemu)
+7. [Saving the Kernel and Root Filesystem](#saving-the-kernel-and-root-filesystem)
+8. [Resources](#resources)
 
 ---
 
@@ -37,7 +39,7 @@ sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
    Download the Yocto recipes by cloning the Poky repository. Make sure to use the appropriate branch (e.g., scarthgap):
 
    ```sh
-   git clone -b scarthgap git://git.yoctoproject.org/poky
+   git clone -b <release-name> git://git.yoctoproject.org/poky
    ```
 
 2. **Set Up the Build Environment**
@@ -58,8 +60,8 @@ sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
    Inside the build directory, update the machine and download directories in `conf/local.conf`:
 
    ```sh
-   MACHINE ??= "qemuarm64"
-   DL_DIR ?= "/home/mahmoud/yocto2024/alexandria/downloads"
+   MACHINE ??= "qemux86-64"
+   DL_DIR ?= "/home/mahmoud/yocto2024/<release-name>/downloads"
    ```
 
 2. **Build the Image**
@@ -100,10 +102,10 @@ You can add more layers to enhance your Yocto build. While this is not necessary
 
    ```sh
    BBLAYERS ?= " \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta-poky \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta-yocto-bsp \
-     /home/mahmoud/yocto2024/kirkstone/poky/meta-odroid \
+     /home/mahmoud/yocto2024/<release-name>/poky/meta \
+     /home/mahmoud/yocto2024/<release-name>/poky/meta-poky \
+     /home/mahmoud/yocto2024/<release-name>/poky/meta-yocto-bsp \
+     /home/mahmoud/yocto2024/<release-name>/poky/meta-odroid \
    "
    ```
 
@@ -126,22 +128,23 @@ The first three layers are added by default by Poky.
 3. **Run the Image**
 
    ```sh
-   runqemu core-minimal-qemux86-64 nographic
+   runqemu core-image-minimal-qemux86-64 nographic
    ```
 
 4. **Save the Image File System and Your Information**
 
-   Copy the `.ext4` and `.bin` files to a new directory to save your image file system and information:
+   It is recommended to copy the `bzImage-qemux86-64.bin` and `core-image-minimal-qemux86-64.ext4` files to a new directory. This is because any further changes you make in the Yocto build environment may overwrite your current image:
 
    ```sh
-   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ../qemux84-demo
-   cp tmp/deploy/images/qemux86-64/bz-imagez-qemux86-64.bin ../qemux84-demo 
+   mkdir -p ~/yocto2024/<release-name>/qemux86-64-demo
+   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ~/yocto2024/<release-name>/qemux86-64-demo
+   cp tmp/deploy/images/qemux86-64/bzImage-qemux86-64.bin ~/yocto2024/<release-name>/qemux86-64-demo 
    ```
 
 5. **Run Your Saved Image**
 
    ```sh
-   runqemu new.ext4 new.bin nographics
+   runqemu ~/yocto2024/<release-name>/qemux86-64-demo/core-image-minimal-qemux86-64.ext4 ~/yocto2024/<release-name>/qemux86-64-demo/bzImage-qemux86-64.bin nographic
    ```
 
 ---
@@ -160,9 +163,9 @@ runqemu core-image-minimal-qemux86-64
 
 This will launch the QEMU emulator with a graphical interface where you can interact with your running image.
 
-### Running QEMU in `nographics` Mode
+### Running QEMU in `nographic` Mode
 
-In some cases, such as when you are working on a server without a graphical interface or when you want to run QEMU in the background, you can use the `nographics` option:
+In some cases, such as when you are working on a server without a graphical interface or when you want to run QEMU in the background, you can use the `nographic` option:
 
 ```sh
 runqemu core-image-minimal-qemux86-64 nographic
@@ -189,6 +192,39 @@ stop
 cont
 quit
 ```
+
+---
+
+## Saving the Kernel and Root Filesystem
+
+After building the image with Yocto, it is recommended to save the kernel and root filesystem files (`bzImage-qemux86-64.bin` and `core-image-minimal-qemux86-64.ext4`) to a separate directory. This helps prevent any changes made in the Yocto environment from affecting your built image.
+
+1. **Create a New Directory:**
+
+   ```sh
+   mkdir -p ~/yocto2024/<release-name>/saved-images
+   ```
+
+2. **Copy the Image Files:**
+
+   ```sh
+   cp tmp/deploy/images/qemux86-64/core-image-minimal-qemux86-64.ext4 ~/yocto2024/<release-name>/saved-images
+   cp tmp/deploy/images/qemux86-64/bzImage-qemux86-64.bin ~/yocto2024/<release-name>/saved-images
+   ```
+
+3. **Run Your Saved Image:**
+
+   ```sh
+   runqemu ~/yocto2024/<release-name>/saved-images/core-image-minimal-qemux86-64.ext4 ~/yocto2024/<release-name>/saved-images/bzImage-qemux86-64.bin nographic
+   ```
+
+---
+
+## Resources
+
+- [Yocto Project Documentation](https://docs.yoctoproject.org/index.html)
+- [Yocto Project Releases](https://wiki.yoctoproject.org/wiki/Releases)
+- [Yocto Project Overview Video](https://youtu.be/8M8U1EgnUVw?si=1cH194i2Bgcd8TZJ)
 
 ---
 
