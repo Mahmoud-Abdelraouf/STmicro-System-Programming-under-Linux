@@ -1442,7 +1442,7 @@ By understanding and utilizing static routing and bridging, network administrato
 
 ---
 
-## Practical Scripts
+# Practical Scripts
 
 **Important**: Having an active Docker bridge (`docker0`) can cause network conflicts with the custom bridge networks used in these scripts. It is recommended to remove the Docker bridge before running the scripts. For detailed instructions on how to remove and recreate the Docker bridge, please refer to the [Docker Bridge Network Management README](link_to_docker_readme). For resolving network connectivity issues with Docker and KVM/QEMU on Ubuntu, refer to the [Resolving Network Connectivity Issues with Docker and KVM/QEMU on Ubuntu README](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session04/README-Docker-KVM-QEMU-Network-Issues.md).
 
@@ -1470,7 +1470,7 @@ sudo ufw status
 
 **Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
 
-Machine 1:
+**Machine 1:**
 ```sh
 auto lo eth0
 iface lo inet loopback
@@ -1484,7 +1484,7 @@ iface eth0 inet static
 up route add default gw 10.20.10.1 dev eth0
 ```
 
-Machine 2:
+**Machine 2:**
 ```sh
 auto lo eth0
 iface lo inet loopback
@@ -1500,7 +1500,7 @@ up route add default gw 10.20.60.1 dev eth0
 
 **Explanation**: This note provides specific network interface configurations for two machines. It ensures that both machines are configured with static IP addresses and default gateway routes so that they can communicate with each other on the same subnet.
 
-### About the `/etc/network/interfaces` File
+## About the `/etc/network/interfaces` File
 
 The `/etc/network/interfaces` file is used in Debian-based Linux distributions (such as Debian, Ubuntu, etc.) to configure network interfaces. This file allows you to define static IP addresses, DHCP settings, and other network parameters for each interface on your system.
 
@@ -1521,15 +1521,15 @@ The `/etc/network/interfaces` file is used in Debian-based Linux distributions (
 
 4. **up route add default gw**: Adds a default gateway route when the interface is brought up.
 
-### Manual vs. `iproute2` or `net-tools`
+## Manual vs. `iproute2` or `net-tools`
 
 You can configure network interfaces either manually by editing the `/etc/network/interfaces` file or dynamically using command-line tools like `iproute2` or `net-tools`.
 
-#### Manual Configuration
+### Manual Configuration
 
 Editing the `/etc/network/interfaces` file is a manual method that requires you to specify all the network settings in the file. This method is persistent across reboots because the configurations are saved in the file and applied every time the system boots.
 
-#### Using `iproute2`
+### Using `iproute2`
 
 `iproute2` is a collection of utilities for networking and traffic control. The `ip` command is part of this collection and is used to configure network interfaces, routes, and tunnels dynamically.
 
@@ -1542,7 +1542,7 @@ sudo ip route add default via 10.20.10.1
 
 These commands add an IP address, bring up the interface, and set the default route.
 
-#### Using `net-tools`
+### Using `net-tools`
 
 `net-tools` is an older suite of networking utilities, including `ifconfig`, `route`, and others. While still in use, it is gradually being replaced by `iproute2`.
 
@@ -1556,117 +1556,119 @@ These commands perform similar actions as the `iproute2` commands but use the ol
 
 **Conclusion**: Using the `/etc/network/interfaces` file is best for persistent configurations. For temporary changes or testing, using `iproute2` or `net-tools` commands is more flexible and does not require a system reboot.
 
-### Start Script for Two Machines
+## Start Script for Two Machines
 
-#### Script
+### Script
 
 ```sh
 #!/bin/bash
 
 # Create a bridge device named br1
-ip link add name br1 type bridge
+sudo ip link add name br1 type bridge
 # Set the bridge device br1 up
-ip link set br1 up
+sudo ip link set br1 up
 
 # Create a tap device named vport11
-ip tuntap add mode tap vport11
+sudo ip tuntap add mode tap vport11
 # Set the tap device vport11 up
-ip link set vport11 up
+sudo ip link set vport11 up
 # Add the tap device vport11 to the bridge br1
-ip link set vport11 master br1
+sudo ip link set vport11 master br1
 
 # Create a tap device named vport12
-ip tuntap add mode tap vport12
+sudo ip tuntap add mode tap vport12
 # Set the tap device vport12 up
-ip link set vport12 up
+sudo ip link set vport12 up
 # Add the tap device vport12 to the bridge br1
-ip link set vport12 master br1
+sudo ip link set vport12 master br1
 
 # Start the first virtual machine h1 using QEMU
-qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin -m 1G \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin -m 1G \
     -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
     -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
     -name h1 -daemonize --append "root=/dev/vda rw"
 
 # Start the second virtual machine h2 using QEMU
-qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh2.bin -m 1G \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh2.bin -m 1G \
     -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
     -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
     -name h2 -daemonize --append "root=/dev/vda rw"
 ```
 
-#### Explanation
+### Explanation
 
 1. **Create a bridge device named br1**:
 
    ```sh
-   ip link add name br1 type bridge
+   sudo ip link add name br1 type bridge
    ```
 
-   - `ip link add name br1 type bridge`: Adds a new network bridge device named `br1`.
+   - Adds a new network bridge device named `br1`.
 
 2. **Set the bridge device br1 up**:
 
    ```sh
-   ip link set br1 up
+   sudo ip link set br1 up
    ```
 
-   - `ip link set br1 up`: Brings the bridge device `br1` up (activates it).
+   - Brings the bridge device `br1` up (activates it).
 
 3. **Create a tap device named vport11**:
 
    ```sh
-   ip tuntap add mode tap vport11
+   sudo ip tuntap add mode tap vport11
    ```
 
-   - `ip tuntap add mode tap vport11`: Creates a new TAP device named `vport11`.
+   - Creates a new TAP device named `vport11`.
 
 4. **Set the tap device vport11 up**:
 
    ```sh
-   ip link set vport11 up
+   sudo ip link set vport11 up
    ```
 
-   - `ip link set vport11 up`: Brings the TAP device `vport11` up (activates it).
+   - Brings the TAP device `vport11` up (activates it).
 
 5. **Add the tap device vport11 to the bridge br1**:
 
    ```sh
-   ip link set vport11 master br1
+   sudo ip link set vport11 master br1
    ```
 
-   - `ip link set vport11 master br1`: Adds the TAP device `vport11` to the bridge `br1`.
+   - Adds the TAP device `vport11` to the bridge `br1`.
 
 6. **Create a tap device named vport12**:
 
-   ```sh
-   ip tuntap add mode tap vport12
+  
+
+ ```sh
+   sudo ip tuntap add mode tap vport12
    ```
 
-   - `ip tuntap add mode tap vport12`: Creates a new TAP device named `vport12`.
+   - Creates a new TAP device named `vport12`.
 
 7. **Set the tap device vport12 up**:
 
    ```sh
-   ip link set vport12 up
+   sudo ip link set vport12 up
    ```
 
-   - `ip link set vport12 up`: Brings the TAP device `vport12` up (activates it).
+   - Brings the TAP device `vport12` up (activates it).
 
 8. **Add the tap device vport12 to the bridge br1**:
 
    ```sh
-   ip link set vport12 master br1
+   sudo ip link set vport12 master br1
    ```
 
-   - `ip link set vport12 master br1`: Adds the TAP device `vport12` to the bridge `br1`.
+   - Adds the TAP device `vport12` to the bridge `br1`.
 
 9. **Start the first virtual machine h1 using QEMU**:
 
    ```sh
-   qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin -m 1G \
+   sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin -m 1G \
        -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h1.ext4,if=virtio,format=raw" \
        -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
        -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
@@ -1686,7 +1688,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 10. **Start the second virtual machine h2 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh2.bin -m 1G \
+    sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh2.bin -m 1G \
         -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
         -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
@@ -1695,33 +1697,33 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 
     - Similar to the previous QEMU command, but for the second VM (`h2`) using the TAP device `vport12`.
 
-### Cleanup Script for Two Machines
+## Cleanup Script for Two Machines
 
-#### Script
+### Script
 
 ```sh
 #!/bin/bash
 
 # Detach the tap device vport11 from its bridge
-ip link set dev vport11 nomaster
+sudo ip link set dev vport11 nomaster
 # Delete the tap device vport11
-ip tuntap del mode tap vport11
+sudo ip tuntap del mode tap vport11
 
 # Detach the tap device vport12 from its bridge
-ip link set dev vport12 nomaster
+sudo ip link set dev vport12 nomaster
 # Delete the tap device vport12
-ip tuntap del mode tap vport12
+sudo ip tuntap del mode tap vport12
 
 # Delete the bridge device br1
-ip link delete dev br1
+sudo ip link delete dev br1
 ```
 
-#### Explanation
+### Explanation
 
 1. **Detach the tap device vport11 from its bridge**:
 
    ```sh
-   ip link set dev vport11 nomaster
+   sudo ip link set dev vport11 nomaster
    ```
 
    - `ip link set dev vport11 nomaster`: Detaches the TAP device `vport11` from its bridge.
@@ -1729,7 +1731,7 @@ ip link delete dev br1
 2. **Delete the tap device vport11**:
 
    ```sh
-   ip tuntap del mode tap vport11
+   sudo ip tuntap del mode tap vport11
    ```
 
    - `ip tuntap del mode tap vport11`: Deletes the TAP device `vport11`.
@@ -1737,7 +1739,7 @@ ip link delete dev br1
 3. **Detach the tap device vport12 from its bridge**:
 
    ```sh
-   ip link set dev vport12 nomaster
+   sudo ip link set dev vport12 nomaster
    ```
 
    - `ip link set dev vport12 nomaster`: Detaches the TAP device `vport12` from its bridge.
@@ -1745,7 +1747,7 @@ ip link delete dev br1
 4. **Delete the tap device vport12**:
 
    ```sh
-   ip tuntap del mode tap vport12
+   sudo ip tuntap del mode tap vport12
    ```
 
    - `ip tuntap del mode tap vport12`: Deletes the TAP device `vport12`.
@@ -1753,67 +1755,65 @@ ip link delete dev br1
 5. **Delete the bridge device br1**:
 
    ```sh
-   ip link delete dev br1
+   sudo ip link delete dev br1
    ```
 
    - `ip link delete dev br1`: Deletes the bridge device `br1`.
 
-### Start Script for Three Machines
+## Start Script for Three Machines
 
-#### Script
+### Script
 
 ```sh
 #!/bin/bash
 
 # Create a bridge device named br1
-ip link add name br1 type bridge
+sudo ip link add name br1 type bridge
 # Set the bridge device br1 up
-ip link set br1 up
+sudo ip link set br1 up
 
 # Create a bridge device named br2
-ip
-
- link add name br2 type bridge
+sudo ip link add name br2 type bridge
 # Set the bridge device br2 up
-ip link set br2 up
+sudo ip link set br2 up
 
 # Create a tap device named vport11
-ip tuntap add mode tap vport11
+sudo ip tuntap add mode tap vport11
 # Set the tap device vport11 up
-ip link set vport11 up
+sudo ip link set vport11 up
 # Add the tap device vport11 to the bridge br1
-ip link set vport11 master br1
+sudo ip link set vport11 master br1
 
 # Create a tap device named vport12
-ip tuntap add mode tap vport12
+sudo ip tuntap add mode tap vport12
 # Set the tap device vport12 up
-ip link set vport12 up
+sudo ip link set vport12 up
 # Add the tap device vport12 to the bridge br1
-ip link set vport12 master br1
+sudo ip link set vport12 master br1
 
 # Create a tap device named vport21
-ip tuntap add mode tap vport21
+sudo ip tuntap add mode tap vport21
 # Set the tap device vport21 up
-ip link set vport21 up
+sudo ip link set vport21 up
 # Add the tap device vport21 to the bridge br2
-ip link set vport21 master br2
+sudo ip link set vport21 master br2
 
 # Create a tap device named vport22
-ip tuntap add mode tap vport22
+sudo ip tuntap add mode tap vport22
 # Set the tap device vport22 up
-ip link set vport22 up
+sudo ip link set vport22 up
 # Add the tap device vport22 to the bridge br2
-ip link set vport22 master br2
+sudo ip link set vport22 master br2
 
 # Start the first virtual machine h1 using QEMU
-qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh1.bin -m 1G \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh1.bin -m 1G \
     -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/h1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
     -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
     -name h1 -daemonize --append "root=/dev/vda rw"
 
 # Start the second virtual machine rt2 using QEMU
-qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImagert2.bin -m 1G \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImagert2.bin -m 1G \
     -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/rt2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' \
     -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
@@ -1822,19 +1822,21 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
     -name rt2 -daemonize --append "root=/dev/vda rw"
 
 # Start the third virtual machine h2 using QEMU
-qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh2.bin -m 1G \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh2.bin -m 1G \
     -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/h2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
     -netdev tap,id=net0,ifname=vport21,script=no,downscript=no \
     -name h2 -daemonize --append "root=/dev/vda rw"
 ```
 
-#### Explanation
+### Explanation
 
-1. **Create a bridge device named br1**:
+1
+
+. **Create a bridge device named br1**:
 
    ```sh
-   ip link add name br1 type bridge
+   sudo ip link add name br1 type bridge
    ```
 
    - Adds a new network bridge device named `br1`.
@@ -1842,7 +1844,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 2. **Set the bridge device br1 up**:
 
    ```sh
-   ip link set br1 up
+   sudo ip link set br1 up
    ```
 
    - Brings the bridge device `br1` up (activates it).
@@ -1850,7 +1852,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 3. **Create a bridge device named br2**:
 
    ```sh
-   ip link add name br2 type bridge
+   sudo ip link add name br2 type bridge
    ```
 
    - Adds a new network bridge device named `br2`.
@@ -1858,7 +1860,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 4. **Set the bridge device br2 up**:
 
    ```sh
-   ip link set br2 up
+   sudo ip link set br2 up
    ```
 
    - Brings the bridge device `br2` up (activates it).
@@ -1866,7 +1868,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 5. **Create a tap device named vport11**:
 
    ```sh
-   ip tuntap add mode tap vport11
+   sudo ip tuntap add mode tap vport11
    ```
 
    - Creates a new TAP device named `vport11`.
@@ -1874,7 +1876,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 6. **Set the tap device vport11 up**:
 
    ```sh
-   ip link set vport11 up
+   sudo ip link set vport11 up
    ```
 
    - Brings the TAP device `vport11` up (activates it).
@@ -1882,7 +1884,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 7. **Add the tap device vport11 to the bridge br1**:
 
    ```sh
-   ip link set vport11 master br1
+   sudo ip link set vport11 master br1
    ```
 
    - Adds the TAP device `vport11` to the bridge `br1`.
@@ -1890,7 +1892,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 8. **Create a tap device named vport12**:
 
    ```sh
-   ip tuntap add mode tap vport12
+   sudo ip tuntap add mode tap vport12
    ```
 
    - Creates a new TAP device named `vport12`.
@@ -1898,7 +1900,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 9. **Set the tap device vport12 up**:
 
    ```sh
-   ip link set vport12 up
+   sudo ip link set vport12 up
    ```
 
    - Brings the TAP device `vport12` up (activates it).
@@ -1906,7 +1908,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 10. **Add the tap device vport12 to the bridge br1**:
 
     ```sh
-    ip link set vport12 master br1
+    sudo ip link set vport12 master br1
     ```
 
     - Adds the TAP device `vport12` to the bridge `br1`.
@@ -1914,7 +1916,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 11. **Create a tap device named vport21**:
 
     ```sh
-    ip tuntap add mode tap vport21
+    sudo ip tuntap add mode tap vport21
     ```
 
     - Creates a new TAP device named `vport21`.
@@ -1922,7 +1924,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 12. **Set the tap device vport21 up**:
 
     ```sh
-    ip link set vport21 up
+    sudo ip link set vport21 up
     ```
 
     - Brings the TAP device `vport21` up (activates it).
@@ -1930,7 +1932,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 13. **Add the tap device vport21 to the bridge br2**:
 
     ```sh
-    ip link set vport21 master br2
+    sudo ip link set vport21 master br2
     ```
 
     - Adds the TAP device `vport21` to the bridge `br2`.
@@ -1938,7 +1940,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 14. **Create a tap device named vport22**:
 
     ```sh
-    ip tuntap add mode tap vport22
+    sudo ip tuntap add mode tap vport22
     ```
 
     - Creates a new TAP device named `vport22`.
@@ -1946,7 +1948,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 15. **Set the tap device vport22 up**:
 
     ```sh
-    ip link set vport22 up
+    sudo ip link set vport22 up
     ```
 
     - Brings the TAP device `vport22` up (activates it).
@@ -1954,7 +1956,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 16. **Add the tap device vport22 to the bridge br2**:
 
     ```sh
-    ip link set vport22 master br2
+    sudo ip link set vport22 master br2
     ```
 
     - Adds the TAP device `vport22` to the bridge `br2`.
@@ -1962,7 +1964,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 17. **Start the first virtual machine h1 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh1.bin -m 1G \
+    sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh1.bin -m 1G \
         -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/h1.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
         -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
@@ -1974,7 +1976,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 18. **Start the second virtual machine rt2 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImagert2.bin -m 1G \
+    sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImagert2.bin -m 1G \
         -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/rt2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' \
         -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
@@ -1988,7 +1990,7 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 19. **Start the third virtual machine h2 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh2.bin -m 1G \
+    sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh2.bin -m 1G \
         -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/h2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
         -netdev tap,id=net0,ifname=vport21,script=no,downscript=no \
@@ -1997,47 +1999,45 @@ qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms
 
     - Similar to the previous QEMU command, but for the third VM (`h2`) using the TAP device `vport21`.
 
-### Cleanup Script for Three Machines
+## Cleanup Script for Three Machines
 
-#### Script
+### Script
 
 ```sh
 #!/bin/bash
 
-# Detach the tap device vport11 from
-
- its bridge
-ip link set dev vport11 nomaster
+# Detach the tap device vport11 from its bridge
+sudo ip link set dev vport11 nomaster
 # Delete the tap device vport11
-ip tuntap del mode tap vport11
+sudo ip tuntap del mode tap vport11
 
 # Detach the tap device vport12 from its bridge
-ip link set dev vport12 nomaster
+sudo ip link set dev vport12 nomaster
 # Delete the tap device vport12
-ip tuntap del mode tap vport12
+sudo ip tuntap del mode tap vport12
 
 # Detach the tap device vport21 from its bridge
-ip link set dev vport21 nomaster
+sudo ip link set dev vport21 nomaster
 # Delete the tap device vport21
-ip tuntap del mode tap vport21
+sudo ip tuntap del mode tap vport21
 
 # Detach the tap device vport22 from its bridge
-ip link set dev vport22 nomaster
+sudo ip link set dev vport22 nomaster
 # Delete the tap device vport22
-ip tuntap del mode tap vport22
+sudo ip tuntap del mode tap vport22
 
 # Delete the bridge device br1
-ip link delete dev br1
+sudo ip link delete dev br1
 # Delete the bridge device br2
-ip link delete dev br2
+sudo ip link delete dev br2
 ```
 
-#### Explanation
+### Explanation
 
 1. **Detach the tap device vport11 from its bridge**:
 
    ```sh
-   ip link set dev vport11 nomaster
+   sudo ip link set dev vport11 nomaster
    ```
 
    - Detaches the TAP device `vport11` from its bridge.
@@ -2045,7 +2045,7 @@ ip link delete dev br2
 2. **Delete the tap device vport11**:
 
    ```sh
-   ip tuntap del mode tap vport11
+   sudo ip tuntap del mode tap vport11
    ```
 
    - Deletes the TAP device `vport11`.
@@ -2053,7 +2053,7 @@ ip link delete dev br2
 3. **Detach the tap device vport12 from its bridge**:
 
    ```sh
-   ip link set dev vport12 nomaster
+   sudo ip link set dev vport12 nomaster
    ```
 
    - Detaches the TAP device `vport12` from its bridge.
@@ -2061,7 +2061,7 @@ ip link delete dev br2
 4. **Delete the tap device vport12**:
 
    ```sh
-   ip tuntap del mode tap vport12
+   sudo ip tuntap del mode tap vport12
    ```
 
    - Deletes the TAP device `vport12`.
@@ -2069,7 +2069,7 @@ ip link delete dev br2
 5. **Detach the tap device vport21 from its bridge**:
 
    ```sh
-   ip link set dev vport21 nomaster
+   sudo ip link set dev vport21 nomaster
    ```
 
    - Detaches the TAP device `vport21` from its bridge.
@@ -2077,7 +2077,7 @@ ip link delete dev br2
 6. **Delete the tap device vport21**:
 
    ```sh
-   ip tuntap del mode tap vport21
+   sudo ip tuntap del mode tap vport21
    ```
 
    - Deletes the TAP device `vport21`.
@@ -2085,7 +2085,7 @@ ip link delete dev br2
 7. **Detach the tap device vport22 from its bridge**:
 
    ```sh
-   ip link set dev vport22 nomaster
+   sudo ip link set dev vport22 nomaster
    ```
 
    - Detaches the TAP device `vport22` from its bridge.
@@ -2093,7 +2093,7 @@ ip link delete dev br2
 8. **Delete the tap device vport22**:
 
    ```sh
-   ip tuntap del mode tap vport22
+   sudo ip tuntap del mode tap vport22
    ```
 
    - Deletes the TAP device `vport22`.
@@ -2101,15 +2101,17 @@ ip link delete dev br2
 9. **Delete the bridge device br1**:
 
    ```sh
-   ip link delete dev br1
-   ```
+   sudo ip link delete dev br1
+  
+
+ ```
 
    - Deletes the bridge device `br1`.
 
 10. **Delete the bridge device br2**:
 
     ```sh
-    ip link delete dev br2
+    sudo ip link delete dev br2
     ```
 
     - Deletes the bridge device `br2`.
