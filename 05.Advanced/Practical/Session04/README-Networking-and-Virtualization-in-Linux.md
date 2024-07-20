@@ -2124,9 +2124,7 @@ sudo ip link delete dev br2
 
    ```sh
    sudo ip link delete dev br1
-  
-
- ```
+   ```
 
    - Deletes the bridge device `br1`.
 
