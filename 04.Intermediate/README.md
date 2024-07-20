@@ -1,7 +1,3 @@
-Here's the updated README.md with the additional sections and details:
-
----
-
 # README - Intermediate Training: Linux Systems Programming
 
 ## Overview
