@@ -1444,6 +1444,8 @@ By understanding and utilizing static routing and bridging, network administrato
 
 ## Practical Scripts
 
+**Note**: All images used in these scripts were built using Yocto releases of Kirkstone. For more details on how the images were created, please refer to [Session 03: Working with Yocto - System Programming under Linux](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session03/README.md).
+
 ### Start Script for Two Machines
 
 #### Script
