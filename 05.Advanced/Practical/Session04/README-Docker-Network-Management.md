@@ -6,11 +6,12 @@ This guide provides step-by-step instructions on how to remove and add the Docke
 
 1. [Overview](#overview)
 2. [Removing Docker Bridge Network](#removing-docker-bridge-network)
-3. [Adding Docker Bridge Network](#adding-docker-bridge-network)
-4. [Verifying Docker Bridge Network](#verifying-docker-bridge-network)
-5. [Creating a Custom Docker Bridge Network](#creating-a-custom-docker-bridge-network)
-6. [Troubleshooting](#troubleshooting)
-7. [Resources](#resources)
+3. [Verifying Removal of Docker Bridge Network](#verifying-removal-of-docker-bridge-network)
+4. [Adding Docker Bridge Network](#adding-docker-bridge-network)
+5. [Verifying Docker Bridge Network](#verifying-docker-bridge-network)
+6. [Creating a Custom Docker Bridge Network](#creating-a-custom-docker-bridge-network)
+7. [Troubleshooting](#troubleshooting)
+8. [Resources](#resources)
 
 ---
 
@@ -39,6 +40,16 @@ To remove the Docker bridge network, follow these steps:
    ```
 
    This command will remove the `docker0` network interface. Any running containers using this network will be affected.
+
+## Verifying Removal of Docker Bridge Network
+
+After removing the Docker bridge network, verify that it has been deleted:
+
+```sh
+ip addr show docker0
+```
+
+This command should return an error or no output, indicating that the `docker0` interface no longer exists.
 
 ## Adding Docker Bridge Network
 
@@ -138,4 +149,3 @@ For further reading and more detailed documentation, consider the following reso
 ---
 
 By following this guide, you can effectively manage Docker bridge networks, ensuring that your Docker environment is configured to meet your specific needs. Whether you need to remove, add, or create custom bridge networks, these steps provide a comprehensive approach to Docker network management.
-
