@@ -100,7 +100,7 @@ This training provided an in-depth understanding of Linux system programming, fo
 
 - [The Linux Programming Interface by Michael Kerrisk](https://man7.org/tlpi/)
 - [Advanced Programming in the UNIX Environment](https://www.apuebook.com/)
-- [Linux Kernel Development by Robert Love](https://www.robertlove.org/)
+- [Linux Kernel Development by Robert Love](https://rlove.org/)
 - [Memory Management Documentation in the Linux Kernel](https://www.kernel.org/doc/html/latest/admin-guide/mm/index.html)
 
 Each topic is paired with practical labs and real-world examples to enhance learning and retention, making it ideal for those aiming to deepen their understanding of Linux internals and system programming.
