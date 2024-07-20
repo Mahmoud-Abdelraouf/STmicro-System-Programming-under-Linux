@@ -1446,6 +1446,26 @@ By understanding and utilizing static routing and bridging, network administrato
 
 **Important**: Having an active Docker bridge (`docker0`) can cause network conflicts with the custom bridge networks used in these scripts. It is recommended to remove the Docker bridge before running the scripts. For detailed instructions on how to remove and recreate the Docker bridge, please refer to the [Docker Bridge Network Management README](link_to_docker_readme). For resolving network connectivity issues with Docker and KVM/QEMU on Ubuntu, refer to the [Resolving Network Connectivity Issues with Docker and KVM/QEMU on Ubuntu README](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session04/README-Docker-KVM-QEMU-Network-Issues.md).
 
+**Firewall Considerations**: Sometimes, the firewall settings can interfere with network connectivity between VMs. If you suspect this might be the case, you can disable the firewall using the following command:
+
+```sh
+sudo ufw disable
+```
+
+This command will disable the Uncomplicated Firewall (UFW) on your Ubuntu system. To re-enable it, use:
+
+```sh
+sudo ufw enable
+```
+
+To check the current status of UFW, use:
+
+```sh
+sudo ufw status
+```
+
+**Note**: Disabling the firewall can expose your system to potential security risks. Ensure that you only disable it for troubleshooting purposes and re-enable it once you have identified and resolved any network connectivity issues. If UFW is causing issues, consider adding specific rules to allow the necessary traffic rather than completely disabling the firewall.
+
 **Note**: All images used in these scripts were built using Yocto releases of Kirkstone. For more details on how the images were created, please refer to [Session 03: Working with Yocto - System Programming under Linux](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session03/README.md).
 
 **Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
