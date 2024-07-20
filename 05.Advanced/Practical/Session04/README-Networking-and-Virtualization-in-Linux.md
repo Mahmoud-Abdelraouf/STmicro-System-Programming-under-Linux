@@ -7,21 +7,134 @@ This guide covers the essential aspects of networking, including different topol
 ## Table of Contents
 
 1. [Networking Topologies](#networking-topologies)
+   - 1.1 [Bus Topology](#bus-topology)
+   - 1.2 [Star Topology](#star-topology)
+   - 1.3 [Mesh Topology](#mesh-topology)
+   - 1.4 [Wireless Topology](#wireless-topology)
 2. [Networking Layers](#networking-layers)
+   - 2.1 [OSI Model Layers](#osi-model-layers)
+   - 2.2 [Detailed Explanation](#detailed-explanation)
+     - 2.2.1 [Application Layer](#application-layer)
+     - 2.2.2 [Presentation Layer](#presentation-layer)
+     - 2.2.3 [Session Layer](#session-layer)
+     - 2.2.4 [Transport Layer](#transport-layer)
+     - 2.2.5 [Network Layer](#network-layer)
+     - 2.2.6 [Data Link Layer](#data-link-layer)
+     - 2.2.7 [Physical Layer](#physical-layer)
 3. [MAC and IP Address Resolution](#mac-and-ip-address-resolution)
+   - 3.1 [MAC Address](#mac-address)
+   - 3.2 [IP Address](#ip-address)
+   - 3.3 [ARP Process in Detail](#arp-process-in-detail)
+   - 3.4 [Communicating with a Device on a Different Network](#communicating-with-a-device-on-a-different-network)
 4. [Ethernet Packets and Ethernet Explanation](#ethernet-packets-and-ethernet-explanation)
+   - 4.1 [What is Ethernet?](#what-is-ethernet)
+   - 4.2 [Ethernet Frame Structure](#ethernet-frame-structure)
+   - 4.3 [Ethernet Frame Format](#ethernet-frame-format)
+   - 4.4 [Ethernet Operation](#ethernet-operation)
+   - 4.5 [Example Ethernet Frame](#example-ethernet-frame)
+   - 4.6 [Ethernet Transmission Process](#ethernet-transmission-process)
+   - 4.7 [Advantages and Disadvantages of Ethernet](#advantages-and-disadvantages-of-ethernet)
+   - 4.8 [Practical Commands for Ethernet](#practical-commands-for-ethernet)
 5. [IP Addressing and Subnetting](#ip-addressing-and-subnetting)
-6. [IPv4 Addressing](#ipv4-addressing)
-7. [IPv6 Addressing](#ipv6-addressing)
-8. [ICMP Packets](#icmp-packets)
-9. [ARP Packets](#arp-packets)
-10. [Default Router in Linux](#default-router-in-linux)
-11. [Virtual Network Devices](#virtual-network-devices)
-12. [TAP and TUN Devices](#tap-and-tun-devices)
-13. [VirtIO and Virtual Machines](#virtio-and-virtual-machines)
-14. [Static Routing and Bridging](#static-routing-and-bridging)
-15. [Practical Scripts](#practical-scripts)
-16. [Resources](#resources)
+   - 5.1 [IPv4 Addressing](#ipv4-addressing)
+     - 5.1.1 [IP Address Format](#ip-address-format)
+     - 5.1.2 [IPv4 Classes](#ipv4-classes)
+     - 5.1.3 [Subnetting and Netmask](#subnetting-and-netmask)
+     - 5.1.4 [CIDR Notation](#cidr-notation)
+     - 5.1.5 [Numerical Example for Subnetting](#numerical-example-for-subnetting)
+   - 5.2 [IPv4 Header Format](#ipv4-header-format)
+     - 5.2.1 [IPv4 Header Structure](#ipv4-header-structure)
+     - 5.2.2 [Practical Commands for IPv4](#practical-commands-for-ipv4)
+   - 5.3 [Routing and Default Gateway](#routing-and-default-gateway)
+     - 5.3.1 [Setting a Default Gateway](#setting-a-default-gateway)
+     - 5.3.2 [Viewing the Routing Table](#viewing-the-routing-table)
+   - 5.4 [ICMP and ARP](#icmp-and-arp)
+     - 5.4.1 [Data Transmission in a Network](#data-transmission-in-a-network)
+     - 5.4.2 [ARP and ICMP](#arp-and-icmp)
+     - 5.4.3 [Example of ARP](#example-of-arp)
+     - 5.4.4 [Types of Casts](#types-of-casts)
+     - 5.4.5 [ARP Packet](#arp-packet)
+   - 5.5 [IPv6 Addressing](#ipv6-addressing)
+     - 5.5.1 [IP Address Format](#ip-address-format)
+     - 5.5.2 [IPv6 Features](#ipv6-features)
+     - 5.5.3 [Example Address](#example-address)
+     - 5.5.4 [Subnetting in IPv6](#subnetting-in-ipv6)
+     - 5.5.5 [Transition from IPv4 to IPv6](#transition-from-ipv4-to-ipv6)
+     - 5.5.6 [Practical Usage](#practical-usage)
+     - 5.5.7 [Address Types](#address-types)
+6. [ICMP Packets](#icmp-packets)
+   - 6.1 [ICMP (Internet Control Message Protocol)](#icmp-internet-control-message-protocol)
+   - 6.2 [Packet Structure](#packet-structure)
+   - 6.3 [Example](#example)
+7. [ARP Packets](#arp-packets)
+   - 7.1 [ARP (Address Resolution Protocol)](#arp-address-resolution-protocol)
+   - 7.2 [ARP Process](#arp-process)
+   - 7.3 [Packet Structure](#packet-structure)
+   - 7.4 [Example of ARP Communication](#example-of-arp-communication)
+8. [Virtual Network Devices](#virtual-network-devices)
+   - 8.1 [TUN and TAP Devices](#tun-and-tap-devices)
+   - 8.2 [Creating and Managing TAP/TUN Devices](#creating-and-managing-tap-tun-devices)
+     - 8.2.1 [Create a TAP Device](#create-a-tap-device)
+     - 8.2.2 [Create a TUN Device](#create-a-tun-device)
+     - 8.2.3 [Practical Commands for Managing TUN/TAP Devices](#practical-commands-for-managing-tun-tap-devices)
+   - 8.3 [Example Usage Scenarios](#example-usage-scenarios)
+     - 8.3.1 [Bridging TAP Devices](#bridging-tap-devices)
+     - 8.3.2 [Configuring TUN Device for VPN](#configuring-tun-device-for-vpn)
+     - 8.3.3 [Configuring TAP Device for Virtual Machine Networking](#configuring-tap-device-for-virtual-machine-networking)
+   - 8.4 [Additional Commands and Configurations](#additional-commands-and-configurations)
+     - 8.4.1 [Change the Name of a TUN/TAP Device](#change-the-name-of-a-tun-tap-device)
+     - 8.4.2 [Set a Description for a TUN/TAP Device](#set-a-description-for-a-tun-tap-device)
+     - 8.4.3 [Monitor TUN/TAP Device Traffic](#monitor-tun-tap-device-traffic)
+     - 8.4.4 [Adjusting MTU](#adjusting-mtu)
+9. [VirtIO and Virtual Machines](#virtio-and-virtual-machines)
+   - 9.1 [Virtual Machines](#virtual-machines)
+     - 9.1.1 [Key Benefits of Virtual Machines](#key-benefits-of-virtual-machines)
+   - 9.2 [VirtIO](#virtio)
+     - 9.2.1 [Advantages of VirtIO](#advantages-of-virtio)
+   - 9.3 [VirtIO Network Device (virtio-net)](#virtio-network-device-virtio-net)
+     - 9.3.1 [How VirtIO Emulates the Network Interface Card (NIC)](#how-virtio-emulates-the-network-interface-card-nic)
+     - 9.3.2 [Key Components of VirtIO-net](#key-components-of-virtio-net)
+   - 9.4 [Virtual Machines and their Relationships](#virtual-machines-and-their-relationships)
+   - 9.5 [Running Virtual Machines with QEMU](#running-virtual-machines-with-qemu)
+     - 9.5.1 [Example Command to Run a VM with QEMU and VirtIO](#example-command-to-run-a-vm-with-qemu-and-virtio)
+     - 9.5.2 [Explanation of the Command](#explanation-of-the-command)
+   - 9.6 [Detailed Steps to Set Up VirtIO Network with QEMU](#detailed-steps-to-set-up-virtio-network-with-qemu)
+   - 9.7 [Monitoring and Managing VirtIO Devices](#monitoring-and-managing-virtio-devices)
+     - 9.7.1 [Check VirtIO Devices in the Guest](#check-virtio-devices-in-the-guest)
+   - 9.8 [Advanced Configuration and Optimization](#advanced-configuration-and-optimization)
+     - 9.8.1 [Enable Multiqueue for VirtIO-net](#enable-multiqueue-for-virtio-net)
+     - 9.8.2 [Enable Offloading Features](#enable-offloading-features)
+     - 9.8.3 [Configure NUMA for Better Performance](#configure-numa-for-better-performance)
+10. [Static Routing and Bridging](#static-routing-and-bridging)
+    - 10.1 [Static Routing](#static-routing)
+      - 10.1.1 [How Static Routing Works](#how-static-routing-works)
+      - 10.1.2 [Adding a Static Route](#adding-a-static-route)
+      - 10.1.3 [Viewing the Routing Table](#viewing-the-routing-table)
+      - 10.1.4 [Deleting a Static Route](#deleting-a-static-route)
+    - 10.2 [Bridging](#bridging)
+      - 10.2.1 [How Bridging Works](#how-bridging-works)
+      - 10.2.2 [Creating a Network Bridge](#creating-a-network-bridge)
+      - 10.2.3 [Adding Interfaces to the Bridge](#adding-interfaces-to-the-bridge)
+      - 10.2.4 [Practical Examples](#practical-examples)
+      - 10.2.5 [Additional Commands and Configurations](#additional-commands-and-configurations)
+11. [Practical Scripts](#practical-scripts)
+    - 11.1 [Important Notes](#important-notes)
+    - 11.2 [Machine Configurations](#machine-configurations)
+      - 11.2.1 [About the `/etc/network/interfaces` File](#about-the-etc-network-interfaces-file)
+      - 11.2.2 [Manual vs. `iproute2` or `net-tools`](#manual-vs-iproute2-or-net-tools)
+    - 11.3 [Start Script for Two Machines](#start-script-for-two-machines)
+      - 11.3.1 [Script](#script)
+      - 11.3.2 [Explanation](#explanation)
+    - 11.4 [Cleanup Script for Two Machines](#cleanup-script-for-two-machines)
+      - 11.4.1 [Script](#script)
+      - 11.4.2 [Explanation](#explanation)
+    - 11.5 [Start Script for Three Machines](#start-script-for-three-machines)
+      - 11.5.1 [Script](#script)
+      - 11.5.2 [Explanation](#explanation)
+    - 11.6 [Cleanup Script for Three Machines](#cleanup-script-for-three-machines)
+      - 11.6.1 [Script](#script)
+      - 11.6.2 [Explanation](#explanation)
+12. [Resources](#resources)
 
 ---
 
@@ -842,9 +955,9 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 
 ### TUN and TAP Devices
 
-TUN and TAP are virtual network kernel devices. They provide network interfaces that can be used by user-space programs to interact with the network stack.
-
 ![alt text](./images/Tun-tap-osilayers-diagram.png)
+
+TUN and TAP are virtual network kernel devices. They provide network interfaces that can be used by user-space programs to interact with the network stack.
 
 - **TAP Device**: Emulates an Ethernet device and operates with layer 2 packets such as Ethernet frames. It is used to create a network bridge, where multiple virtual machines or containers can communicate as if they are on the same physical network.
 - **TUN Device**: Emulates a network layer device and operates with layer 3 packets such as IP packets. It is commonly used for routing purposes and can be used to create VPNs.
@@ -1071,9 +1184,23 @@ TUN and TAP devices are powerful tools for creating virtual network interfaces, 
 
 ## VirtIO and Virtual Machines
 
+### Virtual Machines
+
+Virtual machines (VMs) are software-based emulations of physical computers. They run an operating system and applications just like a physical computer. VMs are managed by a hypervisor, which allocates resources from the physical host to each VM. The hypervisor provides isolation, ensuring that each VM operates independently of the others.
+
+**Key Benefits of Virtual Machines:**
+
+- **Resource Efficiency**: Multiple VMs can run on a single physical host, maximizing resource utilization.
+- **Isolation**: VMs are isolated from each other, providing security and stability.
+- **Flexibility**: VMs can run different operating systems and configurations on the same host.
+- **Scalability**: Resources can be dynamically allocated to VMs based on demand.
+- **Snapshot and Backup**: VMs can be easily backed up, cloned, and restored.
+
 ### VirtIO
 
 VirtIO is a virtualization standard for network and disk device drivers. It provides a generic interface between the guest virtual machine (VM) and the hypervisor, allowing for efficient data exchange. VirtIO drivers are designed to offer near-native performance by reducing the overhead typically associated with emulating hardware.
+
+![alt text](./images/virtio-fig5.png)
 
 #### Advantages of VirtIO
 
@@ -1102,6 +1229,10 @@ VirtIO network device (virtio-net) is a paravirtualized network driver that allo
 - **Descriptor Ring**: Holds descriptors that describe the location and size of network packets in memory.
 - **Available Ring**: Indicates which descriptors are available for processing.
 - **Used Ring**: Indicates which descriptors have been processed and are ready to be reused.
+
+### Virtual Machines and their Relationships
+
+In a virtualized environment, multiple virtual machines (VMs) run on a single physical host. These VMs are isolated from each other but can communicate over virtual networks configured on the host. The following sections detail how VirtIO integrates with virtual machines and how to set up and manage VMs using QEMU and KVM.
 
 ### Running Virtual Machines with QEMU
 
@@ -1230,7 +1361,18 @@ qemu-system-x86_64 -kernel bzImage -m 4G \
   -append "root=/dev/vda rw" -daemonize
 ```
 
-By using VirtIO for network and disk devices, you can achieve high-performance virtualization with QEMU and KVM. The efficient interface provided by VirtIO drivers significantly reduces the overhead of device emulation, allowing for near-native performance in virtualized environments.
+### Relationships Between Virtual Machines
+
+In a virtualized environment, virtual machines (VMs) can be configured to communicate with each other and the host system. This can be achieved through various networking configurations:
+
+1. **Host-Only Networking**: VMs can communicate with each other and the host but not with external networks.
+2. **NAT (Network Address Translation)**: VMs can access external networks, but external devices cannot initiate connections to the VMs.
+3. **Bridged Networking
+
+**: VMs are connected to the host's physical network and can interact with external devices as if they were physical machines on the same network.
+4. **Internal Networking**: VMs can communicate with each other on an isolated network, separate from the host and external networks.
+
+By understanding and configuring these relationships, you can create complex virtual network topologies that simulate real-world scenarios, providing a powerful tool for testing, development, and training.
 
 ---
 
@@ -1466,6 +1608,14 @@ sudo ufw status
 
 **Note**: Disabling the firewall can expose your system to potential security risks. Ensure that you only disable it for troubleshooting purposes and re-enable it once you have identified and resolved any network connectivity issues. If UFW is causing issues, consider adding specific rules to allow the necessary traffic rather than completely disabling the firewall.
 
+**Note**: If the VMs cannot ping each other even when the network interfaces appear to be up, you can manually bring up the network interfaces. Use the following command inside each VM:
+
+```sh
+sudo ip link set ethX up
+```
+
+Replace `ethX` with the appropriate interface name (e.g., `eth0`, `eth1`). Sometimes the interfaces need to be manually brought up even if they show as working in `ifconfig`.
+
 **Note**: All images used in these scripts were built using Yocto releases of Kirkstone. For more details on how the images were created, please refer to [Session 03: Working with Yocto - System Programming under Linux](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session03/README.md).
 
 **Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
@@ -1494,6 +1644,20 @@ iface eth0 inet static
     netmask 255.255.255.0
     broadcast 10.20.10.255
     network 10.20.10.0
+
+up route add default gw 10.20.60.1 dev eth0
+```
+
+**Machine 3:**
+```sh
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.60.2
+    netmask 255.255.255.0
+    broadcast 10.20.60.255
+    network 10.20.60.0
 
 up route add default gw 10.20.60.1 dev eth0
 ```
@@ -1676,9 +1840,9 @@ sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-image
    ```
 
    - `qemu-system-x86_64`: Runs the QEMU emulator for x86_64 architecture.
-   - `-kernel vms2/bzImageh1.bin`: Specifies the kernel image for the VM.
+   - `-kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin`: Specifies the kernel image for the VM.
    - `-m 1G`: Allocates 1 GB of RAM to the VM.
-   - `-drive "file=vms2/h1.ext4,if=virtio,format=raw"`: Specifies the disk image for the VM, using the VirtIO interface.
+   - `-drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h1.ext4,if=virtio,format=raw"`: Specifies the disk image for the VM, using the VirtIO interface.
    - `-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B'`: Adds a VirtIO network device with the specified MAC address.
    - `-netdev tap,id=net0,ifname=vport11,script=no,downscript=no`: Specifies the network backend using the TAP device `vport11`.
    - `-name h1`: Sets the name of the VM to `h1`.
@@ -2102,9 +2266,7 @@ sudo ip link delete dev br2
 
    ```sh
    sudo ip link delete dev br1
-  
-
- ```
+   ```
 
    - Deletes the bridge device `br1`.
 
@@ -2150,5 +2312,7 @@ By following these scripts and enabling IP forwarding, you can effectively simul
 - [Linux `ip` Command Examples](https://www.tecmint.com/ip-command-examples/)
 - [QEMU Documentation](https://www.qemu.org/documentation/)
 - [TUN/TAP Interface Configuration](https://www.kernel.org/doc/Documentation/networking/tuntap.txt)
+- [Virtualization Host Configuration and Guest Installation Guide](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/virtualization_host_configuration_and_guest_installation_guide/index#idm140270648332048)
+- [Virtio: An I/O virtualization framework for Linux](https://developer.ibm.com/articles/l-virtio/)
 
 By following these steps and explanations, you will have a comprehensive understanding of networking, virtual network devices, and practical implementation using scripts. This guide aims to cover both theoretical and practical aspects to provide a holistic view of networking in Linux environments.
