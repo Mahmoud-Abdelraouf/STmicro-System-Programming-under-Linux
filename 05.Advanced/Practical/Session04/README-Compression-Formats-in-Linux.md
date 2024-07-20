@@ -111,6 +111,16 @@ The `zip` format is widely used for compressing files and directories. It is com
   unzip archive.zip
   ```
 
+- **Extract a zip archive to a specific directory:**
+  ```sh
+  unzip archive.zip -d /path/to/directory
+  ```
+
+- **Extract a zip archive to a directory:**
+  ```sh
+  unzip archive.zip -d /path/to/directory
+  ```
+
 ## Compressing and Extracting Files and Directories
 
 ### Compressing Files and Directories
@@ -157,6 +167,11 @@ The `zip` format is widely used for compressing files and directories. It is com
   unzip archive.zip
   ```
 
+- **Extract a zip archive to a specific directory:**
+  ```sh
+  unzip archive.zip -d /path/to/directory
+  ```
+
 ## Common Commands Summary
 
 | Operation                       | `tar` Command                                    | `zip` Command                      |
@@ -171,14 +186,15 @@ The `zip` format is widely used for compressing files and directories. It is com
 | Extract tgz archive             | `tar -xzvf archive.tgz`                          |                                    |
 | Create zip archive              |                                                  | `zip -r archive.zip /path/to/directory` |
 | Extract zip archive             |                                                  | `unzip archive.zip`                |
+| Extract zip archive to directory|                                                  | `unzip archive.zip -d /path/to/directory` |
 
 ## Resources
 
 - [GNU tar Documentation](https://www.gnu.org/software/tar/manual/tar.html)
 - [gzip Manual](https://www.gnu.org/software/gzip/manual/gzip.html)
 - [xz Utils Documentation](https://tukaani.org/xz/)
-- [zip Manual](http://infozip.sourceforge.net/doc/zipman.html)
-- [unzip Manual](http://infozip.sourceforge.net/doc/unzipman.html)
+- [zip Manual](http://infozip.sourceforge.net/)
+- [unzip Manual](http://infozip.sourceforge.net/)
 
 ---
 
