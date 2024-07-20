@@ -1473,15 +1473,15 @@ ip link set vport12 up
 ip link set vport12 master br1
 
 # Start the first virtual machine h1 using QEMU
-qemu-system-x86_64 -kernel vms2/bzImageh1.bin -m 1G \
-    -drive "file=vms2/h1.ext4,if=virtio,format=raw" \
+qemu-system-x86_64 -kernel ~/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin -m 1G \
+    -drive "file=~/yocto2024/<release-name>/saved-images/vms2/h1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
     -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
     -name h1 -daemonize --append "root=/dev/vda rw"
 
 # Start the second virtual machine h2 using QEMU
-qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
-    -drive "file=vms2/h2.ext4,if=virtio,format=raw" \
+qemu-system-x86_64 -kernel ~/yocto2024/<release-name>/saved-images/vms2/bzImageh2.bin -m 1G \
+    -drive "file=~/yocto2024/<release-name>/saved-images/vms2/h2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
     -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
     -name h2 -daemonize --append "root=/dev/vda rw"
@@ -1556,8 +1556,8 @@ qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
 9. **Start the first virtual machine h1 using QEMU**:
 
    ```sh
-   qemu-system-x86_64 -kernel vms2/bzImageh1.bin -m 1G \
-       -drive "file=vms2/h1.ext4,if=virtio,format=raw" \
+   qemu-system-x86_64 -kernel ~/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin -m 1G \
+       -drive "file=~/yocto2024/<release-name>/saved-images/vms2/h1.ext4,if=virtio,format=raw" \
        -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
        -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
        -name h1 -daemonize --append "root=/dev/vda rw"
@@ -1576,8 +1576,8 @@ qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
 10. **Start the second virtual machine h2 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
-        -drive "file=vms2/h2.ext4,if=virtio,format=raw" \
+    qemu-system-x86_64 -kernel ~/yocto2024/<release-name>/saved-images/vms2/bzImageh2.bin -m 1G \
+        -drive "file=~/yocto2024/<release-name>/saved-images/vms2/h2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
         -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
         -name h2 -daemonize --append "root=/dev/vda rw"
@@ -1717,15 +1717,15 @@ ip link set vport22 up
 ip link set vport22 master br2
 
 # Start the first virtual machine h1 using QEMU
-qemu-system-x86_64 -kernel vms3/bzImageh1.bin -m 1G \
-    -drive "file=vms3/h1.ext4,if=virtio,format=raw" \
+qemu-system-x86_64 -kernel ~/yocto2024/<release-name>/saved-images/vms3/bzImageh1.bin -m 1G \
+    -drive "file=~/yocto2024/<release-name>/saved-images/vms3/h1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
     -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
     -name h1 -daemonize --append "root=/dev/vda rw"
 
 # Start the second virtual machine rt2 using QEMU
-qemu-system-x86_64 -kernel vms3/bzImagert2.bin -m 1G \
-    -drive "file=vms3/rt2.ext4,if=virtio,format=raw" \
+qemu-system-x86_64 -kernel ~/yocto2024/<release-name>/saved-images/vms3/bzImagert2.bin -m 1G \
+    -drive "file=~/yocto2024/<release-name>/saved-images/vms3/rt2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' \
     -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
     -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:75' \
@@ -1733,8 +1733,8 @@ qemu-system-x86_64 -kernel vms3/bzImagert2.bin -m 1G \
     -name rt2 -daemonize --append "root=/dev/vda rw"
 
 # Start the third virtual machine h2 using QEMU
-qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
-    -drive "file=vms3/h2.ext4,if=virtio,format=raw" \
+qemu-system-x86_64 -kernel ~/yocto2024/<release-name>/saved-images/vms3/bzImageh2.bin -m 1G \
+    -drive "file=~/yocto2024/<release-name>/saved-images/vms3/h2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
     -netdev tap,id=net0,ifname=vport21,script=no,downscript=no \
     -name h2 -daemonize --append "root=/dev/vda rw"
@@ -1873,8 +1873,8 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
 17. **Start the first virtual machine h1 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel vms3/bzImageh1.bin -m 1G \
-        -drive "file=vms3/h1.ext4,if=virtio,format=raw" \
+    qemu-system-x86_64 -kernel ~/yocto2024/<release-name>/saved-images/vms3/bzImageh1.bin -m 1G \
+        -drive "file=~/yocto2024/<release-name>/saved-images/vms3/h1.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
         -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
         -name h1 -daemonize --append "root=/dev/vda rw"
@@ -1885,8 +1885,8 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
 18. **Start the second virtual machine rt2 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel vms3/bzImagert2.bin -m 1G \
-        -drive "file=vms3/rt2.ext4,if=virtio,format=raw" \
+    qemu-system-x86_64 -kernel ~/yocto2024/<release-name>/saved-images/vms3/bzImagert2.bin -m 1G \
+        -drive "file=~/yocto2024/<release-name>/saved-images/vms3/rt2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' \
         -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
         -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:75' \
@@ -1899,8 +1899,8 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
 19. **Start the third virtual machine h2 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
-        -drive "file=vms3/h2.ext4,if=virtio,format=raw" \
+    qemu-system-x86_64 -kernel ~/yocto2024/<release-name>/saved-images/vms3/bzImageh2.bin -m 1G \
+        -drive "file=~/yocto2024/<release-name>/saved-images/vms3/h2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
         -netdev tap,id=net0,ifname=vport21,script=no,downscript=no \
         -name h2 -daemonize --append "root=/dev/vda rw"
