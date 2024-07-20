@@ -209,6 +209,8 @@ Ethernet is a family of wired networking technologies commonly used in local are
 
 An Ethernet frame is a data packet that includes information needed for data link layer transmission. The Ethernet frame format is standardized and consists of several fields:
 
+![alt text](Simple-SDP-Ethernet-framing-format-used-for-ex-system-and-Internet-communications-Data-1.png)
+
 1. **Preamble**: 7 bytes used to synchronize receiver clock.
 2. **Start Frame Delimiter (SFD)**: 1 byte indicating the start of the frame.
 3. **Destination MAC Address**: 6 bytes indicating the recipient's MAC address.
@@ -471,7 +473,9 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   ip addr show
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   ifconfig
   ```
@@ -481,7 +485,9 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   sudo ip addr add 192.168.1.10/24 dev eth0
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   sudo ifconfig eth0 192.168.1.10 netmask 255.255.255.0
   ```
@@ -491,7 +497,9 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   sudo ip addr del 192.168.1.10/24 dev eth0
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   sudo ifconfig eth0 del 192.168.1.10
   ```
@@ -501,7 +509,9 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   sudo ip route add default via 192.168.1.1
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   sudo route add default gw 192.168.1.1
   ```
@@ -511,7 +521,9 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   sudo ip route del default
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   sudo route del default
   ```
@@ -521,7 +533,9 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   ip route show
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   route -n
   ```
@@ -531,7 +545,9 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   sudo ip addr flush dev eth0
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   sudo ifconfig eth0 0.0.0.0
   ```
@@ -541,7 +557,9 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   sudo ip link set dev eth0 up
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   sudo ifconfig eth0 up
   ```
@@ -551,7 +569,9 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   sudo ip link set dev eth0 down
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   sudo ifconfig eth0 down
   ```
@@ -562,7 +582,9 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   sudo ip link set dev eth0 multicast on
   sudo ip link set dev eth0 multicast off
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   sudo ifconfig eth0 multicast
   sudo ifconfig eth0 -multicast
@@ -573,16 +595,19 @@ Let's take an IP address `192.168.1.0/24` and subnet it into smaller networks.
   ```sh
   ip -s link
   ```
+
   Equivalent `net-tools` command:
+
   ```sh
   netstat -i
   ```
-  
+
 ### Routing and Default Gateway
 
 A router forwards data packets between computer networks. A default gateway routes traffic from a local network to other networks or the internet.
 
 - **Setting a Default Gateway:**
+
   - Using `iproute2`:
     ```sh
     sudo ip route add default via 192.168.1.1
