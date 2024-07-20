@@ -955,9 +955,9 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 
 ### TUN and TAP Devices
 
-TUN and TAP are virtual network kernel devices. They provide network interfaces that can be used by user-space programs to interact with the network stack.
-
 ![alt text](./images/Tun-tap-osilayers-diagram.png)
+
+TUN and TAP are virtual network kernel devices. They provide network interfaces that can be used by user-space programs to interact with the network stack.
 
 - **TAP Device**: Emulates an Ethernet device and operates with layer 2 packets such as Ethernet frames. It is used to create a network bridge, where multiple virtual machines or containers can communicate as if they are on the same physical network.
 - **TUN Device**: Emulates a network layer device and operates with layer 3 packets such as IP packets. It is commonly used for routing purposes and can be used to create VPNs.
