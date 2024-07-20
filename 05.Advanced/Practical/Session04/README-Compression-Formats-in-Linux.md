@@ -116,9 +116,9 @@ The `zip` format is widely used for compressing files and directories. It is com
   unzip archive.zip -d /path/to/directory
   ```
 
-- **Extract a zip archive to a directory (create directory if it does not exist):**
+- **Extract a zip archive to a directory:**
   ```sh
-  unzip archive.zip -d /path/to/directory -D
+  unzip archive.zip -d /path/to/directory
   ```
 
 ## Compressing and Extracting Files and Directories
