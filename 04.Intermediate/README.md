@@ -1,4 +1,4 @@
-# README - Intermediate Training: Linux Systems Programming
+# Intermediate Training: Linux Systems Programming
 
 ## Overview
 
