@@ -187,7 +187,6 @@ The `zip` format is widely used for compressing files and directories. It is com
 | Create zip archive              |                                                  | `zip -r archive.zip /path/to/directory` |
 | Extract zip archive             |                                                  | `unzip archive.zip`                |
 | Extract zip archive to directory|                                                  | `unzip archive.zip -d /path/to/directory` |
-| Extract zip and create directory if not exist |                                     | `unzip archive.zip -d /path/to/directory -D` |
 
 ## Resources
 
