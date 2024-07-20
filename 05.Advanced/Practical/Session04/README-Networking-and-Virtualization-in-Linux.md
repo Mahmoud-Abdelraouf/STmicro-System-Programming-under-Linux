@@ -1466,6 +1466,14 @@ sudo ufw status
 
 **Note**: Disabling the firewall can expose your system to potential security risks. Ensure that you only disable it for troubleshooting purposes and re-enable it once you have identified and resolved any network connectivity issues. If UFW is causing issues, consider adding specific rules to allow the necessary traffic rather than completely disabling the firewall.
 
+**Note**: If the VMs cannot ping each other even when the network interfaces appear to be up, you can manually bring up the network interfaces. Use the following command inside each VM:
+
+```sh
+sudo ip link set ethX up
+```
+
+Replace `ethX` with the appropriate interface name (e.g., `eth0`, `eth1`). Sometimes the interfaces need to be manually brought up even if they show as working in `ifconfig`.
+
 **Note**: All images used in these scripts were built using Yocto releases of Kirkstone. For more details on how the images were created, please refer to [Session 03: Working with Yocto - System Programming under Linux](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session03/README.md).
 
 **Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
