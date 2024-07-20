@@ -177,8 +177,8 @@ The `zip` format is widely used for compressing files and directories. It is com
 - [GNU tar Documentation](https://www.gnu.org/software/tar/manual/tar.html)
 - [gzip Manual](https://www.gnu.org/software/gzip/manual/gzip.html)
 - [xz Utils Documentation](https://tukaani.org/xz/)
-- [zip Manual](http://infozip.sourceforge.net/doc/zipman.html)
-- [unzip Manual](http://infozip.sourceforge.net/doc/unzipman.html)
+- [zip Manual](http://infozip.sourceforge.net/)
+- [unzip Manual](http://infozip.sourceforge.net/)
 
 ---
 
