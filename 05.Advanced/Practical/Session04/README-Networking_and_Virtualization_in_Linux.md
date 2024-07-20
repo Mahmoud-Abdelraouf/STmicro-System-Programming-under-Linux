@@ -374,11 +374,11 @@ IPv4 addresses are divided into five classes, based on the leading bits:
   - **Range**: `240.0.0.0` to `255.255.255.255`
   - **Reserved for**: Future use and research.
 
-#### Subnetting and Netmask
+### Subnetting and Netmask
 
 Subnetting allows dividing a larger network into smaller sub-networks, which helps in efficient IP management and security.
 
-##### Subnet Mask
+#### Subnet Mask
 
 - **Purpose**: Determines which portion of an IP address is the network and which part is the host.
 - **Example**: `255.255.255.0` (binary: `11111111.11111111.11111111.00000000`)
@@ -509,7 +509,7 @@ typedef struct {
 
 This structure shows the fields of the IPv4 header, defining how each piece of data is stored within the packet.
 
-#### Practical Commands for IPv4
+### Practical Commands for IPv4
 
 - **View IP Address**:
 
