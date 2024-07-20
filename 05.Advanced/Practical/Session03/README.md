@@ -15,6 +15,7 @@ For more detailed documentation, refer to the [Yocto Project Documentation](http
 5. [Post-Build Steps](#post-build-steps)
 6. [QEMU Monitor and Running QEMU](#qemu-monitor-and-running-qemu)
 7. [Saving the Kernel and Root Filesystem](#saving-the-kernel-and-root-filesystem)
+8. [Resources](#resources)
 
 ---
 
@@ -216,6 +217,13 @@ After building the image with Yocto, it is recommended to save the kernel and ro
    ```sh
    runqemu ~/yocto2024/<release-name>/saved-images/core-image-minimal-qemux86-64.ext4 ~/yocto2024/<release-name>/saved-images/bzImage-qemux86-64.bin nographic
    ```
+
+---
+
+## Resources
+
+- [Yocto Project Documentation](https://docs.yoctoproject.org/index.html)
+- [Yocto Project Releases](https://wiki.yoctoproject.org/wiki/Releases)
 
 ---
 
