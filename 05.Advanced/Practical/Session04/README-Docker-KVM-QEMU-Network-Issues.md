@@ -28,15 +28,15 @@ Disabling Docker's IPTables modification can be a quick solution, but it might p
 
 1. **Edit Docker's Service File**
 
-   Open Docker's service file for editing:
+   Open Docker's service file for editing with Vim:
 
    ```sh
-   sudo systemctl edit docker
+   EDITOR=vim sudo -E systemctl edit docker
    ```
 
 2. **Add the IPTables Flag**
 
-   Add the following line to disable Docker's IPTables modification:
+   Add the following lines to disable Docker's IPTables modification. The `ExecStart=` line is used to clear the previous `ExecStart` command:
 
    ```ini
    [Service]
@@ -71,17 +71,18 @@ If disabling Docker's IPTables modification causes issues with Docker containers
    To make the rule persistent, you can add it to the Docker service configuration:
 
    ```sh
-   sudo systemctl edit docker
+   EDITOR=vim sudo -E systemctl edit docker
    ```
 
 3. **Add the IPTables Rules**
 
-   Add the following lines to ensure the rules are set before Docker starts:
+   Add the following lines to ensure the rules are set before Docker starts and removed after Docker stops:
 
    ```ini
    [Service]
    ExecStartPre=/usr/bin/iptables -D FORWARD -p all -i br0 -j ACCEPT
    ExecStartPre=/usr/bin/iptables -A FORWARD -p all -i br0 -j ACCEPT
+   ExecStopPost=/usr/bin/iptables -D FORWARD -p all -i br0 -j ACCEPT
    ```
 
 4. **Restart Docker**
@@ -132,8 +133,8 @@ To automate the process of adjusting IPTables rules, you can add post-up and pre
 
 ## Additional Notes
 
-- **Network Conflicts:** If you encounter network conflicts, such as IP address collisions, consider adjusting the subnet of your bridge network using the `--subnet` flag when creating custom Docker networks.
-- **Security Considerations:** Changing the default policy of the `FORWARD` chain to `ACCEPT` can have security implications. Ensure that your host is adequately protected if it is exposed to untrusted networks.
+- **Network Conflicts**: If you encounter network conflicts, such as IP address collisions, consider adjusting the subnet of your bridge network using the `--subnet` flag when creating custom Docker networks.
+- **Security Considerations**: Changing the default policy of the `FORWARD` chain to `ACCEPT` can have security implications. Ensure that your host is adequately protected if it is exposed to untrusted networks.
 
 ## Resources
 
