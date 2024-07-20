@@ -60,7 +60,7 @@ sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
    Inside the build directory, update the machine and download directories in `conf/local.conf`:
 
    ```sh
-   MACHINE ??= "qemuarm64"
+   MACHINE ??= "qemux86-64"
    DL_DIR ?= "/home/mahmoud/yocto2024/<release-name>/downloads"
    ```
 
@@ -224,6 +224,8 @@ After building the image with Yocto, it is recommended to save the kernel and ro
 
 - [Yocto Project Documentation](https://docs.yoctoproject.org/index.html)
 - [Yocto Project Releases](https://wiki.yoctoproject.org/wiki/Releases)
+- [Yocto Quick Start Guide](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html)
+- [Yocto Project Overview Video](https://youtu.be/8M8U1EgnUVw?si=1cH194i2Bgcd8TZJ)
 
 ---
 
