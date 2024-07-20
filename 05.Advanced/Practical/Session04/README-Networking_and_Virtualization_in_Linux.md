@@ -1444,6 +1444,96 @@ By understanding and utilizing static routing and bridging, network administrato
 
 ## Practical Scripts
 
+**Note**: All images used in these scripts were built using Yocto releases of Kirkstone. For more details on how the images were created, please refer to [Session 03: Working with Yocto - System Programming under Linux](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session03/README.md).
+
+**Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
+
+Machine 1:
+```sh
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.10.2
+    netmask 255.255.255.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
+
+up route add default gw 10.20.10.1 dev eth0
+```
+
+Machine 2:
+```sh
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.10.1
+    netmask 255.255.255.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
+
+up route add default gw 10.20.60.1 dev eth0
+```
+
+**Explanation**: This note provides specific network interface configurations for two machines. It ensures that both machines are configured with static IP addresses and default gateway routes so that they can communicate with each other on the same subnet.
+
+### About the `/etc/network/interfaces` File
+
+The `/etc/network/interfaces` file is used in Debian-based Linux distributions (such as Debian, Ubuntu, etc.) to configure network interfaces. This file allows you to define static IP addresses, DHCP settings, and other network parameters for each interface on your system.
+
+**Key Sections of the File**:
+
+1. **auto**: Specifies which interfaces should be automatically brought up when the system boots.
+   - `auto lo eth0` means both `lo` (loopback) and `eth0` (Ethernet) interfaces will be brought up automatically.
+
+2. **iface**: Defines the configuration for a specific interface.
+   - `iface lo inet loopback` configures the loopback interface.
+   - `iface eth0 inet static` configures the `eth0` interface with a static IP address.
+
+3. **Static IP Configuration**:
+   - `address`: The IP address assigned to the interface.
+   - `netmask`: The subnet mask for the network.
+   - `broadcast`: The broadcast address for the network.
+   - `network`: The network address.
+
+4. **up route add default gw**: Adds a default gateway route when the interface is brought up.
+
+### Manual vs. `iproute2` or `net-tools`
+
+You can configure network interfaces either manually by editing the `/etc/network/interfaces` file or dynamically using command-line tools like `iproute2` or `net-tools`.
+
+#### Manual Configuration
+
+Editing the `/etc/network/interfaces` file is a manual method that requires you to specify all the network settings in the file. This method is persistent across reboots because the configurations are saved in the file and applied every time the system boots.
+
+#### Using `iproute2`
+
+`iproute2` is a collection of utilities for networking and traffic control. The `ip` command is part of this collection and is used to configure network interfaces, routes, and tunnels dynamically.
+
+Example commands:
+```sh
+sudo ip addr add 10.20.10.2/24 dev eth0
+sudo ip link set dev eth0 up
+sudo ip route add default via 10.20.10.1
+```
+
+These commands add an IP address, bring up the interface, and set the default route.
+
+#### Using `net-tools`
+
+`net-tools` is an older suite of networking utilities, including `ifconfig`, `route`, and others. While still in use, it is gradually being replaced by `iproute2`.
+
+Example commands:
+```sh
+sudo ifconfig eth0 10.20.10.2 netmask 255.255.255.0 up
+sudo route add default gw 10.20.10.1
+```
+
+These commands perform similar actions as the `iproute2` commands but use the older tools.
+
+**Conclusion**: Using the `/etc/network/interfaces` file is best for persistent configurations. For temporary changes or testing, using `iproute2` or `net-tools` commands is more flexible and does not require a system reboot.
+
 ### Start Script for Two Machines
 
 #### Script
@@ -1471,15 +1561,15 @@ ip link set vport12 up
 ip link set vport12 master br1
 
 # Start the first virtual machine h1 using QEMU
-qemu-system-x86_64 -kernel vms2/bzImageh1.bin -m 1G \
-    -drive "file=vms2/h1.ext4,if=virtio,format=raw" \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
     -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
     -name h1 -daemonize --append "root=/dev/vda rw"
 
 # Start the second virtual machine h2 using QEMU
-qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
-    -drive "file=vms2/h2.ext4,if=virtio,format=raw" \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh2.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
     -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
     -name h2 -daemonize --append "root=/dev/vda rw"
@@ -1554,8 +1644,8 @@ qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
 9. **Start the first virtual machine h1 using QEMU**:
 
    ```sh
-   qemu-system-x86_64 -kernel vms2/bzImageh1.bin -m 1G \
-       -drive "file=vms2/h1.ext4,if=virtio,format=raw" \
+   qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin -m 1G \
+       -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h1.ext4,if=virtio,format=raw" \
        -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
        -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
        -name h1 -daemonize --append "root=/dev/vda rw"
@@ -1574,8 +1664,8 @@ qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
 10. **Start the second virtual machine h2 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
-        -drive "file=vms2/h2.ext4,if=virtio,format=raw" \
+    qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh2.bin -m 1G \
+        -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
         -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
         -name h2 -daemonize --append "root=/dev/vda rw"
@@ -1589,11 +1679,6 @@ qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
 
 ```sh
 #!/bin/bash
-
-# Detach the virtual ethernet device veth0 from its bridge
-ip link set dev veth0 nomaster
-# Delete the virtual ethernet device veth0
-ip link del dev veth0
 
 # Detach the tap device vport11 from its bridge
 ip link set dev vport11 nomaster
@@ -1611,23 +1696,7 @@ ip link delete dev br1
 
 #### Explanation
 
-1. **Detach the virtual ethernet device veth0 from its bridge**:
-
-   ```sh
-   ip link set dev veth0 nomaster
-   ```
-
-   - `ip link set dev veth0 nomaster`: Detaches the virtual Ethernet device `veth0` from its bridge.
-
-2. **Delete the virtual ethernet device veth0**:
-
-   ```sh
-   ip link del dev veth0
-   ```
-
-   - `ip link del dev veth0`: Deletes the virtual Ethernet device `veth0`.
-
-3. **Detach the tap device vport11 from its bridge**:
+1. **Detach the tap device vport11 from its bridge**:
 
    ```sh
    ip link set dev vport11 nomaster
@@ -1635,7 +1704,7 @@ ip link delete dev br1
 
    - `ip link set dev vport11 nomaster`: Detaches the TAP device `vport11` from its bridge.
 
-4. **Delete the tap device vport11**:
+2. **Delete the tap device vport11**:
 
    ```sh
    ip tuntap del mode tap vport11
@@ -1643,7 +1712,7 @@ ip link delete dev br1
 
    - `ip tuntap del mode tap vport11`: Deletes the TAP device `vport11`.
 
-5. **Detach the tap device vport12 from its bridge**:
+3. **Detach the tap device vport12 from its bridge**:
 
    ```sh
    ip link set dev vport12 nomaster
@@ -1651,7 +1720,7 @@ ip link delete dev br1
 
    - `ip link set dev vport12 nomaster`: Detaches the TAP device `vport12` from its bridge.
 
-6. **Delete the tap device vport12**:
+4. **Delete the tap device vport12**:
 
    ```sh
    ip tuntap del mode tap vport12
@@ -1659,7 +1728,7 @@ ip link delete dev br1
 
    - `ip tuntap del mode tap vport12`: Deletes the TAP device `vport12`.
 
-7. **Delete the bridge device br1**:
+5. **Delete the bridge device br1**:
 
    ```sh
    ip link delete dev br1
@@ -1715,15 +1784,15 @@ ip link set vport22 up
 ip link set vport22 master br2
 
 # Start the first virtual machine h1 using QEMU
-qemu-system-x86_64 -kernel vms3/bzImageh1.bin -m 1G \
-    -drive "file=vms3/h1.ext4,if=virtio,format=raw" \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh1.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/h1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
     -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
     -name h1 -daemonize --append "root=/dev/vda rw"
 
 # Start the second virtual machine rt2 using QEMU
-qemu-system-x86_64 -kernel vms3/bzImagert2.bin -m 1G \
-    -drive "file=vms3/rt2.ext4,if=virtio,format=raw" \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImagert2.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/rt2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' \
     -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
     -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:75' \
@@ -1731,8 +1800,8 @@ qemu-system-x86_64 -kernel vms3/bzImagert2.bin -m 1G \
     -name rt2 -daemonize --append "root=/dev/vda rw"
 
 # Start the third virtual machine h2 using QEMU
-qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
-    -drive "file=vms3/h2.ext4,if=virtio,format=raw" \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh2.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/h2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
     -netdev tap,id=net0,ifname=vport21,script=no,downscript=no \
     -name h2 -daemonize --append "root=/dev/vda rw"
@@ -1871,8 +1940,8 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
 17. **Start the first virtual machine h1 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel vms3/bzImageh1.bin -m 1G \
-        -drive "file=vms3/h1.ext4,if=virtio,format=raw" \
+    qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh1.bin -m 1G \
+        -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/h1.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
         -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
         -name h1 -daemonize --append "root=/dev/vda rw"
@@ -1883,8 +1952,8 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
 18. **Start the second virtual machine rt2 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel vms3/bzImagert2.bin -m 1G \
-        -drive "file=vms3/rt2.ext4,if=virtio,format=raw" \
+    qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImagert2.bin -m 1G \
+        -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/rt2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' \
         -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
         -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:75' \
@@ -1897,8 +1966,8 @@ qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
 19. **Start the third virtual machine h2 using QEMU**:
 
     ```sh
-    qemu-system-x86_64 -kernel vms3/bzImageh2.bin -m 1G \
-        -drive "file=vms3/h2.ext4,if=virtio,format=raw" \
+    qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms3/bzImageh2.bin -m 1G \
+        -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms3/h2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
         -netdev tap,id=net0,ifname=vport21,script=no,downscript=no \
         -name h2 -daemonize --append "root=/dev/vda rw"
