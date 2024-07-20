@@ -1446,6 +1446,94 @@ By understanding and utilizing static routing and bridging, network administrato
 
 **Note**: All images used in these scripts were built using Yocto releases of Kirkstone. For more details on how the images were created, please refer to [Session 03: Working with Yocto - System Programming under Linux](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session03/README.md).
 
+**Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
+
+Machine 1:
+```sh
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.10.2
+    netmask 255.255.255.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
+
+up route add default gw 10.20.10.1 dev eth0
+```
+
+Machine 2:
+```sh
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.10.1
+    netmask 255.255.255.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
+
+up route add default gw 10.20.60.1 dev eth0
+```
+
+**Explanation**: This note provides specific network interface configurations for two machines. It ensures that both machines are configured with static IP addresses and default gateway routes so that they can communicate with each other on the same subnet.
+
+### About the `/etc/network/interfaces` File
+
+The `/etc/network/interfaces` file is used in Debian-based Linux distributions (such as Debian, Ubuntu, etc.) to configure network interfaces. This file allows you to define static IP addresses, DHCP settings, and other network parameters for each interface on your system.
+
+**Key Sections of the File**:
+
+1. **auto**: Specifies which interfaces should be automatically brought up when the system boots.
+   - `auto lo eth0` means both `lo` (loopback) and `eth0` (Ethernet) interfaces will be brought up automatically.
+
+2. **iface**: Defines the configuration for a specific interface.
+   - `iface lo inet loopback` configures the loopback interface.
+   - `iface eth0 inet static` configures the `eth0` interface with a static IP address.
+
+3. **Static IP Configuration**:
+   - `address`: The IP address assigned to the interface.
+   - `netmask`: The subnet mask for the network.
+   - `broadcast`: The broadcast address for the network.
+   - `network`: The network address.
+
+4. **up route add default gw**: Adds a default gateway route when the interface is brought up.
+
+### Manual vs. `iproute2` or `net-tools`
+
+You can configure network interfaces either manually by editing the `/etc/network/interfaces` file or dynamically using command-line tools like `iproute2` or `net-tools`.
+
+#### Manual Configuration
+
+Editing the `/etc/network/interfaces` file is a manual method that requires you to specify all the network settings in the file. This method is persistent across reboots because the configurations are saved in the file and applied every time the system boots.
+
+#### Using `iproute2`
+
+`iproute2` is a collection of utilities for networking and traffic control. The `ip` command is part of this collection and is used to configure network interfaces, routes, and tunnels dynamically.
+
+Example commands:
+```sh
+sudo ip addr add 10.20.10.2/24 dev eth0
+sudo ip link set dev eth0 up
+sudo ip route add default via 10.20.10.1
+```
+
+These commands add an IP address, bring up the interface, and set the default route.
+
+#### Using `net-tools`
+
+`net-tools` is an older suite of networking utilities, including `ifconfig`, `route`, and others. While still in use, it is gradually being replaced by `iproute2`.
+
+Example commands:
+```sh
+sudo ifconfig eth0 10.20.10.2 netmask 255.255.255.0 up
+sudo route add default gw 10.20.10.1
+```
+
+These commands perform similar actions as the `iproute2` commands but use the older tools.
+
+**Conclusion**: Using the `/etc/network/interfaces` file is best for persistent configurations. For temporary changes or testing, using `iproute2` or `net-tools` commands is more flexible and does not require a system reboot.
+
 ### Start Script for Two Machines
 
 #### Script
