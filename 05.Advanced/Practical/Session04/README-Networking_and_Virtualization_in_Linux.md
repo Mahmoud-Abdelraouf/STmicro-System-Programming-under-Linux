@@ -207,9 +207,9 @@ Ethernet is a family of wired networking technologies commonly used in local are
 
 ### Ethernet Frame Structure
 
-An Ethernet frame is a data packet that includes information needed for data link layer transmission. The Ethernet frame format is standardized and consists of several fields:
+![alt text](./images/SBWTlDg_G.png)
 
-![alt text](Simple-SDP-Ethernet-framing-format-used-for-ex-system-and-Internet-communications-Data-1.png)
+An Ethernet frame is a data packet that includes information needed for data link layer transmission. The Ethernet frame format is standardized and consists of several fields:
 
 1. **Preamble**: 7 bytes used to synchronize receiver clock.
 2. **Start Frame Delimiter (SFD)**: 1 byte indicating the start of the frame.
@@ -609,20 +609,27 @@ A router forwards data packets between computer networks. A default gateway rout
 - **Setting a Default Gateway:**
 
   - Using `iproute2`:
+
     ```sh
     sudo ip route add default via 192.168.1.1
     ```
+
   - Equivalent `net-tools` command:
+
     ```sh
     sudo route add default gw 192.168.1.1
     ```
 
 - **Viewing the Routing Table:**
+
   - Using `iproute2`:
+
     ```sh
     ip route show
     ```
+
   - Equivalent `net-tools` command:
+
     ```sh
     route -n
     ```
@@ -794,7 +801,7 @@ IPv6 uses prefix length to denote subnetting (similar to CIDR in IPv4).
 
 TUN and TAP are virtual network kernel devices. They provide network interfaces that can be used by user-space programs to interact with the network stack.
 
-![alt text](Tun-tap-osilayers-diagram.png)
+![alt text](./images/Tun-tap-osilayers-diagram.png)
 
 - **TAP Device**: Emulates an Ethernet device and operates with layer 2 packets such as Ethernet frames. It is used to create a network bridge, where multiple virtual machines or containers can communicate as if they are on the same physical network.
 - **TUN Device**: Emulates a network layer device and operates with layer 3 packets such as IP packets. It is commonly used for routing purposes and can be used to create VPNs.
