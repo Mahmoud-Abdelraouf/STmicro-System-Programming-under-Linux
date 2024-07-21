@@ -13,13 +13,15 @@ This guide provides a comprehensive explanation of setting up and configuring dy
    - [BGP (Border Gateway Protocol)](#bgp-border-gateway-protocol)
 3. [Setting Up the Environment](#setting-up-the-environment)
    - [Creating Virtual Machines with QEMU](#creating-virtual-machines-with-qemu)
+   - [Creating VMs with Yocto Image](#creating-vms-with-yocto-image)
 4. [Configuring Dynamic Routing in VMs](#configuring-dynamic-routing-in-vms)
    - [Installing Quagga Routing Suite](#installing-quagga-routing-suite)
    - [Configuring RIP](#configuring-rip)
    - [Configuring OSPF](#configuring-ospf)
    - [Configuring BGP](#configuring-bgp)
 5. [Testing and Verifying the Configuration](#testing-and-verifying-the-configuration)
-6. [Conclusion](#conclusion)
+6. [Scripts for Setting Up Network Bridges](#scripts-for-setting-up-network-bridges)
+7. [Conclusion](#conclusion)
 
 ---
 
@@ -78,6 +80,18 @@ BGP is a path-vector protocol used for routing between autonomous systems on the
     qemu-system-x86_64 -m 512 -hda router3.img -net nic -net tap,ifname=tap2,script=no,downscript=no -daemonize
     ```
 
+### Creating VMs with Yocto Image
+
+1. **Build Yocto Image**:
+    Follow the Yocto Project instructions to build an image with networking support.
+
+2. **Run the Yocto Image with QEMU**:
+    ```sh
+    qemu-system-x86_64 -m 512 -hda yocto-router1.img -net nic -net tap,ifname=tap0,script=no,downscript=no -daemonize
+    qemu-system-x86_64 -m 512 -hda yocto-router2.img -net nic -net tap,ifname=tap1,script=no,downscript=no -daemonize
+    qemu-system-x86_64 -m 512 -hda yocto-router3.img -net nic -net tap,ifname=tap2,script=no,downscript=no -daemonize
+    ```
+
 ### Configuring Network Bridges on the Host
 To allow VMs to communicate, you need to create network bridges on the host machine.
 
@@ -117,7 +131,7 @@ To allow VMs to communicate, you need to create network bridges on the host mach
 
 1. **Edit the `zebra.conf` file** on each VM:
     ```sh
-    sudo nano /etc/quagga/zebra.conf
+    sudo vi /etc/quagga/zebra.conf
     ```
 
     Add the following lines:
@@ -129,7 +143,7 @@ To allow VMs to communicate, you need to create network bridges on the host mach
 
 2. **Edit the `ripd.conf` file** on each VM:
     ```sh
-    sudo nano /etc/quagga/ripd.conf
+    sudo vi /etc/quagga/ripd.conf
     ```
 
     Add the following lines:
@@ -150,7 +164,7 @@ To allow VMs to communicate, you need to create network bridges on the host mach
 
 1. **Edit the `ospfd.conf` file** on each VM:
     ```sh
-    sudo nano /etc/quagga/ospfd.conf
+    sudo vi /etc/quagga/ospfd.conf
     ```
 
     Add the following lines:
@@ -175,7 +189,7 @@ To allow VMs to communicate, you need to create network bridges on the host mach
 
 1. **Edit the `bgpd.conf` file** on each VM:
     ```sh
-    sudo nano /etc/quagga/bgpd.conf
+    sudo vi /etc/quagga/bgpd.conf
     ```
 
     Add the following lines:
@@ -230,6 +244,59 @@ To verify the dynamic routing configuration, you can use various commands to che
     ```sh
     traceroute <destination-ip>
     ```
+
+---
+
+## Scripts for Setting Up Network Bridges
+
+To automate the process of setting up the network bridges and starting the VMs, you can use the following scripts:
+
+### Start Script for Three Machines
+
+```sh
+#!/bin/bash
+
+# Create TAP interfaces
+sudo ip tunt
+
+ap add mode tap tap0
+sudo ip tuntap add mode tap tap1
+sudo ip tuntap add mode tap tap2
+
+# Create a bridge and add the TAP interfaces
+sudo ip link add name br0 type bridge
+sudo ip link set dev br0 up
+sudo ip link set dev tap0 master br0
+sudo ip link set dev tap1 master br0
+sudo ip link set dev tap2 master br0
+
+# Start VMs
+qemu-system-x86_64 -m 512 -hda yocto-router1.img -net nic -net tap,ifname=tap0,script=no,downscript=no -daemonize
+qemu-system-x86_64 -m 512 -hda yocto-router2.img -net nic -net tap,ifname=tap1,script=no,downscript=no -daemonize
+qemu-system-x86_64 -m 512 -hda yocto-router3.img -net nic -net tap,ifname=tap2,script=no,downscript=no -daemonize
+```
+
+### Cleanup Script for Three Machines
+
+```sh
+#!/bin/bash
+
+# Stop VMs
+sudo pkill qemu-system-x86_64
+
+# Remove TAP interfaces from bridge
+sudo ip link set dev tap0 nomaster
+sudo ip link set dev tap1 nomaster
+sudo ip link set dev tap2 nomaster
+
+# Delete bridge
+sudo ip link delete br0
+
+# Delete TAP interfaces
+sudo ip tuntap del mode tap tap0
+sudo ip tuntap del mode tap tap1
+sudo ip tuntap del mode tap tap2
+```
 
 ---
 
