@@ -104,7 +104,9 @@ This guide covers the essential aspects of networking, including different topol
    - 9.8 [Advanced Configuration and Optimization](#advanced-configuration-and-optimization)
      - 9.8.1 [Enable Multiqueue for VirtIO-net](#enable-multiqueue-for-virtio-net)
      - 9.8.2 [Enable Offloading Features](#enable-offloading-features)
-     - 9.8.3 [Configure NUMA for Better Performance](#configure-numa-for-better-performance)
+     - 9.8.3 [Configure NUM
+
+A for Better Performance](#configure-numa-for-better-performance)
 10. [KVM (Kernel-based Virtual Machine)](#kvm-kernel-based-virtual-machine)
 11. [QEMU (Quick Emulator)](#qemu-quick-emulator)
 12. [Relationship between KVM and QEMU](#relationship-between-kvm-and-qemu)
@@ -127,8 +129,8 @@ This guide covers the essential aspects of networking, including different topol
     - 14.1 [Important Notes](#important-notes)
     - 14.2 [Machine Configurations](#machine-configurations)
       - 14.2.1 [In Case of Two Machines](#in-case-of-two-machines)
-      - 14.2.2 [In Case of Three Machines](#in-case-of-three-machines)    
-      - 14.2.2 [About the `/etc/network/interfaces` File](#about-the-etc-network-interfaces-file)
+      - 14.2.2 [In Case of Three Machines](#in-case-of-three-machines)
+      - 14.2.3 [About the `/etc/network/interfaces` File](#about-the-etc-network-interfaces-file)
       - 14.2.4 [Manual vs. `iproute2` or `net-tools`](#manual-vs-iproute2-or-net-tools)
     - 14.3 [Start Script for Two Machines](#start-script-for-two-machines)
       - 14.3.1 [Script](#script)
