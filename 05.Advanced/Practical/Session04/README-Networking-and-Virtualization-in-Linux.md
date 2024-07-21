@@ -128,7 +128,7 @@ This guide covers the essential aspects of networking, including different topol
     - 14.2 [Machine Configurations](#machine-configurations)
       - 14.2.1 [In Case of Two Machines](#in-case-of-two-machines)
       - 14.2.2 [In Case of Three Machines](#in-case-of-three-machines)
-      - 14.2.3 [About the `/etc/network/interfaces` File](#about-the-etc-network-interfaces-file)
+      - 14.2.3 [About the `/etc/network/interfaces` File](#about-the-etcnetworkinterfaces-file)
       - 14.2.4 [Manual vs. `iproute2` or `net-tools`](#manual-vs-iproute2-or-net-tools)
     - 14.3 [Start Script for Two Machines](#start-script-for-two-machines)
       - 14.3.1 [Script](#script)
