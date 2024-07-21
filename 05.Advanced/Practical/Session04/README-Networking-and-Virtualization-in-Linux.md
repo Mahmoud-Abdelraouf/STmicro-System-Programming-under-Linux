@@ -126,8 +126,10 @@ This guide covers the essential aspects of networking, including different topol
 14. [Practical Scripts](#practical-scripts)
     - 14.1 [Important Notes](#important-notes)
     - 14.2 [Machine Configurations](#machine-configurations)
-      - 14.2.1 [About the `/etc/network/interfaces` File](#about-the-etc-network-interfaces-file)
-      - 14.2.2 [Manual vs. `iproute2` or `net-tools`](#manual-vs-iproute2-or-net-tools)
+      - 14.2.1 [In Case of Two Machines](#in-case-of-two-machines)
+      - 14.2.2 [In Case of Three Machines](#in-case-of-three-machines)
+      - 14.2.3 [About the `/etc/network/interfaces` File](#about-the-etcnetworkinterfaces-file)
+      - 14.2.4 [Manual vs. `iproute2` or `net-tools`](#manual-vs-iproute2-or-net-tools)
     - 14.3 [Start Script for Two Machines](#start-script-for-two-machines)
       - 14.3.1 [Script](#script)
       - 14.3.2 [Explanation](#explanation)
@@ -1653,6 +1655,8 @@ By understanding and utilizing static routing and bridging, network administrato
 
 # Practical Scripts
 
+## Important Notes
+
 **Important**: Having an active Docker bridge (`docker0`) can cause network conflicts with the custom bridge networks used in these scripts. It is recommended to remove the Docker bridge before running the scripts. For detailed instructions on how to remove and recreate the Docker bridge, please refer to the [Docker Bridge Network Management README](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session04/README-Docker-Network-Management.md). For resolving network connectivity issues with Docker and KVM/QEMU on Ubuntu, refer to the [Resolving Network Connectivity Issues with Docker and KVM/QEMU on Ubuntu README](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session04/README-Docker-KVM-QEMU-Network-Issues.md).
 
 **Firewall Considerations**: Sometimes, the firewall settings can interfere with network connectivity between VMs. If you suspect this might be the case, you can disable the firewall using the following command:
@@ -1685,7 +1689,11 @@ Replace `ethX` with the appropriate interface name (e.g., `eth0`, `eth1`). Somet
 
 **Note**: All images used in these scripts were built using Yocto releases of Kirkstone. For more details on how the images were created, please refer to [Session 03: Working with Yocto - System Programming under Linux](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session03/README.md).
 
+## Machine Configurations
+
 **Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
+
+### In Case of Two Machines:
 
 **Machine 1:**
 ```sh
@@ -1715,18 +1723,52 @@ iface eth0 inet static
 up route add default gw 10.20.60.1 dev eth0
 ```
 
-**Machine 3:**
+### In Case of Three Machines:
+
+**Machine 1 (Host 1):**
 ```sh
 auto lo eth0
 iface lo inet loopback
 
 iface eth0 inet static
-    address 10.20.60.2
+    address 10.20.10.1
     netmask 255.255.255.0
-    broadcast 10.20.60.255
-    network 10.20.60.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
 
-up route add default gw 10.20.60.1 dev eth0
+up route add default gw 10.20.10.2 dev eth0
+```
+
+**Machine 2 (Router):**
+```sh
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.20.2
+    netmask 255.255.255.0
+    broadcast 10.20.20.255
+    network 10.20.20.0
+
+iface eth1 inet static
+    address 10.20.10.2
+    netmask 255.255.255.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
+```
+
+**Machine 3 (Host 2):**
+```sh
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.20.1
+    netmask 255.255.255.0
+    broadcast 10.20.20.255
+    network 10.20.20.0
+
+up route add default gw 10.20.20.2 dev eth0
 ```
 
 **Explanation**: This note provides specific network interface configurations for two machines. It ensures that both machines are configured with static IP addresses and default gateway routes so that they can communicate with each other on the same subnet.
