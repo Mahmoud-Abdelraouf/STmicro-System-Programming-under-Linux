@@ -2391,6 +2391,8 @@ sudo ip link delete dev br2
 
 This set of scripts is designed to create and manage virtual machines using QEMU with the Yocto Kirkstone build. The scripts demonstrate how to set up virtual network devices, such as TAP interfaces, and configure network bridges to enable communication between virtual machines. By utilizing these scripts, you can simulate static routing scenarios with two or three devices.
 
+### Enabling IP Forwarding on the Router (rt2)
+
 In the case of three devices, one of the virtual machines (`rt2`) acts as a router to route traffic between the other two devices (`h1` and `h2`). This setup is essential for testing and simulating static routing configurations. The router (rt2) ensures that packets are properly forwarded between the isolated networks of `h1` and `h2`.
 
 To enable IP forwarding on the router (rt2), you need to modify the kernel parameter in the `/proc/sys/net/ipv4/ip_forward` file. This can be done by writing `1` to this file to enable routing or `0` to disable it.
@@ -2409,7 +2411,7 @@ To disable routing, execute the following command:
 echo 0 > /proc/sys/net/ipv4/ip_forward
 ```
 
-These commands are crucial for ensuring that the router can forward packets between the connected networks, facilitating the simulation of static routing in a virtualized environment.
+**Note**: These commands are crucial for ensuring that the router can forward packets between the connected networks, facilitating the simulation of static routing in a virtualized environment.
 
 By following these scripts and enabling IP forwarding, you can effectively simulate and test static routing configurations in a virtual environment, providing a valuable tool for network administrators and developers working with virtualized network setups.
 

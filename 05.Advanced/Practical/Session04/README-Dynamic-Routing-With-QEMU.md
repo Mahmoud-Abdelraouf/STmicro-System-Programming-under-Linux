@@ -92,6 +92,8 @@ BGP is a path-vector protocol used for routing between autonomous systems on the
     qemu-system-x86_64 -m 512 -hda yocto-router3.img -net nic -net tap,ifname=tap2,script=no,downscript=no -daemonize
     ```
 
+**Note**: In the case of Yocto images, you may need to install additional packages. Refer to [Yocto Package Installation Guide](https://github.com/Mahmoud-Abdelraouf/STmicro-System-Programming-under-Linux/blob/main/05.Advanced/Practical/Session04/README-Yocto-Package-Installation.md) for detailed instructions.
+
 ### Configuring Network Bridges on the Host
 To allow VMs to communicate, you need to create network bridges on the host machine.
 
