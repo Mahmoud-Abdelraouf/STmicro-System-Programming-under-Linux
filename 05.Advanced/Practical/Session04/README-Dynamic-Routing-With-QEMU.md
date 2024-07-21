@@ -237,9 +237,7 @@ To verify the dynamic routing configuration, you can use various commands to che
 
 ### Testing Connectivity
 
-1.
-
- **Ping between routers**:
+1. **Ping between routers**:
     ```sh
     ping <destination-router-ip>
     ```
