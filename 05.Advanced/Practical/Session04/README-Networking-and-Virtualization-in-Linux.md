@@ -178,6 +178,8 @@ This guide covers the essential aspects of networking, including different topol
 
 ### OSI Model Layers
 
+![alt text](./images/OSI-Model.JPG)
+
 1. **Application Layer**
 2. **Presentation Layer**
 3. **Session Layer**
