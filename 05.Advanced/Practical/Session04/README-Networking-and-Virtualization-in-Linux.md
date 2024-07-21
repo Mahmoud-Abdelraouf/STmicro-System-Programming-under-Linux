@@ -1687,8 +1687,6 @@ Replace `ethX` with the appropriate interface name (e.g., `eth0`, `eth1`). Somet
 
 **Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
 
-**Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
-
 ### In Case of Two Machines:
 
 **Machine 1:**
