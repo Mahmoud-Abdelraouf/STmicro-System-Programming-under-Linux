@@ -131,7 +131,7 @@ To allow VMs to communicate, you need to create network bridges on the host mach
 
 1. **Edit the `zebra.conf` file** on each VM:
     ```sh
-    sudo vi /etc/quagga/zebra.conf
+    sudo nano /etc/quagga/zebra.conf
     ```
 
     Add the following lines:
@@ -143,7 +143,7 @@ To allow VMs to communicate, you need to create network bridges on the host mach
 
 2. **Edit the `ripd.conf` file** on each VM:
     ```sh
-    sudo vi /etc/quagga/ripd.conf
+    sudo nano /etc/quagga/ripd.conf
     ```
 
     Add the following lines:
@@ -164,7 +164,7 @@ To allow VMs to communicate, you need to create network bridges on the host mach
 
 1. **Edit the `ospfd.conf` file** on each VM:
     ```sh
-    sudo vi /etc/quagga/ospfd.conf
+    sudo nano /etc/quagga/ospfd.conf
     ```
 
     Add the following lines:
@@ -189,7 +189,7 @@ To allow VMs to communicate, you need to create network bridges on the host mach
 
 1. **Edit the `bgpd.conf` file** on each VM:
     ```sh
-    sudo vi /etc/quagga/bgpd.conf
+    sudo nano /etc/quagga/bgpd.conf
     ```
 
     Add the following lines:
@@ -257,9 +257,7 @@ To automate the process of setting up the network bridges and starting the VMs, 
 #!/bin/bash
 
 # Create TAP interfaces
-sudo ip tunt
-
-ap add mode tap tap0
+sudo ip tuntap add mode tap tap0
 sudo ip tuntap add mode tap tap1
 sudo ip tuntap add mode tap tap2
 
