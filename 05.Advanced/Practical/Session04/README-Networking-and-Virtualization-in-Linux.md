@@ -1687,6 +1687,10 @@ Replace `ethX` with the appropriate interface name (e.g., `eth0`, `eth1`). Somet
 
 **Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
 
+**Note**: The following configurations must be added to the `/etc/network/interfaces` file on each machine to ensure they can see each other.
+
+### In Case of Two Machines:
+
 **Machine 1:**
 ```sh
 auto lo eth0
@@ -1715,18 +1719,52 @@ iface eth0 inet static
 up route add default gw 10.20.60.1 dev eth0
 ```
 
-**Machine 3:**
+### In Case of Three Machines:
+
+**Machine 1 (Host 1):**
 ```sh
 auto lo eth0
 iface lo inet loopback
 
 iface eth0 inet static
-    address 10.20.60.2
+    address 10.20.10.1
     netmask 255.255.255.0
-    broadcast 10.20.60.255
-    network 10.20.60.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
 
-up route add default gw 10.20.60.1 dev eth0
+up route add default gw 10.20.10.2 dev eth0
+```
+
+**Machine 2 (Router):**
+```sh
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.20.2
+    netmask 255.255.255.0
+    broadcast 10.20.20.255
+    network 10.20.20.0
+
+iface eth1 inet static
+    address 10.20.10.2
+    netmask 255.255.255.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
+```
+
+**Machine 3 (Host 2):**
+```sh
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.20.1
+    netmask 255.255.255.0
+    broadcast 10.20.20.255
+    network 10.20.20.0
+
+up route add default gw 10.20.20.2 dev eth0
 ```
 
 **Explanation**: This note provides specific network interface configurations for two machines. It ensures that both machines are configured with static IP addresses and default gateway routes so that they can communicate with each other on the same subnet.
