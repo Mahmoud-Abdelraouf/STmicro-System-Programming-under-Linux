@@ -18,7 +18,8 @@ In this session, we continue our exploration of network virtualization and routi
 10. [Ephemeral Ports and Server Ports](#ephemeral-ports-and-server-ports)
 11. [Masquerading vs NAT](#masquerading-vs-nat)
 12. [Setting Up a Complex Network with Six VMs](#setting-up-a-complex-network-with-six-vms)
-13. [Useful Resources](#useful-resources)
+13. [Network Configuration Notes](#network-configuration-notes)
+14. [Useful Resources](#useful-resources)
 
 ---
 
@@ -199,16 +200,16 @@ Sockets are endpoints for communication, defined by an IP address and port numbe
 ## Masquerading vs NAT
 
 ### Masquerading
-Masquerading is a type of NAT where the source IP address and port are changed for outgoing traffic, allowing multiple devices to share a single public IP.
+Masquerading is a type of NAT where the source IP address and port are changed for outgoing traffic, allowing multiple devices to share a
+
+ single public IP.
 
 ### NAT
 NAT includes masquerading and other types, such as static and dynamic NAT.
 
 ---
 
-## Setting Up a Complex Network with Six
-
- VMs
+## Setting Up a Complex Network with Six VMs
 
 ### Preparation Script
 
@@ -335,6 +336,169 @@ do
     done
     ip link delete dev br${i}
 done
+```
+
+---
+
+## Network Configuration Notes
+
+### Enabling IP Forwarding on All Routers
+
+Edit the sysctl configuration to enable IP forwarding:
+
+```bash
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+sysctl -p
+```
+
+### Host 1 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.10.2
+    netmask 255.255.255.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
+
+up route add default gw 10.20.10.1 dev eth0
+```
+
+### Router 1 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0 eth1 eth2
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.10.1
+    netmask 255.255.255.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
+
+iface eth1 inet static
+    address 10.20.20.1
+    netmask 255.255.255.0
+    broadcast 10.20.20.255
+    network 10.20.20.0
+
+iface eth2 inet static
+    address 10.20.30.1
+    netmask 255.255.255.0
+    broadcast 
+
+10.20.30.255
+    network 10.20.30.0
+
+# static route
+up route add -net 10.20.60.0/24 gw 10.20.20.2 dev eth1
+up route add -net 10.20.40.0/24 gw 10.20.20.2 dev eth1
+up route add -net 10.20.50.0/24 gw 10.20.30.2 dev eth2
+```
+
+### Router 2 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0 eth1
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.20.2
+    netmask 255.255.255.0
+    broadcast 10.20.20.255
+    network 10.20.20.0
+
+iface eth1 inet static
+    address 10.20.40.2
+    netmask 255.255.255.0
+    broadcast 10.20.40.255
+    network 10.20.40.0
+
+# static route
+up route add -net 10.20.10.0/24 gw 10.20.20.1 dev eth0
+up route add -net 10.20.60.0/24 gw 10.20.40.1 dev eth1
+```
+
+### Router 3 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0 eth1
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.30.2
+    netmask 255.255.255.0
+    broadcast 10.20.30.255
+    network 10.20.30.0
+
+iface eth1 inet static
+    address 10.20.50.2
+    netmask 255.255.255.0
+    broadcast 10.20.50.255
+    network 10.20.50.0
+
+# static route
+up route add -net 10.20.10.0/24 gw 10.20.30.1 dev eth0
+up route add -net 10.20.60.0/24 gw 10.20.50.1 dev eth1
+```
+
+### Router 4 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0 eth1 eth2
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.40.1
+    netmask 255.255.255.0
+    broadcast 10.20.40.255
+    network 10.20.40.0
+
+iface eth1 inet static
+    address 10.20.50.1
+    netmask 255.255.255.0
+    broadcast 10.20.50.255
+    network 10.20.50.0
+
+iface eth2 inet static
+    address 10.20.60.1
+    netmask 255.255.255.0
+    broadcast 10.20.60.255
+    network 10.20.60.0
+
+# static route
+up route add -net 10.20.10.0/24 gw 10.20.40.2 dev eth0
+up route add -net 10.20.20.0/24 gw 10.20.40.2 dev eth0
+up route add -net 10.20.30.0/24 gw 10.20.50.2 dev eth1
+```
+
+### Host 2 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.60.2
+    netmask 255.255.255.0
+    broadcast 10.20.60.255
+    network 10.20.60.0
+
+up route add default gw 10.20.60.1 dev eth0
 ```
 
 ---
