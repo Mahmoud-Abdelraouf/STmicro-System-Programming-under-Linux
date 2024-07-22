@@ -82,7 +82,7 @@ ip link set vport12 master br1
 ```bash
 #!/bin/bash
 
-/home/hazem/qemu/build/qemu-system-x86_64 -kernel vms2/bzImageh1.bin -m 1G \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin -m 1G \
         -drive "file=vms2/h1.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
         -netdev tap,id=net0,ifname=vport11,script=no,downscript=no,vhost=on \
@@ -94,7 +94,7 @@ ip link set vport12 master br1
 ```bash
 #!/bin/bash
 
-/home/hazem/qemu/build/qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh2.bin -m 1G \
         -drive "file=vms2/h2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
         -netdev tap,id=net0,ifname=vport12,script=no,downscript=no,vhost=on \
@@ -242,7 +242,7 @@ ip link set veth1 up
 #### Router 1 (rt1)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImagert1.bin -m 1G \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImagert1.bin -m 1G \
     -drive "file=vms/rt1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:71' -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
     -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:72' -netdev tap,id=net1,ifname=vport21,script=no,downscript=no \
@@ -253,7 +253,7 @@ qemu-system-x86_64 -kernel vms/bzImagert1.bin -m 1G \
 #### Router 2 (rt2)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImagert2.bin -m 1G \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImagert2.bin -m 1G \
     -drive "file=vms/rt2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' -netdev tap,id=net0,ifname=vport22,script=no,downscript=no \
     -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:75' -netdev tap,id=net1,ifname=vport42,script=no,downscript=no \
@@ -263,7 +263,7 @@ qemu-system-x86_64 -kernel vms/bzImagert2.bin -m 1G \
 #### Router 3 (rt3)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImagert3.bin -m 1G \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImagert3.bin -m 1G \
     -drive "file=vms/rt3.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:76' -netdev tap,id=net0,ifname=vport32,script=no,downscript=no \
     -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:77' -netdev tap,id=net1,ifname=vport52,script=no,downscript=no \
@@ -273,7 +273,7 @@ qemu-system-x86_64 -kernel vms/bzImagert3.bin -m 1G \
 #### Router 4 (rt4)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImagert4.bin -m 1G \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImagert4.bin -m 1G \
     -drive "file=vms/rt4.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:78' -netdev tap,id=net0,ifname=vport41,script=no,downscript=no \
     -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:79' -netdev tap,id=net1,ifname=vport51,script=no,downscript=no \
@@ -284,7 +284,7 @@ qemu-system-x86_64 -kernel vms/bzImagert4.bin -m 1G \
 #### Host 1 (h1)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImageh1.bin -m 1G \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImageh1.bin -m 1G \
     -drive "file=vms/h1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
     -name h1 -daemonize --append "root=/dev/vda rw"
@@ -293,7 +293,7 @@ qemu-system-x86_64 -kernel vms/bzImageh1.bin -m 1G \
 #### Host 2 (h2)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImageh2.bin -m 1G \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImageh2.bin -m 1G \
     -drive "file=vms/h2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' -netdev tap,id=net0,ifname=vport62,script=no,downscript=no \
     -name h2 -daemonize --append "root=/dev/vda rw"
@@ -306,7 +306,7 @@ ip tuntap add mode tap vport13
 ip link set vport13 up
 ip link set vport13 master br1
 
-qemu-system-x86_64 -kernel vms/bzImagehtest.bin -m 1G \
+qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImagehtest.bin -m 1G \
     -drive "file=vms/htest.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7D' -netdev tap,id=net0,ifname=vport13,script=no,downscript=no \
     -name htest -daemonize --append "root=/dev/vda rw"
