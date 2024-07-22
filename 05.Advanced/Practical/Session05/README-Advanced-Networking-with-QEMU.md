@@ -211,34 +211,7 @@ NAT includes masquerading and other types, such as static and dynamic NAT.
 
 ## Setting Up a Complex Network with Six VMs
 
-### Preparation Script
-
-```bash
-#!/bin/bash 
-
-for i in $(seq 1 6)
-do
-    ip link add name br${i} type bridge
-    ip link set br${i} up
-    for j in $(seq 1 2)
-    do
-        ip tuntap add mode tap vport${i}${j}
-        ip link set vport${i}${j} up
-        ip link set vport${i}${j} master br${i}
-    done
-done
-
-# Create virtual ethernet and connect it to br1
-ip link add dev veth0 type veth peer name veth1
-ip link set veth0 up
-ip link set veth0 master br1
-ip address add 10.20.10.4/24 dev veth1
-ip link set veth1 up
-```
-
-### Launching Multiple Routers and Hosts
-
-#### Script to Set Up the Network
+### Script to Set Up the Network
 
 ```bash
 #!/bin/bash
@@ -334,6 +307,33 @@ qemu-system-x86_64 -kernel vms/bzImagehtest.bin -m 1G \
 -netdev tap,id=net0,ifname=vport13,script=no,downscript=no \
 -name htest -daemonize --append "root=/dev/vda rw"
 ```
+
+### Preparation Script
+
+```bash
+#!/bin/bash 
+
+for i in $(seq 1 6)
+do
+    ip link add name br${i} type bridge
+    ip link set br${i} up
+    for j in $(seq 1 2)
+    do
+        ip tuntap add mode tap vport${i}${j}
+        ip link set vport${i}${j} up
+        ip link set vport${i}${j} master br${i}
+    done
+done
+
+# Create virtual ethernet and connect it to br1
+ip link add dev veth0 type veth peer name veth1
+ip link set veth0 up
+ip link set veth0 master br1
+ip address add 10.20.10.4/24 dev veth1
+ip link set veth1 up
+```
+
+### Launching Multiple Routers and Hosts
 
 #### Router 1 (rt1)
 
