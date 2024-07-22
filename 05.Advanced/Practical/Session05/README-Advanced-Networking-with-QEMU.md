@@ -18,7 +18,8 @@ In this session, we continue our exploration of network virtualization and routi
 10. [Ephemeral Ports and Server Ports](#ephemeral-ports-and-server-ports)
 11. [Masquerading vs NAT](#masquerading-vs-nat)
 12. [Setting Up a Complex Network with Six VMs](#setting-up-a-complex-network-with-six-vms)
-13. [Useful Resources](#useful-resources)
+13. [Network Configuration Notes](#network-configuration-notes)
+14. [Useful Resources](#useful-resources)
 
 ---
 
@@ -82,8 +83,8 @@ ip link set vport12 master br1
 ```bash
 #!/bin/bash
 
-/home/hazem/qemu/build/qemu-system-x86_64 -kernel vms2/bzImageh1.bin -m 1G \
-        -drive "file=vms2/h1.ext4,if=virtio,format=raw" \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh1.bin -m 1G \
+        -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h1.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
         -netdev tap,id=net0,ifname=vport11,script=no,downscript=no,vhost=on \
         -name h1 --append "root=/dev/vda console=ttyS0 rw" -nographic -D ./log1.txt
@@ -94,8 +95,8 @@ ip link set vport12 master br1
 ```bash
 #!/bin/bash
 
-/home/hazem/qemu/build/qemu-system-x86_64 -kernel vms2/bzImageh2.bin -m 1G \
-        -drive "file=vms2/h2.ext4,if=virtio,format=raw" \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms2/bzImageh2.bin -m 1G \
+        -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms2/h2.ext4,if=virtio,format=raw" \
         -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
         -netdev tap,id=net0,ifname=vport12,script=no,downscript=no,vhost=on \
         -name h2 --append "root=/dev/vda console=ttyS0 rw" -nographic -D ./log2.txt
@@ -199,23 +200,118 @@ Sockets are endpoints for communication, defined by an IP address and port numbe
 ## Masquerading vs NAT
 
 ### Masquerading
-Masquerading is a type of NAT where the source IP address and port are changed for outgoing traffic, allowing multiple devices to share a single public IP.
+Masquerading is a type of NAT where the source IP address and port are changed for outgoing traffic, allowing multiple devices to share a
+
+ single public IP.
 
 ### NAT
 NAT includes masquerading and other types, such as static and dynamic NAT.
 
 ---
 
-## Setting Up a Complex Network with Six
+## Setting Up a Complex Network with Six VMs
 
- VMs
-
-### Preparation Script
+### Script to Set Up the Network
 
 ```bash
 #!/bin/bash
 
+# Cleanup script
 ./cleanup.sh 
+
+# Create bridges and TAP interfaces
+for i in $(seq 1 6)
+do
+    ip link add name br${i} type bridge
+    ip link set br${i} up
+    for j in $(seq 1 2)
+    do
+        ip tuntap add mode tap vport${i}${j}
+        ip link set vport${i}${j} up
+        ip link set vport${i}${j} master br${i}
+    done
+done
+
+# Create virtual ethernet and connect it to br1
+ip link add dev veth0 type veth peer name veth1
+ip link set veth0 up
+ip link set veth0 master br1
+ip address add 10.20.10.4/24 dev veth1
+ip link set veth1 up
+
+# Start up routers
+# rt1
+qemu-system-x86_64 -kernel vms/bzImagert1.bin -m 1G \
+-drive "file=vms/rt1.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:71' \
+-netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
+-device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:72' \
+-netdev tap,id=net1,ifname=vport21,script=no,downscript=no \
+-device virtio-net-pci,netdev=net2,mac='12:34:56:AB:CD:73' \
+-netdev tap,id=net2,ifname=vport31,script=no,downscript=no \
+-name rt1 -daemonize --append "root=/dev/vda rw"
+
+# rt2
+qemu-system-x86_64 -kernel vms/bzImagert2.bin -m 1G \
+-drive "file=vms/rt2.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' \
+-netdev tap,id=net0,ifname=vport22,script=no,downscript=no \
+-device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:75' \
+-netdev tap,id=net1,ifname=vport42,script=no,downscript=no \
+-name rt2 -daemonize --append "root=/dev/vda rw"
+
+# rt3
+qemu-system-x86_64 -kernel vms/bzImagert3.bin -m 1G \
+-drive "file=vms/rt3.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:76' \
+-netdev tap,id=net0,ifname=vport32,script=no,downscript=no \
+-device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:77' \
+-netdev tap,id=net1,ifname=vport52,script=no,downscript=no \
+-name rt3 -daemonize --append "root=/dev/vda rw"
+
+# rt4
+qemu-system-x86_64 -kernel vms/bzImagert4.bin -m 1G \
+-drive "file=vms/rt4.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:78' \
+-netdev tap,id=net0,ifname=vport41,script=no,downscript=no \
+-device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:79' \
+-netdev tap,id=net1,ifname=vport51,script=no,downscript=no \
+-device virtio-net-pci,netdev=net2,mac='12:34:56:AB:CD:7A' \
+-netdev tap,id=net2,ifname=vport61,script=no,downscript=no \
+-name rt4 -daemonize --append "root=/dev/vda rw"
+
+# Start up hosts
+# h1
+qemu-system-x86_64 -kernel vms/bzImageh1.bin -m 1G \
+-drive "file=vms/h1.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
+-netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
+-name h1 -daemonize --append "root=/dev/vda rw"
+
+# h2
+qemu-system-x86_64 -kernel vms/bzImageh2.bin -m 1G \
+-drive "file=vms/h2.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
+-netdev tap,id=net0,ifname=vport62,script=no,downscript=no \
+-name h2 -daemonize --append "root=/dev/vda rw"
+
+# Test Host
+ip tuntap add mode tap vport13
+ip link set vport13 up
+ip link set vport13 master br1
+
+# htest
+qemu-system-x86_64 -kernel vms/bzImagehtest.bin -m 1G \
+-drive "file=vms/htest.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7D' \
+-netdev tap,id=net0,ifname=vport13,script=no,downscript=no \
+-name htest -daemonize --append "root=/dev/vda rw"
+```
+
+### Preparation Script
+
+```bash
+#!/bin/bash 
 
 for i in $(seq 1 6)
 do
@@ -242,8 +338,8 @@ ip link set veth1 up
 #### Router 1 (rt1)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImagert1.bin -m 1G \
-    -drive "file=vms/rt1.ext4,if=virtio,format=raw" \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImagert1.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms/rt1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:71' -netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
     -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:72' -netdev tap,id=net1,ifname=vport21,script=no,downscript=no \
     -device virtio-net-pci,netdev=net2,mac='12:34:56:AB:CD:73' -netdev tap,id=net2,ifname=vport31,script=no,downscript=no \
@@ -253,8 +349,8 @@ qemu-system-x86_64 -kernel vms/bzImagert1.bin -m 1G \
 #### Router 2 (rt2)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImagert2.bin -m 1G \
-    -drive "file=vms/rt2.ext4,if=virtio,format=raw" \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImagert2.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms/rt2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' -netdev tap,id=net0,ifname=vport22,script=no,downscript=no \
     -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:75' -netdev tap,id=net1,ifname=vport42,script=no,downscript=no \
     -name rt2 -daemonize --append "root=/dev/vda rw"
@@ -263,8 +359,8 @@ qemu-system-x86_64 -kernel vms/bzImagert2.bin -m 1G \
 #### Router 3 (rt3)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImagert3.bin -m 1G \
-    -drive "file=vms/rt3.ext4,if=virtio,format=raw" \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImagert3.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms/rt3.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:76' -netdev tap,id=net0,ifname=vport32,script=no,downscript=no \
     -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:77' -netdev tap,id=net1,ifname=vport52,script=no,downscript=no \
     -name rt3 -daemonize --append "root=/dev/vda rw"
@@ -273,8 +369,8 @@ qemu-system-x86_64 -kernel vms/bzImagert3.bin -m 1G \
 #### Router 4 (rt4)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImagert4.bin -m 1G \
-    -drive "file=vms/rt4.ext4,if=virtio,format=raw" \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImagert4.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms/rt4.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:78' -netdev tap,id=net0,ifname=vport41,script=no,downscript=no \
     -device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:79' -netdev tap,id=net1,ifname=vport51,script=no,downscript=no \
     -device virtio-net-pci,netdev=net2,mac='12:34:56:AB:CD:7A' -netdev tap,id=net2,ifname=vport61,script=no,downscript=no \
@@ -284,8 +380,8 @@ qemu-system-x86_64 -kernel vms/bzImagert4.bin -m 1G \
 #### Host 1 (h1)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImageh1.bin -m 1G \
-    -drive "file=vms/h1.ext4,if=virtio,format=raw" \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImageh1.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms/h1.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' -netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
     -name h1 -daemonize --append "root=/dev/vda rw"
 ```
@@ -293,8 +389,8 @@ qemu-system-x86_64 -kernel vms/bzImageh1.bin -m 1G \
 #### Host 2 (h2)
 
 ```bash
-qemu-system-x86_64 -kernel vms/bzImageh2.bin -m 1G \
-    -drive "file=vms/h2.ext4,if=virtio,format=raw" \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImageh2.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms/h2.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' -netdev tap,id=net0,ifname=vport62,script=no,downscript=no \
     -name h2 -daemonize --append "root=/dev/vda rw"
 ```
@@ -306,8 +402,8 @@ ip tuntap add mode tap vport13
 ip link set vport13 up
 ip link set vport13 master br1
 
-qemu-system-x86_64 -kernel vms/bzImagehtest.bin -m 1G \
-    -drive "file=vms/htest.ext4,if=virtio,format=raw" \
+sudo qemu-system-x86_64 -kernel /home/$USER/yocto2024/<release-name>/saved-images/vms/bzImagehtest.bin -m 1G \
+    -drive "file=/home/$USER/yocto2024/<release-name>/saved-images/vms/htest.ext4,if=virtio,format=raw" \
     -device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7D' -netdev tap,id=net0,ifname=vport13,script=no,downscript=no \
     -name htest -daemonize --append "root=/dev/vda rw"
 ```
@@ -335,6 +431,169 @@ do
     done
     ip link delete dev br${i}
 done
+```
+
+---
+
+## Network Configuration Notes
+
+### Enabling IP Forwarding on All Routers
+
+Edit the sysctl configuration to enable IP forwarding:
+
+```bash
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+sysctl -p
+```
+
+### Host 1 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.10.2
+    netmask 255.255.255.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
+
+up route add default gw 10.20.10.1 dev eth0
+```
+
+### Router 1 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0 eth1 eth2
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.10.1
+    netmask 255.255.255.0
+    broadcast 10.20.10.255
+    network 10.20.10.0
+
+iface eth1 inet static
+    address 10.20.20.1
+    netmask 255.255.255.0
+    broadcast 10.20.20.255
+    network 10.20.20.0
+
+iface eth2 inet static
+    address 10.20.30.1
+    netmask 255.255.255.0
+    broadcast 
+
+10.20.30.255
+    network 10.20.30.0
+
+# static route
+up route add -net 10.20.60.0/24 gw 10.20.20.2 dev eth1
+up route add -net 10.20.40.0/24 gw 10.20.20.2 dev eth1
+up route add -net 10.20.50.0/24 gw 10.20.30.2 dev eth2
+```
+
+### Router 2 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0 eth1
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.20.2
+    netmask 255.255.255.0
+    broadcast 10.20.20.255
+    network 10.20.20.0
+
+iface eth1 inet static
+    address 10.20.40.2
+    netmask 255.255.255.0
+    broadcast 10.20.40.255
+    network 10.20.40.0
+
+# static route
+up route add -net 10.20.10.0/24 gw 10.20.20.1 dev eth0
+up route add -net 10.20.60.0/24 gw 10.20.40.1 dev eth1
+```
+
+### Router 3 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0 eth1
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.30.2
+    netmask 255.255.255.0
+    broadcast 10.20.30.255
+    network 10.20.30.0
+
+iface eth1 inet static
+    address 10.20.50.2
+    netmask 255.255.255.0
+    broadcast 10.20.50.255
+    network 10.20.50.0
+
+# static route
+up route add -net 10.20.10.0/24 gw 10.20.30.1 dev eth0
+up route add -net 10.20.60.0/24 gw 10.20.50.1 dev eth1
+```
+
+### Router 4 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0 eth1 eth2
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.40.1
+    netmask 255.255.255.0
+    broadcast 10.20.40.255
+    network 10.20.40.0
+
+iface eth1 inet static
+    address 10.20.50.1
+    netmask 255.255.255.0
+    broadcast 10.20.50.255
+    network 10.20.50.0
+
+iface eth2 inet static
+    address 10.20.60.1
+    netmask 255.255.255.0
+    broadcast 10.20.60.255
+    network 10.20.60.0
+
+# static route
+up route add -net 10.20.10.0/24 gw 10.20.40.2 dev eth0
+up route add -net 10.20.20.0/24 gw 10.20.40.2 dev eth0
+up route add -net 10.20.30.0/24 gw 10.20.50.2 dev eth1
+```
+
+### Host 2 Configuration
+
+```bash
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+
+auto lo eth0
+iface lo inet loopback
+
+iface eth0 inet static
+    address 10.20.60.2
+    netmask 255.255.255.0
+    broadcast 10.20.60.255
+    network 10.20.60.0
+
+up route add default gw 10.20.60.1 dev eth0
 ```
 
 ---
