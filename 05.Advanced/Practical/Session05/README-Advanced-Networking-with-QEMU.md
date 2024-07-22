@@ -238,6 +238,103 @@ ip link set veth1 up
 
 ### Launching Multiple Routers and Hosts
 
+#### Script to Set Up the Network
+
+```bash
+#!/bin/bash
+
+# Cleanup script
+./cleanup.sh 
+
+# Create bridges and TAP interfaces
+for i in $(seq 1 6)
+do
+    ip link add name br${i} type bridge
+    ip link set br${i} up
+    for j in $(seq 1 2)
+    do
+        ip tuntap add mode tap vport${i}${j}
+        ip link set vport${i}${j} up
+        ip link set vport${i}${j} master br${i}
+    done
+done
+
+# Create virtual ethernet and connect it to br1
+ip link add dev veth0 type veth peer name veth1
+ip link set veth0 up
+ip link set veth0 master br1
+ip address add 10.20.10.4/24 dev veth1
+ip link set veth1 up
+
+# Start up routers
+# rt1
+qemu-system-x86_64 -kernel vms/bzImagert1.bin -m 1G \
+-drive "file=vms/rt1.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:71' \
+-netdev tap,id=net0,ifname=vport11,script=no,downscript=no \
+-device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:72' \
+-netdev tap,id=net1,ifname=vport21,script=no,downscript=no \
+-device virtio-net-pci,netdev=net2,mac='12:34:56:AB:CD:73' \
+-netdev tap,id=net2,ifname=vport31,script=no,downscript=no \
+-name rt1 -daemonize --append "root=/dev/vda rw"
+
+# rt2
+qemu-system-x86_64 -kernel vms/bzImagert2.bin -m 1G \
+-drive "file=vms/rt2.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:74' \
+-netdev tap,id=net0,ifname=vport22,script=no,downscript=no \
+-device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:75' \
+-netdev tap,id=net1,ifname=vport42,script=no,downscript=no \
+-name rt2 -daemonize --append "root=/dev/vda rw"
+
+# rt3
+qemu-system-x86_64 -kernel vms/bzImagert3.bin -m 1G \
+-drive "file=vms/rt3.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:76' \
+-netdev tap,id=net0,ifname=vport32,script=no,downscript=no \
+-device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:77' \
+-netdev tap,id=net1,ifname=vport52,script=no,downscript=no \
+-name rt3 -daemonize --append "root=/dev/vda rw"
+
+# rt4
+qemu-system-x86_64 -kernel vms/bzImagert4.bin -m 1G \
+-drive "file=vms/rt4.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:78' \
+-netdev tap,id=net0,ifname=vport41,script=no,downscript=no \
+-device virtio-net-pci,netdev=net1,mac='12:34:56:AB:CD:79' \
+-netdev tap,id=net1,ifname=vport51,script=no,downscript=no \
+-device virtio-net-pci,netdev=net2,mac='12:34:56:AB:CD:7A' \
+-netdev tap,id=net2,ifname=vport61,script=no,downscript=no \
+-name rt4 -daemonize --append "root=/dev/vda rw"
+
+# Start up hosts
+# h1
+qemu-system-x86_64 -kernel vms/bzImageh1.bin -m 1G \
+-drive "file=vms/h1.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7B' \
+-netdev tap,id=net0,ifname=vport12,script=no,downscript=no \
+-name h1 -daemonize --append "root=/dev/vda rw"
+
+# h2
+qemu-system-x86_64 -kernel vms/bzImageh2.bin -m 1G \
+-drive "file=vms/h2.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7C' \
+-netdev tap,id=net0,ifname=vport62,script=no,downscript=no \
+-name h2 -daemonize --append "root=/dev/vda rw"
+
+# Test Host
+ip tuntap add mode tap vport13
+ip link set vport13 up
+ip link set vport13 master br1
+
+# htest
+qemu-system-x86_64 -kernel vms/bzImagehtest.bin -m 1G \
+-drive "file=vms/htest.ext4,if=virtio,format=raw" \
+-device virtio-net-pci,netdev=net0,mac='12:34:56:AB:CD:7D' \
+-netdev tap,id=net0,ifname=vport13,script=no,downscript=no \
+-name htest -daemonize --append "root=/dev/vda rw"
+```
+
 #### Router 1 (rt1)
 
 ```bash
