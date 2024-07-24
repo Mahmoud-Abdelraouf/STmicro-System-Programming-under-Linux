@@ -17,10 +17,16 @@
    - [Destruction](#destruction)
 6. [Advanced Object Models](#advanced-object-models)
    - [QEMU Object Model](#qemu-object-model)
+     - [Explanation of QEMU Object Model](#explanation-of-qemu-object-model)
    - [Linux Kernel Object Model](#linux-kernel-object-model)
-7. [Best Practices](#best-practices)
-8. [Resources](#resources)
-9. [Conclusion](#conclusion)
+     - [Explanation of Linux Kernel Object Model](#explanation-of-linux-kernel-object-model)
+     - [Example Implementations](#example-implementations)
+       - [Character Device Drivers](#character-device-drivers)
+       - [File Systems](#file-systems)
+7. [Library Management System Project](#library-management-system-project)
+8. [Best Practices](#best-practices)
+9. [Resources](#resources)
+10. [Conclusion](#conclusion)
 
 ## Introduction
 
@@ -335,6 +341,15 @@ static void my_device_register_types(void)
 type_init(my_device_register_types);
 ```
 
+#### Explanation of QEMU Object Model
+
+1. **Type Registration:** Types are registered with a unique name using `TypeInfo`.
+2. **Inheritance
+
+:** The `parent` field in `TypeInfo` supports inheritance.
+3. **Object Creation:** Objects are created and initialized using type-specific constructors (`my_device_init`).
+4. **Methods:** Function pointers in structures (like `DeviceClass`) are used to implement methods, supporting polymorphism.
+
 ### Linux Kernel Object Model
 
 The Linux Kernel uses a similar model, particularly in its implementation of various subsystems.
@@ -346,30 +361,33 @@ struct file_operations {
     ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
     ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
     int (*open) (struct inode *, struct file *);
-    int (*release) (struct inode *, struct file
-
- *);
+    int (*release) (struct inode *, struct file *);
 };
 
 // Function prototypes for file operations
 static loff_t my_llseek(struct file *file, loff_t offset, int whence) {
     // Implementation of llseek
+    return 0;
 }
 
 static ssize_t my_read(struct file *file, char __user *buf, size_t count, loff_t *pos) {
     // Implementation of read
+    return 0;
 }
 
 static ssize_t my_write(struct file *file, const char __user *buf, size_t count, loff_t *pos) {
     // Implementation of write
+    return count;
 }
 
 static int my_open(struct inode *inode, struct file *file) {
     // Implementation of open
+    return 0;
 }
 
 static int my_release(struct inode *inode, struct file *file) {
     // Implementation of release
+    return 0;
 }
 
 static struct file_operations my_fops = {
@@ -401,7 +419,173 @@ module_init(my_init);
 module_exit(my_exit);
 ```
 
-For a complete reference to the `file_operations` structure and other kernel internals, you can visit the [Linux source code at Bootlin](https://elixir.bootlin.com/linux/latest/source/include/linux/fs.h#L1845). This source code contains detailed information and definitions used throughout the kernel.
+#### Explanation of Linux Kernel Object Model
+
+1. **Structures:** `struct file_operations` defines the operations (methods) that can be performed on a file.
+2. **Function Pointers:** Methods like `llseek`, `read`, `write`, `open`, and `release` are implemented as function pointers within the structure.
+3. **Initialization and Cleanup:** The `module_init` and `module_exit` macros manage the lifecycle of the module.
+
+#### Example Implementations
+
+- **Character Device Drivers:**
+  Implementations can be found in the character device driver files, such as [drivers/char/mem.c](https://elixir.bootlin.com/linux/latest/source/drivers/char/mem.c).
+
+- **File Systems:**
+  Look into the file system source files, such as [fs/ext2/file.c](https://elixir.bootlin.com/linux/latest/source/fs/ext2/file.c) for implementations related to file systems.
+
+## Library Management System Project
+
+### Overview
+
+We will create a library management system using the object model approach inspired by QEMU and the Linux kernel. The system will manage books and members.
+
+### Defining Structures
+
+#### Book Structure
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct Book {
+    int id;
+    char title[100];
+    char author[100];
+    void (*print_details)(struct Book *book);
+} Book;
+
+void print_book_details(Book *book) {
+    printf("Book ID: %d, Title: %s, Author: %s\n", book->id, book->title, book->author);
+}
+
+Book *create_book(int id, const char *title, const char *author) {
+    Book *book = (Book *)malloc(sizeof(Book));
+    if (book != NULL) {
+        book->id = id;
+        strcpy(book->title, title);
+        strcpy(book->author, author);
+        book->print_details = print_book_details;
+    }
+    return book;
+}
+
+void destroy_book(Book *book) {
+    free(book);
+}
+```
+
+#### Member Structure
+
+```c
+typedef struct Member {
+    int id;
+    char name[100];
+    void (*print_details)(struct Member *member);
+} Member;
+
+void print_member_details(Member *member) {
+    printf("Member ID: %d, Name: %s\n", member->id, member->name);
+}
+
+Member *create_member(int id, const char *name) {
+    Member *member = (Member *)malloc(sizeof(Member));
+    if (member != NULL) {
+        member->id = id;
+        strcpy(member->name, name);
+        member->print_details = print_member_details;
+    }
+    return member;
+}
+
+void destroy_member(Member *member) {
+    free(member);
+}
+```
+
+### Library Management
+
+```c
+typedef struct Library {
+    Book *books[100];
+    int book_count;
+    Member *members[100];
+    int member_count;
+} Library;
+
+Library *create_library() {
+    Library *library = (Library *)malloc(sizeof(Library));
+    if (library != NULL) {
+        library->book_count = 0;
+        library->member_count = 0;
+    }
+    return library;
+}
+
+void add_book(Library *library, Book *book) {
+    if (library->book_count < 100) {
+        library->books[library->book_count++] = book;
+    }
+}
+
+void add_member(Library *library, Member *member) {
+    if (library->member_count < 100) {
+        library->members[library->member_count++] = member;
+    }
+}
+
+void list_books(Library *library) {
+    for (int i = 0; i < library->book_count; i++) {
+        library->books[i]->print_details(library->books[i]);
+    }
+}
+
+void list_members(Library *library) {
+    for (int i = 0; i < library->member_count; i++) {
+        library->members[i]->print_details(library->members[i]);
+    }
+}
+
+void destroy_library(Library *library) {
+    for (int i = 0; i < library->book_count; i++) {
+        destroy_book(library->books[i]);
+    }
+    for (int i = 0; i < library->member_count; i++) {
+        destroy_member(library->members[i]);
+    }
+    free(library);
+}
+```
+
+### Main Function
+
+```c
+int main() {
+    Library *library = create_library();
+
+    Book *book1 = create_book(1, "The C Programming Language", "Brian W. Kernighan, Dennis M. Ritchie");
+    Book *book2 = create_book(2, "Expert C Programming", "Peter van der Linden");
+
+    add_book(library, book1);
+    add_book(library, book2);
+
+    Member *member1 = create_member(1, "Alice");
+    Member *member2 = create_member(2, "Bob");
+
+    add_member(library, member1);
+    add_member(library, member2);
+
+    printf("Books in the library:\n");
+    list_books(library);
+
+    printf("\nMembers in the library:\n");
+    list_members(library);
+
+    destroy_library(library);
+
+    return 0;
+}
+```
 
 ## Best Practices
 
@@ -432,6 +616,8 @@ Here are some valuable resources for further reading and understanding:
 
 5. **Source Code:**
    - [Linux Source Code at Bootlin](https://elixir.bootlin.com/linux/latest/source/include/linux/fs.h#L1845) - Refer to this for definitions and implementations of structures like `file_operations`.
+   - Example implementations in [Character Device Drivers](https://elixir.bootlin.com/linux/latest/source/drivers/char/mem.c).
+   - Example implementations in [File Systems](https://elixir.bootlin.com/linux/latest/source/fs/ext2/file.c).
 
 ## Conclusion
 
