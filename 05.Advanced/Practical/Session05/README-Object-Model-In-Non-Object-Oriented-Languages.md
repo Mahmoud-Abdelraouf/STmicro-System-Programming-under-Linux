@@ -23,10 +23,10 @@
      - [Example Implementations](#example-implementations)
        - [Character Device Drivers](#character-device-drivers)
        - [File Systems](#file-systems)
-7. [Library Management System Project](#library-management-system-project)
-8. [Best Practices](#best-practices)
-9. [Resources](#resources)
-10. [Conclusion](#conclusion)
+   - [Library Management System Project](#library-management-system-project)
+7. [Best Practices](#best-practices)
+8. [Resources](#resources)
+9. [Conclusion](#conclusion)
 
 ## Introduction
 
@@ -333,7 +333,9 @@ static const TypeInfo my_device_info = {
     .class_init = my_device_class_init,
 };
 
-static void my_device_register_types(void)
+static void my_device_register
+
+_types(void)
 {
     type_register_static(&my_device_info);
 }
@@ -344,9 +346,7 @@ type_init(my_device_register_types);
 #### Explanation of QEMU Object Model
 
 1. **Type Registration:** Types are registered with a unique name using `TypeInfo`.
-2. **Inheritance
-
-:** The `parent` field in `TypeInfo` supports inheritance.
+2. **Inheritance:** The `parent` field in `TypeInfo` supports inheritance.
 3. **Object Creation:** Objects are created and initialized using type-specific constructors (`my_device_init`).
 4. **Methods:** Function pointers in structures (like `DeviceClass`) are used to implement methods, supporting polymorphism.
 
@@ -433,15 +433,151 @@ module_exit(my_exit);
 - **File Systems:**
   Look into the file system source files, such as [fs/ext2/file.c](https://elixir.bootlin.com/linux/latest/source/fs/ext2/file.c) for implementations related to file systems.
 
-## Library Management System Project
+### Parts of the Linux Kernel Using the Object Model
 
-### Overview
+The Linux kernel utilizes the object model extensively across various subsystems:
+
+1. **Device Model**
+2. **File System**
+3. **Network Stack**
+4. **Scheduler**
+5. **Memory Management**
+
+#### Device Model
+
+The Linux device model provides a unified way to manage different types of hardware devices. It uses structures and function pointers to achieve polymorphism and encapsulation.
+
+- **`struct device`**: Represents a device in the system.
+- **`struct device_driver`**: Represents a driver that handles a specific type of device.
+- **`struct bus_type`**: Represents a bus subsystem, like PCI, USB, etc.
+
+Example:
+
+```c
+struct device {
+    struct device *parent;
+    struct device_private *p;
+    struct kobject kobj;
+    const char *init_name; /* initial name of the device */
+    const struct device_type *type;
+    struct bus_type *bus;  /* type of bus device is on */
+    struct device_driver *driver; /* which driver has allocated this device */
+    void (*release)(struct device *dev);
+    // other fields...
+};
+```
+
+#### File System
+
+The file system in the Linux kernel uses the object model to manage file operations and interactions between files and devices.
+
+- **`struct file_operations`**: Represents file operation methods such as open, read, write, etc.
+- **`struct inode_operations`**: Represents inode-specific operations.
+- **`struct super_operations`**: Represents superblock-specific operations.
+
+Example:
+
+```c
+struct file_operations {
+    struct module *owner;
+    loff_t (*llseek) (struct file *, loff_t, int);
+    ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
+    ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
+    int (*open) (struct inode *, struct file *);
+    int (*release) (struct inode *, struct file *);
+    // other fields...
+};
+```
+
+#### Network Stack
+
+The network stack uses an object model to handle various network protocols and devices.
+
+- **`struct net_device`**: Represents a network device.
+- **`struct net_device_ops`**: Represents operations that can be performed on network devices.
+- **`struct packet_type`**: Represents a network protocol handler.
+
+Example:
+
+```c
+struct net_device {
+    char name[IFNAMSIZ];
+    struct net_device *next;
+    struct net_device_ops *netdev_ops;
+    // other fields...
+};
+
+struct net_device_ops {
+    int (*ndo_init)(struct net_device *dev);
+    void (*ndo_uninit)(struct net_device *dev);
+    int (*ndo_open)(struct net_device *dev);
+    int (*ndo_stop)(struct net_device *dev);
+    netdev_tx_t (*ndo_start_xmit)(struct sk_buff *skb, struct net_device *dev);
+    // other fields...
+};
+```
+
+#### Scheduler
+
+The scheduler in the Linux kernel uses the object model to manage scheduling policies and operations.
+
+- **`struct sched_class`**: Represents different scheduling classes like CFS (Completely Fair Scheduler), RT (Real-Time), etc.
+- **`struct sched_entity`**: Represents a schedulable entity, such as a process or thread.
+
+Example:
+
+```c
+struct sched_class {
+    const struct sched_class *next;
+    void (*enqueue_task) (struct rq *rq, struct task_struct *p, int flags);
+    void (*dequeue_task) (struct rq *rq, struct task_struct *p, int flags);
+    void (*yield_task) (struct rq *rq);
+    void (*check_preempt_curr) (struct rq *rq, struct task_struct *p, int flags);
+    // other fields...
+};
+```
+
+#### Memory Management
+
+Memory management in the Linux kernel uses the object model to handle virtual memory areas, page tables, and memory policies.
+
+- **`struct mm_struct`**: Represents the memory management information for a process.
+- **`struct vm_area_struct`**: Represents a virtual memory area.
+- **`struct page`**: Represents a page in memory.
+
+Example:
+
+```c
+struct mm_struct {
+    struct vm_area_struct *mmap; /* list of VMAs */
+    struct rb_root mm_rb;
+    unsigned long total_vm;
+    unsigned long locked_vm;
+    unsigned long pinned_vm;
+    unsigned long data_vm;
+    unsigned long exec_vm;
+    unsigned long stack_vm;
+    unsigned long def_flags;
+    // other fields...
+};
+
+struct vm_area_struct {
+    struct mm_struct *vm_mm;  /* The address space we belong to */
+    unsigned long vm_start;   /* Our start address within vm_mm. */
+    unsigned long vm_end;     /* The first byte after our end address within vm_mm. */
+    struct vm_area_struct *vm_next;
+    pgprot_t vm_page_prot;    /* Access permissions of this VMA. */
+    // other fields...
+};
+```
+
+### Library Management System Project
 
 We will create a library management system using the object model approach inspired by QEMU and the Linux kernel. The system will manage books and members.
 
-### Defining Structures
+#### Defining Structures
 
-#### Book Structure
+**Book Structure**
 
 ```c
 #include <stdio.h>
@@ -475,13 +611,15 @@ void destroy_book(Book *book) {
 }
 ```
 
-#### Member Structure
+**Member Structure**
 
 ```c
 typedef struct Member {
     int id;
     char name[100];
-    void (*print_details)(struct Member *member);
+   
+
+ void (*print_details)(struct Member *member);
 } Member;
 
 void print_member_details(Member *member) {
