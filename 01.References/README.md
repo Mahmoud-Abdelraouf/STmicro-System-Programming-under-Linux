@@ -22,7 +22,7 @@ This book by Michael Kerrisk is a comprehensive guide to the Linux system progra
 
 ## Learning Modern Linux
 
-[02.Learning-Modern-Linux.pdf](./02.Learning-Modern-Linux.pdf)
+[02.Learning-Modern-Linux.pdf](./02.Learning-Modern-Linux-A-Handbook-for-the-Cloud-Native-Practitioner.pdf)
 
 This book provides a modern approach to learning Linux, focusing on contemporary tools and practices.
 
@@ -52,19 +52,19 @@ This book is the official manual for GNU Make. It covers all aspects of using Ma
 
 ## Managing Projects with GNU Make
 
-[07.Managing-Projects-with-GNU-Make.pdf](./07.Managing-Projects-with-GNU-Make.pdf)
+[07.Managing-Projects-with-GNU-Make.pdf](./07.Managing-Projects-With-Gnu-Make-3Rd-Edition.pdf)
 
 This book by Robert Mecklenburg provides in-depth coverage of using GNU Make to manage projects. It includes advanced techniques and practical examples.
 
 ## TCP/IP Sockets in C: Second Edition
 
-[08.TCP-IP-Sockets-in-C-Second-Edition.pdf](./08.TCP-IP-Sockets-in-C-Second-Edition.pdf)
+[08.TCP-IP-Sockets-in-C-Second-Edition.pdf](./08.TCP-IP-Sockets-in-C-Second%20Edition.pdf)
 
 This book by Michael J. Donahoo and Kenneth L. Calvert is a practical guide to using TCP/IP sockets in C. It includes hands-on examples and exercises.
 
 ## Unix Network Programming
 
-[09.Unix-Network-Programming.pdf](./09.Unix-Network-Programming.pdf)
+[09.Unix-Network-Programming.pdf](./09.Unix-Network-Programming-The-Sockets-Networking-API.pdf)
 
 This book by W. Richard Stevens, Bill Fenner, and Andrew M. Rudoff is a definitive guide to UNIX network programming. It covers the sockets API in depth and provides practical examples.
 
@@ -73,4 +73,3 @@ This book by W. Richard Stevens, Bill Fenner, and Andrew M. Rudoff is a definiti
 This collection of books is a valuable resource for anyone involved in system programming under Linux. Each book covers essential topics and provides practical knowledge that can be applied to real-world projects.
 
 Feel free to browse through these references and deepen your understanding of Linux system programming.
-
