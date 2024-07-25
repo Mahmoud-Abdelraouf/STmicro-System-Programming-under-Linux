@@ -646,8 +646,8 @@ Here are some valuable resources for further reading and understanding:
    - [GDB Tutorial](https://www.cs.cmu.edu/~gilpin/tutorial/)
 
 3. **Courses:**
-   - [Debugging with GDB](https://www.udemy.com/course/debugging-with-gdb/)
-   - [GDB Debugger Essentials](https://www.pluralsight.com/courses/gdb-debugger-essentials)
+   - [Debugging C Programs](https://youtube.com/playlist?list=PL9IEJIKnBJjHGWPN_S9NS_Ky1-tC8ZrUI&si=5IcasU46WdLITYzS)
+   - [Debug Running Python Processes with GDB](https://www.youtube.com/watch?v=ZqpaKkIjU80)
 
 ## Conclusion
 
