@@ -16,13 +16,13 @@ This directory contains a collection of reference books that are invaluable for 
 
 ## The Linux Programming Interface
 
-![01.The-Linux-Programming-Interface.pdf](01.The-Linux-Programming-Interface.pdf)
+![01.The-Linux-Programming-Interface.pdf](./01.The-Linux-Programming-Interface.pdf)
 
 This book by Michael Kerrisk is a comprehensive guide to the Linux system programming interface. It covers various aspects of Linux system calls, libraries, and shell programming.
 
 ## Learning Modern Linux
 
-![02.Learning-Modern-Linux.pdf](02.Learning-Modern-Linux.pdf)
+![02.Learning-Modern-Linux.pdf](./02.Learning-Modern-Linux.pdf)
 
 This book provides a modern approach to learning Linux, focusing on contemporary tools and practices.
 
