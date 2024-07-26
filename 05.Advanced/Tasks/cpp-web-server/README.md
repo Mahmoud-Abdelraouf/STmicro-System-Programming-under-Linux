@@ -34,7 +34,7 @@ cpp-web-server/
   - `-Wall`: Enables all the warnings about constructions that some users consider questionable.
   - `-Wextra`: Enables additional warning flags that are not enabled by `-Wall`.
   - `-Iincludes`: Tells the compiler to add the `includes` directory to the list of directories to be searched for header files.
-  - `-std=c++11`: Specifies the C++ standard to be used.
+  - `-std=c++17`: Specifies the C++ standard to be used.
 
 ### Directories
 
@@ -82,15 +82,36 @@ To run the server, execute the built binary:
 ./bin/webserver
 ```
 
-**Note:** The server will prompt you to enter the port number and the base path to serve files from. This base path can be relative to the location of the executable.
+**Note:** The server will prompt you to enter the port number and the base path to serve files from. This base path can be relative or absolute, and can be a directory or a specific file.
 
 ### Example Usage
 
-When prompted to enter the base path, you can use a relative path like this:
+#### Using a Relative Path for a Directory
 
 ```plaintext
 Enter the port number: 8080
 Enter the base path to serve files from: ./public
+```
+
+#### Using an Absolute Path for a Directory
+
+```plaintext
+Enter the port number: 8080
+Enter the base path to serve files from: /home/mahmoud/STmicro-System-Programming-under-Linux/05.Advanced/Tasks/cpp-web-server/public
+```
+
+#### Using a Relative Path for a Specific File
+
+```plaintext
+Enter the port number: 8080
+Enter the base path to serve files from: ./public/index.html
+```
+
+#### Using an Absolute Path for a Specific File
+
+```plaintext
+Enter the port number: 8080
+Enter the base path to serve files from: /home/mahmoud/STmicro-System-Programming-under-Linux/05.Advanced/Tasks/cpp-web-server/public/index.html
 ```
 
 You can then access `index.html` from the `public` directory using your browser:
@@ -101,9 +122,11 @@ http://127.0.0.1:8080/index.html
 
 ### Why Specify the Base Path?
 
-Specifying the base path allows the server to dynamically serve files from a given directory. This is useful for development and deployment flexibility, ensuring that the server can serve files from the specified directory without hardcoding paths. 
+Specifying the base path allows the server to dynamically serve files from a given directory or a specific file. This is useful for development and deployment flexibility, ensuring that the server can serve files from the specified directory or file without hardcoding paths.
 
-## Server Implementation
+##
+
+ Server Implementation
 
 The server is implemented using a basic class structure with `Server`, `Request`, `Response`, and `Router` classes.
 
@@ -163,20 +186,17 @@ Create an `index.html` file in the `public` directory with the following content
    ./bin/webserver
    ```
 
-2. **Open another terminal and connect using `netcat`**:
+2. **Create a request file `request.txt`** with the correct newline format:
 
    ```sh
-   nc 127.0.0.1 8080
+   echo -e "GET / HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n" > request.txt
    ```
 
-3. **Send an HTTP GET request**:
+3. **Send the request using `nc`**:
 
    ```sh
-   GET / HTTP/1.1
-   Host: 127.0.0.1
+   nc 127.0.0.1 8080 < request.txt
    ```
-
-4. **Press Enter twice**. You should see the HTML response from the server.
 
 ### Using `telnet`
 
