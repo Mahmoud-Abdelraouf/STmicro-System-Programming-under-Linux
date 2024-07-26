@@ -125,6 +125,93 @@ You can repeat any command by prefixing it with a number.
 - `:tabnew filename`: Open `filename` in a new tab
 - `gt`, `gT`: Move to the next/previous tab
 
+## Managing Split Windows
+
+### Opening Split Windows
+
+#### Horizontal Split
+
+To open a new horizontal split window:
+
+- Use `:split` or `:sp` to split the current window horizontally.
+- Example: `:split filename` opens `filename` in a new horizontal split.
+
+#### Vertical Split
+
+To open a new vertical split window:
+
+- Use `:vsplit` or `:vsp` to split the current window vertically.
+- Example: `:vsplit filename` opens `filename` in a new vertical split.
+
+#### Open a File in a New Split
+
+To open a specific file in a new split window:
+
+- `:split filename` or `:sp filename` opens `filename` in a horizontal split.
+- `:vsplit filename` or `:vsp filename` opens `filename` in a vertical split.
+
+#### Examples
+
+1. Open a horizontal split:
+   ```vim
+   :split
+   ```
+
+2. Open a vertical split:
+   ```vim
+   :vsplit
+   ```
+
+3. Open a specific file in a horizontal split:
+   ```vim
+   :split myfile.txt
+   ```
+
+4. Open a specific file in a vertical split:
+   ```vim
+   :vsplit myfile.txt
+   ```
+
+### Closing a Split Window
+
+1. **Close the current window**:
+   - Use `:q` or `:quit` to close the current split window.
+
+2. **Close all other windows except the current one**:
+   - Use `:only` to close all other split windows, leaving only the current window open.
+
+3. **Close a window without saving changes**:
+   - Use `:q!` or `:quit!` to forcefully close the current split window without saving changes.
+
+4. **Close a split window using a key combination**:
+   - Use `Ctrl-w c` to close the current window.
+
+### Closing a Split Window in a Specific Direction
+
+1. **Close the window to the left**:
+   - Use `Ctrl-w h` to move to the window to the left, then use `:q` or `Ctrl-w c`.
+
+2. **Close the window to the right**:
+   - Use `Ctrl-w l` to move to the window to the right, then use `:q` or `Ctrl-w c`.
+
+3. **Close the window above**:
+   - Use `Ctrl-w k` to move to the window above, then use `:q` or `Ctrl-w c`.
+
+4. **Close the window below**:
+   - Use `Ctrl-w j` to move to the window below, then use `:q` or `Ctrl-w c`.
+
+### Example Configuration for Quick Window Management
+
+You can add custom key mappings to your `.vimrc` to quickly close split windows:
+
+```vim
+" Map <leader>q to close the current split window
+nnoremap <leader>q :q<CR>
+
+" Map <leader>o to close all other split windows
+nnoremap <leader>o :only<CR>
+```
+
 ## Working with Vimdiff
 
 Vimdiff is a powerful tool for comparing files.
