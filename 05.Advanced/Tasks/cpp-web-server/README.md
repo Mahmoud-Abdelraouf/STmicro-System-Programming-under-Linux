@@ -82,6 +82,27 @@ To run the server, execute the built binary:
 ./bin/webserver
 ```
 
+**Note:** The server will prompt you to enter the port number and the base path to serve files from. This base path can be relative to the location of the executable.
+
+### Example Usage
+
+When prompted to enter the base path, you can use a relative path like this:
+
+```plaintext
+Enter the port number: 8080
+Enter the base path to serve files from: ./public
+```
+
+You can then access `index.html` from the `public` directory using your browser:
+
+```plaintext
+http://127.0.0.1:8080/index.html
+```
+
+### Why Specify the Base Path?
+
+Specifying the base path allows the server to dynamically serve files from a given directory. This is useful for development and deployment flexibility, ensuring that the server can serve files from the specified directory without hardcoding paths. 
+
 ## Server Implementation
 
 The server is implemented using a basic class structure with `Server`, `Request`, `Response`, and `Router` classes.
@@ -120,8 +141,10 @@ Create an `index.html` file in the `public` directory with the following content
 
 ```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Web Server</title>
   </head>
   <body>
@@ -196,7 +219,6 @@ Create an `index.html` file in the `public` directory with the following content
 
 This project is licensed under the GNU General Public License v3.0. See the `LICENSE` file for details.
 
-```
+---
 
-This `README.md` provides a detailed overview of your project, including the directory structure, build instructions, server implementation details, and testing instructions.
-```
+By following this README, you should be able to build, run, and test your C++ web server. The server is flexible enough to serve files from a specified base path, making it suitable for various development and deployment scenarios.
