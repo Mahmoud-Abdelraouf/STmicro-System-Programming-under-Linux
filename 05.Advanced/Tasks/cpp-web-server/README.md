@@ -198,7 +198,6 @@ Create an `index.html` file in the `public` directory with the following content
 
 This project is licensed under the GNU General Public License v3.0. See the `LICENSE` file for details.
 
-```
+---
 
 This `README.md` provides a detailed overview of your project, including the directory structure, build instructions, server implementation details, and testing instructions.
-```
