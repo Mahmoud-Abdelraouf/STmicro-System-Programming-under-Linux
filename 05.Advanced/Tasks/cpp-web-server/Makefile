@@ -6,7 +6,7 @@
 # -Iincludes tells the compiler to add the 'includes' directory to the list of directories to be searched for header files
 # -std=c++11 specifies the C++ standard to be used
 CXX = g++
-CXXFLAGS = -Wall -Wextra -Iincludes -std=c++11
+CXXFLAGS = -Wall -Wextra -Iincludes -std=c++17
 
 # Directories
 # SRCDIR is the directory containing the source files

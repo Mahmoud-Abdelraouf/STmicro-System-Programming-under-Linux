@@ -8,8 +8,7 @@ public:
     std::string method;
     std::string uri;
     std::string httpVersion;
-    static Request parse(const std::string &requestStr);
+    static Request parse(const std::string& requestStr);
 };
 
 #endif // REQUEST_H
-

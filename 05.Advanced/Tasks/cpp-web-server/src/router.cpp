@@ -1,15 +1,14 @@
-#include "../includes/router.h"
-#include "../includes/utils.h"
+#include "router.h"
+#include "utils.h"
 #include <fstream>
+#include <iostream>
+#include <filesystem>
 
-Response Router::route(const Request &request) {
-    std::string filePath = "public" + request.uri;
+Router::Router(const std::string& basePath) : m_basePath(basePath) {}
+
+Response Router::route(const Request& request) const {
+    std::string filePath = std::filesystem::path(m_basePath) / request.uri.substr(1);
     if (request.method == "GET") {
-        // Handle the root URI
-        if (request.uri == "/") {
-            filePath = "public/index.html";
-        }
-
         std::string body = readFile(filePath);
         if (!body.empty()) {
             return Response::create(200, "OK", body);

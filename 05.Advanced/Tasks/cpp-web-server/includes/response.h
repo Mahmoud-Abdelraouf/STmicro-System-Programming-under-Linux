@@ -9,7 +9,7 @@ public:
     int statusCode;
     std::string statusMessage;
     std::string body;
-    std::string toString();
+    std::string toString() const;
     static Response create(int statusCode, const std::string &statusMessage, const std::string &body);
 };
 
