@@ -12,11 +12,13 @@ CXXFLAGS = -Wall -Wextra -Iincludes -std=c++11
 # SRCDIR is the directory containing the source files
 # INCDIR is the directory containing the header files
 # BUILDDIR is the directory where object files will be stored
+# BINDIR is the directory where the final executable will be placed
 # TARGET is the final executable file to be built
 SRCDIR = src
 INCDIR = includes
 BUILDDIR = build
-TARGET = bin/webserver
+BINDIR = bin
+TARGET = $(BINDIR)/webserver
 
 # Source and object files
 # SOURCES contains all the .cpp files in the SRCDIR directory
@@ -30,7 +32,7 @@ OBJECTS := $(SOURCES:$(SRCDIR)/%.cpp=$(BUILDDIR)/%.o)
 # The command uses the C++ compiler to link the object files into the final executable
 # $@ is an automatic variable that represents the target (bin/webserver)
 # $^ is an automatic variable that represents all the dependencies (all object files)
-$(TARGET): $(OBJECTS)
+$(TARGET): $(OBJECTS) | $(BINDIR)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Build objects
@@ -48,13 +50,20 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp | $(BUILDDIR)
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
 
+# Create bin directory
+# This rule specifies how to create the bin directory if it does not exist
+# The command uses mkdir -p to create the directory and any necessary parent directories
+$(BINDIR):
+	mkdir -p $(BINDIR)
+
 # Clean build files
 # This rule specifies how to clean up the build directory and the final executable
 # The command uses rm -rf to remove the build directory and the executable
 clean:
-	rm -rf $(BUILDDIR) $(TARGET)
+	rm -rf $(BUILDDIR) $(BINDIR)/webserver
 
 # Phony target
 # This specifies that 'clean' is a phony target
 # A phony target is not a file name, but just a name for a recipe to be executed when explicitly requested
 .PHONY: clean
+

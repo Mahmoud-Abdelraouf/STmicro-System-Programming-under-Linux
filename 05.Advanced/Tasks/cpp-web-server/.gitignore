@@ -1,0 +1,27 @@
+# Ignore build directories
+/build
+/bin
+
+# Ignore object files
+*.o
+
+# Ignore executables
+/webserver
+
+# Ignore editor-specific files
+*~
+*.swp
+*.swo
+.DS_Store
+.idea/
+.vscode/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+# Ignore compiled dynamic libraries
+*.so
+
+# Ignore config files
+config/server.config
