@@ -1,0 +1,20 @@
+# Global ignores
+*~
+
+# Editor directories and files
+.idea/
+.vscode/
+.DS_Store
+
+# Log files
+*.log
+*.tmp
+
+# Backup files
+*.bak
+*.swp
+*.swo
+
+
+
+
