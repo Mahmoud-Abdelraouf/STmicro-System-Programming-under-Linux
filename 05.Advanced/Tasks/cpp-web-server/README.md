@@ -124,9 +124,7 @@ http://127.0.0.1:8080/index.html
 
 Specifying the base path allows the server to dynamically serve files from a given directory or a specific file. This is useful for development and deployment flexibility, ensuring that the server can serve files from the specified directory or file without hardcoding paths.
 
-##
-
- Server Implementation
+## Server Implementation
 
 The server is implemented using a basic class structure with `Server`, `Request`, `Response`, and `Router` classes.
 
@@ -198,6 +196,16 @@ Create an `index.html` file in the `public` directory with the following content
    nc 127.0.0.1 8080 < request.txt
    ```
 
+Alternatively, you can enter the request interactively using `<<EOF`:
+
+```sh
+nc 127.0.0.1 8080 <<EOF
+GET / HTTP/1.1
+Host: 127.0.0.1
+
+EOF
+```
+
 ### Using `telnet`
 
 1. **Start the server**:
@@ -220,6 +228,16 @@ Create an `index.html` file in the `public` directory with the following content
    ```
 
 4. **Press Enter twice**. You should see the HTML response from the server.
+
+Alternatively, you can enter the request interactively using `<<EOF`:
+
+```sh
+telnet 127.0.0.1 8080 <<EOF
+GET / HTTP/1.1
+Host: 127.0.0.1
+
+EOF
+```
 
 ### Using a Request File
 
