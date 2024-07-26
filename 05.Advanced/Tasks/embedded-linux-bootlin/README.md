@@ -115,5 +115,5 @@ Here are some valuable resources for further reading and understanding:
 
 ## License
 
-This project is licensed under the [GPL License](../../LICENSE).
+This project is licensed under the [GPL License](../../../LICENSE).
 
