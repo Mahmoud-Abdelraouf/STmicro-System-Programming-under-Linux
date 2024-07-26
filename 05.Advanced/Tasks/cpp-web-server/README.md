@@ -120,8 +120,10 @@ Create an `index.html` file in the `public` directory with the following content
 
 ```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Web Server</title>
   </head>
   <body>
