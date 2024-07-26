@@ -32,9 +32,16 @@
    - [Common Error Messages](#common-error-messages)
 10. [Building Multi-Language Projects](#building-multi-language-projects)
 11. [Practical Examples](#practical-examples)
-12. [Best Practices](#best-practices)
-13. [Resources](#resources)
-14. [Conclusion](#conclusion)
+    - [Example 1: Building a C Program](#example-1-building-a-c-program)
+    - [Example 2: Building a Project with Subdirectories](#example-2-building-a-project-with-subdirectories)
+    - [Example 3: Managing a Static Library](#example-3-managing-a-static-library)
+    - [Example 4: Automatic Dependency Generation](#example-4-automatic-dependency-generation)
+12. [Advanced Topics](#advanced-topics)
+    - [Handling Multiple Dependencies](#handling-multiple-dependencies)
+13. [Project Structure Example: C++ Web Server](#project-structure-example-c-web-server)
+14. [Best Practices](#best-practices)
+15. [Resources](#resources)
+16. [Conclusion](#conclusion)
 
 ## Introduction to Make
 
@@ -183,7 +190,7 @@ Example:
 
 # Include dependency files
 SRC = main.c utils.c
-DEP = $(SRC:.c=.d)
+DEP = $(SRC:.c:.d)
 -include $(DEP)
 ```
 
@@ -318,6 +325,8 @@ target:
 Make has limits on the length of command lines. Use line continuations or split commands across multiple lines.
 
 Example:
+
+
 ```makefile
 target:
     command1 \
@@ -342,8 +351,6 @@ make --trace
 ```
 
 ### Writing Code for Debugging
-
-
 
 Add debugging statements to the Makefile to help understand its behavior.
 
@@ -537,6 +544,145 @@ clean:
 
 .PHONY: all clean
 ```
+
+## Advanced Topics
+
+### Handling Multiple Dependencies
+
+When dealing with multiple dependencies, you might need to refer to specific dependencies explicitly.
+
+Example:
+```makefile
+$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h | $(BUILDDIR)
+    $(eval SECOND_DEP := $(filter-out $<,$^))
+    $(CXX) $(CXXFLAGS) -c -o $@ $< $(SECOND_DEP)
+```
+
+Explanation:
+- `$(filter-out $<,$^)`: Filters out the first dependency (`$<`) from the list of all dependencies (`$^`), capturing the second dependency in `SECOND_DEP`.
+
+### Using Custom Variables for Dependencies
+
+In more complex scenarios, you can use custom variables to manage dependencies.
+
+Example:
+```makefile
+$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(SRCDIR)/%.h | $(BUILDDIR)
+    $(eval SECOND_DEP := $(filter-out $<,$^))
+    $(CXX) $(CXXFLAGS) -c -o $@ $< $(SECOND_DEP)
+```
+
+## Project Structure Example: C++ Web Server
+
+### Directory Structure
+
+```
+cpp-web-server/
+├── includes/          # Header files
+│   ├── server.h
+│   ├── request.h
+│   ├── response.h
+│   ├── router.h
+│   └── utils.h
+├── src/               # Source files
+│   ├── main.cpp
+│   ├── server.cpp
+│   ├── request.cpp
+│   ├── response.cpp
+│   ├── router.cpp
+│   └── utils.cpp
+├── config/            # Configuration files
+│   └── server.config
+├── .configeditor      # Editor configuration (optional)
+├── Makefile           # Makefile for building the project
+├── README.md          # Project documentation
+└── .gitignore         # Git ignore file
+```
+
+### Makefile Example
+
+```makefile
+# Makefile for C++ Web Server
+
+# Directories
+SRCDIR = src
+BUILDDIR = build
+INCDIR = includes
+
+# Source files
+SOURCES = $(wildcard $(SRCDIR)/*.cpp)
+
+# Object files
+OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(BUILDDIR)/%.o)
+
+# Compiler and flags
+CXX = g++
+CXXFLAGS = -Wall -Wextra -I$(INCDIR) -std=c++11
+
+# Target
+TARGET = bin/webserver
+
+# Default rule
+all: $(TARGET)
+
+# Linking
+$(TARGET): $(OBJECTS)
+    $(CXX) $(CXXFLAGS) -o $@ $^
+
+# Build objects
+$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp | $(BUILDDIR)
+    $(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# Create build directory
+$(BUILDDIR):
+    mkdir -p $(BUILDDIR)
+
+# Clean rule
+clean:
+    rm -rf $(BUILDDIR) $(TARGET)
+
+.PHONY: all clean
+```
+
+### Explanation
+
+- **Directories**:
+  - `SRCDIR = src`: Source files are located in the `src` directory.
+  - `BUILDDIR = build`: Object files will be placed in the `build` directory.
+  - `INCDIR = includes`: Header files are located in the `includes` directory.
+
+- **Source Files**:
+  - `SOURCES = $(wildcard $(SRCDIR)/*.cpp)`: Finds all `.cpp` files in the `src` directory.
+
+- **Object Files**:
+  - `OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(BUILDDIR)/%.o)`: Converts the list of source files to a list of
+
+ object files in the `build` directory.
+
+- **Compiler and Flags**:
+  - `CXX = g++`: Sets the compiler to `g++`.
+  - `CXXFLAGS = -Wall -Wextra -I$(INCDIR) -std=c++11`: Sets the compiler flags.
+
+- **Target**:
+  - `TARGET = bin/webserver`: Specifies the output executable.
+
+- **Default Rule**:
+  - `all: $(TARGET)`: The default rule depends on the target executable.
+
+- **Linking**:
+  - `$(TARGET): $(OBJECTS)`: Links the object files to create the executable.
+
+- **Build Objects**:
+  - `$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp | $(BUILDDIR)`: Compiles source files to object files, ensuring the build directory exists.
+
+- **Create Build Directory**:
+  - `$(BUILDDIR): mkdir -p $(BUILDDIR)`: Creates the build directory if it doesn't exist.
+
+- **Clean Rule**:
+  - `clean: rm -rf $(BUILDDIR) $(TARGET)`: Removes the build directory and the target executable.
+
+- **Phony Targets**:
+  - `.PHONY: all clean`: Declares `all` and `clean` as phony targets.
 
 ## Best Practices
 
