@@ -366,4 +366,6 @@ g++ communicate_with_client.cpp -o communicate_with_client
 
 3. **You should see the message "Hello from the server!" in the client terminal.**
 
+---
+
 By understanding each step and testing with these individual programs, you can grasp how sockets work and how to build upon these basics to create a functional web server.
