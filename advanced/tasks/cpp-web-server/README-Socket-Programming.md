@@ -658,8 +658,4 @@ By running these individual programs, you will gain a deeper understanding of ho
 
 ---
 
-These resources provide comprehensive guidance on socket programming in Unix and C++, from basic concepts to advanced implementations.
-
----
-
 By following this guide, you'll have a solid foundation in socket programming with C++ and be well-equipped to build more complex networked applications.
