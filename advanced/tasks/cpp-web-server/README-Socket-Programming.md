@@ -293,10 +293,10 @@ int main() {
     serverAddr.sin_port = htons(8080);
 
     // Bind the socket to the address and port
-    if (bind(serverSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
-        std::cerr << "Failed to bind socket" <<
+    if (
 
- std::endl;
+bind(serverSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
+        std::cerr << "Failed to bind socket" << std::endl;
         close(serverSocket);
         return -1;
     }
@@ -368,4 +368,298 @@ g++ communicate_with_client.cpp -o communicate_with_client
 
 ---
 
-By understanding each step and testing with these individual programs, you can grasp how sockets work and how to build upon these basics to create a functional web server.
+## Advanced Socket Programming
+
+### 6. TCP Server and Client for Uppercase Conversion
+
+This example demonstrates a TCP server and client where the client sends text to the server, the server converts it to uppercase, and then sends it back to the client.
+
+#### TCP Server
+
+```cpp
+// tcp_server.cpp
+#include <iostream>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <cstring>
+#include <algorithm>
+
+void toUpperCase(char* str, int length) {
+    std::transform(str, str + length, str, ::toupper);
+}
+
+int main() {
+    int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+    if (serverSocket < 0) {
+        std::cerr << "Failed to create socket" << std::endl;
+        return -1;
+    }
+
+    sockaddr_in serverAddr{};
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    serverAddr.sin_port = htons(8080);
+
+    if (bind(serverSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
+        std::cerr << "Failed to bind socket" << std::endl;
+        close(serverSocket);
+        return -1;
+    }
+
+    if (listen(serverSocket, SOMAXCONN) < 0) {
+        std::cerr << "Failed to listen on socket" << std::endl;
+        close(serverSocket);
+        return -1;
+    }
+    std::cout << "Listening on 127.0.0.1:8080" << std::endl;
+
+    sockaddr_in clientAddr;
+    socklen_t clientAddrSize = sizeof(clientAddr);
+    int clientSocket = accept(serverSocket, (sockaddr*)&clientAddr, &clientAddrSize);
+    if (clientSocket < 0) {
+        std::cerr << "Failed to accept connection" << std::endl;
+        close(serverSocket);
+        return -1;
+    }
+
+    char buffer[4096];
+    int bytesReceived = recv(clientSocket, buffer, 4096, 0);
+    if (bytesReceived < 0) {
+        std::cerr << "Failed to receive data" << std::endl;
+        close(clientSocket);
+        close(serverSocket);
+        return -1;
+    }
+
+    toUpperCase(buffer, bytesReceived);
+
+    send(clientSocket, buffer, bytesReceived, 0);
+
+    close(clientSocket);
+    close(serverSocket);
+    return 0;
+}
+```
+
+#### TCP Client
+
+```cpp
+// tcp_client.cpp
+#include <iostream>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <cstring>
+
+int main() {
+    int clientSocket = socket(AF_INET, SOCK_STREAM, 0);
+    if (clientSocket < 0) {
+        std::cerr << "Failed to create socket" << std::endl;
+        return -1;
+    }
+
+    sockaddr_in serverAddr{};
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    serverAddr.sin_port = htons(8080);
+
+    if (connect(clientSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
+        std::cerr << "Failed to connect to server" << std::endl;
+        close(clientSocket);
+        return -1;
+    }
+
+    const char* message = "hello server";
+    send(clientSocket, message, strlen(message), 0);
+
+    char buffer[4096];
+    int bytesReceived = recv(clientSocket, buffer, 4096, 0);
+    if (bytesReceived < 0) {
+        std::cerr << "Failed to receive data" << std::endl;
+        close(clientSocket);
+        return -1;
+    }
+
+    std::cout << "Received from server: " << std::string(buffer, 0, bytesReceived) << std::endl;
+
+    close(clientSocket);
+    return 0;
+}
+```
+
+#### How to Run
+
+1. **Compile the server and client**:
+
+   ```sh
+   g++ tcp_server.cpp -o tcp_server
+   g++ tcp_client.cpp -o tcp_client
+   ```
+
+2. **Run the server**:
+
+   ```sh
+   ./tcp_server
+   ```
+
+3. **Run the client** in another terminal:
+
+   ```sh
+   ./tcp_client
+   ```
+
+#### Expected Output (Client)
+
+```
+Received from server: HELLO SERVER
+```
+
+---
+
+### 7. UDP Server and Client for Uppercase Conversion
+
+This example demonstrates a UDP server and client where the client sends text to the server, the server converts it to uppercase, and then sends it back to the client.
+
+#### UDP Server
+
+```cpp
+// udp_server.cpp
+#include <iostream>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <cstring>
+#include <algorithm>
+
+void toUpperCase(char* str, int length) {
+    std::transform(str, str + length, str, ::toupper);
+}
+
+int main() {
+    int serverSocket = socket(AF_INET, SOCK_DGRAM, 0);
+    if (serverSocket < 0) {
+        std::cerr << "Failed to create socket" << std::endl;
+        return -1;
+    }
+
+    sockaddr_in serverAddr{};
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    serverAddr.sin_port = htons(8080);
+
+    if (bind(serverSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
+        std::cerr << "Failed to bind socket" << std::endl;
+        close(serverSocket);
+        return -1;
+    }
+    std::cout << "Listening on 127.0.0.1:8080" << std::endl;
+
+    sockaddr_in clientAddr;
+    socklen_t clientAddrSize = sizeof(clientAddr);
+    char buffer[4096];
+    int bytesReceived = recvfrom(serverSocket, buffer, 4096, 0, (sockaddr*)&clientAddr, &clientAddrSize);
+    if (bytesReceived < 0) {
+        std::cerr << "Failed to receive data" << std::endl;
+        close(serverSocket);
+        return -1;
+    }
+
+    toUpperCase(buffer, bytesReceived);
+
+    sendto(serverSocket, buffer, bytesReceived, 0, (sockaddr*)&clientAddr, clientAddrSize);
+
+    close(serverSocket);
+    return 0;
+}
+```
+
+#### UDP Client
+
+```cpp
+// udp_client.cpp
+#include <iostream>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <cstring>
+
+int main() {
+    int clientSocket = socket(AF_INET, SOCK_DGRAM, 0);
+    if (clientSocket < 0) {
+        std::cerr << "Failed to create socket" << std::endl;
+        return -1;
+    }
+
+    sockaddr_in serverAddr{};
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    serverAddr.sin_port = htons(8080);
+
+    const char* message = "hello server";
+    sendto(clientSocket, message, strlen(message), 0, (sockaddr*)&serverAddr, sizeof(serverAddr));
+
+    char buffer[4096];
+    socklen
+
+_t serverAddrSize = sizeof(serverAddr);
+    int bytesReceived = recvfrom(clientSocket, buffer, 4096, 0, (sockaddr*)&serverAddr, &serverAddrSize);
+    if (bytesReceived < 0) {
+        std::cerr << "Failed to receive data" << std::endl;
+        close(clientSocket);
+        return -1;
+    }
+
+    std::cout << "Received from server: " << std::string(buffer, 0, bytesReceived) << std::endl;
+
+    close(clientSocket);
+    return 0;
+}
+```
+
+#### How to Run
+
+1. **Compile the server and client**:
+
+   ```sh
+   g++ udp_server.cpp -o udp_server
+   g++ udp_client.cpp -o udp_client
+   ```
+
+2. **Run the server**:
+
+   ```sh
+   ./udp_server
+   ```
+
+3. **Run the client** in another terminal:
+
+   ```sh
+   ./udp_client
+   ```
+
+#### Expected Output (Client)
+
+```
+Received from server: HELLO SERVER
+```
+---
+
+## Summary
+
+By running these individual programs, you will gain a deeper understanding of how each component works in the context of C++ web server development. The examples cover the creation, binding, listening, accepting, and communication aspects of sockets, as well as file reading and HTTP request parsing.
+
+### Resources
+
+- [Beej's Guide to Network Programming](https://beej.us/guide/bgnet/html/)
+- [Linux Socket Programming by Example](https://www.amazon.com/Linux-Socket-Programming-Example-Warren/dp/0789722410)
+- [Unix Network Programming by W. Richard Stevens](https://www.amazon.com/Unix-Network-Programming-Sockets-Networking/dp/0131411551)
+- [C++ Networking: How to Write Network Applications in C++](https://www.educative.io/courses/c-plus-plus-networking)
+
+---
+
+These resources provide comprehensive guidance on socket programming in Unix and C++, from basic concepts to advanced implementations.
+
+---
+
+By following this guide, you'll have a solid foundation in socket programming with C++ and be well-equipped to build more complex networked applications.
