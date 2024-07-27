@@ -253,6 +253,13 @@ EOF
    nc 127.0.0.1 8080 < request.txt
    ```
 
+## Resources
+
+For more information on building an HTTP server from scratch, you can refer to these articles:
+
+- [Building an HTTP Server from Scratch in C++](https://osasazamegbe.medium.com/showing-building-an-http-server-from-scratch-in-c-2da7c0db6cb7)
+- [HTTP Server: What Do You Need to Know to Build a Simple HTTP Server from Scratch](https://medium.com/from-the-scratch/http-server-what-do-you-need-to-know-to-build-a-simple-http-server-from-scratch-d1ef8945e4fa)
+
 ## License
 
 This project is licensed under the GNU General Public License v3.0. See the `LICENSE` file for details.
