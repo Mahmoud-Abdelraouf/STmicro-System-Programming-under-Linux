@@ -279,7 +279,7 @@ dig example.com
     ;; WHEN: Sun Jul 28 16:10:07 EEST 2024
     ;; MSG SIZE  rcvd: 55
     ```
-    **`Headers Info`**
+    **Headers Info**
     - **HEADER**: Shows the query details including opcode (QUERY), status (NOERROR), and ID.
     - **QUESTION SECTION**: The domain and record type queried.
     - **ANSWER SECTION**: The response, indicating `google.com` uses `smtp.google.com` as its mail server with priority 10.
@@ -288,7 +288,7 @@ dig example.com
     - **WHEN**: The time the query was made.
     - **MSG SIZE rcvd**: The size of the response message.
    
-    **`Explanation`**: This query requests the A record for `google.com`, which maps the domain name to an IPv4 address. The answer section shows the IP address `142.250.203.238`.
+    **Explanation**: This query requests the A record for `google.com`, which maps the domain name to an IPv4 address. The answer section shows the IP address `142.250.203.238`.
 
 3. **Query NS Record**:
     ```plaintext
@@ -316,7 +316,7 @@ dig example.com
     ;; WHEN: Sun Jul 28 16:13:50 EEST 2024
     ;; MSG SIZE  rcvd: 111
     ```
-    **`Headers Info`**
+    **Headers Info**
     - **HEADER**: Shows the query details including opcode (QUERY), status (NOERROR), and ID.
     - **QUESTION SECTION**: The domain and record type queried.
     - **ANSWER SECTION**: The response, indicating `google.com` uses `smtp.google.com` as its mail server with priority 10.
@@ -325,7 +325,7 @@ dig example.com
     - **WHEN**: The time the query was made.
     - **MSG SIZE rcvd**: The size of the response message.
    
-    **`Explanation`**: This query requests the NS records for `google.com`, which specify the authoritative name servers for the domain. The answer section lists four name servers: `ns1.google.com`, `ns2.google.com`, `ns3.google.com`, and `ns4.google.com`.
+    **Explanation**: This query requests the NS records for `google.com`, which specify the authoritative name servers for the domain. The answer section lists four name servers: `ns1.google.com`, `ns2.google.com`, `ns3.google.com`, and `ns4.google.com`.
 
 4. **Query CNAME Record**:
     ```plaintext
@@ -351,7 +351,7 @@ dig example.com
     ;; MSG SIZE  rcvd: 70
     ```
     
-    **`Headers Info`**
+    **Headers Info**
     - **HEADER**: Shows the query details including opcode (QUERY), status (NOERROR), and ID.
     - **QUESTION SECTION**: The domain and record type queried.
     - **ANSWER SECTION**: The response, indicating `google.com` uses `smtp.google.com` as its mail server with priority 10.
@@ -360,7 +360,7 @@ dig example.com
     - **WHEN**: The time the query was made.
     - **MSG SIZE rcvd**: The size of the response message.
 
-    **`Explanation`**: This query requests the CNAME record for `www.github.com`. The answer section indicates that `www.github.com` is an alias for `github.com`. When accessing `www.github.com`, it will redirect to `github.com`, and the resolver will then look up the A record for `github.com` to get the final IP address. This setup ensures that both `www.github.com` and `github.com` direct users to the same website without needing separate IP addresses.
+    **Explanation**: This query requests the CNAME record for `www.github.com`. The answer section indicates that `www.github.com` is an alias for `github.com`. When accessing `www.github.com`, it will redirect to `github.com`, and the resolver will then look up the A record for `github.com` to get the final IP address. This setup ensures that both `www.github.com` and `github.com` direct users to the same website without needing separate IP addresses.
 
 
 5. **Query MX Record**:
@@ -387,7 +387,7 @@ dig example.com
     ;; MSG SIZE  rcvd: 60
     ```
 
-    **`Headers Info`**
+    **Headers Info**
     - **HEADER**: Shows the query details including opcode (QUERY), status (NOERROR), and ID.
     - **QUESTION SECTION**: The domain and record type queried.
     - **ANSWER SECTION**: The response, indicating `google.com` uses `smtp.google.com` as its mail server with priority 10.
