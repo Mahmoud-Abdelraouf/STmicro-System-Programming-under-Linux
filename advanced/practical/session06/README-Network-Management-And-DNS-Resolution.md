@@ -48,6 +48,8 @@ This README provides comprehensive information and examples on network managemen
 13. [Troubleshooting DNS Issues](#troubleshooting-dns-issues)
 14. [Conclusion](#conclusion)
 
+---
+
 ## Network Management with `nmcli`
 
 `nmcli` is a command-line tool for managing NetworkManager and reporting network status.
