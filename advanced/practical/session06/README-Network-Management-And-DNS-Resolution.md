@@ -258,7 +258,7 @@ dig example.com
 
 1. **Query A Record**:
     ```plaintext
-    mahmoud@mahmoud:~$ dig google.com A
+    $ dig google.com A
     
     ; <<>> DiG 9.18.28-0ubuntu0.22.04.1-Ubuntu <<>> google.com A
     ;; global options: +cmd
@@ -292,7 +292,7 @@ dig example.com
 
 3. **Query NS Record**:
     ```plaintext
-    mahmoud@mahmoud:~$ dig google.com NS
+    $ dig google.com NS
     
     ; <<>> DiG 9.18.28-0ubuntu0.22.04.1-Ubuntu <<>> google.com NS
     ;; global options: +cmd
