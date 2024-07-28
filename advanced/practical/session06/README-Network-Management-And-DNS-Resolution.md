@@ -313,31 +313,32 @@ dig example.com
 
 3. **Query CNAME Record**:
     ```plaintext
-    mahmoud@mahmoud:~$ dig google.com CNAME
+    $ dig www.github.com CNAME
     
-    ; <<>> DiG 9.18.28-0ubuntu0.22.04.1-Ubuntu <<>> google.com CNAME
+    ; <<>> DiG 9.18.28-0ubuntu0.22.04.1-Ubuntu <<>> www.github.com CNAME
     ;; global options: +cmd
     ;; Got answer:
     ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 42710
-    ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
-
+    ;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+    
     ;; OPT PSEUDOSECTION:
     ; EDNS: version: 0, flags:; udp: 65494
     ;; QUESTION SECTION:
-    ;google.com.                    IN      CNAME
-
-    ;; AUTHORITY SECTION:
-    google.com.             10      IN      SOA     ns1.google.com. dns-admin.google.com. 656700229 900 900 1800 60
-
-    ;; Query time: 408 msec
+    ;www.github.com.               IN      CNAME
+    
+    ;; ANSWER SECTION:
+    www.github.com.        600     IN      CNAME   github.com.
+    
+    ;; Query time: 32 msec
     ;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)
-    ;; WHEN: Sun Jul 28 16:11:32 EEST 2024
-    ;; MSG SIZE  rcvd: 89
+    ;; WHEN: Sun Jul 28 16:10:07 EEST 2024
+    ;; MSG SIZE  rcvd: 70
     ```
+    
+    - **Explanation**: This query requests the CNAME record for `www.github.com`. The answer section indicates that `www.github.com` is an alias for `github.com`. When accessing `www.github.com`, it will redirect to `github.com`, and the resolver will then look up the A record for `github.com` to get the final IP address. This setup ensures that both `www.github.com` and `github.com` direct users to the same website without needing separate IP addresses.
 
-    - **Explanation**: This query requests the CNAME record for `google.com`. The answer section is empty because `google.com` does not have a CNAME record. The authority section shows the SOA (Start of Authority) record, indicating the authoritative DNS server.
 
-4. **Query MX Record**:
+5. **Query MX Record**:
     ```plaintext
     mahmoud@mahmoud:~$ dig google.com MX
     
