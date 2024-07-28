@@ -282,7 +282,7 @@ dig example.com
     **Headers Info**
     - **HEADER**: Shows the query details including opcode (QUERY), status (NOERROR), and ID.
     - **QUESTION SECTION**: The domain and record type queried.
-    - **ANSWER SECTION**: The response, indicating `google.com` uses `smtp.google.com` as its mail server with priority 10.
+    - **ANSWER SECTION**: The response, indicating google.com maps to the IP address `142.250.203.238`.
     - **Query time**: Time taken to get the response.
     - **SERVER**: The DNS server used for the query.
     - **WHEN**: The time the query was made.
@@ -319,15 +319,15 @@ dig example.com
     **Headers Info**
     - **HEADER**: Shows the query details including opcode (QUERY), status (NOERROR), and ID.
     - **QUESTION SECTION**: The domain and record type queried.
-    - **ANSWER SECTION**: The response, indicating `google.com` uses `smtp.google.com` as its mail server with priority 10.
+    - **ANSWER SECTION**: The response, listing the name servers for `google.com`.
     - **Query time**: Time taken to get the response.
     - **SERVER**: The DNS server used for the query.
     - **WHEN**: The time the query was made.
     - **MSG SIZE rcvd**: The size of the response message.
    
     **Explanation**: This query requests the NS records for `google.com`, which specify the authoritative name servers for the domain. The answer section lists four name servers: `ns1.google.com`, `ns2.google.com`, `ns3.google.com`, and `ns4.google.com`.
-
-4. **Query CNAME Record**:
+   
+5. **Query CNAME Record**:
     ```plaintext
     $ dig www.github.com CNAME
     
@@ -354,7 +354,7 @@ dig example.com
     **Headers Info**
     - **HEADER**: Shows the query details including opcode (QUERY), status (NOERROR), and ID.
     - **QUESTION SECTION**: The domain and record type queried.
-    - **ANSWER SECTION**: The response, indicating `google.com` uses `smtp.google.com` as its mail server with priority 10.
+    - **ANSWER SECTION**: The response, indicating `www.github.com` is an alias for `github.com`.
     - **Query time**: Time taken to get the response.
     - **SERVER**: The DNS server used for the query.
     - **WHEN**: The time the query was made.
@@ -362,10 +362,9 @@ dig example.com
 
     **Explanation**: This query requests the CNAME record for `www.github.com`. The answer section indicates that `www.github.com` is an alias for `github.com`. When accessing `www.github.com`, it will redirect to `github.com`, and the resolver will then look up the A record for `github.com` to get the final IP address. This setup ensures that both `www.github.com` and `github.com` direct users to the same website without needing separate IP addresses.
 
-
-5. **Query MX Record**:
+6. **Query MX Record**:
     ```plaintext
-    mahmoud@mahmoud:~$ dig google.com MX
+    $ dig google.com MX
     
     ; <<>> DiG 9.18.28-0ubuntu0.22.04.1-Ubuntu <<>> google.com MX
     ;; global options: +cmd
@@ -396,7 +395,7 @@ dig example.com
     - **WHEN**: The time the query was made.
     - **MSG SIZE rcvd**: The size of the response message.
 
-    **Explanation**: This query requests the MX record for `google.com`, which specifies the mail exchange server for the domain. The answer section shows the mail server `smtp.google.com` with a priority of 10.
+    **Explanation**: This query requests the MX record for `google.com`. The answer section shows that `google.com` uses `smtp.google.com` as its mail server with priority 10. MX records indicate the mail servers responsible for receiving email on behalf of a domain.
 
 ### `nslookup`
 
