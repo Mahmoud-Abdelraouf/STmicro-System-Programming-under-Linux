@@ -2,6 +2,52 @@
 
 This README provides comprehensive information and examples on network management and DNS resolution in Linux, covering tools like `nmcli`, `resolvectl`, `cat /etc/resolv.conf`, and DNS hierarchy, including root servers, top-level domains, and authoritative name servers.
 
+## Table of Contents
+
+1. [Network Management with `nmcli`](#network-management-with-nmcli)
+    - [Displaying Device Information](#displaying-device-information)
+    - [Examples](#examples)
+2. [DNS Resolution with `resolvectl`](#dns-resolution-with-resolvectl)
+    - [Display DNS Server Information](#display-dns-server-information)
+    - [Examples](#examples-1)
+3. [Viewing DNS Configuration with `cat /etc/resolv.conf`](#viewing-dns-configuration-with-cat-etcresolvconf)
+    - [View DNS Configuration](#view-dns-configuration)
+    - [Example Output](#example-output)
+4. [DNS Hierarchy](#dns-hierarchy)
+    - [DNS Hierarchy Levels](#dns-hierarchy-levels)
+    - [Authoritative Name Servers](#authoritative-name-servers)
+    - [DNS Resolution Flow](#dns-resolution-flow)
+5. [DNS Record Types](#dns-record-types)
+    - [Common DNS Record Types](#common-dns-record-types)
+    - [Example DNS Record Configuration](#example-dns-record-configuration)
+6. [DNS Tools](#dns-tools)
+    - [`dig` (Domain Information Groper)](#dig-domain-information-groper)
+        - [Example Usage](#example-usage)
+    - [`nslookup`](#nslookup)
+        - [Example Usage](#example-usage-1)
+    - [`host`](#host)
+        - [Example Usage](#example-usage-2)
+    - [Practical Examples](#practical-examples)
+        - [Using `dig` to Query DNS Records](#using-dig-to-query-dns-records)
+        - [Using `nslookup` to Query DNS](#using-nslookup-to-query-dns)
+        - [Additional `dig` Options](#additional-dig-options)
+    - [Using `resolvectl` for Advanced DNS Management](#using-resolvectl-for-advanced-dns-management)
+7. [DNS Caching](#dns-caching)
+    - [What is DNS Caching?](#what-is-dns-caching)
+    - [How to Clear DNS Cache](#how-to-clear-dns-cache)
+8. [DNS Security](#dns-security)
+    - [Common DNS Security Issues](#common-dns-security-issues)
+    - [Securing DNS](#securing-dns)
+        - [Enable DNSSEC on BIND DNS Server](#enable-dnssec-on-bind-dns-server)
+9. [DNS over HTTPS (DoH) and DNS over TLS (DoT)](#dns-over-https-doh-and-dns-over-tls-dot)
+    - [What is DoH and DoT?](#what-is-doh-and-dot)
+    - [Configuring DoH and DoT](#configuring-doh-and-dot)
+10. [Summary](#summary)
+11. [Additional Resources](#additional-resources)
+12. [Example `resolv.conf` Configuration for Static DNS](#example-resolvconf-configuration-for-static-dns)
+13. [Troubleshooting DNS Issues](#troubleshooting-dns-issues)
+14. [Conclusion](#conclusion)
+
 ## Network Management with `nmcli`
 
 `nmcli` is a command-line tool for managing NetworkManager and reporting network status.
@@ -157,6 +203,40 @@ The Domain Name System (DNS) is a hierarchical and distributed naming system for
 5. **Response to Resolver**: The authoritative name server responds with the IP address for the domain.
 6. **Response to Client**: The resolver caches the response and sends it to the client.
 
+## DNS Record Types
+
+### Common DNS Record Types
+
+1. **A Record**: Maps a domain name to an IPv4 address.
+2. **AAAA Record**: Maps a domain name to an IPv6 address.
+3. **CNAME Record**: Maps a domain name to another domain name (canonical name).
+4. **MX Record**: Specifies the mail exchange servers for a domain.
+5. **NS Record**: Specifies the authoritative name servers for a domain.
+6. **TXT Record**: Stores text information associated with a domain.
+7. **SOA Record**: Start of Authority record, provides administrative information about the domain.
+8. **PTR Record**: Pointer record, maps an IP address to a domain name (reverse DNS lookup).
+
+### Example DNS Record Configuration
+
+#### Example `example.com` DNS Zone File
+
+```plaintext
+$TTL 86400
+@   IN  SOA ns1.example.com. admin.example.com. (
+            2021071501 ; Serial
+            3600       ; Refresh
+            1800       ; Retry
+            1209600    ; Expire
+            86400      ; Minimum TTL
+            )
+    IN  NS  ns1.example.com.
+    IN  NS  ns2.example.com.
+    IN  A   93.184.216.34
+www IN  CNAME example.com.
+mail IN  MX  10 mail.example.com.
+mail IN  A   93.184.216.35
+```
+
 ## DNS Tools
 
 ### `dig` (Domain Information Groper)
@@ -264,40 +344,6 @@ resolvectl revert eth0
 
 ```sh
 resolvectl status eth0
-```
-
-## DNS Record Types
-
-### Common DNS Record Types
-
-1. **A Record**: Maps a domain name to an IPv4 address.
-2. **AAAA Record**: Maps a domain name to an IPv6 address.
-3. **CNAME Record**: Maps a domain name to another domain name (canonical name).
-4. **MX Record**: Specifies the mail exchange servers for a domain.
-5. **NS Record**: Specifies the authoritative name servers for a domain.
-6. **TXT Record**: Stores text information associated with a domain.
-7. **SOA Record**: Start of Authority record, provides administrative information about the domain.
-8. **PTR Record**: Pointer record, maps an IP address to a domain name (reverse DNS lookup).
-
-### Example DNS Record Configuration
-
-#### Example `example.com` DNS Zone File
-
-```plaintext
-$TTL 86400
-@   IN  SOA ns1.example.com. admin.example.com. (
-            2021071501 ; Serial
-            3600       ; Refresh
-            1800       ; Retry
-            1209600    ; Expire
-            86400      ; Minimum TTL
-            )
-    IN  NS  ns1.example.com.
-    IN  NS  ns2.example.com.
-    IN  A   93.184.216.34
-www IN  CNAME example.com.
-mail IN  MX  10 mail.example.com.
-mail IN  A   93.184.216.35
 ```
 
 ## DNS Caching
