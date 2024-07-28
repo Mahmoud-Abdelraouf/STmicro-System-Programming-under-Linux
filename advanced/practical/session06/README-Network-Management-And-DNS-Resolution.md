@@ -2,7 +2,7 @@
 
 This README provides comprehensive information and examples on network management and DNS resolution in Linux, covering tools like `nmcli`, `resolvectl`, `cat /etc/resolv.conf`, and DNS hierarchy, including root servers, top-level domains, and authoritative name servers.
 
-## Table of Contents
+# Table of Contents
 
 1. [Network Management with `nmcli`](#network-management-with-nmcli)
     - [Displaying Device Information](#displaying-device-information)
@@ -42,11 +42,11 @@ This README provides comprehensive information and examples on network managemen
 9. [DNS over HTTPS (DoH) and DNS over TLS (DoT)](#dns-over-https-doh-and-dns-over-tls-dot)
     - [What is DoH and DoT?](#what-is-doh-and-dot)
     - [Configuring DoH and DoT](#configuring-doh-and-dot)
-10. [Summary](#summary)
-11. [Additional Resources](#additional-resources)
-12. [Example `resolv.conf` Configuration for Static DNS](#example-resolvconf-configuration-for-static-dns)
-13. [Troubleshooting DNS Issues](#troubleshooting-dns-issues)
-14. [Conclusion](#conclusion)
+10. [Additional Resources](#additional-resources)
+11. [Example `resolv.conf` Configuration for Static DNS](#example-resolvconf-configuration-for-static-dns)
+12. [Troubleshooting DNS Issues](#troubleshooting-dns-issues)
+13. [Conclusion](#conclusion)
+14. [Summary](#summary)
 
 ---
 
@@ -227,7 +227,9 @@ $TTL 86400
 @   IN  SOA ns1.example.com. admin.example.com. (
             2021071501 ; Serial
             3600       ; Refresh
-            1800       ; Retry
+           
+
+ 1800       ; Retry
             1209600    ; Expire
             86400      ; Minimum TTL
             )
@@ -365,9 +367,7 @@ DNS caching refers to the process of storing DNS query results temporarily on a 
 
 2. **macOS**:
     ```sh
-    sudo dscacheutil -flushcache; sudo killall -
-
-HUP mDNSResponder
+    sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
     ```
 
 3. **Windows**:
@@ -445,20 +445,14 @@ options {
     nameserver 127.0.0.1
     ```
 
-## Summary
-
-Understanding network management and DNS resolution in Linux involves using tools like `nmcli`, `resolvectl`, `dig`, `nslookup`, and examining `/etc/resolv.conf`. Additionally, knowing the DNS hierarchy and how it operates helps in managing and troubleshooting network issues. This guide provides the foundational knowledge and commands necessary for effective network and DNS management on a Linux system.
-
----
-
-### Additional Resources
+## Additional Resources
 
 - **DNS and BIND**: A comprehensive book on DNS management.
 - **How DNS Works**: A detailed article explaining the DNS process.
 - **NetworkManager Documentation**: Official documentation for NetworkManager.
 - **systemd-resolved Documentation**: Official documentation for systemd-resolved.
 
-### Example `resolv.conf` Configuration for Static DNS
+## Example `resolv.conf` Configuration for Static DNS
 
 To set a static DNS configuration, you can create or edit the `/etc/resolv.conf` file directly (note that this might conflict with dynamic management by systemd-resolved or NetworkManager).
 
@@ -468,7 +462,7 @@ nameserver 8.8.4.4
 search example.com
 ```
 
-### Troubleshooting DNS Issues
+## Troubleshooting DNS Issues
 
 1. **Check `/etc/resolv.conf`**: Ensure it points to the correct DNS servers.
 2. **Restart NetworkManager**: Sometimes, restarting NetworkManager can resolve DNS issues.
@@ -480,6 +474,10 @@ search example.com
    resolvectl flush-caches
    ```
 
-### Conclusion
+## Conclusion
 
 Managing network connections and DNS settings in Linux can be efficiently handled using `nmcli`, `resolvectl`, `dig`, `nslookup`, and `host`. Understanding the structure and management of `/etc/resolv.conf` further enhances your ability to configure network settings as per your requirements. These tools are essential for network configuration and troubleshooting in a Linux environment.
+
+## Summary
+
+Understanding network management and DNS resolution in Linux involves using tools like `nmcli`, `resolvectl`, `dig`, `nslookup`, and examining `/etc/resolv.conf`. Additionally, knowing the DNS hierarchy and how it operates helps in managing and troubleshooting network issues. This guide provides the foundational knowledge and commands necessary for effective network and DNS management on a Linux system.
