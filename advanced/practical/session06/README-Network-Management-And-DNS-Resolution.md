@@ -23,6 +23,7 @@ This README provides comprehensive information and examples on network managemen
 6. [DNS Tools](#dns-tools)
     - [`dig` (Domain Information Groper)](#dig-domain-information-groper)
         - [Example Usage](#example-usage)
+        - [Example Output and Explanation](#example-output-and-explanation)
     - [`nslookup`](#nslookup)
         - [Example Usage](#example-usage-1)
     - [`host`](#host)
@@ -42,11 +43,11 @@ This README provides comprehensive information and examples on network managemen
 9. [DNS over HTTPS (DoH) and DNS over TLS (DoT)](#dns-over-https-doh-and-dns-over-tls-dot)
     - [What is DoH and DoT?](#what-is-doh-and-dot)
     - [Configuring DoH and DoT](#configuring-doh-and-dot)
-10. [Additional Resources](#additional-resources)
-11. [Example `resolv.conf` Configuration for Static DNS](#example-resolvconf-configuration-for-static-dns)
-12. [Troubleshooting DNS Issues](#troubleshooting-dns-issues)
-13. [Conclusion](#conclusion)
-14. [Summary](#summary)
+10. [Summary](#summary)
+11. [Additional Resources](#additional-resources)
+12. [Example `resolv.conf` Configuration for Static DNS](#example-resolvconf-configuration-for-static-dns)
+13. [Troubleshooting DNS Issues](#troubleshooting-dns-issues)
+14. [Conclusion](#conclusion)
 
 ---
 
@@ -227,9 +228,9 @@ $TTL 86400
 @   IN  SOA ns1.example.com. admin.example.com. (
             2021071501 ; Serial
             3600       ; Refresh
-           
 
- 1800       ; Retry
+
+            1800       ; Retry
             1209600    ; Expire
             86400      ; Minimum TTL
             )
@@ -252,6 +253,115 @@ mail IN  A   93.184.216.35
 ```sh
 dig example.com
 ```
+
+#### Example Output and Explanation
+
+1. **Query A Record**:
+    ```plaintext
+    mahmoud@mahmoud:~$ dig google.com A
+    
+    ; <<>> DiG 9.18.28-0ubuntu0.22.04.1-Ubuntu <<>> google.com A
+    ;; global options: +cmd
+    ;; Got answer:
+    ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 12637
+    ;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+    ;; OPT PSEUDOSECTION:
+    ; EDNS: version: 0, flags:; udp: 65494
+    ;; QUESTION SECTION:
+    ;google.com.                    IN      A
+
+    ;; ANSWER SECTION:
+    google.com.             292     IN      A       142.250.203.238
+
+    ;; Query time: 36 msec
+    ;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)
+    ;; WHEN: Sun Jul 28 16:10:07 EEST 2024
+    ;; MSG SIZE  rcvd: 55
+    ```
+
+    - **Explanation**: This query requests the A record for `google.com`, which maps the domain name to an IPv4 address. The answer section shows the IP address `142.250.203.238`.
+
+2. **Query NS Record**:
+    ```plaintext
+    mahmoud@mahmoud:~$ dig google.com NS
+    
+    ; <<>> DiG 9.18.28-0ubuntu0.22.04.1-Ubuntu <<>> google.com NS
+    ;; global options: +cmd
+    ;; Got answer:
+    ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 51896
+    ;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+    ;; OPT PSEUDOSECTION:
+    ; EDNS: version: 0, flags:; udp: 65494
+    ;; QUESTION SECTION:
+    ;google.com.                    IN      NS
+
+    ;; ANSWER SECTION:
+    google.com.             42311   IN      NS      ns2.google.com.
+    google.com.             42311   IN      NS      ns4.google.com.
+    google.com.             42311   IN      NS      ns1.google.com.
+    google.com.             42311   IN      NS      ns3.google.com.
+
+    ;; Query time: 32 msec
+    ;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)
+    ;; WHEN: Sun Jul 28 16:13:50 EEST 2024
+    ;; MSG SIZE  rcvd: 111
+    ```
+
+    - **Explanation**: This query requests the NS records for `google.com`, which specify the authoritative name servers for the domain. The answer section lists four name servers: `ns1.google.com`, `ns2.google.com`, `ns3.google.com`, and `ns4.google.com`.
+
+3. **Query CNAME Record**:
+    ```plaintext
+    mahmoud@mahmoud:~$ dig google.com CNAME
+    
+    ; <<>> DiG 9.18.28-0ubuntu0.22.04.1-Ubuntu <<>> google.com CNAME
+    ;; global options: +cmd
+    ;; Got answer:
+    ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 42710
+    ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+    ;; OPT PSEUDOSECTION:
+    ; EDNS: version: 0, flags:; udp: 65494
+    ;; QUESTION SECTION:
+    ;google.com.                    IN      CNAME
+
+    ;; AUTHORITY SECTION:
+    google.com.             10      IN      SOA     ns1.google.com. dns-admin.google.com. 656700229 900 900 1800 60
+
+    ;; Query time: 408 msec
+    ;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)
+    ;; WHEN: Sun Jul 28 16:11:32 EEST 2024
+    ;; MSG SIZE  rcvd: 89
+    ```
+
+    - **Explanation**: This query requests the CNAME record for `google.com`. The answer section is empty because `google.com` does not have a CNAME record. The authority section shows the SOA (Start of Authority) record, indicating the authoritative DNS server.
+
+4. **Query MX Record**:
+    ```plaintext
+    mahmoud@mahmoud:~$ dig google.com MX
+    
+    ; <<>> DiG 9.18.28-0ubuntu0.22.04.1-Ubuntu <<>> google.com MX
+    ;; global options: +cmd
+    ;; Got answer:
+    ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 23011
+    ;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+    ;; OPT PSEUDOSECTION:
+    ; EDNS: version: 0, flags:; udp: 65494
+    ;; QUESTION SECTION:
+    ;google.com.                    IN      MX
+
+    ;; ANSWER SECTION:
+    google.com.             204     IN      MX      10 smtp.google.com.
+
+    ;; Query time: 40 msec
+    ;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)
+    ;; WHEN: Sun Jul 28 16:09:32 EEST 2024
+    ;; MSG SIZE  rcvd: 60
+    ```
+
+    - **Explanation**: This query requests the MX record for `google.com`, which specifies the mail exchange server for the domain. The answer section shows the mail server `smtp.google.com` with a priority of 10.
 
 ### `nslookup`
 
@@ -373,7 +483,9 @@ DNS caching refers to the process of storing DNS query results temporarily on a 
 3. **Windows**:
     ```sh
     ipconfig /flushdns
-    ```
+    ``
+
+`
 
 ## DNS Security
 
@@ -452,7 +564,7 @@ options {
 - **NetworkManager Documentation**: Official documentation for NetworkManager.
 - **systemd-resolved Documentation**: Official documentation for systemd-resolved.
 
-## Example `resolv.conf` Configuration for Static DNS
+### Example `resolv.conf` Configuration for Static DNS
 
 To set a static DNS configuration, you can create or edit the `/etc/resolv.conf` file directly (note that this might conflict with dynamic management by systemd-resolved or NetworkManager).
 
@@ -462,7 +574,7 @@ nameserver 8.8.4.4
 search example.com
 ```
 
-## Troubleshooting DNS Issues
+### Troubleshooting DNS Issues
 
 1. **Check `/etc/resolv.conf`**: Ensure it points to the correct DNS servers.
 2. **Restart NetworkManager**: Sometimes, restarting NetworkManager can resolve DNS issues.
@@ -477,6 +589,8 @@ search example.com
 ## Conclusion
 
 Managing network connections and DNS settings in Linux can be efficiently handled using `nmcli`, `resolvectl`, `dig`, `nslookup`, and `host`. Understanding the structure and management of `/etc/resolv.conf` further enhances your ability to configure network settings as per your requirements. These tools are essential for network configuration and troubleshooting in a Linux environment.
+
+---
 
 ## Summary
 
