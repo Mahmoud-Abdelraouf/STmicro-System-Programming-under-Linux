@@ -15,7 +15,11 @@ This guide provides a detailed understanding of bootloaders, particularly focusi
 4. [Understanding Mount Namespace in Linux](#understanding-mount-namespace-in-linux)
 5. [Using chroot and --bind](#using-chroot-and---bind)
 6. [Use Case: Using chroot for System Recovery](#example-scenario-for-system-recovery)
-7. [Useful Resources](#useful-resources)
+7. [Creating a Bootable USB with WoeUSB](#creating-a-bootable-usb-with-woeusb)
+    - [What is WoeUSB?](#what-is-woeusb)
+    - [Installing WoeUSB](#installing-woeusb)
+    - [Using WoeUSB](#using-woeusb)
+8. [Useful Resources](#useful-resources)
 
 ---
 
