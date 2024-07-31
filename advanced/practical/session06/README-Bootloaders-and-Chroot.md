@@ -1,4 +1,4 @@
-# Comprehensive Guide to Bootloaders, U-Boot, and Mount Namespace in Linux
+# Comprehensive Guide to Bootloaders, U-Boot, Mount Namespace, and WoeUSB in Linux
 
 ## Overview
 
