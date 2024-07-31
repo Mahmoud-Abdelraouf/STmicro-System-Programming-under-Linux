@@ -213,7 +213,9 @@ In the context of system recovery:
   1. Boot into the live Linux environment (Computer B).
   2. Mount the root filesystem of Computer A to `/mnt` on Computer B.
   3. Bind necessary filesystems to `/mnt` to make system resources available within the chroot.
-  4. Run `sudo chroot /mnt /bin/bash` to switch into the environment of Computer A.
+  4. Run `sudo chroot
+
+ /mnt /bin/bash` to switch into the environment of Computer A.
 
 
 #### Syntax
@@ -246,18 +248,18 @@ In various contexts, `chroot` can be useful:
 - **Computer B**: A live Linux environment (e.g., booted from a USB stick).
 
 ##### Steps:
-1. **Boot into Live Linux Environment (Computer B)**: 
+**1. Boot into Live Linux Environment (Computer B)**: 
    Boot Computer A using the live Linux USB (Computer B).
 
-2. **Identify the Root Filesystem**: 
+**2. Identify the Root Filesystem**: 
    Determine the device name of the root filesystem. This is typically `/dev/sda1` for the first partition of the first drive.
 
-3. **Mount the Root Filesystem of Computer A to Computer B**:
+**3. Mount the Root Filesystem of Computer A to Computer B**:
    ```bash
    sudo mount /dev/sda1 /mnt
    ```
 
-4. **Mount Necessary Filesystems from Computer B to Computer A**:
+**4. Mount Necessary Filesystems from Computer B to Computer A**:
    ```bash
    sudo mount --bind /dev /mnt/dev
    sudo mount --bind /proc /mnt/proc
@@ -265,18 +267,18 @@ In various contexts, `chroot` can be useful:
    sudo mount --bind /dev/pts /mnt/dev/pts
    ```
 
-5. **Chroot into the Mounted Filesystem**:
+**5. Chroot into the Mounted Filesystem**:
    ```bash
    sudo chroot /mnt /bin/bash
    ```
 
-6. **Update GRUB on Computer A**:
+**6. Update GRUB on Computer A**:
    ```bash
    sudo grub-install /dev/sda
    update-grub
    ```
 
-7. **Exit chroot and Reboot Computer A**:
+**7. Exit chroot and Reboot Computer A**:
    ```bash
    exit
    sudo reboot
@@ -295,11 +297,7 @@ Use a live CD/USB (referred to as Computer B) to boot into a Linux environment.
 #### Purpose
 Booting into a live Linux environment provides a functional operating system independent of the installed system on the hard drive. This is essential for performing maintenance or recovery tasks on the root filesystem of Computer A, which may be corrupted or misconfigured.
 
-### Mount the Root Filesystem of the Primary OS (Computer A)
-
-This command mounts the root filesystem of Computer A (the system with the corrupted or misconfigured root filesystem) to the `/mnt` directory on Computer B (the live Linux environment).
-
-2. #### Command
+2. ### Mount the Root Filesystem of Computer A to Computer B
 ```bash
 sudo mount /dev/sda1 /mnt
 ```
@@ -313,7 +311,7 @@ sudo mount /dev/sda1 /mnt
 #### Purpose
 Mounting the root filesystem of Computer A to `/mnt` on Computer B allows you to access and modify the files on Computer A from within the live Linux environment. This is the first step in preparing to chroot into the mounted filesystem to perform system recovery or maintenance tasks.
 
-3. ### Mount Necessary Filesystems
+3. ### Mount Necessary Filesystems from Computer B to Computer A
 
 These commands are executed to mount the necessary filesystems from Computer B (live Linux environment) to Computer A (the system with the root filesystem mounted at `/mnt`).
 
@@ -346,7 +344,7 @@ sudo mount --bind /dev/pts /mnt/dev/pts
     - **Target (`/mnt/dev/pts`)**: The `/dev/pts` directory within the chroot environment of Computer A.
     - **Purpose**: Ensures that the pseudo-terminal devices from the live environment are accessible within the chroot environment.
 
-4. ### Change Root
+4. ### Change Root to the Mounted Filesystem
 ```bash
 sudo chroot /mnt /bin/bash
 ```
@@ -372,66 +370,12 @@ sudo grub-install /dev/sda
 #### Explanation
 - **`sudo grub-install /dev/sda`**: Installs the GRUB bootloader onto the specified device (`/dev/sda`), which is the primary drive of Computer A.
 - **Purpose**: This step repairs or reinstalls the GRUB bootloader, essential for booting the operating system on Computer A.
-   
-### Detailed Steps for chroot
 
-#### Scenario
-
-You have a computer (Computer A) that is unable to boot due to a corrupted GRUB installation. You also have a live Linux USB (Computer B) that you can use to boot into a live environment and repair the system.
-
-#### Steps
-
-1. **Boot into a Live Linux Environment**
-   Use a live CD/USB (referred to as Computer B) to boot into a Linux environment.
-
-2. **Mount the Root Filesystem of Computer A to Computer B**
-   ```bash
-   sudo mount /dev/sda1 /mnt
-   ```
-   - **Explanation**: This command mounts the root filesystem of Computer A to the `/mnt` directory on Computer B. Replace `/dev/sda1` with the appropriate device name if different.
-
-3. **Mount Necessary Filesystems from Computer B to Computer A**
-   ```bash
-   sudo mount --bind /dev /mnt/dev
-   sudo mount --bind /proc /mnt/proc
-   sudo mount --bind /sys /mnt/sys
-   sudo mount --bind /dev/pts /mnt/dev/pts
-   ```
-   - **Explanation**: The `--bind` option mounts the directories from Computer B to the corresponding directories in the mounted root filesystem of Computer A. This ensures that necessary system directories are accessible within the chroot environment.
-
-4. **Change Root to the Mounted Filesystem**
-   ```bash
-   sudo chroot /mnt
-   ```
-   - **Explanation**: The `chroot` command changes the apparent root directory to `/mnt`, effectively switching to the environment of Computer A while still running from Computer B.
-
-5. **Perform System Maintenance**
-   You can now run commands as if you were booted into the mounted filesystem.
-
-   ##### Example: Updating GRUB in chroot
-   ```bash
-   sudo grub
-
--install /dev/sda
-   update-grub
-   ```
-   - **Explanation**: These commands reinstall and update GRUB on Computer A.
-
-6. **Exit chroot and Reboot Computer A**
-   ```bash
-   exit
-   sudo reboot
-   ```
-   - **Explanation**: Exit the chroot environment and reboot the system to verify the fix.
-
-### Explanation
-
-- **Boot into Live Environment**: Computer B is used to boot into a functional Linux environment.
-- **Identify Root Filesystem**: Identify the device name of the root filesystem on Computer A.
-- **Mount Filesystems**: Mount the root filesystem and necessary virtual filesystems from Computer B to Computer A.
-- **Chroot**: Change the root to the mounted filesystem.
-- **System Maintenance**: Run necessary commands to repair the system, such as reinstalling GRUB.
-- **Reboot**: Exit the chroot environment and reboot the system to verify the fix.
+6. ### Exit chroot and Reboot Computer A
+```bash
+exit
+sudo reboot
+```
 
 ---
 
