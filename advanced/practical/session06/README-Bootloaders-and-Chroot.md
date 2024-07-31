@@ -14,7 +14,7 @@ This guide provides a detailed understanding of bootloaders, particularly focusi
 3. [Setting GRUB as the Primary Bootloader](#setting-grub-as-the-primary-bootloader)
 4. [Understanding Mount Namespace in Linux](#understanding-mount-namespace-in-linux)
 5. [Using chroot and --bind](#using-chroot-and---bind)
-6. [Use Case: Using chroot for System Recovery](#use-case-using-chroot-for-system-recovery)
+6. [Use Case: Using chroot for System Recovery](#example-scenario-for-system-recovery)
 7. [Useful Resources](#useful-resources)
 
 ---
