@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide provides a detailed understanding of bootloaders, particularly focusing on GRUB, Windows Boot Manager, and U-Boot. It explains the behavior of each bootloader and why GRUB is preferred for multi-OS setups. Additionally, it covers concepts related to the mount namespace in Linux, including the use of chroot and --bind options. This guide aims to clarify these concepts through detailed steps, examples, and configurations.
+This guide provides a detailed understanding of bootloaders, particularly focusing on GRUB, Windows Boot Manager, and U-Boot. It explains the behavior of each bootloader and why GRUB is preferred for multi-OS setups. Additionally, it covers concepts related to the mount namespace in Linux, including the use of `chroot` and `--bind` options. This guide aims to clarify these concepts through detailed steps, examples, and configurations.
 
 ## Table of Contents
 
@@ -203,37 +203,6 @@ sudo chroot /path/to/new/root /bin/bash
 sudo chroot /mnt /bin/bash
 ```
 
-### Detailed Steps for chroot
-
-1. **Boot into a Live Linux Environment**
-   Use a live CD/USB (referred to as Computer B) to boot into a Linux environment.
-
-2. **Mount the Root Filesystem of the Primary OS (Computer A)**
-   ```bash
-   sudo mount /dev/sda1 /mnt
-   ```
-
-3. **Mount Necessary Filesystems**
-   ```bash
-   sudo mount --bind /dev /mnt/dev
-   sudo mount --bind /proc /mnt/proc
-   sudo mount --bind /sys /mnt/sys
-   sudo mount --bind /dev/pts /mnt/dev/pts
-   ```
-
-4. **Change Root**
-   ```bash
-   sudo chroot /mnt
-   ```
-
-5. **Perform System Maintenance**
-   You can now run commands as if you were booted into the mounted filesystem.
-
-   ##### Example: Updating GRUB in chroot
-   ```bash
-   sudo grub-install /dev/sda
-   ```
-
 ---
 
 ## Use Case: Using chroot for System Recovery
@@ -250,16 +219,14 @@ You have a computer (Computer A) that is unable to boot due to a corrupted GRUB 
 2. **Identify the Root Filesystem**: 
    Determine the device name of the root filesystem. This is typically `/dev/sda1` for the first partition of the first drive.
 
-3. **Mount the Root Filesystem**:
+3. **Mount the Root Filesystem of Computer A to Computer B**:
    ```bash
    sudo mount /dev/sda1 /mnt
    ```
 
-4. **Mount Necessary Filesystems**:
+4. **Mount Necessary Filesystems from Computer B to Computer A**:
    ```bash
-   sudo mount
-
- --bind /dev /mnt/dev
+   sudo mount --bind /dev /mnt/dev
    sudo mount --bind /proc /mnt/proc
    sudo mount --bind /sys /mnt/sys
    sudo mount --bind /dev/pts /mnt/dev/pts
@@ -270,13 +237,13 @@ You have a computer (Computer A) that is unable to boot due to a corrupted GRUB 
    sudo chroot /mnt
    ```
 
-6. **Update GRUB**:
+6. **Update GRUB on Computer A**:
    ```bash
    sudo grub-install /dev/sda
    update-grub
    ```
 
-7. **Exit chroot and Reboot**:
+7. **Exit chroot and Reboot Computer A**:
    ```bash
    exit
    sudo reboot
@@ -286,7 +253,9 @@ You have a computer (Computer A) that is unable to boot due to a corrupted GRUB 
 
 - **Boot into Live Environment**: Computer B is used to boot into a functional Linux environment.
 - **Identify Root Filesystem**: Identify the device name of the root filesystem on Computer A.
-- **Mount Filesystems**: Mount the root filesystem and necessary virtual filesystems.
+- **Mount Filesystems**: Mount the root filesystem and necessary virtual filesystems
+
+ from Computer B to Computer A.
 - **Chroot**: Change the root to the mounted filesystem.
 - **System Maintenance**: Run necessary commands to repair the system, such as reinstalling GRUB.
 - **Reboot**: Exit the chroot environment and reboot the system to verify the fix.
