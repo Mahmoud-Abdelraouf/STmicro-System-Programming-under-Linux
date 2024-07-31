@@ -248,18 +248,18 @@ In various contexts, `chroot` can be useful:
 - **Computer B**: A live Linux environment (e.g., booted from a USB stick).
 
 ##### Steps:
-**1. Boot into Live Linux Environment (Computer B)**: 
+1. **Boot into Live Linux Environment (Computer B)**: 
    Boot Computer A using the live Linux USB (Computer B).
 
-**2. Identify the Root Filesystem**: 
+2. **Identify the Root Filesystem**: 
    Determine the device name of the root filesystem. This is typically `/dev/sda1` for the first partition of the first drive.
 
-**3. Mount the Root Filesystem of Computer A to Computer B**:
+3. **Mount the Root Filesystem of Computer A to Computer B**:
    ```bash
    sudo mount /dev/sda1 /mnt
    ```
 
-**4. Mount Necessary Filesystems from Computer B to Computer A**:
+4. **Mount Necessary Filesystems from Computer B to Computer A**:
    ```bash
    sudo mount --bind /dev /mnt/dev
    sudo mount --bind /proc /mnt/proc
@@ -267,18 +267,18 @@ In various contexts, `chroot` can be useful:
    sudo mount --bind /dev/pts /mnt/dev/pts
    ```
 
-**5. Chroot into the Mounted Filesystem**:
+5. **Chroot into the Mounted Filesystem**:
    ```bash
    sudo chroot /mnt /bin/bash
    ```
 
-**6. Update GRUB on Computer A**:
+6. **Update GRUB on Computer A**:
    ```bash
    sudo grub-install /dev/sda
    update-grub
    ```
 
-**7. Exit chroot and Reboot Computer A**:
+7. **Exit chroot and Reboot Computer A**:
    ```bash
    exit
    sudo reboot
@@ -388,4 +388,6 @@ sudo reboot
 
 ---
 
-This guide provides a comprehensive overview of bootloaders, mount namespaces, and practical uses of `chroot` in Linux. It includes detailed steps and examples to help you understand and apply these concepts effectively.
+This guide provides a comprehensive overview of bootloaders, mount namespaces, and practical uses of `chroot` in Linux. It includes detailed steps and examples to
+
+ help you understand and apply these concepts effectively.
