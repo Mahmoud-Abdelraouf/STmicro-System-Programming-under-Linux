@@ -443,6 +443,4 @@ sudo reboot
 
 ---
 
-This guide provides a comprehensive overview of bootloaders, mount namespaces, and practical uses of `chroot` in Linux. It includes detailed steps and examples to
-
- help you understand and apply these concepts effectively.
+This guide provides a comprehensive overview of bootloaders, mount namespaces, and practical uses of `chroot` in Linux. It includes detailed steps and examples to help you understand and apply these concepts effectively.
