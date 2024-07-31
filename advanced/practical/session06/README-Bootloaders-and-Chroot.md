@@ -461,6 +461,23 @@ WoeUSB is a simple tool that allows you to create a bootable USB stick from a Wi
    yay -S woeusb
    ```
 
+### Install WoeUSB via Snap
+
+1. **Install WoeUSB**:
+   ```bash
+   sudo snap install woe-usb --edge
+   ```
+
+2. **Launch WoeUSB GUI**:
+   ```bash
+   woe-usb.woeusbgui
+   ```
+
+3. **Remove WoeUSB (if needed)**:
+   ```bash
+   sudo snap remove woe-usb
+   ```
+
 ### Using WoeUSB
 
 #### Using the Graphical User Interface (GUI)
