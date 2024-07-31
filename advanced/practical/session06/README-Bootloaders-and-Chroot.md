@@ -512,9 +512,7 @@ WoeUSB is a simple tool that allows you to create a bootable USB stick from a Wi
    ```bash
    sudo woeusb --device ~/Downloads/Win10_2004_English_x64.iso /dev/sdX
    ```
-
-This guide now includes detailed information about WoeUSB, covering its installation, usage, and practical applications, making it a comprehensive resource for managing bootloaders, mount namespaces, and creating bootable USB drives in Linux.
-
+   
 ---
 
 ## Useful Resources
