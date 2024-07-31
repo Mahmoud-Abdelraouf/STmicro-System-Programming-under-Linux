@@ -243,6 +243,8 @@ In various contexts, `chroot` can be useful:
 - **Security**: Isolate applications to reduce potential damage or security risks.
 - **System Recovery**: Repair a system that is unable to boot properly by booting from a live environment and using `chroot` to access and fix the installed system.
 
+---
+
 ##### Example Scenario for System Recovery
 - **Computer A**: The system with a corrupted or misconfigured root filesystem.
 - **Computer B**: A live Linux environment (e.g., booted from a USB stick).
@@ -283,6 +285,8 @@ In various contexts, `chroot` can be useful:
    exit
    sudo reboot
    ```
+
+---
 
 ### Detailed Steps for chroot
 
