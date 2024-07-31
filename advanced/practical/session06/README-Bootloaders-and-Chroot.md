@@ -387,6 +387,132 @@ sudo reboot
 
 ---
 
+### Adding WoeUSB: Comprehensive Guide
+
+WoeUSB is a simple tool that allows you to create a bootable USB stick from an ISO image of a Windows installation. This section will provide comprehensive details about WoeUSB, including installation steps, usage, and its purposes.
+
+## Table of Contents Update
+
+Add a new section to the table of contents:
+
+- [Creating a Bootable USB with WoeUSB](#creating-a-bootable-usb-with-woeusb)
+    - [What is WoeUSB?](#what-is-woeusb)
+    - [Installing WoeUSB](#installing-woeusb)
+    - [Using WoeUSB](#using-woeusb)
+
+---
+
+## Creating a Bootable USB with WoeUSB
+
+### What is WoeUSB?
+
+WoeUSB is a simple tool that allows you to create a bootable USB stick from a Windows ISO image or DVD. It supports both Legacy BIOS and UEFI boot modes, making it a versatile tool for creating Windows installation media on Linux.
+
+#### Features of WoeUSB:
+- **Supports UEFI and Legacy BIOS**: Creates bootable USBs that work with both modern UEFI systems and older BIOS systems.
+- **User-Friendly**: Provides both a command-line interface (CLI) and a graphical user interface (GUI).
+- **Versatile**: Supports various Windows versions, including Windows 7, 8, 8.1, and 10.
+
+### Installing WoeUSB
+
+#### Install WoeUSB from Source (Generic Method)
+
+1. **Install Dependencies**:
+   ```bash
+   sudo apt update
+   sudo apt install git devscripts equivs gdebi-core
+   sudo apt build-dep woeusb
+   ```
+
+2. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/WoeUSB/WoeUSB-frontend-wxgtk.git
+   cd WoeUSB-frontend-wxgtk
+   ```
+
+3. **Build and Install**:
+   ```bash
+   sudo dpkg-buildpackage -uc -b
+   cd ..
+   sudo gdebi woeusb*.deb
+   ```
+
+#### Install WoeUSB on Ubuntu/Debian
+
+1. **Add the Repository**:
+   ```bash
+   sudo add-apt-repository ppa:nilarimogard/webupd8
+   sudo apt update
+   ```
+
+2. **Install WoeUSB**:
+   ```bash
+   sudo apt install woeusb
+   ```
+
+#### Install WoeUSB on Arch Linux
+
+1. **Install from AUR**:
+   ```bash
+   yay -S woeusb
+   ```
+
+### Using WoeUSB
+
+#### Using the Graphical User Interface (GUI)
+
+1. **Launch WoeUSB**:
+   Open the WoeUSB GUI application from your application menu.
+
+2. **Select Source and Target**:
+   - **Source**: Choose the Windows ISO file.
+   - **Target**: Select the USB drive you want to make bootable.
+
+3. **Create Bootable USB**:
+   Click the `Install` button to start the process. WoeUSB will format the USB drive and copy the necessary files.
+
+#### Using the Command Line Interface (CLI)
+
+1. **List USB Devices**:
+   ```bash
+   sudo fdisk -l
+   ```
+   Identify your USB drive (e.g., `/dev/sdX`).
+
+2. **Create Bootable USB**:
+   ```bash
+   sudo woeusb --device <path-to-windows-iso> <target-usb-device>
+   ```
+   Example:
+   ```bash
+   sudo woeusb --device /path/to/windows.iso /dev/sdX
+   ```
+
+3. **Options**:
+   - `--target-filesystem NTFS`: Use NTFS as the target filesystem.
+   - `--target-filesystem FAT`: Use FAT as the target filesystem.
+
+### Purpose and Use Cases
+
+- **Creating Windows Installation Media**: Use WoeUSB to create a bootable USB stick for installing Windows on a new or existing computer.
+- **Repair and Recovery**: Create a bootable USB for Windows repair and recovery purposes.
+- **Compatibility Testing**: Test Windows on various hardware setups using a bootable USB created with WoeUSB.
+
+### Example Scenario
+
+#### Creating a Bootable USB for Windows 10
+
+1. **Download Windows 10 ISO**: Obtain the Windows 10 ISO file from the official Microsoft website.
+2. **Insert USB Drive**: Insert a USB drive with at least 8GB capacity.
+3. **Create Bootable USB**:
+   ```bash
+   sudo woeusb --device ~/Downloads/Win10_2004_English_x64.iso /dev/sdX
+   ```
+
+This guide now includes detailed information about WoeUSB, covering its installation, usage, and practical applications, making it a comprehensive resource for managing bootloaders, mount namespaces, and creating bootable USB drives in Linux.
+
+---
+
 ## Useful Resources
 
 - [GRUB Manual](https://www.gnu.org/software/grub/manual/grub.html)
