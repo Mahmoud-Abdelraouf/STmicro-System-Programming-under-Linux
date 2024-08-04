@@ -11,6 +11,7 @@
    - [Creating VXLAN](#creating-vxlan)
 4. [Understanding MACVLAN](#understanding-macvlan)
    - [MACVLAN Overview](#macvlan-overview)
+   - [Creating MACVLAN](#creating-macvlan)
 5. [Setting Up Macvlan Network](#setting-up-macvlan-network)
    - [Creating Macvlan Interface](#creating-macvlan-interface)
    - [Configuring Network Interfaces](#configuring-network-interfaces)
@@ -21,14 +22,16 @@
    - [Running Containers in Macvlan Network](#running-containers-in-macvlan-network)
    - [Connecting Containers](#connecting-containers)
 7. [Installing Networking Tools in Containers](#installing-networking-tools-in-containers)
-8. [Interconnecting Network Namespaces](#interconnecting-network-namespaces)
+8. [Setting Up veth Pair with systemd-nspawn](#setting-up-veth-pair-with-systemd-nspawn)
+9. [Using `dhclient` for Dynamic IP Configuration](#using-dhclient-for-dynamic-ip-configuration)
+10. [Interconnecting Network Namespaces](#interconnecting-network-namespaces)
    - [Using veth Pairs](#using-veth-pairs)
-9. [Creating Network Namespaces and Bridges](#creating-network-namespaces-and-bridges)
+11. [Creating Network Namespaces and Bridges](#creating-network-namespaces-and-bridges)
    - [Script: create-ns-bridge](#script-create-ns-bridge)
    - [Script: create-ns](#script-create-ns)
    - [Script: serialnet-ns](#script-serialnet-ns)
-10. [Conclusion](#conclusion)
-11. [Additional Resources](#additional-resources)
+12. [Conclusion](#conclusion)
+13. [Additional Resources](#additional-resources)
 
 ---
 
