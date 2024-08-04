@@ -1,31 +1,118 @@
+To include the content about VLAN, VXLAN, and MACVLAN in your README, here is the updated README with the added sections:
+
 # Advanced Network Virtualization and Routing Training README
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Setting Up Macvlan Network](#setting-up-macvlan-network)
+2. [Understanding VLAN](#understanding-vlan)
+   - [VLAN Overview](#vlan-overview)
+   - [Creating VLAN](#creating-vlan)
+3. [Understanding VXLAN](#understanding-vxlan)
+   - [VXLAN Overview](#vxlan-overview)
+   - [Creating VXLAN](#creating-vxlan)
+4. [Understanding MACVLAN](#understanding-macvlan)
+   - [MACVLAN Overview](#macvlan-overview)
+5. [Setting Up Macvlan Network](#setting-up-macvlan-network)
    - [Creating Macvlan Interface](#creating-macvlan-interface)
    - [Configuring Network Interfaces](#configuring-network-interfaces)
    - [Editing resolv.conf](#editing-resolvconf)
    - [Adding Default Gateway](#adding-default-gateway)
-3. [Using Docker with Macvlan](#using-docker-with-macvlan)
+6. [Using Docker with Macvlan](#using-docker-with-macvlan)
    - [Creating Macvlan Network in Docker](#creating-macvlan-network-in-docker)
    - [Running Containers in Macvlan Network](#running-containers-in-macvlan-network)
    - [Connecting Containers](#connecting-containers)
-4. [Installing Networking Tools in Containers](#installing-networking-tools-in-containers)
-5. [Interconnecting Network Namespaces](#interconnecting-network-namespaces)
+7. [Installing Networking Tools in Containers](#installing-networking-tools-in-containers)
+8. [Interconnecting Network Namespaces](#interconnecting-network-namespaces)
    - [Using veth Pairs](#using-veth-pairs)
-6. [Creating Network Namespaces and Bridges](#creating-network-namespaces-and-bridges)
+9. [Creating Network Namespaces and Bridges](#creating-network-namespaces-and-bridges)
    - [Script: create-ns-bridge](#script-create-ns-bridge)
    - [Script: create-ns](#script-create-ns)
    - [Script: serialnet-ns](#script-serialnet-ns)
-7. [Conclusion](#conclusion)
-8. [Additional Resources](#additional-resources)
+10. [Conclusion](#conclusion)
+11. [Additional Resources](#additional-resources)
 
 ---
 
 ## Introduction
 
 This README provides a comprehensive guide to the advanced network virtualization and routing training. It covers creating and configuring macvlan networks, utilizing Docker with macvlan, installing necessary networking tools in containers, and interconnecting network namespaces using veth pairs. Additionally, it includes scripts for creating network namespaces and bridges.
+
+---
+
+## Understanding VLAN
+
+### VLAN Overview
+
+A VLAN, aka virtual LAN, separates broadcast domains by adding tags to network packets. VLANs allow network administrators to group hosts under the same switch or between different switches.
+
+**VLAN Header:**
+![VLAN Header](file-path-to-your-uploaded-image)
+
+Use a VLAN when you want to separate subnets in VMs, namespaces, or hosts.
+
+### Creating VLAN
+
+Here's how to create a VLAN:
+```bash
+ip link add link eth0 name eth0.2 type vlan id 2
+ip link add link eth0 name eth0.3 type vlan id 3
+```
+This adds VLAN 2 with name `eth0.2` and VLAN 3 with name `eth0.3`.
+
+**Topology:**
+![VLAN Topology](file-path-to-your-uploaded-image)
+
+---
+
+## Understanding VXLAN
+
+### VXLAN Overview
+
+VXLAN (Virtual eXtensible Local Area Network) is a tunneling protocol designed to solve the problem of limited VLAN IDs (4,096) in IEEE 802.1q. It is described by [IETF RFC 7348](https://tools.ietf.org/html/rfc7348).
+
+With a 24-bit segment ID, aka VXLAN Network Identifier (VNI), VXLAN allows up to 2^24 (16,777,216) virtual LANs, which is 4,096 times the VLAN capacity.
+
+VXLAN encapsulates Layer 2 frames with a VXLAN header into a UDP-IP packet.
+
+**VXLAN Header:**
+![VXLAN Header](file-path-to-your-uploaded-image)
+
+### Creating VXLAN
+
+Here's how to use VXLAN:
+```bash
+ip link add vx0 type vxlan id 100 local 1.1.1.1 remote 2.2.2.2 dev eth0 dstport 4789
+```
+
+For reference, you can read the [VXLAN kernel documentation](https://www.kernel.org/doc/Documentation/networking/vxlan.txt) or this [VXLAN introduction](https://vincent.bernat.ch/en/blog/2017-vxlan-linux).
+
+**VXLAN Topology:**
+![VXLAN Topology](file-path-to-your-uploaded-image)
+
+---
+
+## Understanding MACVLAN
+
+### MACVLAN Overview
+
+With VLAN, you can create multiple interfaces on top of a single one and filter packets based on a VLAN tag. With MACVLAN, you can create multiple interfaces with different Layer 2 (Ethernet MAC) addresses on top of a single one.
+
+Before MACVLAN, if you wanted to connect to the physical network from a VM or namespace, you would have needed to create TAP/VETH devices and attach one side to a bridge and attach a physical interface to the bridge on the host at the same time.
+
+**Topology before MACVLAN:**
+![Topology before MACVLAN](file-path-to-your-uploaded-image)
+
+Now, with MACVLAN, you can bind a physical interface that is associated with a MACVLAN directly to namespaces, without the need for a bridge.
+
+**MACVLAN Topology:**
+![MACVLAN Topology](file-path-to-your-uploaded-image)
+
+There are five MACVLAN types:
+1. Private: doesn't allow communication between MACVLAN instances on the same physical interface, even if the external switch supports hairpin mode.
+2. VEPA: data from one MACVLAN instance to the other on the same physical interface is transmitted over the physical interface.
+3. Bridge: all endpoints are directly connected to each other with a simple bridge via the physical interface.
+4. Passthru: allows for a single MACVLAN instance.
+5. Source: allows multiple MAC addresses to be assigned.
 
 ---
 
@@ -594,6 +681,7 @@ This training covers the essentials of advanced network virtualization and routi
 
 ## Additional Resources
 
+- **Red Hat Developer**: [Introduction to Linux interfaces for virtual networking](https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking)
 - **Docker Documentation**: [Docker Networking](https://docs.docker.com/network/)
 - **Linux Network Namespaces**: [Network Namespaces](https://man7.org/linux/man-pages/man8/ip-netns.8.html)
 - **Macvlan Networking**: [Macvlan Network Driver](https://docs.docker.com/network/macvlan/)
