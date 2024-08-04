@@ -1,5 +1,3 @@
-To include the content about VLAN, VXLAN, and MACVLAN in your README, here is the updated README with the added sections:
-
 # Advanced Network Virtualization and Routing Training README
 
 ## Table of Contents
