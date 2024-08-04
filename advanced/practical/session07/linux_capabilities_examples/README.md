@@ -1,3 +1,7 @@
+Certainly! Here is the updated README with the problem and solution added:
+
+---
+
 # Linux Capabilities Examples
 
 This directory contains example codes that demonstrate various Linux capabilities and their management in C programs. The structure includes source files, a Makefile, and test files to illustrate capability manipulation and usage.
@@ -41,7 +45,8 @@ linux_capabilities_examples/
 4. [Makefile](#makefile)
 5. [Building and Cleaning](#building-and-cleaning)
 6. [Test Files](#test-files)
-7. [Additional Resources](#additional-resources)
+7. [Problem and Solution](#problem-and-solution)
+8. [Additional Resources](#additional-resources)
 
 ## Overview
 
@@ -289,7 +294,7 @@ clean-bin:
 
 2. **Targets**:
    - `all`: Default target that builds the directories and executables.
-   - `directories`: Creates the `obj/` and `bin/` directories if they don't exist.
+   - `directories`: Creates the `obj/` and `bin` directories if they don't exist.
    - `obj/%.o`: Compiles source files into object files in the `obj/` directory.
    - `bin/%`: Links object files to create executables in the `bin/` directory.
    - `clean`: Removes all binaries and object files.
@@ -302,9 +307,9 @@ clean-bin:
 
 ## Building and Cleaning
 
-### Building the Examples
+###
 
-
+ Building
 
 To build the example programs, run the following command:
 
@@ -337,6 +342,27 @@ make clean-bin
 ## Test Files
 
 The `test_files` directory contains text files used for testing the example programs. The files `test1.txt` and `test2.txt` contain some text to demonstrate file operations.
+
+## Problem and Solution
+
+If you encounter the following error:
+
+```sh
+gcc -Wall -g -c src/driver1.c -o obj/driver1.o
+src/driver1.c:12:10: fatal error: sys/capability.h: No such file or directory
+   12 | #include <sys/capability.h>
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+```
+
+This means that the `libcap` development library is not installed on your system. On Ubuntu/Debian-based systems, you can install it using:
+
+```sh
+sudo apt-get update
+sudo apt-get install libcap-dev
+```
+
+After installing the library, you should be able to compile the source files without errors.
 
 ## Additional Resources
 
