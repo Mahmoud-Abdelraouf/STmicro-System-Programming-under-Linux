@@ -287,9 +287,7 @@ int main(int argc, char **argv) {
     capset(header, capdata);
 
     prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, CAP_CHOWN, 0, 0);
-    prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, CAP_DAC_OVERRIDE, 0, 0
-
-);
+    prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, CAP_DAC_OVERRIDE, 0, 0);
     prctl(PR_SET_KEEPCAPS, 1);
 
     printf("-----------------  after PR_SET_KEEPCAPS\n");
