@@ -1,7 +1,3 @@
-Sure, here's a comprehensive README for session 6, similar in structure to session 5:
-
----
-
 # Comprehensive README for Advanced Linux System Programming Session
 
 ## Overview
