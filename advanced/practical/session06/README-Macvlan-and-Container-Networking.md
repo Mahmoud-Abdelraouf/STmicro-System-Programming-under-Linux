@@ -25,7 +25,7 @@
 8. [Setting Up veth Pair with systemd-nspawn](#setting-up-veth-pair-with-systemd-nspawn)
 9. [Using `dhclient` for Dynamic IP Configuration](#using-dhclient-for-dynamic-ip-configuration)
 10. [Interconnecting Network Namespaces](#interconnecting-network-namespaces)
-       - [Using veth Pairs](#using-veth-pairs)
+      - [Using veth Pairs](#using-veth-pairs)
 12. [Creating Network Namespaces and Bridges](#creating-network-namespaces-and-bridges)
       - [Script: create-ns-bridge](#script-create-ns-bridge)
       - [Script: create-ns](#script-create-ns)
