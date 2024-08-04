@@ -61,7 +61,6 @@ ip link add link eth0 name eth0.3 type vlan id 3
 This adds VLAN 2 with name `eth0.2` and VLAN 3 with name `eth0.3`.
 
 **Topology:**
-
 ![VLAN Topology](./images/vlan.png)
 
 **Note:** When configuring a VLAN, you need to make sure the switch connected to the host is able to handle VLAN tags, for example, by setting the switch port to trunk mode.
@@ -297,6 +296,63 @@ Docker allows for easy creation and management of containers. Using macvlan netw
    apt install net-tools iputils-ping
    ```
 
+---
+
+## Setting Up veth Pair with systemd-nspawn
+
+This section describes how to create and set up a `veth` pair for network communication between a host and a `systemd-nspawn` container.
+
+### 1. Create a veth Pair
+
+```bash
+sudo ip link add veth0 type veth peer name veth1
+```
+
+### 2. Set Up the veth Pair
+
+- **Assign `veth1` to a `systemd-nspawn` container**:
+  ```bash
+  sudo ip link set veth1 netns <container-pid>
+  ```
+
+- **Bring up the interfaces**:
+  ```bash
+  sudo ip link set veth0 up
+  sudo nsenter -t <container-pid> -n ip link set veth1 up
+  ```
+
+- **Assign IP addresses**:
+  ```bash
+  sudo ip addr add 192.168.10.1/24 dev veth0
+  sudo nsenter -t <container-pid> -n ip addr add 192.168.10.2/24 dev veth1
+  ```
+
+- **Enable IP forwarding**:
+  ```bash
+  sudo sysctl -w net.ipv4.ip_forward=1
+  ```
+
+### 3. Configuring systemd-nspawn Containers
+
+- **Start the container**:
+  ```bash
+  sudo systemd-nspawn -D /path/to/container/root -M container_name
+  ```
+
+- **Attach the `veth` interface to the container**:
+  ```bash
+  sudo systemctl restart systemd-networkd
+  sudo ip link set veth1 netns container_name
+  sudo machinectl attach container_name /bin/bash
+  ```
+
+- **Inside the container**:
+  ```bash
+  ip link set veth1 up
+  ip addr add 192.168.10.2/24 dev veth1
+  ip route add default via 192.168.10.1
+  ```
+  
 ---
 
 ## Interconnecting Network Namespaces
