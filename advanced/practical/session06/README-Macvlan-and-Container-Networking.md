@@ -403,13 +403,11 @@ Virtual Ethernet (veth) pairs create a pair of connected virtual network interfa
 
    - `ip link add v1a type veth peer name v1b`: Create a pair of veth interfaces (`v1a` and `v1b`).
    - `ip link set v1a netns $PID1`: Assign `v1a` to the network namespace of the first container.
-   - `
-
-ip link set v1b netns $PID2`: Assign `v1b`to the network namespace of the second container.
-    -`ip netns exec $PID1 ip addr add 10.0.1.101/24 dev v1a`: Assign IP address `10.0.1.101`to`v1a`in the first container.
-    -`ip netns exec $PID1 ip link set v1a up`: Bring `v1a`up in the first container.
-    -`ip netns exec $PID2 ip addr add 10.0.1.102/24 dev v1b`: Assign IP address `10.0.1.102`to`v1b`in the second container.
-    -`ip netns exec $PID2 ip link set v1b up`: Bring `v1b` up in the second container.
+   - `ip link set v1b netns $PID2`: Assign `v1b`to the network namespace of the second container.
+   -`ip netns exec $PID1 ip addr add 10.0.1.101/24 dev v1a`: Assign IP address `10.0.1.101`to`v1a`in the first container.
+   -`ip netns exec $PID1 ip link set v1a up`: Bring `v1a`up in the first container.
+   -`ip netns exec $PID2 ip addr add 10.0.1.102/24 dev v1b`: Assign IP address `10.0.1.102`to`v1b`in the second container.
+   -`ip netns exec $PID2 ip link set v1b up`: Bring `v1b` up in the second container.
 
 ---
 
