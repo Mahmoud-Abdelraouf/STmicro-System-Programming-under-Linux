@@ -594,6 +594,7 @@ This training covers the essentials of advanced network virtualization and routi
 
 ## Additional Resources
 
+- **Red Hat Developer**: [Introduction to Linux interfaces for virtual networking](https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking)
 - **Docker Documentation**: [Docker Networking](https://docs.docker.com/network/)
 - **Linux Network Namespaces**: [Network Namespaces](https://man7.org/linux/man-pages/man8/ip-netns.8.html)
 - **Macvlan Networking**: [Macvlan Network Driver](https://docs.docker.com/network/macvlan/)
