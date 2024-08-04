@@ -663,9 +663,7 @@ ip netns exec ns2 ifconfig veth2 194.168.1.1
 ip netns exec ns2 ip route add default via 194.168.1.2
 ifconfig veth3 194.168.1.2
 
-ip netns exec ns3 ifconfig veth4 195.168.1.
-
-1
+ip netns exec ns3 ifconfig veth4 195.168.1.1
 ip netns exec ns3 ip route add default via 195.168.1.2
 ifconfig veth5 195.168.1.2
 
