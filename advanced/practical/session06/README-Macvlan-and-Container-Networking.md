@@ -45,7 +45,6 @@ This README provides a comprehensive guide to the advanced network virtualizatio
 A VLAN, aka virtual LAN, separates broadcast domains by adding tags to network packets. VLANs allow network administrators to group hosts under the same switch or between different switches.
 
 **VLAN Header:**
-
 ![VLAN Header](./images/vlan_01.png)
 
 Use a VLAN when you want to separate subnets in VMs, namespaces, or hosts.
@@ -62,6 +61,7 @@ ip link add link eth0 name eth0.3 type vlan id 3
 This adds VLAN 2 with name `eth0.2` and VLAN 3 with name `eth0.3`.
 
 **Topology:**
+
 ![VLAN Topology](./images/vlan.png)
 
 **Note:** When configuring a VLAN, you need to make sure the switch connected to the host is able to handle VLAN tags, for example, by setting the switch port to trunk mode.
