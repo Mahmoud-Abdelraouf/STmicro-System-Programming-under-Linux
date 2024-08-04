@@ -61,6 +61,7 @@ ip link add link eth0 name eth0.3 type vlan id 3
 This adds VLAN 2 with name `eth0.2` and VLAN 3 with name `eth0.3`.
 
 **Topology:**
+
 ![VLAN Topology](./images/vlan.png)
 
 **Note:** When configuring a VLAN, you need to make sure the switch connected to the host is able to handle VLAN tags, for example, by setting the switch port to trunk mode.
