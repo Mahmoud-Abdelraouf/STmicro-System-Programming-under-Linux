@@ -1,7 +1,3 @@
-Certainly! Here is the updated README with the problem and solution added:
-
----
-
 # Linux Capabilities Examples
 
 This directory contains example codes that demonstrate various Linux capabilities and their management in C programs. The structure includes source files, a Makefile, and test files to illustrate capability manipulation and usage.
@@ -368,4 +364,4 @@ After installing the library, you should be able to compile the source files wit
 
 - [Linux Capabilities (man 7 capabilities)](https://man7.org/linux/man-pages/man7/capabilities.7.html)
 - [PR_SET_KEEPCAPS Documentation](https://man7.org/linux/man-pages/man2/prctl.2.html)
-- [Capability Bounding Set](https://www.kernel.org/doc/html/latest/userspace-api/capabilities.html)
+- [Capability Bounding Set](https://www.kernel.org/doc/html/latest/userspace-api)
