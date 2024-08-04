@@ -850,6 +850,7 @@ ip netns exec ns6 ip route add default via 198.168.1.1  # Add a default route vi
   ip link set veth14 netns ns4
   ip netns exec ns4 ip link set veth14 up
   ip netns exec ns4 ifconfig veth14 196.168.1.2
+
   ip link set veth05 netns ns4
   ip netns exec ns4 ip link set veth05 up
   ip netns exec ns4 ifconfig veth05 197.168.1.1
@@ -878,6 +879,7 @@ ip netns exec ns6 ip route add default via 198.168.1.1  # Add a default route vi
   ip link set veth15 netns ns5
   ip netns exec ns5 ip link set veth15 up
   ip netns exec ns5 ifconfig veth15 197.168.1.2
+
   ip link set veth06 netns ns5
   ip netns exec ns5 ip link set veth06 up
   ip netns exec ns5 ifconfig veth06 198.168.1.1
