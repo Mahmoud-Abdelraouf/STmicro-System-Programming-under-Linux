@@ -45,6 +45,7 @@ This README provides a comprehensive guide to the advanced network virtualizatio
 A VLAN, aka virtual LAN, separates broadcast domains by adding tags to network packets. VLANs allow network administrators to group hosts under the same switch or between different switches.
 
 **VLAN Header:**
+
 ![VLAN Header](./images/vlan_01.png)
 
 Use a VLAN when you want to separate subnets in VMs, namespaces, or hosts.
