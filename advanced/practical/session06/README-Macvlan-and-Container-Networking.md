@@ -60,7 +60,7 @@ ip link add link eth0 name eth0.3 type vlan id 3
 
 This adds VLAN 2 with name `eth0.2` and VLAN 3 with name `eth0.3`.
 
-**Topology:**
+**VLAN Topology**
 
 ![VLAN Topology](./images/vlan.png)
 
@@ -91,7 +91,8 @@ ip link add vx0 type vxlan id 100 local 1.1.1.1 remote 2.2.2.2 dev eth0 dstport 
 
 For reference, you can read the [VXLAN kernel documentation](https://www.kernel.org/doc/Documentation/networking/vxlan.txt) or this [VXLAN introduction](https://vincent.bernat.ch/en/blog/2017-vxlan-linux).
 
-**VXLAN Topology:**
+**VXLAN Topology**
+
 ![VXLAN Topology](./images/vxlan.png)
 
 ---
@@ -104,12 +105,14 @@ With VLAN, you can create multiple interfaces on top of a single one and filter 
 
 Before MACVLAN, if you wanted to connect to the physical network from a VM or namespace, you would have needed to create TAP/VETH devices and attach one side to a bridge and attach a physical interface to the bridge on the host at the same time.
 
-**Topology before MACVLAN:**
+**Topology before MACVLAN**
+
 ![Topology before MACVLAN](./images/br_ns.png)
 
 Now, with MACVLAN, you can bind a physical interface that is associated with a MACVLAN directly to namespaces, without the need for a bridge.
 
-**MACVLAN Topology:**
+**MACVLAN Topology**
+
 ![MACVLAN Topology](./images/macvlan.png)
 
 There are five MACVLAN types:
