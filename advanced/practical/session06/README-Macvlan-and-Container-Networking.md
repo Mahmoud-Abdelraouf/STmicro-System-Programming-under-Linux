@@ -914,4 +914,4 @@ This training covers the essentials of advanced network virtualization and routi
 - **Net Tools**: [net-tools](https://wiki.linuxfoundation.org/networking/net-tools)
 - **IPRoute2**: [iproute2](https://wiki.linuxfoundation.org/networking/iproute2)
 - **ISC DHCP Documentation**: [ISC DHCP](https://www.isc.org/dhcp/)
-- **Manual Page**: [dhclient(8)](https://man7.org/linux/man-pages/man8/dhclient.8.html)
+- **Manual Page**: [dhclient(8)](https://man7.org/linux/man-pages/man8/auditctl.8.html)
