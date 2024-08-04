@@ -838,7 +838,10 @@ ip netns exec ns6 ip route add default via 198.168.1.1
   ip route add 198.168.1.0/24 via 196.168.1.2
   ```
 
-  - `ip link set veth04 up`: Bring `veth04` up. - `ifconfig veth04 196.168.1.1`: Assign IP address `196.168.1.1` to `veth04`. - `ip route add 197.168.1.0/24 via 196.168.1.2`: Add a route to `197.168.1.0/24` via `196.168.1.2`. - `ip route add 198.168.1.0/24 via 196.168.1.2`: Add a route to `198.168.1.0/24` via `196.168.1.2`.
+  - `ip link set veth04 up`: Bring `veth04` up.
+  - `ifconfig veth04 196.168.1.1`: Assign IP address `196.168.1.1` to `veth04`.
+  - `ip route add 197.168.1.0/24 via 196.168.1.2`: Add a route to `197.168.1.0/24` via `196.168.1.2`.
+  - `ip route add 198.168.1.0/24 via 196.168.1.2`: Add a route to `198.168.1.0/24` via `196.168.1.2`.
 
 - **Assigning veth interfaces to network namespaces and configuring:**
 
