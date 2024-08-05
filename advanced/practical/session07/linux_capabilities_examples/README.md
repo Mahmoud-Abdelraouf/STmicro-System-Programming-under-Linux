@@ -7,26 +7,27 @@ This directory contains example codes that demonstrate various Linux capabilitie
 ```plaintext
 linux_capabilities_examples/
 ├── .editorconfig
+├── .gitignore
 ├── Makefile
 ├── README.md
 ├── src/
 │   ├── driver1.c
 │   ├── driver2.c
+│   ├── readfile.c
 │   ├── service1.c
-│   ├── service2.c
-│   └── readfile.c
+│   └── service2.c
 ├── obj/
 │   ├── driver1.o
 │   ├── driver2.o
 │   ├── service1.o
 │   ├── service2.o
-│   ├── readfile.o
+│   └── readfile.o
 ├── bin/
 │   ├── driver1
 │   ├── driver2
 │   ├── service1
 │   ├── service2
-│   ├── readfile
+│   └── readfile
 └── test_files/
     ├── test1.txt
     └── test2.txt
