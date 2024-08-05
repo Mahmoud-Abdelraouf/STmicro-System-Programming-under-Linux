@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
   printf("inheritable=%x\n", capdata->inheritable);
 
   // Execute the readfile program
-  execlp("../obj/readfile", "readfile", "../test_files/test1.txt",
+  execlp("../bin/readfile", "readfile", "../test_files/test1.txt",
          "../test_files/test2.txt", (char *)0);
 
   // Free allocated memory
