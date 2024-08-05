@@ -268,6 +268,7 @@ int main(int argc, char **argv) {
    int fd,n;
    char buf[BUFSIZE];
 
+   // Change the ownership of the file specified in argv[1] to user ID 1000 and group ID 1000
    if( chown(argv[1], 1000, 1000) ){
         printf("Couldn't change owner\n");
    } 
@@ -275,17 +276,23 @@ int main(int argc, char **argv) {
         printf("change owner succeeded\n");
    }
         
-
+   // Open the file specified in argv[2] in read-only mode
    if((fd=open(argv[2],O_RDONLY))== -1){
        printf("Error opening %s\n",argv[2]);
        exit(1);
    }
+
+   // Read the file in chunks of BUFSIZE and write to standard output (usually the terminal)
    while((n=read(fd,buf,BUFSIZE))>0){
      write(1,buf,n);
    }
-   if( n < 0 )
-        printf("error reading input file\n");
 
+   // If there was an error reading the file, print an error message
+   if( n < 0 ) {
+        printf("error reading input file\n");
+   }
+
+   // Close the file descriptor
    close(fd);
 }
 ```
