@@ -1,0 +1,33 @@
+# Ignore object files and binaries
+obj/
+bin/
+
+# Ignore build files
+*.o
+*.out
+
+# Ignore temporary files
+*.tmp
+*.log
+*.swp
+*.swo
+*~
+
+# Ignore compiled dynamic libraries
+*.so
+
+# Ignore editor and IDE-specific files
+.vscode/
+.idea/
+*.code-workspace
+
+# Ignore backup files
+*.bak
+*.backup
+
+# Ignore any core dumps
+core
+
+# Ignore any other files you don't want to track
+.DS_Store
+
