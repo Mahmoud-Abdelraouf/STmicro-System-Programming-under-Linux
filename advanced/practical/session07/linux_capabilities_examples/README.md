@@ -1,6 +1,10 @@
+Here's the revised README with professional styling and corrected markdown tags:
+
+---
+
 # Linux Capabilities Examples
 
-This directory contains example codes that demonstrate various Linux capabilities and their management in C programs. The structure includes source files, a Makefile, and test files to illustrate capability manipulation and usage.
+This repository contains example codes that demonstrate various Linux capabilities and their management in C programs. It includes source files, a Makefile, and test files to illustrate capability manipulation and usage.
 
 ## Directory Structure
 
@@ -55,7 +59,7 @@ This directory contains example codes that demonstrate the use of Linux capabili
 
 ## Source Files
 
-### driver1.c
+### `driver1.c`
 
 `driver1.c` demonstrates how to retrieve and display the current capabilities of a process.
 
@@ -94,7 +98,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-### driver2.c
+### `driver2.c`
 
 `driver2.c` demonstrates how to modify the capabilities of a process and set them as effective.
 
@@ -145,7 +149,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-### service1.c
+### `service1.c`
 
 `service1.c` is a simple service that retrieves and prints the current capabilities of the process.
 
@@ -184,7 +188,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-### service2.c
+### `service2.c`
 
 `service2.c` demonstrates advanced capability manipulation, including setting additional capabilities.
 
@@ -237,7 +241,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-### readfile.c
+### `readfile.c`
 
 `readfile.c` is used to change file ownership and read the file content.
 
@@ -325,13 +329,13 @@ directories:
 obj/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Rule to create executables
+# Rule to create
+
+ executables
 bin/%: obj/%.o
 	$(CC) $(CFLAGS) $< -o $@
 
-# Clean
-
- target to remove all binaries and object files
+# Clean target to remove all binaries and object files
 clean:
 	rm -rf bin obj
 
@@ -379,46 +383,15 @@ To build the example programs, run the following command:
 ```sh
 make
 ```
-CC := gcc
-CFLAGS := -Wall -g
 
-# Define the source files
-SOURCES := $(wildcard src/*.c)
-# Define the object files directly in the 'obj/' directory
-OBJECTS := $(patsubst src/%.c,obj/%.o,$(SOURCES))
-# Define the executables
-EXECUTABLES := $(patsubst src/%.c,bin/%,$(SOURCES))
+### Cleaning
 
-# Default target
-all: directories $(EXECUTABLES)
+To clean up the build artifacts, you can use one of the following commands:
 
-# Rule to create directories
-directories:
-	@mkdir -p obj bin
-
-# Rule to create object files directly in the 'obj/' directory
-obj/%.o: src/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Rule to create executables
-bin/%: obj/%.o
-	$(CC) $(CFLAGS) $< -o $@
-
-# Clean target to remove all binaries and object files
-clean:
-	rm -rf bin obj
-
-# Clean target to remove only object files
-clean-obj:
-	rm -f obj/*
-
-# Clean target to remove only bin files
-clean-bin:
-	rm -f bin/*
-
-# Declare object files as secondary to prevent automatic deletion
-.PHONY: all clean clean-obj clean-bin directories
-.SECONDARY: $(OBJECTS)
+```sh
+make clean      # Remove all binaries and object files
+make clean-obj  # Remove only object files
+make clean-bin  # Remove only executables
 ```
 
 ## Test Files
