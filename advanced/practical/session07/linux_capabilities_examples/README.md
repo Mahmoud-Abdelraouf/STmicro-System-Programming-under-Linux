@@ -1,7 +1,3 @@
-Here's the revised README with professional styling and corrected markdown tags:
-
----
-
 # Linux Capabilities Examples
 
 This repository contains example codes that demonstrate various Linux capabilities and their management in C programs. It includes source files, a Makefile, and test files to illustrate capability manipulation and usage.
