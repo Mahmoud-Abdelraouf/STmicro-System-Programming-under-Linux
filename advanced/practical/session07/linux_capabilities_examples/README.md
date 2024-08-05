@@ -13,17 +13,20 @@ linux_capabilities_examples/
 │   ├── driver1.c
 │   ├── driver2.c
 │   ├── service1.c
-│   └── service2.c
+│   ├── service2.c
+│   └── readfile.c
 ├── obj/
 │   ├── driver1.o
 │   ├── driver2.o
 │   ├── service1.o
 │   ├── service2.o
+│   ├── readfile.o
 ├── bin/
 │   ├── driver1
 │   ├── driver2
 │   ├── service1
 │   ├── service2
+│   ├── readfile
 └── test_files/
     ├── test1.txt
     └── test2.txt
@@ -38,6 +41,7 @@ linux_capabilities_examples/
    - [driver2.c](#driver2c)
    - [service1.c](#service1c)
    - [service2.c](#service2c)
+   - [readfile.c](#readfilec)
 4. [Makefile](#makefile)
 5. [Building and Cleaning](#building-and-cleaning)
 6. [Test Files](#test-files)
@@ -192,6 +196,8 @@ int main(int argc, char **argv) {
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/capability.h>
+#include <sys/prctl.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 /**
@@ -230,6 +236,59 @@ int main(int argc, char **argv) {
 }
 ```
 
+### readfile.c
+
+`readfile.c` is used to change file ownership and read the file content.
+
+#### Code
+
+```c
+// File: readfile.c
+// Description: Program to change file ownership and read a file.
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+#define  BUFSIZE 1000
+
+/**
+ * Main function to change file ownership and read its contents.
+ *
+ * @param argc Argument count.
+ * @param argv Argument vector.
+ * @return int Exit status.
+ */
+int main(int argc, char **argv) {
+
+   int fd,n;
+   char buf[BUFSIZE];
+
+   if( chown(argv[1], 1000, 1000) ){
+        printf("Couldn't change owner\n");
+   } 
+   else {
+        printf("change owner succeeded\n");
+   }
+        
+
+   if((fd=open(argv[2],O_RDONLY))== -1){
+       printf("Error opening %s\n",argv[2]);
+       exit(1);
+   }
+   while((n=read(fd,buf,BUFSIZE))>0){
+     write(1,buf,n);
+   }
+   if( n < 0 )
+        printf("error reading input file\n");
+
+   close(fd);
+}
+```
+
 ## Makefile
 
 The Makefile automates the building process, creating directories for object files and executables, and providing clean targets to remove generated files.
@@ -262,7 +321,9 @@ obj/%.o: src/%.c
 bin/%: obj/%.o
 	$(CC) $(CFLAGS) $< -o $@
 
-# Clean target to remove all binaries and object files
+# Clean
+
+ target to remove all binaries and object files
 clean:
 	rm -rf bin obj
 
@@ -303,9 +364,7 @@ clean-bin:
 
 ## Building and Cleaning
 
-###
-
- Building
+### Building
 
 To build the example programs, run the following command:
 
@@ -364,4 +423,4 @@ After installing the library, you should be able to compile the source files wit
 
 - [Linux Capabilities (man 7 capabilities)](https://man7.org/linux/man-pages/man7/capabilities.7.html)
 - [PR_SET_KEEPCAPS Documentation](https://man7.org/linux/man-pages/man2/prctl.2.html)
-- [Capability Bounding Set](https://www.kernel.org/doc/html/latest/userspace-api)
+- [Capability Bounding Set](https://www.kernel.org/doc/html/latest/userspace-api/capabilities.html)
