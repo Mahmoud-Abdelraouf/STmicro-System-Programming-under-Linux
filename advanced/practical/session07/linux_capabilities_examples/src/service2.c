@@ -6,12 +6,12 @@
  * capabilities during runtime.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/capability.h>
-#include <sys/prctl.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include <stdio.h> // Standard input/output library
+#include <stdlib.h> // Standard library for memory allocation, process control, etc.
+#include <sys/capability.h> // Library for manipulating POSIX capabilities
+#include <sys/prctl.h>      // Library for manipulating process attributes
+#include <sys/types.h>      // Data types used in system calls
+#include <unistd.h>         // Standard symbolic constants and types
 
 /**
  * @brief Main function of service2 program.
@@ -32,23 +32,32 @@ int main(int argc, char **argv) {
   capdata = malloc(sizeof(*capdata));
 
   // Get current capabilities
+  // The first call to capget initializes the header structure
   capget(header, NULL);
+  // Set the PID to 0 to refer to the current process
   header->pid = 0;
+  // The second call to capget retrieves the capabilities into capdata
   capget(header, capdata);
 
   // Print the current effective, permitted, and inheritable capabilities
-  printf("effective=%x\n", capdata->effective);
-  printf("permitted=%x\n", capdata->permitted);
-  printf("inheritable=%x\n", capdata->inheritable);
+  printf("effective=%x\n", capdata->effective);     // Effective capabilities
+  printf("permitted=%x\n", capdata->permitted);     // Permitted capabilities
+  printf("inheritable=%x\n", capdata->inheritable); // Inheritable capabilities
 
   // Set inheritable capabilities
   capdata->inheritable |= ((1 << CAP_CHOWN) | (1 << CAP_DAC_OVERRIDE));
+  // Use the process ID (PID) as a negative value to set capabilities for the
+  // current process
   header->pid = getpid() * (-1);
+  // Set the new capabilities for the process
   capset(header, capdata);
 
   // Set ambient capabilities
+  // Raise the CAP_CHOWN capability in the ambient set
   prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, CAP_CHOWN, 0, 0);
+  // Raise the CAP_DAC_OVERRIDE capability in the ambient set
   prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, CAP_DAC_OVERRIDE, 0, 0);
+  // Allow capabilities to be retained across execve system calls
   prctl(PR_SET_KEEPCAPS, 1);
 
   // Print capabilities after setting PR_SET_KEEPCAPS
@@ -70,7 +79,8 @@ int main(int argc, char **argv) {
   printf("inheritable=%x\n", capdata->inheritable);
 
   // Execute the readfile program
-  execlp("readfile", "readfile", "test1", "test2", (char *)0);
+  execlp("../obj/readfile", "readfile", "../test_files/test1.txt",
+         "../test_files/test2.txt", (char *)0);
 
   // Free allocated memory
   free(header);

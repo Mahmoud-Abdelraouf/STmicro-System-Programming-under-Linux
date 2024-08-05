@@ -7,11 +7,11 @@
  * purposes.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/capability.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include <stdio.h> // Standard input/output library
+#include <stdlib.h> // Standard library for memory allocation, process control, etc.
+#include <sys/capability.h> // Library for manipulating POSIX capabilities
+#include <sys/types.h>      // Data types used in system calls
+#include <unistd.h>         // Standard symbolic constants and types
 
 /**
  * @brief Main function of driver1 program.
@@ -32,14 +32,17 @@ int main(int argc, char **argv) {
   capdata = malloc(sizeof(*capdata));
 
   // Get current capabilities
+  // The first call to capget initializes the header structure
   capget(header, NULL);
+  // Set the PID to 0 to refer to the current process
   header->pid = 0;
+  // The second call to capget retrieves the capabilities into capdata
   capget(header, capdata);
 
   // Print the current effective, permitted, and inheritable capabilities
-  printf("effective=%x\n", capdata->effective);
-  printf("permitted=%x\n", capdata->permitted);
-  printf("inheritable=%x\n", capdata->inheritable);
+  printf("effective=%x\n", capdata->effective);     // Effective capabilities
+  printf("permitted=%x\n", capdata->permitted);     // Permitted capabilities
+  printf("inheritable=%x\n", capdata->inheritable); // Inheritable capabilities
 
   // Execute the service1 program
   printf("----  Exec service1\n");
@@ -51,3 +54,4 @@ int main(int argc, char **argv) {
 
   return 0;
 }
+
