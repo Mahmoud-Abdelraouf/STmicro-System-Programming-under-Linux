@@ -372,27 +372,46 @@ To build the example programs, run the following command:
 ```sh
 make
 ```
+CC := gcc
+CFLAGS := -Wall -g
 
-This will create the `obj` and `bin` directories if they don't exist and compile the source files into object files and executables.
+# Define the source files
+SOURCES := $(wildcard src/*.c)
+# Define the object files directly in the 'obj/' directory
+OBJECTS := $(patsubst src/%.c,obj/%.o,$(SOURCES))
+# Define the executables
+EXECUTABLES := $(patsubst src/%.c,bin/%,$(SOURCES))
 
-### Cleaning
+# Default target
+all: directories $(EXECUTABLES)
 
-To clean all generated files (object files and executables), run:
+# Rule to create directories
+directories:
+	@mkdir -p obj bin
 
-```sh
-make clean
-```
+# Rule to create object files directly in the 'obj/' directory
+obj/%.o: src/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-To clean only the object files, run:
+# Rule to create executables
+bin/%: obj/%.o
+	$(CC) $(CFLAGS) $< -o $@
 
-```sh
-make clean-obj
-```
+# Clean target to remove all binaries and object files
+clean:
+	rm -rf bin obj
 
-To clean only the executables, run:
+# Clean target to remove only object files
+clean-obj:
+	rm -f obj/*
 
-```sh
-make clean-bin
+# Clean target to remove only bin files
+clean-bin:
+	rm -f bin/*
+
+# Declare object files as secondary to prevent automatic deletion
+.PHONY: all clean clean-obj clean-bin directories
+.SECONDARY: $(OBJECTS)
 ```
 
 ## Test Files
