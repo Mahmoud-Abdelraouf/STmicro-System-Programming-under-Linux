@@ -1,20 +1,30 @@
-# Global ignores
+# Ignore compiled files and build artifacts
+*.o
+*.so
+*.a
+*.out
+*.class
+
+# Ignore backup and temporary files
 *~
-
-# Editor directories and files
-.idea/
-.vscode/
-.DS_Store
-
-# Log files
-*.log
-*.tmp
-
-# Backup files
 *.bak
 *.swp
-*.swo
+*.tmp
+*.temp
+*.old
 
+# Ignore logs and debug files
+*.log
+*.trace
+*.stackdump
+*.core
 
+# Ignore IDE and editor directories and files
+.vscode/
+.idea/
+*.code-workspace
 
+# Ignore system files
+.DS_Store
+Thumbs.db
 
