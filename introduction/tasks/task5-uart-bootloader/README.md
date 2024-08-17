@@ -1,7 +1,3 @@
-Thank you for the clarification. I'll ensure that the README reflects the use of STM32F103C8's UART and Flash driver on the receiver side. Here's the updated README:
-
----
-
 # UART Bootloader for STM32F103C8 Using RDT Version 3.0 with Finite State Machine (FSM)
 
 ## Overview
