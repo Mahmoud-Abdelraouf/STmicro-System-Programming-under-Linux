@@ -1,34 +1,34 @@
 .PHONY: clean_all clean_obj doc
 
-cc = gcc
-CFLAGS = -Wall -Wextra
+CC = gcc
+CFLAGS = -Wall -Wextra -Iinclude
 
-#List of Source files
-SRC = $(wildcard *.c)
+# List of Source files
+SRC = $(wildcard src/*.c)
 
 # List of header files
-HDR = $(wildcard *.h) 
+HDR = $(wildcard include/*.h)
 
-#List of Source files except the memory_manager_test
-LIB_SRC = $(filter-out memory_manager_test.c, $(wildcard *.c))
+# List of Source files except the memory_manager_test
+LIB_SRC = $(filter-out src/memory_manager_test.c, $(wildcard src/*.c))
 
 # List of object files
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRC:src/%.c=bin/%.o)
 
 # List of object files for shared build
-OBJ_SHARED = $(LIB_SRC:.c=_shared.o)
+OBJ_SHARED = $(LIB_SRC:src/%.c=bin/%_shared.o)
 
 # List of object files for static build
-OBJ_STATIC = $(LIB_SRC:.c=_static.o)
+OBJ_STATIC = $(LIB_SRC:src/%.c=bin/%_static.o)
 
 # Name of the executable
-TARGET = hmm
+TARGET = bin/hmm
 
 # Name of the static library
-STATIC_LIB = lib$(TARGET).a
+STATIC_LIB = lib/lib$(TARGET).a
 
 # Name of the shared library
-SHARED_LIB = lib$(TARGET).so
+SHARED_LIB = lib/lib$(TARGET).so
 
 # Command to remove files
 RM = rm -f
@@ -52,25 +52,26 @@ shared: $(OBJ_SHARED)
 	$(RM) $(OBJ_SHARED)
 
 # Rule to compile C source files into object files
-%.o: %.c $(HDR)
+bin/%.o: src/%.c $(HDR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Rule to compile C source files to object files for shared build
-%_shared.o: %.c $(HDR)
+bin/%_shared.o: src/%.c $(HDR)
 	$(CC) $(CFLAGS) -fPIC -c $< -o $@
 
 # Rule to compile C source files to object files for static build
-%_static.o: %.c $(HDR)
+bin/%_static.o: src/%.c $(HDR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean target
 clean_all:
-	$(RM) $(TARGET)	$(OBJ) $(OBJ_STATIC) $(OBJ_SHARED) $(STATIC_LIB) $(SHARED_LIB)
+	$(RM) bin/* lib/*
 
 # Clean object files
 clean_obj:
-	$(RM) $(OBJ_SHARED) $(OBJ_STATIC)
+	$(RM) bin/*.o bin/*_shared.o bin/*_static.o
 
 # Generate documentation
 doc:
-	doxygen Doxyfile
+	doxygen docs/Doxyfile
+
