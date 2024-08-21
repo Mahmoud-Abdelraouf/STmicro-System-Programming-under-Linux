@@ -1,0 +1,46 @@
+.TH "vm_page_family_" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+vm_page_family_ \- Structure representing a page family in virtual memory\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <memory_manager\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBstruct_name\fP [\fBMM_MAX_STRUCT_NAME\fP]"
+.br
+.ti -1c
+.RI "uint32_t \fBstruct_size\fP"
+.br
+.ti -1c
+.RI "\fBvm_page_t\fP * \fBfirst_page\fP"
+.br
+.ti -1c
+.RI "\fBglthread_t\fP \fBfree_block_priority_list_head\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure representing a page family in virtual memory\&. 
+
+This structure maintains information about a page family in virtual memory, including the name of the structure, its size, a pointer to the most recent virtual memory page in use, and a priority list of free memory blocks\&. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBvm_page_t\fP* vm_page_family_::first_page"
+Pointer to the most recent vm page in use\&. 
+.SS "\fBglthread_t\fP vm_page_family_::free_block_priority_list_head"
+Priority list of free memory blocks\&. 
+.SS "char vm_page_family_::struct_name[\fBMM_MAX_STRUCT_NAME\fP]"
+Name of the structure\&. 
+.SS "uint32_t vm_page_family_::struct_size"
+Size of the structure\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

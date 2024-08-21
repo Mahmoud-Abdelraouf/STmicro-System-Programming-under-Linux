@@ -1,8 +1,11 @@
 # Linux Memory Manager
 
+![Heap Memory Manager](images/heap.png)
+
 This project provides a comprehensive and optimized memory management solution tailored for Linux systems. It implements a custom heap memory manager, offering enhanced control over memory allocation and deallocation processes, which is critical for high-performance and resource-constrained applications.
 
 ## Table of Contents
+
 1. [Introduction](#introduction)
 2. [Linux Memory Management Overview](#linux-memory-management-overview)
    - [Why Custom Memory Management?](#why-custom-memory-management)
@@ -78,19 +81,23 @@ The project is organized into several directories, each serving a specific purpo
 
 To build the project, ensure that you have `gcc` and `make` installed on your system. You can then use the following commands:
 
-- **Build Everything:**  
+- **Build Everything:**
+
   ```sh
   make all
   ```
+
   This command compiles all source files, creates object files, and links them to produce the `hmm` executable, as well as the static and shared libraries.
 
-- **Build Static Library Only:**  
+- **Build Static Library Only:**
+
   ```sh
   make static
   ```
+
   This builds only the static library (`libhmm.a`).
 
-- **Build Shared Library Only:**  
+- **Build Shared Library Only:**
   ```sh
   make shared
   ```
@@ -100,7 +107,7 @@ To build the project, ensure that you have `gcc` and `make` installed on your sy
 
 After building, you can run the test suite to verify the memory manager's functionality:
 
-- **Run All Tests:**  
+- **Run All Tests:**
   ```sh
   ./bin/hmm
   ```
@@ -112,7 +119,6 @@ To use the memory manager in your application, link your application with the ge
 
 - **Static Linking:**  
   Include the static library `libhmm.a` in your build process.
-  
 - **Shared Linking:**  
   Include the shared library `libhmm.so` and ensure it is in your system's library path.
 

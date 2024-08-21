@@ -1,0 +1,34 @@
+.TH "vm_page_for_families_" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+vm_page_for_families_ \- Structure representing a virtual memory page containing families of memory structures\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <memory_manager\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct \fBvm_page_for_families_\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "\fBvm_page_family_t\fP \fBvm_page_family\fP [0]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure representing a virtual memory page containing families of memory structures\&. 
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBvm_page_for_families_\fP* vm_page_for_families_::next"
+Pointer to the next virtual memory page\&. 
+.SS "\fBvm_page_family_t\fP vm_page_for_families_::vm_page_family[0]"
+Array of variable size storing memory structure families\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

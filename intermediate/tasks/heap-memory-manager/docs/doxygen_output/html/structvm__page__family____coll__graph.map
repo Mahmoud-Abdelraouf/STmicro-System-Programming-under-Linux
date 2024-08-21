@@ -1,0 +1,6 @@
+<map id="vm_page_family_" name="vm_page_family_">
+<area shape="rect" id="node1" title="Structure representing a page family in virtual memory." alt="" coords="5,167,129,259"/>
+<area shape="rect" id="node3" href="$structvm__page__.html" title="Structure representing a virtual memory page." alt="" coords="60,329,176,407"/>
+<area shape="rect" id="node2" href="$structglthread__.html" title="Structure representing a generic linked list node for threaded linking." alt="" coords="105,5,179,83"/>
+<area shape="rect" id="node4" href="$structblock__meta__data__.html" title="Structure representing metadata for a memory block." alt="" coords="154,160,282,267"/>
+</map>

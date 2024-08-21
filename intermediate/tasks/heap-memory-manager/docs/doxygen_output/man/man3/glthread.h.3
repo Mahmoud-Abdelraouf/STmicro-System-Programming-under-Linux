@@ -1,0 +1,355 @@
+.TH "include/glthread.h" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+include/glthread.h \- Header file for the Generic Linked List Thread library\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBglthread_\fP"
+.br
+.RI "Structure representing a generic linked list node for threaded linking\&. "
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBIS_GLTHREAD_LIST_EMPTY\fP(glthreadptr)     ((glthreadptr)\->right == 0 && (glthreadptr)\->left == 0)"
+.br
+.RI "Macro to check if a linked list of glthread_t structures is empty\&. "
+.ti -1c
+.RI "#define \fBGLTHREAD_TO_STRUCT\fP(fn_name,  structure_name,  field_name,  glthreadptr)"
+.br
+.RI "Macro to convert a glthread_t structure to a user-defined structure\&. "
+.ti -1c
+.RI "#define \fBBASE\fP(glthreadptr)   ((glthreadptr)\->right)"
+.br
+.RI "Macro to retrieve the base of a linked list\&. "
+.ti -1c
+.RI "#define \fBITERATE_GLTHREAD_BEGIN\fP(glthreadptrstart,  glthreadptr)"
+.br
+.RI "Macro to begin iterating over a linked list of glthread_t structures\&. "
+.ti -1c
+.RI "#define \fBITERATE_GLTHREAD_END\fP(glthreadptrstart,  glthreadptr)"
+.br
+.RI "Macro to end iteration over a linked list of glthread_t structures\&. "
+.ti -1c
+.RI "#define \fBGLTHREAD_GET_USER_DATA_FROM_OFFSET\fP(glthreadptr,  offset)     (void *)((char *)(glthreadptr)\-offset)"
+.br
+.RI "Macro to get a pointer to user-defined data from a glthread_t pointer and offset\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBglthread_\fP \fBglthread_t\fP"
+.br
+.RI "Structure representing a generic linked list node for threaded linking\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBinit_glthread\fP (\fBglthread_t\fP *glthread)"
+.br
+.RI "Initialize a glthread_t structure\&. "
+.ti -1c
+.RI "void \fBglthread_add_next\fP (\fBglthread_t\fP *base_glthread, \fBglthread_t\fP *new_glthread)"
+.br
+.RI "Adds a new node after the specified current node in the threaded linked list\&. "
+.ti -1c
+.RI "void \fBglthread_add_before\fP (\fBglthread_t\fP *base_glthread, \fBglthread_t\fP *new_glthread)"
+.br
+.RI "Adds a new node before the specified current node in the threaded linked list\&. "
+.ti -1c
+.RI "void \fBremove_glthread\fP (\fBglthread_t\fP *glthread)"
+.br
+.RI "Removes the specified node from the threaded linked list\&. "
+.ti -1c
+.RI "void \fBglthread_add_last\fP (\fBglthread_t\fP *base_glthread, \fBglthread_t\fP *new_glthread)"
+.br
+.RI "Add a new glthread_t structure at the last position of a linked list\&. "
+.ti -1c
+.RI "void \fBdelete_glthread_list\fP (\fBglthread_t\fP *base_glthread)"
+.br
+.RI "Delete all glthread_t structures in a linked list\&. "
+.ti -1c
+.RI "unsigned int \fBget_glthread_list_count\fP (\fBglthread_t\fP *base_glthread)"
+.br
+.RI "Get the count of glthread_t structures in a linked list\&. "
+.ti -1c
+.RI "void \fBglthread_priority_insert\fP (\fBglthread_t\fP *base_glthread, \fBglthread_t\fP *glthread, int(*comp_fn)(void *, void *), int offset)"
+.br
+.RI "Insert a glthread_t structure into a sorted linked list based on priority\&. "
+.ti -1c
+.RI "void * \fBglthread_search\fP (\fBglthread_t\fP *base_glthread, void *(*thread_to_struct_fn)(\fBglthread_t\fP *), void *key, int(*comparison_fn)(void *, void *))"
+.br
+.RI "Search for a specific glthread_t structure in the linked list\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Header file for the Generic Linked List Thread library\&. 
+
+This header file contains the interface for the Generic Linked List Thread library, which provides functionality for managing generic linked lists using threaded linking\&. 
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define BASE(glthreadptr)   ((glthreadptr)\->right)"
+
+.PP
+Macro to retrieve the base of a linked list\&. This macro retrieves the base of a linked list given a pointer to a glthread_t structure\&. It returns the pointer to the right child of the provided glthread_t structure, which is typically the base of the linked list\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIglthreadptr\fP Pointer to the glthread_t structure from which to retrieve the base\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+glthread_t* Pointer to the base of the linked list\&. 
+.RE
+.PP
+
+.SS "#define GLTHREAD_GET_USER_DATA_FROM_OFFSET(glthreadptr, offset)     (void *)((char *)(glthreadptr)\-offset)"
+
+.PP
+Macro to get a pointer to user-defined data from a glthread_t pointer and offset\&. This macro calculates a pointer to user-defined data from a given glthread_t pointer and an offset\&. It's useful when you have a glthread_t pointer embedded within a user-defined structure and you want to access the user-defined data based on a known offset\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIglthreadptr\fP Pointer to the glthread_t structure\&. 
+.br
+\fIoffset\fP Offset of the glthread_t member within the user-defined structure\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to the user-defined data\&. GLUETHREAD_H_ 
+.RE
+.PP
+
+.SS "#define GLTHREAD_TO_STRUCT(fn_name, structure_name, field_name, glthreadptr)"
+\fBValue:\fP
+.PP
+.nf
+  static inline structure_name *fn_name(glthread_t *glthreadptr) {             \
+    return (structure_name *)((char *)(glthreadptr) -                          \
+                              (char *)&(((structure_name *)0)->field_name));   \
+  }
+.fi
+.PP
+Macro to convert a glthread_t structure to a user-defined structure\&. This macro provides a convenient way to convert a glthread_t structure to a user-defined structure\&. It creates a conversion function that takes a glthread_t pointer and returns a pointer to the user-defined structure\&. This is particularly useful when you have a glthread_t structure embedded within a user-defined structure and need to access the user-defined data\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfn_name\fP The name of the conversion function to be created\&. 
+.br
+\fIstruct_type\fP The type of the user-defined structure\&. 
+.br
+\fIglthread_member\fP The name of the glthread_t member within the user-defined structure\&. 
+.br
+\fIglthread_ptr\fP The name of the glthread_t pointer variable\&.
+.RE
+.PP
+Example usage: Suppose we have a user-defined structure named \fCblock_meta_data_t\fP that contains a \fCglthread_t\fP member named \fCpriority_thread_glue\fP\&. We want to create a conversion function named \fCglthread_to_block_meta_data\fP to convert a \fCglthread_t\fP pointer to a \fCblock_meta_data_t\fP pointer:
+.PP
+GLTHREAD_TO_STRUCT(glthread_to_block_meta_data, block_meta_data_t, priority_thread_glue, glthread_ptr);
+.PP
+Now, we can use \fCglthread_to_block_meta_data\fP to convert \fCglthread_t\fP pointers to \fCblock_meta_data_t\fP pointers and access the metadata associated with memory blocks\&. 
+.SS "#define IS_GLTHREAD_LIST_EMPTY(glthreadptr)     ((glthreadptr)\->right == 0 && (glthreadptr)\->left == 0)"
+
+.PP
+Macro to check if a linked list of glthread_t structures is empty\&. This macro checks if a linked list of glthread_t structures is empty\&. It evaluates to true if both the right and left pointers of the provided glthread_t structure are NULL, indicating an empty list\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIglthreadptr\fP Pointer to the glthread_t structure representing the linked list\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+int Returns 1 if the linked list is empty, 0 otherwise\&. 
+.RE
+.PP
+
+.SS "#define ITERATE_GLTHREAD_BEGIN(glthreadptrstart, glthreadptr)"
+\fBValue:\fP
+.PP
+.nf
+  {                                                                            \
+    glthread_t *_glthread_ptr = NULL;                                          \
+    glthreadptr = BASE(glthreadptrstart);                                      \
+    for (; glthreadptr != NULL; glthreadptr = _glthread_ptr) {                 \
+      _glthread_ptr = (glthreadptr)->right;
+.fi
+.PP
+Macro to begin iterating over a linked list of glthread_t structures\&. This macro sets up a loop to iterate over a linked list of glthread_t structures\&. It initializes necessary variables and pointers for the iteration\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIglthreadptrstart\fP Pointer to the starting glthread_t structure for iteration\&. 
+.br
+\fIglthreadptr\fP Pointer to the current glthread_t structure being iterated\&. 
+.RE
+.PP
+
+.SS "#define ITERATE_GLTHREAD_END(glthreadptrstart, glthreadptr)"
+\fBValue:\fP
+.PP
+.nf
+  }                                                                            \
+  }
+.fi
+.PP
+Macro to end iteration over a linked list of glthread_t structures\&. This macro marks the end of the loop initiated by ITERATE_GLTHREAD_BEGIN\&. It closes the loop block\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIglthreadptrstart\fP Pointer to the starting glthread_t structure for iteration\&. 
+.br
+\fIglthreadptr\fP Pointer to the current glthread_t structure being iterated\&. 
+.RE
+.PP
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBglthread_\fP \fBglthread_t\fP"
+
+.PP
+Structure representing a generic linked list node for threaded linking\&. This structure defines a generic linked list node for threaded linking\&. It consists of left and right pointers for threading the nodes together\&. 
+.SH "Function Documentation"
+.PP 
+.SS "void delete_glthread_list (\fBglthread_t\fP * base_glthread)"
+
+.PP
+Delete all glthread_t structures in a linked list\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbase_glthread\fP Pointer to the base glthread_t structure (head of the linked list)\&. 
+.RE
+.PP
+
+.SS "unsigned int get_glthread_list_count (\fBglthread_t\fP * base_glthread)"
+
+.PP
+Get the count of glthread_t structures in a linked list\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbase_glthread\fP Pointer to the base glthread_t structure (head of the linked list)\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+unsigned int The count of glthread_t structures in the linked list\&. 
+.RE
+.PP
+
+.SS "void glthread_add_before (\fBglthread_t\fP * base_glthread, \fBglthread_t\fP * new_glthread)"
+
+.PP
+Adds a new node before the specified current node in the threaded linked list\&. This function adds a new node before the specified current node in the threaded linked list\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIcurr_glthread\fP Pointer to the current node in the threaded linked list\&. 
+.br
+\fInew_glthread\fP Pointer to the new node to be added\&. 
+.RE
+.PP
+
+.SS "void glthread_add_last (\fBglthread_t\fP * base_glthread, \fBglthread_t\fP * new_glthread)"
+
+.PP
+Add a new glthread_t structure at the last position of a linked list\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbase_glthread\fP Pointer to the base glthread_t structure (head of the linked list)\&. 
+.br
+\fInew_glthread\fP Pointer to the new glthread_t structure to be added\&. 
+.RE
+.PP
+
+.SS "void glthread_add_next (\fBglthread_t\fP * base_glthread, \fBglthread_t\fP * new_glthread)"
+
+.PP
+Adds a new node after the specified current node in the threaded linked list\&. This function adds a new node after the specified current node in the threaded linked list\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIcurr_glthread\fP Pointer to the current node in the threaded linked list\&. 
+.br
+\fInew_glthread\fP Pointer to the new node to be added\&. 
+.RE
+.PP
+
+.SS "void glthread_priority_insert (\fBglthread_t\fP * base_glthread, \fBglthread_t\fP * glthread, int(*)(void *, void *) comp_fn, int offset)"
+
+.PP
+Insert a glthread_t structure into a sorted linked list based on priority\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbase_glthread\fP Pointer to the base glthread_t structure (head of the linked list)\&. 
+.br
+\fIglthread\fP Pointer to the glthread_t structure to be inserted\&. 
+.br
+\fIcomp_fn\fP Pointer to the comparison function used to determine priority\&. 
+.br
+\fIoffset\fP Offset to access the user data within the glthread_t structure\&. 
+.RE
+.PP
+< Add in the end
+.SS "void* glthread_search (\fBglthread_t\fP * base_glthread, void *(*)(\fBglthread_t\fP *) thread_to_struct_fn, void * key, int(*)(void *, void *) comparison_fn)"
+
+.PP
+Search for a specific glthread_t structure in the linked list\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbase_glthread\fP Pointer to the base glthread_t structure (head of the linked list)\&. 
+.br
+\fIthread_to_struct_fn\fP Function pointer to convert a glthread_t structure to the corresponding user-defined structure\&. 
+.br
+\fIkey\fP Pointer to the key used for comparison\&. 
+.br
+\fIcomparison_fn\fP Function pointer to the comparison function used to compare keys\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void* Pointer to the user-defined structure corresponding to the found glthread_t structure, or NULL if not found\&. 
+.RE
+.PP
+
+.SS "void init_glthread (\fBglthread_t\fP * glthread)"
+
+.PP
+Initialize a glthread_t structure\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIglthread\fP Pointer to the glthread_t structure to be initialized\&.
+.RE
+.PP
+< System includes < Project includes 
+.SS "void remove_glthread (\fBglthread_t\fP * glthread)"
+
+.PP
+Removes the specified node from the threaded linked list\&. This function removes the specified node from the threaded linked list\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIcurr_glthread\fP Pointer to the node to be removed\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

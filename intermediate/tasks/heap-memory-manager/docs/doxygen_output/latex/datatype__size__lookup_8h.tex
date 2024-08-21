@@ -1,0 +1,82 @@
+\hypertarget{datatype__size__lookup_8h}{}\doxysection{include/datatype\+\_\+size\+\_\+lookup.h File Reference}
+\label{datatype__size__lookup_8h}\index{include/datatype\_size\_lookup.h@{include/datatype\_size\_lookup.h}}
+
+
+Header file for data type size lookup functionality and mappings.  
+
+
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for datatype\+\_\+size\+\_\+lookup.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{datatype__size__lookup_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{datatype__size__lookup_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{datatype__size__lookup_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}{MAX\+\_\+\+STRUCT\+\_\+\+NAME\+\_\+\+LEN}}~50
+\begin{DoxyCompactList}\small\item\em Maximum length of a data type name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{datatype__size__lookup_8h_a65d92569472aecd58e18e5afaa9b41ea}{get\+\_\+size\+\_\+of\+\_\+datatype}} (const char $\ast$data\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Gets the size of a data type by its name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for data type size lookup functionality and mappings. 
+
+This file contains declarations and mappings for functions and structures related to retrieving the size of data types. 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{datatype__size__lookup_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}\label{datatype__size__lookup_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}} 
+\index{datatype\_size\_lookup.h@{datatype\_size\_lookup.h}!MAX\_STRUCT\_NAME\_LEN@{MAX\_STRUCT\_NAME\_LEN}}
+\index{MAX\_STRUCT\_NAME\_LEN@{MAX\_STRUCT\_NAME\_LEN}!datatype\_size\_lookup.h@{datatype\_size\_lookup.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_STRUCT\_NAME\_LEN}{MAX\_STRUCT\_NAME\_LEN}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+STRUCT\+\_\+\+NAME\+\_\+\+LEN~50}
+
+
+
+Maximum length of a data type name. 
+
+Defines the maximum length allowed for a data type name. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{datatype__size__lookup_8h_a65d92569472aecd58e18e5afaa9b41ea}\label{datatype__size__lookup_8h_a65d92569472aecd58e18e5afaa9b41ea}} 
+\index{datatype\_size\_lookup.h@{datatype\_size\_lookup.h}!get\_size\_of\_datatype@{get\_size\_of\_datatype}}
+\index{get\_size\_of\_datatype@{get\_size\_of\_datatype}!datatype\_size\_lookup.h@{datatype\_size\_lookup.h}}
+\doxysubsubsection{\texorpdfstring{get\_size\_of\_datatype()}{get\_size\_of\_datatype()}}
+{\footnotesize\ttfamily size\+\_\+t get\+\_\+size\+\_\+of\+\_\+datatype (\begin{DoxyParamCaption}\item[{const char $\ast$}]{data\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Gets the size of a data type by its name. 
+
+This function searches for the given data type name in a pre-\/defined mapping table and returns the size of the data type if found.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data\+\_\+type} & The name of the data type to get the size of. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The size of the data type if found, otherwise 0. DATATYPE\+\_\+\+SIZE\+\_\+\+LOOKUP\+\_\+\+H\+\_\+ 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{datatype__size__lookup_8h_a65d92569472aecd58e18e5afaa9b41ea_icgraph}
+\end{center}
+\end{figure}

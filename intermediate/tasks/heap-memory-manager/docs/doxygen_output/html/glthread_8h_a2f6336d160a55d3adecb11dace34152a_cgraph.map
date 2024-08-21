@@ -1,0 +1,5 @@
+<map id="glthread_priority_insert" name="glthread_priority_insert">
+<area shape="rect" id="node1" title="Insert a glthread_t structure into a sorted linked list based on priority." alt="" coords="5,31,159,57"/>
+<area shape="rect" id="node2" href="$glthread_8c.html#aa63bf952adace7bfd5bc0cdf970eb4db" title="Adds a new node after the specified current node in the threaded linked list." alt="" coords="207,5,335,32"/>
+<area shape="rect" id="node3" href="$glthread_8c.html#a9e4b763220b1c69da2d9e9f191506f89" title="Initialize a glthread_t structure." alt="" coords="225,56,317,83"/>
+</map>

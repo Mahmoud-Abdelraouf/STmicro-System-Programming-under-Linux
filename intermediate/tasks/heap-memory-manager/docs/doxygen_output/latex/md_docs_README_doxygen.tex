@@ -1,0 +1,262 @@
+This guide provides detailed instructions on how to set up and use Doxygen to generate professional and comprehensive documentation for your project. Doxygen is a powerful tool that can produce high-\/quality documentation from annotated C/\+C++ sources, making it a critical tool in any developer\textquotesingle{}s toolkit.\hypertarget{md_docs_README_doxygen_autotoc_md10}{}\doxysection{$<$strong$>$\+Table of Contents$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md10}
+
+\begin{DoxyEnumerate}
+\item \href{\#installation}{\texttt{ Installation}}
+\item \href{\#generating-documentation}{\texttt{ Generating Documentation}}
+\begin{DoxyItemize}
+\item \href{\#configuration-setup}{\texttt{ Configuration Setup}}
+\item \href{\#running-doxygen}{\texttt{ Running Doxygen}}
+\end{DoxyItemize}
+\item \href{\#additional-features-and-configurations}{\texttt{ Additional Features and Configurations}}
+\begin{DoxyItemize}
+\item \href{\#customizing-output-formats}{\texttt{ Customizing Output Formats}}
+\item \href{\#enabling-diagrams-and-charts}{\texttt{ Enabling Diagrams and Charts}}
+\item \href{\#documenting-private-members}{\texttt{ Documenting Private Members}}
+\item \href{\#enabling-markdown-support}{\texttt{ Enabling Markdown Support}}
+\item \href{\#setting-up-the-main-page}{\texttt{ Setting Up the Main Page}}
+\item \href{\#improving-code-documentation}{\texttt{ Improving Code Documentation}}
+\item \href{\#using-doxygen-tags}{\texttt{ Using Doxygen Tags}}
+\end{DoxyItemize}
+\item \href{\#dependency-management}{\texttt{ Dependency Management}}
+\item \href{\#conclusion}{\texttt{ Conclusion}}
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md_docs_README_doxygen_autotoc_md12}{}\doxysection{$<$strong$>$\+Installation$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md12}
+To begin using Doxygen, install it on your system using the following command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt-\/get install -\/y doxygen}
+
+\end{DoxyCode}
+
+
+Additionally, if you plan to generate diagrams and charts, you will need Graphviz\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt-\/get install -\/y graphviz}
+
+\end{DoxyCode}
+\hypertarget{md_docs_README_doxygen_autotoc_md13}{}\doxysection{$<$strong$>$\+Generating Documentation$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md13}
+\hypertarget{md_docs_README_doxygen_autotoc_md14}{}\doxysubsection{$<$strong$>$\+Configuration Setup$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md14}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Generate a Default Configuration File\+:}}
+
+Run the following command to create a {\ttfamily Doxyfile} configuration\+:
+
+\`{}\`{}\`{}bash doxygen -\/g \`{}\`{}\`{}
+\item $\ast$$\ast$\+Edit the Generated Configuration File ({\ttfamily Doxyfile})\+:$\ast$$\ast$
+
+Open the {\ttfamily Doxyfile} in your preferred text editor and make the following modifications\+:
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Set project name}
+\DoxyCodeLine{PROJECT\_NAME = "{}My\_Project"{}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Optimize output for C}
+\DoxyCodeLine{OPTIMIZE\_OUTPUT\_FOR\_C = YES}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Extract all documentation, including static and private members}
+\DoxyCodeLine{EXTRACT\_ALL = YES}
+\DoxyCodeLine{EXTRACT\_STATIC = YES}
+\DoxyCodeLine{EXTRACT\_PRIVATE = YES}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Set input directory (Assuming source and header files are in src/ and include/)}
+\DoxyCodeLine{INPUT = src include}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Recursively search for input files}
+\DoxyCodeLine{RECURSIVE = YES}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Generate source browser and include code comments}
+\DoxyCodeLine{SOURCE\_BROWSER = YES}
+\DoxyCodeLine{INLINE\_SOURCES = YES}
+\DoxyCodeLine{STRIP\_CODE\_COMMENTS = NO}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Enable Graphviz for generating diagrams}
+\DoxyCodeLine{HAVE\_DOT = YES}
+\DoxyCodeLine{DOT\_NUM\_THREADS = 4}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Generate call graphs and caller graphs}
+\DoxyCodeLine{CALL\_GRAPH = YES}
+\DoxyCodeLine{CALLER\_GRAPH = YES}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Set output directory}
+\DoxyCodeLine{OUTPUT\_DIRECTORY = docs/doxygen\_output}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Enable HTML output and LaTeX for PDF generation}
+\DoxyCodeLine{GENERATE\_HTML = YES}
+\DoxyCodeLine{GENERATE\_LATEX = YES}
+\DoxyCodeLine{GENERATE\_PDF = YES}
+
+\end{DoxyCode}
+\hypertarget{md_docs_README_doxygen_autotoc_md15}{}\doxysubsection{$<$strong$>$\+Running Doxygen$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md15}
+After configuring the {\ttfamily Doxyfile}, generate your documentation by running\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{doxygen Doxyfile}
+
+\end{DoxyCode}
+
+
+This command processes your source files and generates the documentation in the specified output directory.\hypertarget{md_docs_README_doxygen_autotoc_md16}{}\doxysection{$<$strong$>$\+Additional Features and Configurations$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md16}
+\hypertarget{md_docs_README_doxygen_autotoc_md17}{}\doxysubsection{$<$strong$>$\+Customizing Output Formats$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md17}
+Doxygen can produce documentation in several formats, including HTML, PDF, RTF, and man pages. Enable these formats in the {\ttfamily Doxyfile}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Generate various output formats}
+\DoxyCodeLine{GENERATE\_HTML = YES}
+\DoxyCodeLine{GENERATE\_LATEX = YES}
+\DoxyCodeLine{GENERATE\_RTF = YES}
+\DoxyCodeLine{GENERATE\_XML = YES}
+\DoxyCodeLine{GENERATE\_MAN = YES}
+
+\end{DoxyCode}
+\hypertarget{md_docs_README_doxygen_autotoc_md18}{}\doxysubsection{$<$strong$>$\+Enabling Diagrams and Charts$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md18}
+Visual elements such as diagrams can significantly enhance your documentation. Doxygen supports Graphviz for generating various types of diagrams\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Enable Graphviz and generate diagrams}
+\DoxyCodeLine{HAVE\_DOT = YES}
+\DoxyCodeLine{CLASS\_DIAGRAMS = YES}
+\DoxyCodeLine{COLLABORATION\_GRAPH = YES}
+\DoxyCodeLine{INCLUDE\_GRAPH = YES}
+\DoxyCodeLine{INCLUDED\_BY\_GRAPH = YES}
+\DoxyCodeLine{GRAPHICAL\_HIERARCHY = YES}
+\DoxyCodeLine{DOT\_IMAGE\_FORMAT = svg}
+
+\end{DoxyCode}
+
+
+Ensure Graphviz is installed on your system to enable these features.\hypertarget{md_docs_README_doxygen_autotoc_md19}{}\doxysubsection{$<$strong$>$\+Documenting Private Members$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md19}
+To include private members in your documentation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Extract documentation for private members}
+\DoxyCodeLine{EXTRACT\_PRIVATE = YES}
+
+\end{DoxyCode}
+\hypertarget{md_docs_README_doxygen_autotoc_md20}{}\doxysubsection{$<$strong$>$\+Enabling Markdown Support$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md20}
+If you prefer using Markdown for your documentation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Enable Markdown support and treat .md files as documentation}
+\DoxyCodeLine{MARKDOWN\_SUPPORT = YES}
+\DoxyCodeLine{EXTENSION\_MAPPING = md=markdown}
+
+\end{DoxyCode}
+\hypertarget{md_docs_README_doxygen_autotoc_md21}{}\doxysubsection{$<$strong$>$\+Setting Up the Main Page$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md21}
+To set up a custom main page for your documentation\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Create a Markdown or Text File}} (e.\+g., {\ttfamily mainpage.\+md})\+:
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# My\_Project Documentation}
+\DoxyCodeLine{}
+\DoxyCodeLine{Welcome to the documentation for My\_Project. This project is designed to...}
+\DoxyCodeLine{}
+\DoxyCodeLine{![Project Logo](images/logo.png)}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Configure the {\ttfamily Doxyfile}\+:}}
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Set the main page to your markdown file}
+\DoxyCodeLine{USE\_MDFILE\_AS\_MAINPAGE = mainpage.md}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Ensure the images are referenced correctly in your Markdown file}}.
+\end{DoxyEnumerate}\hypertarget{md_docs_README_doxygen_autotoc_md22}{}\doxysubsection{$<$strong$>$\+Improving Code Documentation$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md22}
+Enhance the readability and completeness of your code documentation by using\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# Show brief descriptions of functions/classes on a single line}
+\DoxyCodeLine{INLINE\_INHERITED\_MEMB = YES}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# Document all code entities}
+\DoxyCodeLine{EXTRACT\_ALL = YES}
+
+\end{DoxyCode}
+\hypertarget{md_docs_README_doxygen_autotoc_md23}{}\doxysubsection{$<$strong$>$\+Using Doxygen Tags$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md23}
+Leverage Doxygen tags to provide additional context in your documentation\+:
+
+
+\begin{DoxyItemize}
+\item $\ast$$\ast${\ttfamily \textbackslash{}author}$\ast$$\ast$\+: Specifies the author of the file or function.
+\item $\ast$$\ast${\ttfamily \textbackslash{}version}$\ast$$\ast$\+: Documents the version of the project or specific components.
+\item $\ast$$\ast${\ttfamily \textbackslash{}date}$\ast$$\ast$\+: Indicates the creation or modification date.
+\item $\ast$$\ast${\ttfamily \textbackslash{}warning}, {\ttfamily \textbackslash{}note}, {\ttfamily \textbackslash{}bug}$\ast$$\ast$\+: Highlights important information or known issues.
+\end{DoxyItemize}
+
+Example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+
+\end{DoxyCode}
+\hypertarget{md_docs_README_doxygen_autotoc_md24}{}\doxysection{$<$strong$>$\+Dependency Management$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md24}
+To ensure that Doxygen and its related features work seamlessly, ensure the following dependencies are installed\+:\hypertarget{md_docs_README_doxygen_autotoc_md25}{}\doxysubsection{$<$strong$>$\+Essential Dependencies$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md25}
+
+\begin{DoxyItemize}
+\item {\bfseries{Doxygen}}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt-\/get install -\/y doxygen}
+
+\end{DoxyCode}
+
+\item {\bfseries{Graphviz}} (for generating diagrams)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt-\/get install -\/y graphviz}
+
+\end{DoxyCode}
+
+\end{DoxyItemize}\hypertarget{md_docs_README_doxygen_autotoc_md26}{}\doxysubsection{$<$strong$>$\+Optional Dependencies$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md26}
+
+\begin{DoxyItemize}
+\item {\bfseries{La\+TeX}} (for PDF generation)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt-\/get install texlive-\/full}
+
+\end{DoxyCode}
+
+\item {\bfseries{Math\+Jax}} (for rendering La\+TeX equations in HTML)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\# No installation required; configure in Doxyfile}
+\DoxyCodeLine{USE\_MATHJAX = YES}
+\DoxyCodeLine{MATHJAX\_RELPATH = https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/}
+
+\end{DoxyCode}
+
+\item {\bfseries{Python}} (for additional scripting or extensions)\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt-\/get install python3}
+
+\end{DoxyCode}
+
+\end{DoxyItemize}\hypertarget{md_docs_README_doxygen_autotoc_md27}{}\doxysection{$<$strong$>$\+Conclusion$<$/strong$>$}\label{md_docs_README_doxygen_autotoc_md27}
+This guide provides a comprehensive overview of setting up and using Doxygen to create professional documentation. By following the steps outlined above, you can generate detailed, visually appealing, and highly informative documentation for your project. For more advanced configurations and features, consult the official \href{http://www.doxygen.nl/manual/index.html}{\texttt{ Doxygen documentation}}. 

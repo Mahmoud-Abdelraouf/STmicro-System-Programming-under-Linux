@@ -1,0 +1,68 @@
+\hypertarget{structvm__page__family__}{}\doxysection{vm\+\_\+page\+\_\+family\+\_\+ Struct Reference}
+\label{structvm__page__family__}\index{vm\_page\_family\_@{vm\_page\_family\_}}
+
+
+Structure representing a page family in virtual memory.  
+
+
+
+
+{\ttfamily \#include $<$memory\+\_\+manager.\+h$>$}
+
+
+
+Collaboration diagram for vm\+\_\+page\+\_\+family\+\_\+\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structvm__page__family____coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{structvm__page__family___a7cbb058e1581c37459d890f255f8de1f}{struct\+\_\+name}} \mbox{[}\mbox{\hyperlink{memory__manager_8h_a7e33ad2337bb751f178af9eebc45a84d}{MM\+\_\+\+MAX\+\_\+\+STRUCT\+\_\+\+NAME}}\mbox{]}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structvm__page__family___a40db364a6d4f993286b3b70e75ef819d}{struct\+\_\+size}}
+\item 
+\mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}} $\ast$ \mbox{\hyperlink{structvm__page__family___ab00e93097772a5e2774a04afd35c14b1}{first\+\_\+page}}
+\item 
+\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \mbox{\hyperlink{structvm__page__family___a97852d8704b25a68de7cce0c586bc30a}{free\+\_\+block\+\_\+priority\+\_\+list\+\_\+head}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure representing a page family in virtual memory. 
+
+This structure maintains information about a page family in virtual memory, including the name of the structure, its size, a pointer to the most recent virtual memory page in use, and a priority list of free memory blocks. 
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structvm__page__family___ab00e93097772a5e2774a04afd35c14b1}\label{structvm__page__family___ab00e93097772a5e2774a04afd35c14b1}} 
+\index{vm\_page\_family\_@{vm\_page\_family\_}!first\_page@{first\_page}}
+\index{first\_page@{first\_page}!vm\_page\_family\_@{vm\_page\_family\_}}
+\doxysubsubsection{\texorpdfstring{first\_page}{first\_page}}
+{\footnotesize\ttfamily \mbox{\hyperlink{memory__manager_8h_a3781a6a3593d9877d1c25c4c8e3f1868}{vm\+\_\+page\+\_\+t}}$\ast$ vm\+\_\+page\+\_\+family\+\_\+\+::first\+\_\+page}
+
+Pointer to the most recent vm page in use. \mbox{\Hypertarget{structvm__page__family___a97852d8704b25a68de7cce0c586bc30a}\label{structvm__page__family___a97852d8704b25a68de7cce0c586bc30a}} 
+\index{vm\_page\_family\_@{vm\_page\_family\_}!free\_block\_priority\_list\_head@{free\_block\_priority\_list\_head}}
+\index{free\_block\_priority\_list\_head@{free\_block\_priority\_list\_head}!vm\_page\_family\_@{vm\_page\_family\_}}
+\doxysubsubsection{\texorpdfstring{free\_block\_priority\_list\_head}{free\_block\_priority\_list\_head}}
+{\footnotesize\ttfamily \mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} vm\+\_\+page\+\_\+family\+\_\+\+::free\+\_\+block\+\_\+priority\+\_\+list\+\_\+head}
+
+Priority list of free memory blocks. \mbox{\Hypertarget{structvm__page__family___a7cbb058e1581c37459d890f255f8de1f}\label{structvm__page__family___a7cbb058e1581c37459d890f255f8de1f}} 
+\index{vm\_page\_family\_@{vm\_page\_family\_}!struct\_name@{struct\_name}}
+\index{struct\_name@{struct\_name}!vm\_page\_family\_@{vm\_page\_family\_}}
+\doxysubsubsection{\texorpdfstring{struct\_name}{struct\_name}}
+{\footnotesize\ttfamily char vm\+\_\+page\+\_\+family\+\_\+\+::struct\+\_\+name\mbox{[}\mbox{\hyperlink{memory__manager_8h_a7e33ad2337bb751f178af9eebc45a84d}{MM\+\_\+\+MAX\+\_\+\+STRUCT\+\_\+\+NAME}}\mbox{]}}
+
+Name of the structure. \mbox{\Hypertarget{structvm__page__family___a40db364a6d4f993286b3b70e75ef819d}\label{structvm__page__family___a40db364a6d4f993286b3b70e75ef819d}} 
+\index{vm\_page\_family\_@{vm\_page\_family\_}!struct\_size@{struct\_size}}
+\index{struct\_size@{struct\_size}!vm\_page\_family\_@{vm\_page\_family\_}}
+\doxysubsubsection{\texorpdfstring{struct\_size}{struct\_size}}
+{\footnotesize\ttfamily uint32\+\_\+t vm\+\_\+page\+\_\+family\+\_\+\+::struct\+\_\+size}
+
+Size of the structure. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{memory__manager_8h}{memory\+\_\+manager.\+h}}\end{DoxyCompactItemize}

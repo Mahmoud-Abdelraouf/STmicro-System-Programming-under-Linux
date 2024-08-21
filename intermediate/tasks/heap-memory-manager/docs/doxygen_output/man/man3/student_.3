@@ -1,0 +1,54 @@
+.TH "student_" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+student_ \- Structure representing a student\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBname\fP [32]"
+.br
+.ti -1c
+.RI "uint32_t \fBroll_no\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBmarks_phys\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBmarks_chem\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBmarks_maths\fP"
+.br
+.ti -1c
+.RI "struct \fBstudent_\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure representing a student\&. 
+
+This structure defines the attributes of a student, including their name, roll number, and subject marks\&. Additionally, it contains a pointer to the next student in a linked list\&. 
+.SH "Field Documentation"
+.PP 
+.SS "uint32_t student_::marks_chem"
+The marks obtained in Chemistry\&. 
+.SS "uint32_t student_::marks_maths"
+The marks obtained in Mathematics\&. 
+.SS "uint32_t student_::marks_phys"
+The marks obtained in Physics\&. 
+.SS "char student_::name[32]"
+The name of the student\&. 
+.SS "struct \fBstudent_\fP* student_::next"
+Pointer to the next student in the linked list\&. 
+.SS "uint32_t student_::roll_no"
+The roll number of the student\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

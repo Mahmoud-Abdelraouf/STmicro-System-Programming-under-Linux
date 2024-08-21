@@ -1,0 +1,99 @@
+.TH "src/datatype_size_lookup.c" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/datatype_size_lookup.c \- Implementation file for data type size lookup functionality\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'datatype_size_lookup\&.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBdatatype_mapping_\fP"
+.br
+.RI "Structure representing a data type mapping\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBdatatype_mapping_\fP \fBdatatype_mapping_t\fP"
+.br
+.RI "Structure representing a data type mapping\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "size_t \fBget_size_of_datatype\fP (const char *data_type)"
+.br
+.RI "Gets the size of a data type by its name\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBdatatype_mapping_t\fP \fBtype_mappings\fP []"
+.br
+.RI "Array of data type mappings\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Implementation file for data type size lookup functionality\&. 
+
+This file contains the implementation of functions related to retrieving the size of data types\&. 
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBdatatype_mapping_\fP \fBdatatype_mapping_t\fP"
+
+.PP
+Structure representing a data type mapping\&. This structure defines a mapping between a data type name and its corresponding size\&. 
+.SH "Function Documentation"
+.PP 
+.SS "size_t get_size_of_datatype (const char * data_type)"
+
+.PP
+Gets the size of a data type by its name\&. This function searches for the given data type name in a pre-defined mapping table and returns the size of the data type if found\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIdata_type\fP The name of the data type to get the size of\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The size of the data type if found, otherwise 0\&. DATATYPE_SIZE_LOOKUP_H_ 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "\fBdatatype_mapping_t\fP type_mappings[]"
+\fBInitial value:\fP
+.PP
+.nf
+= {
+    {"int", sizeof(int)},
+    {"char", sizeof(char)},
+    {"float", sizeof(float)},
+    {"double", sizeof(double)},
+    {"short", sizeof(short)},
+    {"long", sizeof(long)},
+    {"long long", sizeof(long long)},
+    {"unsigned int", sizeof(unsigned int)},
+    {"unsigned char", sizeof(unsigned char)},
+    {"unsigned short", sizeof(unsigned short)},
+    {"unsigned long", sizeof(unsigned long)},
+    {"unsigned long long", sizeof(unsigned long long)},
+}
+.fi
+.PP
+Array of data type mappings\&. This array contains mappings between data type names and their corresponding sizes\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

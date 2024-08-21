@@ -1,0 +1,4 @@
+<map id="mm_print_memory_usage" name="mm_print_memory_usage">
+<area shape="rect" id="node1" title="Prints memory usage details related to the memory manager." alt="" coords="5,5,177,32"/>
+<area shape="rect" id="node2" href="$memory__manager_8c.html#a0a1f3a9753facffae61a89ed4ad4ff68" title="Prints details of a virtual memory page." alt="" coords="225,5,407,32"/>
+</map>
