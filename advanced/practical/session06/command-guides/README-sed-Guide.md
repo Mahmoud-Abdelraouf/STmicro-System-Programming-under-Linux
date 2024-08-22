@@ -35,7 +35,8 @@
    - 6.13 [Find and Replace Using Multiple Patterns](#613-find-and-replace-using-multiple-patterns)
    - 6.14 [Comment Out Specific Lines in a Configuration File](#614-comment-out-specific-lines-in-a-configuration-file)
    - 6.15 [Modify a Specific Column in a CSV File](#615-modify-a-specific-column-in-a-csv-file)
-7. [Conclusion](#7-conclusion)
+7. [Applying `sed` Examples to a Sample File](#7-applying-sed-examples-to-a-sample-file)
+8. [Conclusion](#8-conclusion)
 
 ---
 
