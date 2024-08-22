@@ -29,7 +29,10 @@
    - 5.2 [Using Regex with `sed`](#52-using-regex-with-sed)
    - 5.3 [Using Regex with `awk`](#53-using-regex-with-awk)
    - 5.4 [Using Regex in Programming Languages](#54-using-regex-in-programming-languages)
-6. [Conclusion](#6-conclusion)
+6. [Testing Your Regular Expressions](#6-testing-your-regular-expressions)
+   - 6.1 [Using `echo` with `grep`](#61-using-echo-with-grep)
+   - 6.2 [Using `pcregrep` for Advanced Patterns](#62-using-pcregrep-for-advanced-patterns)
+7. [Conclusion](#7-conclusion)
 
 ---
 
@@ -149,9 +152,7 @@ Regular expressions (regex) are sequences of characters that define search patte
 
 - **Negative Lookbehind `(?<!...)`**: Asserts that a certain pattern must not precede.
   - **Examples**:
-    -
-
- `(?<!foo)bar` matches "bar" only if it is NOT preceded by "foo".
+    - `(?<!foo)bar` matches "bar" only if it is NOT preceded by "foo".
     - `(?<!\d{3})\d{4}` matches the last four digits of a phone number that is NOT preceded by exactly three digits.
     - `(?<!@)[a-zA-Z]+` matches text that is NOT the domain part of an email address.
 
@@ -182,7 +183,7 @@ Regular expressions (regex) are sequences of characters that define search patte
 ### 4.1 Validating an Email Address
 
 ```regex
-^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$
+^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$
 ```
 - **Examples**:
   - Matches: `"user@example.com"`
@@ -330,3 +331,93 @@ awk '/regex/ { action }' file.txt
   - `awk '/^Hello/ { print $0 }' file.txt` prints lines starting with `"Hello"`
   - `awk '/[0-9]{4}/ { print $0 }' file.txt` prints lines containing four-digit numbers
   - `awk '/ERROR/ { print $1 }' logfile.txt` prints the first column of lines containing `"ERROR"`
+  
+## 6. Testing Your Regular Expressions
+
+When working with regular expressions, it's often helpful to test your patterns before applying them to actual files. Here are some methods to quickly test your regex patterns.
+
+### 6.1 Using `echo` with `grep`
+
+You can test your regular expressions by piping a string to `grep` using the `echo` command. This is particularly useful for quick checks.
+
+- **Example: Testing an Email Pattern**
+
+  ```bash
+  echo "user@example.com" | grep -E "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$"
+  ```
+
+  If the pattern matches, `grep` will output the string. If it doesn’t match, there will be no output.
+
+- **Example: Testing a Phone Number Pattern**
+
+  ```bash
+  echo "(123) 456-7890" | grep -E "\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}"
+  ```
+
+### 6.2 Using `pcregrep` for Advanced Patterns
+
+For more complex regular expressions, especially those involving Perl-compatible features like lookaheads and lookbehinds, `pcregrep` is a better option.
+
+- **Example 1: Testing Positive Lookahead**
+
+  Use `pcregrep` to find instances where "foo" is followed by "bar" in the string.
+
+  ```bash
+  echo "foobar" | pcregrep "foo(?=bar)"
+  ```
+
+  This command will print `foobar` because "foo" is followed by "bar".
+
+- **Example 2: Testing Negative Lookahead**
+
+  Use `pcregrep` to find instances where "foo" is not followed by "baz".
+
+  ```bash
+  echo "foobar" | pcregrep "foo(?!baz)"
+  ```
+
+  This will print `foobar` because "foo" is not followed by "baz".
+
+- **Example 3: Testing Positive Lookbehind**
+
+  Use `pcregrep` to find instances where "bar" is preceded by "foo".
+
+  ```bash
+  echo "foobar" | pcregrep "(?<=foo)bar"
+  ```
+
+  This will print `bar` because it is preceded by "foo".
+
+- **Example 4: Testing Negative Lookbehind**
+
+  Use `pcregrep` to find instances where "bar" is not preceded by "baz".
+
+  ```bash
+  echo "foobar" | pcregrep "(?<!baz)bar"
+  ```
+
+  This will print `bar` because it is not preceded by "baz".
+
+- **Example 5: Using Non-Greedy Matching**
+
+  Use `pcregrep` to match the shortest possible sequence between "foo" and "bar".
+
+  ```bash
+  echo "foo123barfoo456bar" | pcregrep "foo.*?bar"
+  ```
+
+  This will print `foo123bar` because it matches the shortest sequence between "foo" and "bar".
+
+- **Example 6: Matching Multiline Patterns**
+
+  Use `pcregrep` with the `-M` flag to match patterns that span multiple lines.
+
+  ```bash
+  echo -e "foo\nbar" | pcregrep -M "foo.*bar"
+  ```
+  
+  This will print the entire string, as the `-M` flag allows matching across newline characters.
+
+### 7. Conclusion
+
+Testing your regular expressions before applying them is a crucial step in ensuring they work as intended. By using tools like `grep` and `pcregrep` with `echo`, you can quickly validate your patterns in a controlled environment.
