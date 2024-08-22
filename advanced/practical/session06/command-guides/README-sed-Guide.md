@@ -444,6 +444,143 @@ sed 's/\([^,]*,\)\{2\}oldvalue/newvalue/' file.csv
 
 - **Explanation**: This replaces "oldvalue" with "newvalue" in the third column of a CSV file.
 
-## 7. Conclusion
+## 7. Applying `sed` Examples to a Sample File
+
+To demonstrate the `sed` command in action, we will create a sample text file and apply each of the practical examples discussed above.
+
+### 7.1 Generate a Sample Text File
+
+```bash
+cat << EOF > sample.txt
+This is a test file.
+It contains multiple lines,
+including empty lines,
+and lines with different patterns.
+Header: This line contains the word 'foo' and some HTML tags <b>bold</b>.
+Here is another line with 'foo' and 'baz'.
+START: This block contains 'foo' that needs to be replaced.
+This line does not have the pattern.
+END: The block ends here.
+apple orange banana
+Tabs	are	used	in	this	line.
+Error: An ERROR occurred while processing.
+Options: Use option1 or option2.
+This line contains the third, fourth, and fifth columns.
+EOF
+```
+
+### 7.2 Apply the `sed` Commands
+
+#### 6.1 Replace All Occurrences of a Word
+
+```bash
+sed 's/apple/orange/g' sample.txt
+```
+
+#### 6.2 Delete All Empty Lines
+
+```bash
+sed '/^$/d' sample.txt
+```
+
+#### 6.3 Insert Text After a Specific Line
+
+```bash
+sed '/Header/a\This line was inserted after "Header:"' sample.txt
+```
+
+#### 6.4 Replace Text Between Two Patterns
+
+```bash
+sed '/START/,/END/s/foo/bar/g' sample.txt
+```
+
+#### 6.5 Remove HTML Tags
+
+```bash
+sed 's/<[^>]*>//g' sample.txt
+```
+
+#### 6.6 Capitalize the First Letter of Each Word
+
+```bash
+sed 's/\b\(.\)/\u\1/g' sample.txt
+```
+
+#### 6.7 Convert Tabs to Spaces
+
+```bash
+sed 's/\t/    /g' sample.txt
+```
+
+#### 6.8 Replace Multiple Patterns
+
+```bash
+sed -e 's/foo/bar/g' -e 's/baz/qux/g' sample.txt
+```
+
+#### 6.9 Replace Using Shell Variables
+
+```bash
+old="foo"
+new="bar"
+sed "s/$old/$new/g" sample.txt
+```
+
+#### 6.10 Process a Log File and Extract Data
+
+```bash
+sed -n '/ERROR/{s/.*ERROR: //;p;}' sample.txt
+```
+
+#### 6.11 Add Line Numbers to Non-Empty Lines
+
+```bash
+sed '/./=' sample.txt | sed 'N; s/\n/ /'
+```
+
+#### 6.12 Swap the First Two Words on Each Line
+
+```bash
+sed 's/^\([[:alpha:]]\+\) \([[:alpha:]]\+\)/\2 \1/' sample.txt
+```
+
+#### 6.13 Find and Replace Using Multiple Patterns
+
+```bash
+sed '/Header/s/foo/bar/g; /Options/s/option1/optionA/g' sample.txt
+```
+
+#### 6.14 Comment Out Specific Lines in a Configuration File
+
+```bash
+sed '/Options/s/^/# /' sample.txt
+```
+
+#### 6.15 Modify a Specific Column in a CSV File
+
+Let's simulate a CSV structure in our text file:
+
+```bash
+echo "col1,col2,col3,col4,col5" > sample.csv
+echo "a,b,c,d,e" >> sample.csv
+echo "f,g,h,i,j" >> sample.csv
+echo "k,l,m,n,o" >> sample.csv
+
+sed 's/\([^,]*,\)\{2\}c/newvalue/' sample.csv
+```
+
+### 7.3 Verify Changes
+
+After applying each command, you can view the contents of `sample.txt` and `sample.csv` to verify the changes:
+
+```bash
+cat sample.txt
+cat sample.csv
+```
+
+---
+
+## 8. Conclusion
 
 The `sed` command is a powerful tool for text processing in Linux, offering a wide range of features from simple text replacement to complex text transformations. Whether you're editing files on the fly, processing logs, or automating tasks in scripts, `sed` provides the flexibility and control needed for efficient text manipulation.
