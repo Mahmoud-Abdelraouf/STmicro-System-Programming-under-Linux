@@ -1,25 +1,14 @@
 <map id="xfree" name="xfree">
-<area shape="rect" id="Node000001" title="Frees memory allocated by the memory manager." alt="" coords="5,162,61,187"/>
-<area shape="rect" id="Node000002" href="$memory__manager_8c.html#a2250996fd809506caef0a6e61b6faebb" title=" " alt="" coords="109,162,240,187"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,172,96,172,96,177,61,177"/>
-<area shape="rect" id="Node000003" href="$memory__manager_8c.html#aa72156192006fd76902b0616def7db4d" title=" " alt="" coords="304,33,499,73"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="187,160,229,122,287,83,302,76,305,81,289,88,232,126,190,164"/>
-<area shape="rect" id="Node000008" href="$memory__manager_8c.html#a3635ea0217471faffe42b0c91c4bcc42" title=" " alt="" coords="317,97,486,137"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="225,159,308,138,309,143,226,165"/>
-<area shape="rect" id="Node000009" href="$memory__manager_8c.html#a38d0ee21c7b3b9b22289786fd969be46" title="Checks if a virtual memory page is empty." alt="" coords="310,162,493,187"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="240,172,296,172,296,177,240,177"/>
-<area shape="rect" id="Node000010" href="$memory__manager_8c.html#a8b1f18097a67a303b6182eaf288b64f9" title=" " alt="" coords="315,211,488,237"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="234,185,329,206,328,211,233,190"/>
-<area shape="rect" id="Node000011" href="$memory__manager_8c.html#a3c0f19fa657602a76893a7f53e9f5222" title="Deletes and frees a virtual memory page." alt="" coords="288,261,515,286"/>
-<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="193,185,235,216,289,246,314,254,312,259,287,250,232,220,190,190"/>
-<area shape="rect" id="Node000004" href="$memory__manager_8c.html#a5987bb26622d19dcd8ecfd1416a7f3c6" title=" " alt="" coords="563,5,743,45"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="498,40,549,34,550,39,499,45"/>
-<area shape="rect" id="Node000005" href="$glthread_8c.html#a2f6336d160a55d3adecb11dace34152a" title="Insert a glthread_t structure into a sorted linked list based on priority." alt="" coords="566,70,741,95"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="499,62,553,68,552,74,498,67"/>
-<area shape="rect" id="Node000006" href="$glthread_8c.html#aa63bf952adace7bfd5bc0cdf970eb4db" title="Adds a new node after the specified current node in the threaded linked list." alt="" coords="792,46,935,71"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="740,70,778,66,778,71,741,75"/>
-<area shape="rect" id="Node000007" href="$glthread_8c.html#a9e4b763220b1c69da2d9e9f191506f89" title="Initialize a glthread_t structure." alt="" coords="811,95,915,121"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="741,91,798,97,797,103,740,96"/>
-<area shape="rect" id="Node000012" href="$memory__manager_8c.html#ab7ac1212082ab9c61aab19e76696d9ec" title=" " alt="" coords="563,253,744,293"/>
-<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="515,271,549,271,549,276,515,276"/>
+<area shape="rect" id="node1" title="Frees memory allocated by the memory manager." alt="" coords="5,166,56,193"/>
+<area shape="rect" id="node2" href="$memory__manager_8c.html#aa1a17c04f785d5504f86d5c3cebb68d8" title=" " alt="" coords="104,166,223,193"/>
+<area shape="rect" id="node3" href="$memory__manager_8c.html#aa72156192006fd76902b0616def7db4d" title=" " alt="" coords="285,35,459,76"/>
+<area shape="rect" id="node8" href="$memory__manager_8c.html#a3635ea0217471faffe42b0c91c4bcc42" title=" " alt="" coords="297,100,447,141"/>
+<area shape="rect" id="node9" href="$memory__manager_8c.html#a38d0ee21c7b3b9b22289786fd969be46" title="Checks if a virtual memory page is empty." alt="" coords="290,166,454,193"/>
+<area shape="rect" id="node10" href="$memory__manager_8c.html#a8b1f18097a67a303b6182eaf288b64f9" title=" " alt="" coords="294,217,450,243"/>
+<area shape="rect" id="node11" href="$memory__manager_8c.html#a3c0f19fa657602a76893a7f53e9f5222" title="Deletes and frees a virtual memory page." alt="" coords="271,267,473,294"/>
+<area shape="rect" id="node4" href="$memory__manager_8c.html#a5987bb26622d19dcd8ecfd1416a7f3c6" title=" " alt="" coords="521,5,684,47"/>
+<area shape="rect" id="node5" href="$glthread_8h.html#a2f6336d160a55d3adecb11dace34152a" title="Insert a glthread_t structure into a sorted linked list based on priority." alt="" coords="526,71,679,98"/>
+<area shape="rect" id="node6" href="$glthread_8c.html#aa63bf952adace7bfd5bc0cdf970eb4db" title="Adds a new node after the specified current node in the threaded linked list." alt="" coords="732,46,860,73"/>
+<area shape="rect" id="node7" href="$glthread_8c.html#a9e4b763220b1c69da2d9e9f191506f89" title="Initialize a glthread_t structure." alt="" coords="750,97,842,123"/>
+<area shape="rect" id="node12" href="$memory__manager_8c.html#ab7ac1212082ab9c61aab19e76696d9ec" title=" " alt="" coords="521,260,684,301"/>
 </map>

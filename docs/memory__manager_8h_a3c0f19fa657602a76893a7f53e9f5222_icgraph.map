@@ -1,7 +1,5 @@
 <map id="mm_vm_page_delete_and_free" name="mm_vm_page_delete_and_free">
-<area shape="rect" id="Node000001" title="Deletes and frees a virtual memory page." alt="" coords="288,5,515,31"/>
-<area shape="rect" id="Node000002" href="$memory__manager_8c.html#a2250996fd809506caef0a6e61b6faebb" title=" " alt="" coords="109,5,240,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="274,21,240,21,240,15,274,15"/>
-<area shape="rect" id="Node000003" href="$memory__manager_8c.html#ae075bb556abb4342aedf495ddb8d390a" title="Frees memory allocated by the memory manager." alt="" coords="5,5,61,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="96,21,61,21,61,15,96,15"/>
+<area shape="rect" id="node1" title="Deletes and frees a virtual memory page." alt="" coords="271,5,473,32"/>
+<area shape="rect" id="node2" href="$memory__manager_8c.html#aa1a17c04f785d5504f86d5c3cebb68d8" title=" " alt="" coords="104,5,223,32"/>
+<area shape="rect" id="node3" href="$memory__manager__api_8h.html#ae075bb556abb4342aedf495ddb8d390a" title="Frees memory allocated by the memory manager." alt="" coords="5,5,56,32"/>
 </map>

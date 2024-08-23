@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['xcalloc_0',['xcalloc',['../memory__manager_8c.html#a99f5a0d88caf5abe330155eb4e2d7aac',1,'xcalloc(char *struct_name, int units):&#160;memory_manager.c'],['../memory__manager__api_8h.html#a99f5a0d88caf5abe330155eb4e2d7aac',1,'xcalloc(char *struct_name, int units):&#160;memory_manager.c']]],
-  ['xfree_1',['xfree',['../memory__manager_8c.html#ae075bb556abb4342aedf495ddb8d390a',1,'xfree(void *app_data):&#160;memory_manager.c'],['../memory__manager__api_8h.html#ae075bb556abb4342aedf495ddb8d390a',1,'xfree(void *app_data):&#160;memory_manager.c']]]
+  ['xcalloc_192',['xcalloc',['../memory__manager__api_8h.html#a22486940fff22d18c1c65122b4b5235f',1,'xcalloc(char *struct_name, int units):&#160;memory_manager.c'],['../memory__manager_8c.html#a22486940fff22d18c1c65122b4b5235f',1,'xcalloc(char *struct_name, int units):&#160;memory_manager.c']]],
+  ['xfree_193',['xfree',['../memory__manager__api_8h.html#ae075bb556abb4342aedf495ddb8d390a',1,'xfree(void *app_data):&#160;memory_manager.c'],['../memory__manager_8c.html#ae075bb556abb4342aedf495ddb8d390a',1,'xfree(void *app_data):&#160;memory_manager.c']]]
 ];

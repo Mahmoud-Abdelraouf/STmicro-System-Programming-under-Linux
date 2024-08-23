@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['datatype_5fmapping_5ft_0',['datatype_mapping_t',['../structdatatype__mapping__t.html',1,'']]]
+  ['datatype_5fmapping_5f_135',['datatype_mapping_',['../structdatatype__mapping__.html',1,'']]]
 ];
