@@ -32,7 +32,7 @@ Before creating a desktop entry, you need to know the path to the application's 
 ### 2.1 Create the File
 1. In your terminal, create a new `.desktop` file in the `~/.local/share/applications/` directory:
    ```bash
-   nano ~/.local/share/applications/your-application.desktop
+   vi ~/.local/share/applications/your-application.desktop
    ```
    Replace `your-application.desktop` with a suitable name for your application.
 
@@ -60,7 +60,7 @@ Before creating a desktop entry, you need to know the path to the application's 
    - **Categories**: Categories help organize the application in the menu. Adjust as necessary.
 
 3. Save and close the file:
-   - Press `Ctrl + X`, then `Y`, and `Enter`.
+   - Press `:`, then `wq`, and `Enter`.
 
 ## Step 3: Make the Desktop Entry Executable
 1. Make the `.desktop` file executable:
