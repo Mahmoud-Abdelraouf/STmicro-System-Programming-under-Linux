@@ -1,0 +1,1039 @@
+.TH "include/memory_manager.h" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+include/memory_manager.h \- Header file for the Memory Manager module\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include 'glthread\&.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBblock_meta_data_\fP"
+.br
+.RI "Structure representing metadata for a memory block\&. "
+.ti -1c
+.RI "struct \fBvm_page_\fP"
+.br
+.RI "Structure representing a virtual memory page\&. "
+.ti -1c
+.RI "struct \fBvm_page_family_\fP"
+.br
+.RI "Structure representing a page family in virtual memory\&. "
+.ti -1c
+.RI "struct \fBvm_page_for_families_\fP"
+.br
+.RI "Structure representing a virtual memory page containing families of memory structures\&. "
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBMM_MAX_STRUCT_NAME\fP   32"
+.br
+.ti -1c
+.RI "#define \fBMAX_STRUCT_NAME_LEN\fP   50"
+.br
+.ti -1c
+.RI "#define \fBMAX_FAMILIES_PER_VM_PAGE\fP"
+.br
+.RI "Maximum number of families that can be stored in a single virtual memory page\&. "
+.ti -1c
+.RI "#define \fBITERATE_PAGE_FAMILIES_BEGIN\fP(vm_page_for_families_ptr,  curr)"
+.br
+.RI "Macro for beginning iteration over page families\&. "
+.ti -1c
+.RI "#define \fBITERATE_PAGE_FAMILIES_END\fP(vm_page_for_families_ptr,  curr)"
+.br
+.RI "Macro marking the end of iteration over families within a virtual memory page\&. "
+.ti -1c
+.RI "#define \fBITERATE_VM_PAGE_BEGIN\fP(vm_page_family_ptr,  curr)"
+.br
+.RI "Macro to iterate over virtual memory pages beginning from the first page of a page family\&. "
+.ti -1c
+.RI "#define \fBITERATE_VM_PAGE_END\fP(vm_page_family_ptr,  curr)"
+.br
+.RI "Macro marking the end of the iteration over virtual memory pages\&. "
+.ti -1c
+.RI "#define \fBITERATE_VM_PAGE_ALL_BLOCKS_BEGIN\fP(vm_page_ptr,  curr)"
+.br
+.RI "Macro to begin iteration over all memory blocks within a virtual memory page\&. "
+.ti -1c
+.RI "#define \fBITERATE_VM_PAGE_ALL_BLOCKS_END\fP(vm_page_ptr,  curr)"
+.br
+.RI "Macro to end iteration over all memory blocks within a virtual memory page\&. "
+.ti -1c
+.RI "#define \fBoffset_of\fP(container_structure,  field_name)     ((size_t)(&((container_structure *)0)\->field_name))"
+.br
+.RI "Macro to calculate the offset of a field within a structure\&. "
+.ti -1c
+.RI "#define \fBMM_GET_PAGE_FROM_META_BLOCK\fP(block_meta_data_ptr)     ((void *)((char *)(block_meta_data_ptr) \- (block_meta_data_ptr)\->offset))"
+.br
+.RI "Macro to retrieve the virtual memory page from a block's metadata\&. "
+.ti -1c
+.RI "#define \fBNEXT_META_BLOCK_BY_SIZE\fP(block_meta_data_ptr)"
+.br
+.RI "Macro to retrieve the metadata of the next block based on the current block's size\&. "
+.ti -1c
+.RI "#define \fBNEXT_META_BLOCK\fP(block_meta_data_ptr)   ((block_meta_data_ptr)\->next_block)"
+.br
+.RI "Macro to get the pointer to the next metadata block\&. "
+.ti -1c
+.RI "#define \fBPREV_META_BLOCK\fP(block_meta_data_ptr)   ((block_meta_data_ptr)\->prev_block)"
+.br
+.RI "Macro to get the pointer to the previous metadata block\&. "
+.ti -1c
+.RI "#define \fBMARK_VM_PAGE_EMPTY\fP(vm_page_t_ptr)"
+.br
+.RI "Macro to mark a virtual memory page as empty\&. "
+.ti -1c
+.RI "#define \fBmm_bind_blocks_for_allocation\fP(allocated_meta_block,  free_meta_block)"
+.br
+.RI "Binds metadata blocks for memory allocation\&. "
+.ti -1c
+.RI "#define \fBMAX_PAGE_ALLOCATABLE_MEMORY\fP(units)     (\fBmm_max_page_allocatable_memory\fP(units))"
+.br
+.RI "Macro to calculate the maximum allocatable memory for a given number of units\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBblock_meta_data_\fP \fBblock_meta_data_t\fP"
+.br
+.RI "Structure representing metadata for a memory block\&. "
+.ti -1c
+.RI "typedef struct \fBvm_page_\fP \fBvm_page_t\fP"
+.br
+.RI "Structure representing a virtual memory page\&. "
+.ti -1c
+.RI "typedef struct \fBvm_page_family_\fP \fBvm_page_family_t\fP"
+.br
+.RI "Structure representing a page family in virtual memory\&. "
+.ti -1c
+.RI "typedef struct \fBvm_page_for_families_\fP \fBvm_page_for_families_t\fP"
+.br
+.RI "Structure representing a virtual memory page containing families of memory structures\&. "
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBvm_bool_t\fP { \fBMM_FALSE\fP = 0, \fBMM_TRUE\fP = 1 }"
+.br
+.RI "Represents a boolean value\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGLTHREAD_TO_STRUCT\fP (glthread_to_block_meta_data, \fBblock_meta_data_t\fP, priority_thread_glue, glthread_ptr)"
+.br
+.RI "Macro to declare a conversion function for converting a glthread_t structure to a user-defined structure pointer\&. "
+.ti -1c
+.RI "\fBvm_page_t\fP * \fBallocate_vm_page\fP (\fBvm_page_family_t\fP *vm_page_family)"
+.br
+.RI "Allocates a new virtual memory page for a given page family\&. "
+.ti -1c
+.RI "void \fBmm_vm_page_delete_and_free\fP (\fBvm_page_t\fP *vm_page)"
+.br
+.RI "Deletes and frees a virtual memory page\&. "
+.ti -1c
+.RI "\fBvm_page_family_t\fP * \fBlookup_page_family_by_name\fP (char *struct_name)"
+.br
+.RI "Looks up a page family by its name\&. "
+.ti -1c
+.RI "\fBvm_bool_t\fP \fBmm_is_vm_page_empty\fP (\fBvm_page_t\fP *vm_page)"
+.br
+.RI "Checks if a virtual memory page is empty\&. "
+.ti -1c
+.RI "static void \fBmm_add_free_block_meta_data_to_free_block_list\fP (\fBvm_page_family_t\fP *vm_page_family, \fBblock_meta_data_t\fP *free_block)"
+.br
+.RI "Add a free block's metadata to the free block list of a virtual memory page family\&. "
+.ti -1c
+.RI "void \fBmm_print_vm_page_details\fP (\fBvm_page_t\fP *vm_page)"
+.br
+.RI "Prints details of a virtual memory page\&. "
+.ti -1c
+.RI "static void * \fBmm_get_new_vm_page_from_kernel\fP (int units)"
+.br
+.RI "Allocates a new virtual memory page from the kernel\&. "
+.ti -1c
+.RI "static void \fBmm_return_vm_page_to_kernel\fP (void *vm_page, int units)"
+.br
+.RI "Returns a virtual memory page to the kernel\&. "
+.ti -1c
+.RI "static void \fBmm_union_free_blocks\fP (\fBblock_meta_data_t\fP *first, \fBblock_meta_data_t\fP *second)"
+.br
+.RI "Merges two contiguous free memory blocks\&. "
+.ti -1c
+.RI "static uint32_t \fBmm_max_page_allocatable_memory\fP (int units)"
+.br
+.RI "Calculates the maximum allocatable memory within a virtual memory page\&. "
+.ti -1c
+.RI "static int \fBfree_blocks_comparison_function\fP (void *_block_meta_data1, void *_block_meta_data2)"
+.br
+.RI "Comparison function for sorting free blocks by block size\&. "
+.ti -1c
+.RI "static \fBblock_meta_data_t\fP * \fBmm_get_biggest_free_block_page_family\fP (\fBvm_page_family_t\fP *vm_page_family)"
+.br
+.RI "Retrieves the metadata of the biggest free memory block within a given virtual memory page family\&. "
+.ti -1c
+.RI "static \fBvm_bool_t\fP \fBmm_split_free_data_block_for_allocation\fP (\fBvm_page_family_t\fP *vm_page_family, \fBblock_meta_data_t\fP *block_meta_data, uint32_t size)"
+.br
+.RI "Splits a free data block to allocate a portion of it for memory allocation\&. "
+.ti -1c
+.RI "static \fBblock_meta_data_t\fP * \fBmm_allocate_free_data_block\fP (\fBvm_page_family_t\fP *vm_page_family, uint32_t req_size)"
+.br
+.RI "Allocates a free data block from the specified page family\&. "
+.ti -1c
+.RI "static \fBvm_page_t\fP * \fBmm_family_new_page_add\fP (\fBvm_page_family_t\fP *vm_page_family)"
+.br
+.RI "Adds a new virtual memory page to the specified page family\&. "
+.ti -1c
+.RI "static int \fBmm_get_hard_internal_memory_frag_size\fP (\fBblock_meta_data_t\fP *first, \fBblock_meta_data_t\fP *second)"
+.br
+.RI "Calculates the size of hard internal memory fragmentation between two memory blocks\&. "
+.ti -1c
+.RI "static \fBblock_meta_data_t\fP * \fBmm_free_blocks\fP (\fBblock_meta_data_t\fP *to_be_free_block)"
+.br
+.RI "Frees a memory block and performs merging if necessary\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Header file for the Memory Manager module\&. 
+
+This file provides declarations for structures, macros, and functions used in the Memory Manager module\&. The Memory Manager is responsible for managing memory allocation and deallocation, including virtual memory page management, block metadata handling, and allocation algorithms\&. 
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define ITERATE_PAGE_FAMILIES_BEGIN(vm_page_for_families_ptr, curr)"
+\fBValue:\fP
+.PP
+.nf
+  {                                                                            \
+    uint32_t _count = 0;                                                       \
+    for (curr =                                                                \
+             (vm_page_family_t *)&vm_page_for_families_ptr->vm_page_family[0]; \
+         curr->struct_size && _count < MAX_FAMILIES_PER_VM_PAGE;               \
+         curr++, _count++) {
+.fi
+.PP
+Macro for beginning iteration over page families\&. This macro is used to begin iteration over page families stored within a virtual memory page\&. It initializes a loop for iterating over page families, using the provided pointers\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_for_families_ptr\fP Pointer to the virtual memory page for families\&. 
+.br
+\fIcurr\fP Pointer to the current page family being iterated\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This macro is typically used in conjunction with \fCITERATE_PAGE_FAMILIES_END\fP to iterate over page families stored within a virtual memory page\&. The loop continues until all page families have been iterated or the maximum number of families per page is reached\&.
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+This macro assumes that \fCvm_page_for_families_ptr\fP points to a valid virtual memory page structure containing page families, and \fCcurr\fP is a valid pointer to iterate over these families\&. Improper usage may result in undefined behavior\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBITERATE_PAGE_FAMILIES_END\fP 
+.RE
+.PP
+
+.SS "#define ITERATE_PAGE_FAMILIES_END(vm_page_for_families_ptr, curr)"
+\fBValue:\fP
+.PP
+.nf
+  }                                                                            \
+  }
+.fi
+.PP
+Macro marking the end of iteration over families within a virtual memory page\&. This macro is used to mark the end of iteration over families within a virtual memory page, which was started with the \fCITERATE_PAGE_FAMILIES_BEGIN\fP macro\&. It concludes the loop for iterating over page families\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_for_families_ptr\fP Pointer to the virtual memory page for families\&. 
+.br
+\fIcurr\fP Pointer to the current family being iterated\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This macro should be used in conjunction with \fCITERATE_PAGE_FAMILIES_BEGIN\fP to properly mark the end of the iteration loop over page families within a virtual memory page\&.
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+The loop for iterating over families within a virtual memory page should be enclosed within curly braces \fC{}\fP to ensure proper scoping of loop variables and statements\&. Improper usage of this macro may lead to compilation errors or unexpected behavior\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBITERATE_PAGE_FAMILIES_BEGIN\fP 
+.RE
+.PP
+
+.SS "#define ITERATE_VM_PAGE_ALL_BLOCKS_BEGIN(vm_page_ptr, curr)"
+\fBValue:\fP
+.PP
+.nf
+  do {                                                                         \
+    curr = &(vm_page_ptr->block_meta_data);                                    \
+    block_meta_data_t *next = NULL;                                            \
+    for (; curr != NULL; curr = next) {                                        \
+      next = NEXT_META_BLOCK(curr);
+.fi
+.PP
+Macro to begin iteration over all memory blocks within a virtual memory page\&. This macro initializes the iteration process over all memory blocks within a given virtual memory page\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_ptr\fP Pointer to the virtual memory page\&. 
+.br
+\fIcurr\fP Pointer to hold the current memory block during iteration\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This macro is typically used in memory management systems to iterate over all memory blocks within a virtual memory page\&. It sets up a loop that traverses through the metadata blocks of each memory block within the page\&. The iteration begins with the metadata block of the first memory block in the page\&. 
+.RE
+.PP
+
+.SS "#define ITERATE_VM_PAGE_ALL_BLOCKS_END(vm_page_ptr, curr)"
+\fBValue:\fP
+.PP
+.nf
+  }                                                                            \
+  }                                                                            \
+  while (0)
+.fi
+.PP
+Macro to end iteration over all memory blocks within a virtual memory page\&. This macro marks the end of the iteration process over all memory blocks within a virtual memory page\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_ptr\fP Pointer to the virtual memory page\&. 
+.br
+\fIcurr\fP Pointer holding the current memory block during iteration\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This macro is used in conjunction with ITERATE_VM_PAGE_ALL_BLOCKS_BEGIN macro to define the end of the iteration loop\&. It completes the loop setup by ITERATE_VM_PAGE_ALL_BLOCKS_BEGIN, ensuring proper termination of the loop\&. 
+.RE
+.PP
+
+.SS "#define ITERATE_VM_PAGE_BEGIN(vm_page_family_ptr, curr)"
+\fBValue:\fP
+.PP
+.nf
+  {                                                                            \
+    curr = (vm_page_family_ptr)->first_page;                                   \
+    vm_page_t *next = NULL;                                                    \
+    for (; curr != NULL; curr = next) {                                        \
+      next = curr->next;
+.fi
+.PP
+Macro to iterate over virtual memory pages beginning from the first page of a page family\&. This macro allows for iterating over virtual memory pages starting from the first page of a specified page family\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_family_ptr\fP Pointer to the page family containing the first page\&. 
+.br
+\fIcurr\fP Pointer variable to hold the current virtual memory page during iteration\&. 
+.RE
+.PP
+
+.SS "#define ITERATE_VM_PAGE_END(vm_page_family_ptr, curr)"
+\fBValue:\fP
+.PP
+.nf
+  }                                                                            \
+  }
+.fi
+.PP
+Macro marking the end of the iteration over virtual memory pages\&. This macro marks the end of the iteration over virtual memory pages\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_family_ptr\fP Pointer to the page family containing the first page\&. 
+.br
+\fIcurr\fP Pointer variable holding the current virtual memory page\&. 
+.RE
+.PP
+
+.SS "#define MARK_VM_PAGE_EMPTY(vm_page_t_ptr)"
+\fBValue:\fP
+.PP
+.nf
+  do {                                                                         \
+    (vm_page_t_ptr)->block_meta_data\&.next_block = NULL;                        \
+    (vm_page_t_ptr)->block_meta_data\&.prev_block = NULL;                        \
+    (vm_page_t_ptr)->block_meta_data\&.is_free = MM_TRUE;                        \
+  } while (0)
+.fi
+.PP
+Macro to mark a virtual memory page as empty\&. This macro is heavily documented to provide detailed information about its purpose, usage, and behavior\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_t_ptr\fP Pointer to the virtual memory page to be marked as empty\&.
+.RE
+.PP
+This macro is used to reset the state of a virtual memory page, indicating that it contains no allocated memory blocks and is available for reuse\&. It operates by modifying the metadata associated with the memory blocks within the page\&.
+.PP
+The macro takes a single parameter:
+.IP "\(bu" 2
+\fCvm_page_t_ptr:\fP Pointer to the virtual memory page to be marked as empty\&.
+.PP
+.PP
+The macro does the following:
+.IP "\(bu" 2
+Sets the 'next_block' and 'prev_block' pointers of the block metadata to NULL, indicating that the page does not have any neighboring blocks\&.
+.IP "\(bu" 2
+Sets the 'is_free' flag of the block metadata to MM_TRUE, indicating that the page is free and available for allocation\&.
+.PP
+.PP
+\fBNote\fP
+.RS 4
+This macro should be used judiciously and only when it is certain that the virtual memory page is not in use and can be safely reset\&. Incorrect usage may lead to memory corruption or undefined behavior\&.
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+It is important to ensure that the 'vm_page_t_ptr' parameter is a valid pointer to a virtual memory page structure\&. Passing invalid or uninitialized pointers may result in undefined behavior\&.
+.RE
+.PP
+\fBRemarks\fP
+.RS 4
+This macro is typically used in memory management systems as part of memory recycling and allocation routines\&. It helps maintain memory hygiene by properly managing the state of virtual memory pages\&. 
+.RE
+.PP
+
+.SS "#define MAX_FAMILIES_PER_VM_PAGE"
+\fBValue:\fP
+.PP
+.nf
+  (SYSTEM_PAGE_SIZE - sizeof(struct vm_page_for_families_ *)) /                \
+      sizeof(struct vm_page_family_)
+.fi
+.PP
+Maximum number of families that can be stored in a single virtual memory page\&. This macro calculates the maximum number of families that can be stored in a single virtual memory page based on the system page size and the sizes of the \fCvm_page_for_families_t\fP and \fCvm_page_family_t\fP structures\&. It accounts for the space occupied by the \fCnext\fP pointer in \fCvm_page_for_families_t\fP\&.
+.PP
+\fBNote\fP
+.RS 4
+The calculation subtracts the size of the \fCnext\fP pointer from the total system page size, and then divides the remaining size by the size of a single \fCvm_page_family_t\fP structure\&.
+.PP
+This macro is useful for determining the maximum capacity of a virtual memory page for managing families of memory structures\&. 
+.RE
+.PP
+
+.SS "#define MAX_PAGE_ALLOCATABLE_MEMORY(units)     (\fBmm_max_page_allocatable_memory\fP(units))"
+
+.PP
+Macro to calculate the maximum allocatable memory for a given number of units\&. This macro calculates the maximum allocatable memory for a specified number of units based on the system page size and the offset of the virtual memory page structure\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIunits\fP Number of units for which memory allocation is requested\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Maximum allocatable memory in bytes\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This macro is typically used to determine the maximum amount of memory that can be allocated for a given number of units, considering system page constraints and structure offsets within the virtual memory page\&. 
+.RE
+.PP
+
+.SS "#define MAX_STRUCT_NAME_LEN   50"
+
+.SS "#define mm_bind_blocks_for_allocation(allocated_meta_block, free_meta_block)"
+\fBValue:\fP
+.PP
+.nf
+  free_meta_block->prev_block = allocated_meta_block;                          \
+  free_meta_block->next_block = allocated_meta_block->next_block;              \
+  allocated_meta_block->next_block = free_meta_block;                          \
+  if (free_meta_block->next_block)                                             \
+  free_meta_block->next_block->prev_block = free_meta_block
+.fi
+.PP
+Binds metadata blocks for memory allocation\&. This macro is used to bind metadata blocks for memory allocation\&. It updates the pointers of the allocated and free blocks to maintain the integrity of the memory management system\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIallocated_meta_block\fP Pointer to the metadata block of the allocated memory\&. 
+.br
+\fIfree_meta_block\fP Pointer to the metadata block of the free memory\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This macro is typically used in memory management systems to properly link allocated and free memory blocks\&. It ensures correct traversal and management of memory blocks, maintaining the coherence of the memory allocation process\&. 
+.RE
+.PP
+
+.SS "#define MM_GET_PAGE_FROM_META_BLOCK(block_meta_data_ptr)     ((void *)((char *)(block_meta_data_ptr) \- (block_meta_data_ptr)\->offset))"
+
+.PP
+Macro to retrieve the virtual memory page from a block's metadata\&. This macro retrieves the virtual memory page associated with a given block's metadata\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIblock_meta_data_ptr\fP Pointer to the block's metadata\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to the virtual memory page\&. 
+.RE
+.PP
+
+.SS "#define MM_MAX_STRUCT_NAME   32"
+< System includes < External includes 
+.SS "#define NEXT_META_BLOCK(block_meta_data_ptr)   ((block_meta_data_ptr)\->next_block)"
+
+.PP
+Macro to get the pointer to the next metadata block\&. This macro is used to obtain the pointer to the next metadata block given a pointer to the current metadata block\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIblock_meta_data_ptr\fP Pointer to the current metadata block\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to the next metadata block\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This macro is typically used in memory management systems where metadata blocks are used to manage memory allocation\&. It allows for efficient traversal of the metadata blocks linked list, enabling operations such as coalescing adjacent free memory blocks or iterating over allocated memory blocks\&. 
+.RE
+.PP
+
+.SS "#define NEXT_META_BLOCK_BY_SIZE(block_meta_data_ptr)"
+\fBValue:\fP
+.PP
+.nf
+  ((block_meta_data_t *)((char *)(block_meta_data_ptr + 1) +                   \
+                         (block_meta_data_ptr)->block_size))
+.fi
+.PP
+Macro to retrieve the metadata of the next block based on the current block's size\&. This macro calculates the pointer to the metadata of the next block by adding the size of the current block to the pointer to the current block's metadata\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIblock_meta_data_ptr\fP Pointer to the current block's metadata\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to the metadata of the next block\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This macro is commonly used in memory management systems where metadata blocks are used to manage memory allocation\&. It allows for efficient traversal of the memory blocks, enabling operations such as coalescing adjacent free memory blocks or iterating over allocated memory blocks\&.
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+The behavior of this macro depends on the assumption that the next block starts immediately after the current block in memory\&. Ensure that the memory layout and block sizes are correctly managed to avoid undefined behavior\&. 
+.RE
+.PP
+
+.SS "#define offset_of(container_structure, field_name)     ((size_t)(&((container_structure *)0)\->field_name))"
+
+.PP
+Macro to calculate the offset of a field within a structure\&. This macro calculates the byte offset of a specified field within a structure\&. It is often used in low-level programming to access structure members at specific memory locations\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIcontainer_structure\fP The name of the structure containing the field\&. 
+.br
+\fIfield_name\fP The name of the field whose offset is being calculated\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The byte offset of the field within the structure\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This macro uses the pointer arithmetic to calculate the offset\&. 
+.RE
+.PP
+
+.SS "#define PREV_META_BLOCK(block_meta_data_ptr)   ((block_meta_data_ptr)\->prev_block)"
+
+.PP
+Macro to get the pointer to the previous metadata block\&. This macro is used to obtain the pointer to the previous metadata block given a pointer to the current metadata block\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIblock_meta_data_ptr\fP Pointer to the current metadata block\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to the previous metadata block\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This macro is typically used in memory management systems where metadata blocks are used to manage memory allocation\&. It allows for efficient traversal of the metadata blocks linked list, allowing operations such as merging adjacent free memory blocks or finding neighboring blocks\&. 
+.RE
+.PP
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBblock_meta_data_\fP \fBblock_meta_data_t\fP"
+
+.PP
+Structure representing metadata for a memory block\&. The \fCblock_meta_data_t\fP structure represents metadata for a memory block\&. It includes information such as whether the block is free or allocated, its size, pointers to the previous and next blocks (if applicable), and the offset within the memory region\&. 
+.SS "typedef struct \fBvm_page_family_\fP \fBvm_page_family_t\fP"
+
+.PP
+Structure representing a page family in virtual memory\&. This structure maintains information about a page family in virtual memory, including the name of the structure, its size, a pointer to the most recent virtual memory page in use, and a priority list of free memory blocks\&. 
+.SS "typedef struct \fBvm_page_for_families_\fP \fBvm_page_for_families_t\fP"
+
+.PP
+Structure representing a virtual memory page containing families of memory structures\&. 
+.SS "typedef struct \fBvm_page_\fP \fBvm_page_t\fP"
+
+.PP
+Structure representing a virtual memory page\&. This structure represents a virtual memory page used in memory management systems\&. It contains metadata for managing memory blocks within the page, as well as the actual memory region allocated for storing data blocks\&. 
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBvm_bool_t\fP"
+
+.PP
+Represents a boolean value\&. The \fCvm_bool_t\fP type represents a boolean value, which can have one of two states: \fCVM_TRUE\fP or \fCVM_FALSE\fP\&. It is used to store boolean values in the program\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIMM_FALSE \fP\fP
+Represents the false state\&. 
+.TP
+\fB\fIMM_TRUE \fP\fP
+Represents the true state\&. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBvm_page_t\fP* allocate_vm_page (\fBvm_page_family_t\fP * vm_page_family)"
+
+.PP
+Allocates a new virtual memory page for a given page family\&. This function allocates a new virtual memory page for the specified page family\&. It initializes the metadata and pointers associated with the page and inserts the page into the linked list of pages belonging to the page family\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_family\fP Pointer to the page family for which the page is being allocated\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to the newly allocated virtual memory page\&. 
+.RE
+.PP
+
+.SS "static int free_blocks_comparison_function (void * _block_meta_data1, void * _block_meta_data2)\fC [static]\fP"
+
+.PP
+Comparison function for sorting free blocks by block size\&. This function compares two block_meta_data_t objects based on their block sizes\&. It is intended to be used as a comparison function for sorting free blocks in descending order of block size\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fI_block_meta_data1\fP Pointer to the first block_meta_data_t object\&. 
+.br
+\fI_block_meta_data2\fP Pointer to the second block_meta_data_t object\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+An integer value representing the result of the comparison:
+.IP "\(bu" 2
+If the block size of _block_meta_data1 is greater than that of _block_meta_data2, the function returns -1\&.
+.IP "\(bu" 2
+If the block size of _block_meta_data1 is less than that of _block_meta_data2, the function returns 1\&.
+.IP "\(bu" 2
+If the block sizes are equal, the function returns 0\&. 
+.PP
+.RE
+.PP
+
+.SS "GLTHREAD_TO_STRUCT (glthread_to_block_meta_data, \fBblock_meta_data_t\fP, priority_thread_glue, glthread_ptr)"
+
+.PP
+Macro to declare a conversion function for converting a glthread_t structure to a user-defined structure pointer\&. This macro simplifies the process of declaring a conversion function that takes a glthread_t pointer and returns a pointer to a user-defined structure\&. It is particularly useful when you have a glthread_t structure embedded within a user-defined structure and need to access the user-defined data\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfn_name\fP The name of the conversion function to be declared\&. 
+.br
+\fIstruct_type\fP The type of the user-defined structure\&. 
+.br
+\fIglthread_member\fP The name of the glthread_t member within the user-defined structure\&. 
+.br
+\fIglthread_ptr\fP The name of the glthread_t pointer variable\&.
+.RE
+.PP
+Example usage: Suppose we have a user-defined structure named block_meta_data_t that contains a glthread_t member named priority_thread_glue\&. To declare a conversion function named glthread_to_block_meta_data to convert a glthread_t pointer to a block_meta_data_t pointer, we use the following declaration:
+.PP
+GLTHREAD_TO_STRUCT(glthread_to_block_meta_data, block_meta_data_t, priority_thread_glue, glthread_ptr);
+.PP
+Now, we can use glthread_to_block_meta_data to convert glthread_t pointers to block_meta_data_t pointers and access the metadata associated with memory blocks\&. 
+.SS "\fBvm_page_family_t\fP* lookup_page_family_by_name (char * struct_name)"
+
+.PP
+Looks up a page family by its name\&. This function iterates over all virtual memory pages hosting page families and returns a pointer to the page family object identified by the given struct_name\&. If no such page family object is found, it returns NULL\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIstruct_name\fP The name of the page family to look up\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to the page family object if found, otherwise NULL\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function should be used to retrieve a page family object by its name after the page families have been registered and initialized using the appropriate functions and macros provided by the memory manager\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBmm_init\fP 
+.PP
+\fBMM_REG_STRUCT\fP 
+.PP
+\fBvm_page_for_families_t\fP 
+.PP
+\fBvm_page_family_t\fP 
+.RE
+.PP
+
+.SS "static void mm_add_free_block_meta_data_to_free_block_list (\fBvm_page_family_t\fP * vm_page_family, \fBblock_meta_data_t\fP * free_block)\fC [static]\fP"
+
+.PP
+Add a free block's metadata to the free block list of a virtual memory page family\&. This function adds the metadata of a free block to the free block list of a virtual memory page family\&. The block metadata is inserted into the free block list in descending order of block size, based on the comparison function \fCfree_blocks_comparison_function\fP\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_family\fP Pointer to the virtual memory page family to which the free block metadata will be added\&. 
+.br
+\fIfree_block\fP Pointer to the block_meta_data_t structure representing the metadata of the free block to be added to the free block list\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function assumes that the \fCis_free\fP flag of the \fCfree_block\fP structure is set to MM_TRUE\&. An assertion will trigger if this condition is not met\&. 
+.RE
+.PP
+
+.SS "static \fBblock_meta_data_t\fP* mm_allocate_free_data_block (\fBvm_page_family_t\fP * vm_page_family, uint32_t req_size)\fC [static]\fP"
+
+.PP
+Allocates a free data block from the specified page family\&. This function attempts to allocate a free data block of the requested size from the specified page family\&. It first checks if there is a sufficiently large free block available within the page family\&. If not, it adds a new page to the page family to satisfy the allocation request\&. If successful, it splits the free block to allocate the requested memory and returns a pointer to the allocated block's metadata\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_family\fP Pointer to the page family from which to allocate the data block\&. 
+.br
+\fIreq_size\fP The size of the data block to allocate\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A pointer to the allocated block's metadata if successful, or NULL if the allocation fails\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function assumes that the specified page family has been properly initialized and that the requested size is within the maximum allocatable memory per page\&. It utilizes the mm_family_new_page_add and mm_split_free_data_block_for_allocation functions to add new pages and split free blocks for allocation, respectively\&. 
+.RE
+.PP
+
+.SS "static \fBvm_page_t\fP* mm_family_new_page_add (\fBvm_page_family_t\fP * vm_page_family)\fC [static]\fP"
+
+.PP
+Adds a new virtual memory page to the specified page family\&. This function adds a new virtual memory page to the specified page family\&. It first allocates a new page using the allocate_vm_page function and then adds the page to the page family\&. Additionally, it treats the new page as one free block and adds its metadata to the free block list of the page family\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_family\fP Pointer to the page family to which the new page will be added\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A pointer to the newly added virtual memory page if successful, or NULL if allocation fails\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function assumes that the page family has been properly initialized and that the allocate_vm_page function is available for allocating new pages\&. It also relies on the mm_add_free_block_meta_data_to_free_block_list function to add the metadata of the new page to the free block list of the page family\&. 
+.RE
+.PP
+
+.SS "static \fBblock_meta_data_t\fP* mm_free_blocks (\fBblock_meta_data_t\fP * to_be_free_block)\fC [static]\fP"
+
+.PP
+Frees a memory block and performs merging if necessary\&. This function frees a memory block represented by the given \fCto_be_free_block\fP parameter\&. It also handles merging of adjacent free blocks if present\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIto_be_free_block\fP The block to be freed\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A pointer to the freed block or NULL if the hosting page becomes empty\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+The function assumes that \fCto_be_free_block\fP is not NULL and its is_free flag is set to MM_FALSE (indicating it's not already free)\&. MM_H_ 
+.RE
+.PP
+
+.SS "static \fBblock_meta_data_t\fP* mm_get_biggest_free_block_page_family (\fBvm_page_family_t\fP * vm_page_family)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+Retrieves the metadata of the biggest free memory block within a given virtual memory page family\&. This function retrieves the metadata of the biggest free memory block within a specified virtual memory page family\&. It utilizes a priority list to maintain the biggest free block at the head of the list\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_family\fP Pointer to the virtual memory page family for which the biggest free block is to be retrieved\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to the metadata of the biggest free memory block within the page family\&. If no such block exists (i\&.e\&., the priority list is empty), it returns NULL\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function is typically used in memory management systems to efficiently locate the largest available free block within a page family, which can then be used for memory allocation\&. 
+.RE
+.PP
+
+.SS "static int mm_get_hard_internal_memory_frag_size (\fBblock_meta_data_t\fP * first, \fBblock_meta_data_t\fP * second)\fC [static]\fP"
+
+.PP
+Calculates the size of hard internal memory fragmentation between two memory blocks\&. This function calculates the size of hard internal memory fragmentation between two memory blocks\&. Hard internal memory fragmentation occurs when there is unused space between the end of the first memory block and the start of the second memory block\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfirst\fP Pointer to the first memory block\&. 
+.br
+\fIsecond\fP Pointer to the second memory block\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The size of hard internal memory fragmentation between the two memory blocks\&. 
+.RE
+.PP
+
+.SS "static void* mm_get_new_vm_page_from_kernel (int units)\fC [static]\fP"
+
+.PP
+Allocates a new virtual memory page from the kernel\&. This function allocates a new virtual memory page from the kernel and returns a pointer to the allocated memory block\&. It uses the \fCmmap()\fP system call to request the allocation of memory from the kernel\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIunits\fP The number of memory pages to allocate\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A pointer to the allocated memory block, or NULL if the allocation fails\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+The size of the allocated memory block is determined by multiplying the specified number of units by the system page size (defined by \fCSYSTEM_PAGE_SIZE\fP)\&.
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+This function should be used with caution as it interacts directly with the kernel to allocate memory\&. Improper use or misuse of this function can lead to memory leaks or system instability\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+man mmap() 
+.RE
+.PP
+
+.SS "\fBvm_bool_t\fP mm_is_vm_page_empty (\fBvm_page_t\fP * vm_page)"
+
+.PP
+Checks if a virtual memory page is empty\&. This function determines whether a virtual memory page is empty based on its metadata\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page\fP Pointer to the virtual memory page to be checked\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.IP "\(bu" 2
+MM_TRUE if the page is empty\&.
+.IP "\(bu" 2
+MM_FALSE if the page is not empty or if the input pointer is NULL\&.
+.PP
+.RE
+.PP
+\fBNote\fP
+.RS 4
+A virtual memory page is considered empty if all the following conditions are met:
+.IP "\(bu" 2
+The 'next_block' pointer in the block metadata is NULL, indicating no next block\&.
+.IP "\(bu" 2
+The 'prev_block' pointer in the block metadata is NULL, indicating no previous block\&.
+.IP "\(bu" 2
+The 'is_free' flag in the block metadata is set to MM_TRUE, indicating the page is free\&.
+.PP
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+It is important to ensure that the 'vm_page' parameter is a valid pointer to a virtual memory page structure\&. Passing invalid or uninitialized pointers may result in undefined behavior\&. 
+.RE
+.PP
+
+.SS "static uint32_t mm_max_page_allocatable_memory (int units)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+Calculates the maximum allocatable memory within a virtual memory page\&. This function computes the maximum amount of memory that can be allocated within a virtual memory page, given the number of units specified\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIunits\fP The number of memory units to be allocated\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The maximum allocatable memory size in bytes\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function takes into account the size of the virtual memory page and subtracts the offset of the page memory within the vm_page_t structure to determine the available memory for allocation\&. It is typically used in memory management systems to ensure proper allocation of memory within virtual memory pages\&. 
+.RE
+.PP
+
+.SS "void mm_print_vm_page_details (\fBvm_page_t\fP * vm_page)"
+
+.PP
+Prints details of a virtual memory page\&. This function prints detailed information about a virtual memory page, including its next and previous pointers, page family name, and information about each block within the page\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page\fP Pointer to the virtual memory page\&. 
+.RE
+.PP
+
+.SS "static void mm_return_vm_page_to_kernel (void * vm_page, int units)\fC [static]\fP"
+
+.PP
+Returns a virtual memory page to the kernel\&. This function returns a virtual memory page previously allocated from the kernel back to the kernel\&. It uses the \fCmunmap()\fP system call to release the memory\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page\fP A pointer to the memory block to be returned to the kernel\&. 
+.br
+\fIunits\fP The number of memory pages to return to the kernel\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+The size of the memory block to be returned is determined by multiplying the specified number of units by the system page size (defined by \fCSYSTEM_PAGE_SIZE\fP)\&.
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+This function should be used with caution as it interacts directly with the kernel to release memory\&. Improper use or misuse of this function can lead to memory leaks or system instability\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+man munmap() 
+.RE
+.PP
+
+.SS "static \fBvm_bool_t\fP mm_split_free_data_block_for_allocation (\fBvm_page_family_t\fP * vm_page_family, \fBblock_meta_data_t\fP * block_meta_data, uint32_t size)\fC [static]\fP"
+
+.PP
+Splits a free data block to allocate a portion of it for memory allocation\&. This function splits a free data block to allocate a portion of it for memory allocation\&. It checks various cases to determine how the block should be split and whether additional metadata blocks need to be created\&. After splitting, it updates the metadata of the original block and, if necessary, creates new metadata blocks for the remaining free space\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_family\fP Pointer to the page family associated with the data block\&. 
+.br
+\fIblock_meta_data\fP Pointer to the metadata of the free data block to be split\&. 
+.br
+\fIsize\fP Size of the portion of the block to be allocated\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+MM_TRUE if the block is successfully split and allocated, MM_FALSE otherwise\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function assumes that the provided block is free and that the size argument specifies a valid size for memory allocation\&. It relies on the mm_bind_blocks_for_allocation function to establish the link between metadata blocks after splitting\&. 
+.RE
+.PP
+
+.SS "static void mm_union_free_blocks (\fBblock_meta_data_t\fP * first, \fBblock_meta_data_t\fP * second)\fC [static]\fP"
+
+.PP
+Merges two contiguous free memory blocks\&. This function merges two contiguous free memory blocks into a single block\&. The function assumes that both blocks are free and contiguous\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfirst\fP Pointer to the first free memory block\&. 
+.br
+\fIsecond\fP Pointer to the second free memory block\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function is typically used in memory management systems to optimize memory usage by consolidating adjacent free memory blocks\&. 
+.RE
+.PP
+
+.SS "void mm_vm_page_delete_and_free (\fBvm_page_t\fP * vm_page)"
+
+.PP
+Deletes and frees a virtual memory page\&. This function deletes and frees a virtual memory page\&. It removes the page from the linked list of pages belonging to its page family and deallocates the memory associated with the page\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page\fP Pointer to the virtual memory page to be deleted and freed\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

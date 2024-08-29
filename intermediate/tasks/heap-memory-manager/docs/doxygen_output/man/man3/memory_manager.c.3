@@ -1,0 +1,425 @@
+.TH "src/memory_manager.c" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/memory_manager.c \- Implementation file for the Memory Manager module\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <assert\&.h>\fP
+.br
+\fC#include <memory\&.h>\fP
+.br
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+\fC#include <sys/mman\&.h>\fP
+.br
+\fC#include <unistd\&.h>\fP
+.br
+\fC#include 'colors\&.h'\fP
+.br
+\fC#include 'datatype_size_lookup\&.h'\fP
+.br
+\fC#include 'memory_manager\&.h'\fP
+.br
+\fC#include 'memory_manager_api\&.h'\fP
+.br
+\fC#include 'parse_datatype\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBmm_init\fP ()"
+.br
+.RI "Initializes the memory manager\&. "
+.ti -1c
+.RI "static void * \fBmm_get_new_vm_page_from_kernel\fP (int units)"
+.br
+.ti -1c
+.RI "static void \fBmm_return_vm_page_to_kernel\fP (void *vm_page, int units)"
+.br
+.ti -1c
+.RI "void \fBmm_instantiate_new_page_family\fP (char *struct_name, uint32_t struct_size)"
+.br
+.RI "Instantiates a new page family for a memory structure\&. "
+.ti -1c
+.RI "\fBvm_page_family_t\fP * \fBlookup_page_family_by_name\fP (char *struct_name)"
+.br
+.RI "Looks up a page family by its name\&. "
+.ti -1c
+.RI "static \fBvm_page_t\fP * \fBmm_family_new_page_add\fP (\fBvm_page_family_t\fP *vm_page_family)"
+.br
+.ti -1c
+.RI "\fBvm_bool_t\fP \fBmm_is_vm_page_empty\fP (\fBvm_page_t\fP *vm_page)"
+.br
+.RI "Checks if a virtual memory page is empty\&. "
+.ti -1c
+.RI "static uint32_t \fBmm_max_page_allocatable_memory\fP (int units)"
+.br
+.ti -1c
+.RI "\fBvm_page_t\fP * \fBallocate_vm_page\fP (\fBvm_page_family_t\fP *vm_page_family)"
+.br
+.RI "Allocates a new virtual memory page for a given page family\&. "
+.ti -1c
+.RI "void \fBmm_vm_page_delete_and_free\fP (\fBvm_page_t\fP *vm_page)"
+.br
+.RI "Deletes and frees a virtual memory page\&. "
+.ti -1c
+.RI "static void \fBmm_union_free_blocks\fP (\fBblock_meta_data_t\fP *first, \fBblock_meta_data_t\fP *second)"
+.br
+.ti -1c
+.RI "static int \fBfree_blocks_comparison_function\fP (void *_block_meta_data1, void *_block_meta_data2)"
+.br
+.ti -1c
+.RI "static void \fBmm_add_free_block_meta_data_to_free_block_list\fP (\fBvm_page_family_t\fP *vm_page_family, \fBblock_meta_data_t\fP *free_block)"
+.br
+.ti -1c
+.RI "static int \fBmm_get_hard_internal_memory_frag_size\fP (\fBblock_meta_data_t\fP *first, \fBblock_meta_data_t\fP *second)"
+.br
+.ti -1c
+.RI "static \fBblock_meta_data_t\fP * \fBmm_free_blocks\fP (\fBblock_meta_data_t\fP *to_be_free_block)"
+.br
+.ti -1c
+.RI "void \fBxfree\fP (void *app_data)"
+.br
+.RI "Frees memory allocated by the memory manager\&. "
+.ti -1c
+.RI "static \fBblock_meta_data_t\fP * \fBmm_allocate_free_data_block\fP (\fBvm_page_family_t\fP *vm_page_family, uint32_t req_size)"
+.br
+.ti -1c
+.RI "static \fBblock_meta_data_t\fP * \fBmm_get_biggest_free_block_page_family\fP (\fBvm_page_family_t\fP *vm_page_family)"
+.br
+.ti -1c
+.RI "static \fBvm_bool_t\fP \fBmm_split_free_data_block_for_allocation\fP (\fBvm_page_family_t\fP *vm_page_family, \fBblock_meta_data_t\fP *block_meta_data, uint32_t size)"
+.br
+.ti -1c
+.RI "void * \fBxcalloc\fP (char *struct_name, int units)"
+.br
+.RI "Allocates and initializes memory for an array of structures\&. "
+.ti -1c
+.RI "void \fBmm_print_registered_page_families\fP ()"
+.br
+.RI "Prints all registered page families\&. "
+.ti -1c
+.RI "void \fBmm_print_block_usage\fP ()"
+.br
+.RI "Prints information about the memory block usage\&. "
+.ti -1c
+.RI "void \fBmm_print_vm_page_details\fP (\fBvm_page_t\fP *vm_page)"
+.br
+.RI "Prints details of a virtual memory page\&. "
+.ti -1c
+.RI "void \fBmm_print_memory_usage\fP (char *struct_name)"
+.br
+.RI "Prints memory usage details related to the memory manager\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static size_t \fBSYSTEM_PAGE_SIZE\fP = 0"
+.br
+.RI "Size of the system page\&. "
+.ti -1c
+.RI "static \fBvm_page_for_families_t\fP * \fBfirst_vm_page_for_families\fP = NULL"
+.br
+.RI "Pointer to the first virtual memory page for page families\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Implementation file for the Memory Manager module\&. 
+
+This file contains the implementation of functions declared in MemoryManager\&.h\&. The Memory Manager module is responsible for managing memory allocation and deallocation, including virtual memory page management, block metadata handling, and allocation algorithms\&. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBvm_page_t\fP* allocate_vm_page (\fBvm_page_family_t\fP * vm_page_family)"
+
+.PP
+Allocates a new virtual memory page for a given page family\&. This function allocates a new virtual memory page for the specified page family\&. It initializes the metadata and pointers associated with the page and inserts the page into the linked list of pages belonging to the page family\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page_family\fP Pointer to the page family for which the page is being allocated\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to the newly allocated virtual memory page\&. 
+.RE
+.PP
+
+.SS "static int free_blocks_comparison_function (void * _block_meta_data1, void * _block_meta_data2)\fC [static]\fP"
+
+.SS "\fBvm_page_family_t\fP* lookup_page_family_by_name (char * struct_name)"
+
+.PP
+Looks up a page family by its name\&. This function iterates over all virtual memory pages hosting page families and returns a pointer to the page family object identified by the given struct_name\&. If no such page family object is found, it returns NULL\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIstruct_name\fP The name of the page family to look up\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pointer to the page family object if found, otherwise NULL\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function should be used to retrieve a page family object by its name after the page families have been registered and initialized using the appropriate functions and macros provided by the memory manager\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBmm_init\fP 
+.PP
+\fBMM_REG_STRUCT\fP 
+.PP
+\fBvm_page_for_families_t\fP 
+.PP
+\fBvm_page_family_t\fP 
+.RE
+.PP
+
+.SS "static void mm_add_free_block_meta_data_to_free_block_list (\fBvm_page_family_t\fP * vm_page_family, \fBblock_meta_data_t\fP * free_block)\fC [static]\fP"
+
+.SS "static \fBblock_meta_data_t\fP* mm_allocate_free_data_block (\fBvm_page_family_t\fP * vm_page_family, uint32_t req_size)\fC [static]\fP"
+
+.SS "static \fBvm_page_t\fP* mm_family_new_page_add (\fBvm_page_family_t\fP * vm_page_family)\fC [static]\fP"
+
+.SS "static \fBblock_meta_data_t\fP* mm_free_blocks (\fBblock_meta_data_t\fP * to_be_free_block)\fC [static]\fP"
+1 Pointer to the freed block
+.PP
+2 Marking the block as free
+.PP
+3 Next block pointer
+.PP
+4 Union two free blocks
+.PP
+5 Delete and free the hosting page
+.SS "static \fBblock_meta_data_t\fP* mm_get_biggest_free_block_page_family (\fBvm_page_family_t\fP * vm_page_family)\fC [inline]\fP, \fC [static]\fP"
+
+.SS "static int mm_get_hard_internal_memory_frag_size (\fBblock_meta_data_t\fP * first, \fBblock_meta_data_t\fP * second)\fC [static]\fP"
+
+.SS "static void* mm_get_new_vm_page_from_kernel (int units)\fC [static]\fP"
+
+.SS "void mm_init ()"
+
+.PP
+Initializes the memory manager\&. This function initializes the memory manager\&. It sets up necessary configurations and parameters for memory management operations within the program\&. It specifically determines the system page size using the \fCgetpagesize()\fP system call and assigns it to the global variable \fCSYSTEM_PAGE_SIZE\fP\&.
+.PP
+\fBNote\fP
+.RS 4
+This function should be called before any memory management operations are performed within the program\&. It is typically called at the beginning of the program execution to ensure proper initialization of memory management functionalities\&.
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+This function relies on the \fCgetpagesize()\fP system call to determine the system page size\&. Therefore, it may not be portable across all platforms\&. It is primarily intended for use in Unix-like systems where \fCgetpagesize()\fP is available\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+man getpagesize() 
+.RE
+.PP
+
+.SS "void mm_instantiate_new_page_family (char * struct_name, uint32_t struct_size)"
+
+.PP
+Instantiates a new page family for a memory structure\&. This function creates a new page family for a memory structure identified by its name and size\&. It allocates memory for the page family and adds it to the existing virtual memory pages if necessary\&. Each page family can contain multiple memory structures of the same type\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIstruct_name\fP The name of the memory structure\&. 
+.br
+\fIstruct_size\fP The size of the memory structure\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+If the size of the memory structure exceeds the system page size, an error message is printed, and the function returns without creating the page family\&.
+.PP
+This function maintains a linked list of virtual memory pages (\fCfirst_vm_page_for_families\fP) to store the page families\&. If there are no existing pages, it allocates a new page and initializes it with the first page family\&. If the existing pages are full, it allocates a new page and adds it to the beginning of the linked list\&.
+.PP
+If a page family with the same name already exists, an assertion error is triggered, indicating a conflict in page family instantiation\&.
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+This function relies on the \fC\fBmm_get_new_vm_page_from_kernel()\fP\fP function to allocate memory from the kernel for the page family\&. Improper use or misuse of this function can lead to memory leaks or system instability\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBmm_get_new_vm_page_from_kernel()\fP 
+.RE
+.PP
+
+.SS "\fBvm_bool_t\fP mm_is_vm_page_empty (\fBvm_page_t\fP * vm_page)"
+
+.PP
+Checks if a virtual memory page is empty\&. This function determines whether a virtual memory page is empty based on its metadata\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page\fP Pointer to the virtual memory page to be checked\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.IP "\(bu" 2
+MM_TRUE if the page is empty\&.
+.IP "\(bu" 2
+MM_FALSE if the page is not empty or if the input pointer is NULL\&.
+.PP
+.RE
+.PP
+\fBNote\fP
+.RS 4
+A virtual memory page is considered empty if all the following conditions are met:
+.IP "\(bu" 2
+The 'next_block' pointer in the block metadata is NULL, indicating no next block\&.
+.IP "\(bu" 2
+The 'prev_block' pointer in the block metadata is NULL, indicating no previous block\&.
+.IP "\(bu" 2
+The 'is_free' flag in the block metadata is set to MM_TRUE, indicating the page is free\&.
+.PP
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+It is important to ensure that the 'vm_page' parameter is a valid pointer to a virtual memory page structure\&. Passing invalid or uninitialized pointers may result in undefined behavior\&. 
+.RE
+.PP
+
+.SS "static uint32_t mm_max_page_allocatable_memory (int units)\fC [inline]\fP, \fC [static]\fP"
+
+.SS "void mm_print_block_usage ()"
+
+.PP
+Prints information about the memory block usage\&. This function iterates through all virtual memory pages and their associated memory block families to print information about the memory block usage, including the total block count, free block count, occupied block count, and application memory usage\&. 
+.SS "void mm_print_memory_usage (char * struct_name)"
+
+.PP
+Prints memory usage details related to the memory manager\&. This function prints information about the memory usage of the memory manager, including details of each virtual memory page family and the total memory being used\&. Optionally, it can filter the output by a specific structure name\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIstruct_name\fP Optional parameter to filter the output by a specific structure name\&. 
+.RE
+.PP
+
+.SS "void mm_print_registered_page_families ()"
+
+.PP
+Prints all registered page families\&. This function prints all page families that have been registered with the Linux Memory Manager\&. It iterates over all virtual memory pages hosting page families and prints information about each page family, including its name and size\&.
+.PP
+\fBNote\fP
+.RS 4
+This function should be invoked after the application has performed registration for all its structures using the \fCMM_REG_STRUCT\fP macro\&. It relies on the \fCfirst_vm_page_for_families\fP global variable, which maintains a linked list of virtual memory pages containing page families\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBMM_REG_STRUCT\fP 
+.RE
+.PP
+
+.SS "void mm_print_vm_page_details (\fBvm_page_t\fP * vm_page)"
+
+.PP
+Prints details of a virtual memory page\&. This function prints detailed information about a virtual memory page, including its next and previous pointers, page family name, and information about each block within the page\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page\fP Pointer to the virtual memory page\&. 
+.RE
+.PP
+
+.SS "static void mm_return_vm_page_to_kernel (void * vm_page, int units)\fC [static]\fP"
+
+.SS "static \fBvm_bool_t\fP mm_split_free_data_block_for_allocation (\fBvm_page_family_t\fP * vm_page_family, \fBblock_meta_data_t\fP * block_meta_data, uint32_t size)\fC [static]\fP"
+
+.SS "static void mm_union_free_blocks (\fBblock_meta_data_t\fP * first, \fBblock_meta_data_t\fP * second)\fC [static]\fP"
+
+.SS "void mm_vm_page_delete_and_free (\fBvm_page_t\fP * vm_page)"
+
+.PP
+Deletes and frees a virtual memory page\&. This function deletes and frees a virtual memory page\&. It removes the page from the linked list of pages belonging to its page family and deallocates the memory associated with the page\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIvm_page\fP Pointer to the virtual memory page to be deleted and freed\&. 
+.RE
+.PP
+
+.SS "void* xcalloc (char * struct_name, int units)"
+
+.PP
+Allocates and initializes memory for an array of structures\&. This function allocates memory for an array of structures of the specified type and initializes the memory to zero\&. It first looks up the page family associated with the specified structure name to determine the size of the structure\&. Then, it checks if the requested memory size exceeds the maximum allocatable memory per page\&. If the allocation is successful, it initializes the allocated memory to zero and returns a pointer to the allocated memory\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIstruct_name\fP The name of the structure type for which memory is to be allocated\&. 
+.br
+\fIunits\fP The number of structures to allocate\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A pointer to the allocated memory if successful, or NULL if the allocation fails\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function assumes that the specified structure type has been registered with the Memory Manager using the mm_register_structure function\&. It also assumes that the specified structure type has a corresponding page family registered with the Memory Manager\&. 
+.RE
+.PP
+
+.SS "void xfree (void * app_data)"
+
+.PP
+Frees memory allocated by the memory manager\&. This function is used to free memory that was previously allocated by the memory manager\&. It takes a pointer to the memory to be freed as its argument\&. The pointer is adjusted to point to the block metadata, and then it is passed to the memory manager's free blocks function\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIapp_data\fP Pointer to the memory to be freed\&. 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "\fBvm_page_for_families_t\fP* first_vm_page_for_families = NULL\fC [static]\fP"
+
+.PP
+Pointer to the first virtual memory page for page families\&. This static pointer variable holds the address of the first virtual memory page used to store page families\&. It is initialized to NULL, indicating that no virtual memory page is currently allocated for page families\&. As page families are instantiated, new virtual memory pages may be allocated and linked to this pointer\&.
+.PP
+\fBNote\fP
+.RS 4
+This variable is static and should be accessible only within the scope of the file in which it is declared\&. It is used to maintain the linked list of virtual memory pages for page families throughout the program\&. 
+.RE
+.PP
+
+.SS "size_t SYSTEM_PAGE_SIZE = 0\fC [static]\fP"
+
+.PP
+Size of the system page\&. This static variable holds the size of the system page\&. It is initialized to 0 and should be updated to the actual size of the system page during program initialization using a system-specific function or method\&.
+.PP
+\fBNote\fP
+.RS 4
+This variable should be initialized to the size of the system page before any memory management operations are performed within the program\&. The actual size of the system page depends on the underlying operating system and hardware architecture\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

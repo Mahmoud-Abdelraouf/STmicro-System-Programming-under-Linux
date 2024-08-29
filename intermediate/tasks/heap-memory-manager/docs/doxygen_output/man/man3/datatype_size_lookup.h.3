@@ -1,0 +1,64 @@
+.TH "include/datatype_size_lookup.h" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+include/datatype_size_lookup.h \- Header file for data type size lookup functionality and mappings\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stddef\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBMAX_STRUCT_NAME_LEN\fP   50"
+.br
+.RI "Maximum length of a data type name\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "size_t \fBget_size_of_datatype\fP (const char *data_type)"
+.br
+.RI "Gets the size of a data type by its name\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Header file for data type size lookup functionality and mappings\&. 
+
+This file contains declarations and mappings for functions and structures related to retrieving the size of data types\&. 
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define MAX_STRUCT_NAME_LEN   50"
+
+.PP
+Maximum length of a data type name\&. Defines the maximum length allowed for a data type name\&. 
+.SH "Function Documentation"
+.PP 
+.SS "size_t get_size_of_datatype (const char * data_type)"
+
+.PP
+Gets the size of a data type by its name\&. This function searches for the given data type name in a pre-defined mapping table and returns the size of the data type if found\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIdata_type\fP The name of the data type to get the size of\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The size of the data type if found, otherwise 0\&. DATATYPE_SIZE_LOOKUP_H_ 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

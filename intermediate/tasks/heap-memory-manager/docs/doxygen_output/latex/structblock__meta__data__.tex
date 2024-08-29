@@ -1,0 +1,84 @@
+\hypertarget{structblock__meta__data__}{}\doxysection{block\+\_\+meta\+\_\+data\+\_\+ Struct Reference}
+\label{structblock__meta__data__}\index{block\_meta\_data\_@{block\_meta\_data\_}}
+
+
+Structure representing metadata for a memory block.  
+
+
+
+
+{\ttfamily \#include $<$memory\+\_\+manager.\+h$>$}
+
+
+
+Collaboration diagram for block\+\_\+meta\+\_\+data\+\_\+\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{structblock__meta__data____coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\+\_\+bool\+\_\+t}} \mbox{\hyperlink{structblock__meta__data___a90c4e212e3c7d12f03d463d226222eec}{is\+\_\+free}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structblock__meta__data___afdb30e953ac72d6c06e8dda8e7ba3fa8}{block\+\_\+size}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structblock__meta__data___a42089748d243642953126e141a46ca74}{offset}}
+\item 
+struct \mbox{\hyperlink{structblock__meta__data__}{block\+\_\+meta\+\_\+data\+\_\+}} $\ast$ \mbox{\hyperlink{structblock__meta__data___aae8138edf04da59ce1d268df8ee9df8a}{prev\+\_\+block}}
+\item 
+struct \mbox{\hyperlink{structblock__meta__data__}{block\+\_\+meta\+\_\+data\+\_\+}} $\ast$ \mbox{\hyperlink{structblock__meta__data___a05e3a2b0278c7a764f9ee7a904c5883e}{next\+\_\+block}}
+\item 
+\mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} \mbox{\hyperlink{structblock__meta__data___a4418fa8e20b418454435a5f9bae137ae}{priority\+\_\+thread\+\_\+glue}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure representing metadata for a memory block. 
+
+The {\ttfamily block\+\_\+meta\+\_\+data\+\_\+t} structure represents metadata for a memory block. It includes information such as whether the block is free or allocated, its size, pointers to the previous and next blocks (if applicable), and the offset within the memory region. 
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structblock__meta__data___afdb30e953ac72d6c06e8dda8e7ba3fa8}\label{structblock__meta__data___afdb30e953ac72d6c06e8dda8e7ba3fa8}} 
+\index{block\_meta\_data\_@{block\_meta\_data\_}!block\_size@{block\_size}}
+\index{block\_size@{block\_size}!block\_meta\_data\_@{block\_meta\_data\_}}
+\doxysubsubsection{\texorpdfstring{block\_size}{block\_size}}
+{\footnotesize\ttfamily uint32\+\_\+t block\+\_\+meta\+\_\+data\+\_\+\+::block\+\_\+size}
+
+Size of the memory block. \mbox{\Hypertarget{structblock__meta__data___a90c4e212e3c7d12f03d463d226222eec}\label{structblock__meta__data___a90c4e212e3c7d12f03d463d226222eec}} 
+\index{block\_meta\_data\_@{block\_meta\_data\_}!is\_free@{is\_free}}
+\index{is\_free@{is\_free}!block\_meta\_data\_@{block\_meta\_data\_}}
+\doxysubsubsection{\texorpdfstring{is\_free}{is\_free}}
+{\footnotesize\ttfamily \mbox{\hyperlink{memory__manager_8h_a8137dde168b63da6dc080c3e41660743}{vm\+\_\+bool\+\_\+t}} block\+\_\+meta\+\_\+data\+\_\+\+::is\+\_\+free}
+
+Flag indicating whether the block is free. \mbox{\Hypertarget{structblock__meta__data___a05e3a2b0278c7a764f9ee7a904c5883e}\label{structblock__meta__data___a05e3a2b0278c7a764f9ee7a904c5883e}} 
+\index{block\_meta\_data\_@{block\_meta\_data\_}!next\_block@{next\_block}}
+\index{next\_block@{next\_block}!block\_meta\_data\_@{block\_meta\_data\_}}
+\doxysubsubsection{\texorpdfstring{next\_block}{next\_block}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structblock__meta__data__}{block\+\_\+meta\+\_\+data\+\_\+}}$\ast$ block\+\_\+meta\+\_\+data\+\_\+\+::next\+\_\+block}
+
+Pointer to the next memory block. \mbox{\Hypertarget{structblock__meta__data___a42089748d243642953126e141a46ca74}\label{structblock__meta__data___a42089748d243642953126e141a46ca74}} 
+\index{block\_meta\_data\_@{block\_meta\_data\_}!offset@{offset}}
+\index{offset@{offset}!block\_meta\_data\_@{block\_meta\_data\_}}
+\doxysubsubsection{\texorpdfstring{offset}{offset}}
+{\footnotesize\ttfamily uint32\+\_\+t block\+\_\+meta\+\_\+data\+\_\+\+::offset}
+
+Offset within the memory region. \mbox{\Hypertarget{structblock__meta__data___aae8138edf04da59ce1d268df8ee9df8a}\label{structblock__meta__data___aae8138edf04da59ce1d268df8ee9df8a}} 
+\index{block\_meta\_data\_@{block\_meta\_data\_}!prev\_block@{prev\_block}}
+\index{prev\_block@{prev\_block}!block\_meta\_data\_@{block\_meta\_data\_}}
+\doxysubsubsection{\texorpdfstring{prev\_block}{prev\_block}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structblock__meta__data__}{block\+\_\+meta\+\_\+data\+\_\+}}$\ast$ block\+\_\+meta\+\_\+data\+\_\+\+::prev\+\_\+block}
+
+Pointer to the previous memory block. \mbox{\Hypertarget{structblock__meta__data___a4418fa8e20b418454435a5f9bae137ae}\label{structblock__meta__data___a4418fa8e20b418454435a5f9bae137ae}} 
+\index{block\_meta\_data\_@{block\_meta\_data\_}!priority\_thread\_glue@{priority\_thread\_glue}}
+\index{priority\_thread\_glue@{priority\_thread\_glue}!block\_meta\_data\_@{block\_meta\_data\_}}
+\doxysubsubsection{\texorpdfstring{priority\_thread\_glue}{priority\_thread\_glue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{glthread_8h_a2f4e8046fb33e9605816a456eda9c3ad}{glthread\+\_\+t}} block\+\_\+meta\+\_\+data\+\_\+\+::priority\+\_\+thread\+\_\+glue}
+
+Priority thread glue for managing block priority. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{memory__manager_8h}{memory\+\_\+manager.\+h}}\end{DoxyCompactItemize}

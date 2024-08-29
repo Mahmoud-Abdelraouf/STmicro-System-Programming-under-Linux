@@ -1,0 +1,174 @@
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+ 
+\begin{DoxyInlineImage}
+\includegraphics[height=\baselineskip,keepaspectratio=true]{heap.png}%Heap Memory Manager
+\end{DoxyInlineImage}
+
+
+This project provides a comprehensive and optimized memory management solution tailored for Linux systems. It implements a custom heap memory manager, offering enhanced control over memory allocation and deallocation processes, which is critical for high-\/performance and resource-\/constrained applications.\hypertarget{index_autotoc_md29}{}\doxysection{Table of Contents}\label{index_autotoc_md29}
+
+\begin{DoxyEnumerate}
+\item \href{\#introduction}{\texttt{ Introduction}}
+\item \href{\#linux-memory-management-overview}{\texttt{ Linux Memory Management Overview}}
+\begin{DoxyItemize}
+\item \href{\#why-custom-memory-management}{\texttt{ Why Custom Memory Management?}}
+\end{DoxyItemize}
+\item \href{\#project-features}{\texttt{ Project Features}}
+\item \href{\#project-structure}{\texttt{ Project Structure}}
+\item \href{\#building-the-project}{\texttt{ Building the Project}}
+\begin{DoxyItemize}
+\item \href{\#building-the-library}{\texttt{ Building the Library}}
+\item \href{\#running-tests}{\texttt{ Running Tests}}
+\item \href{\#integration-with-applications}{\texttt{ Integration with Applications}}
+\end{DoxyItemize}
+\item \href{\#documentation}{\texttt{ Documentation}}
+\item \href{\#contributing}{\texttt{ Contributing}}
+\item \href{\#license}{\texttt{ License}}
+\item \href{\#acknowledgments}{\texttt{ Acknowledgments}}
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{index_autotoc_md31}{}\doxysection{Introduction}\label{index_autotoc_md31}
+Memory management is a critical aspect of system programming, particularly in environments where resource efficiency and performance are paramount. This project presents a custom Heap Memory Manager (HMM) designed specifically for Linux systems, offering an alternative to the standard {\ttfamily malloc} and {\ttfamily free} functions with more efficient, flexible, and robust memory management capabilities.\hypertarget{index_autotoc_md32}{}\doxysection{Linux Memory Management Overview}\label{index_autotoc_md32}
+\hypertarget{index_autotoc_md33}{}\doxysubsection{Why Custom Memory Management?}\label{index_autotoc_md33}
+In typical Linux applications, memory management is handled by the system\textquotesingle{}s allocator, which uses functions like {\ttfamily malloc}, {\ttfamily calloc}, and {\ttfamily free}. While these standard functions are sufficient for many applications, they may not provide the level of control, efficiency, or customization required for certain high-\/performance or specialized applications. This project addresses these limitations by offering\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Improved Performance\+:}} Custom memory allocation algorithms can reduce fragmentation and enhance performance.
+\item {\bfseries{Thread Safety\+:}} The GLib Thread (GLThread) module provides a thread-\/safe linked list implementation, essential for concurrent applications.
+\item {\bfseries{Memory Usage Optimization\+:}} The HMM system is designed to make better use of available memory, reducing wastage and improving overall application efficiency.
+\end{DoxyItemize}\hypertarget{index_autotoc_md34}{}\doxysection{Project Features}\label{index_autotoc_md34}
+
+\begin{DoxyItemize}
+\item {\bfseries{Heap Memory Manager (HMM)\+:}} A robust memory management system that replaces the standard dynamic memory allocation functions with custom, optimized alternatives.
+\item {\bfseries{GLib Thread (GLThread)\+:}} A generic, thread-\/safe linked list implementation built using GLib, facilitating safe and efficient multi-\/threaded operations.
+\item {\bfseries{Memory Manager Test Suite\+:}} A comprehensive test suite that rigorously tests the memory manager\textquotesingle{}s functionality and performance across various scenarios, ensuring reliability and robustness.
+\item {\bfseries{Support for Static and Shared Libraries\+:}} The project can be built as either a static library ({\ttfamily .a}) or a shared library ({\ttfamily .so}), providing flexibility in how it can be integrated into different applications.
+\end{DoxyItemize}\hypertarget{index_autotoc_md35}{}\doxysection{Project Structure}\label{index_autotoc_md35}
+The project is organized into several directories, each serving a specific purpose\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{.}
+\DoxyCodeLine{├── src/                    \# Source files containing the core logic of the project}
+\DoxyCodeLine{│   ├── datatype\_size\_lookup.c  \# Handles datatype size lookups}
+\DoxyCodeLine{│   ├── glthread.c              \# GLib-\/based thread-\/safe linked list implementation}
+\DoxyCodeLine{│   ├── memory\_manager.c        \# Core heap memory manager implementation}
+\DoxyCodeLine{│   ├── memory\_manager\_test.c   \# Test suite for the memory manager}
+\DoxyCodeLine{│   ├── parse\_datatype.c        \# Utilities for parsing datatypes}
+\DoxyCodeLine{├── include/                \# Header files defining interfaces and structures}
+\DoxyCodeLine{│   ├── colors.h                \# Utilities for color-\/coded terminal output}
+\DoxyCodeLine{│   ├── datatype\_size\_lookup.h  \# Header for datatype size lookup functions}
+\DoxyCodeLine{│   ├── glthread.h              \# Header for GLib thread-\/safe linked list}
+\DoxyCodeLine{│   ├── memory\_manager.h        \# Header for heap memory manager}
+\DoxyCodeLine{│   ├── memory\_manager\_api.h    \# API definitions for memory management}
+\DoxyCodeLine{│   ├── parse\_datatype.h        \# Header for datatype parsing utilities}
+\DoxyCodeLine{├── lib/                    \# Compiled libraries (static and shared)}
+\DoxyCodeLine{│   ├── libhmm.a                \# Static library for HMM}
+\DoxyCodeLine{│   ├── libhmm.so               \# Shared library for HMM}
+\DoxyCodeLine{├── bin/                    \# Compiled executables and object files}
+\DoxyCodeLine{│   ├── hmm                     \# Executable test suite for the memory manager}
+\DoxyCodeLine{│   ├── *.o                     \# Object files generated during compilation}
+\DoxyCodeLine{├── docs/                   \# Documentation and Doxygen configuration}
+\DoxyCodeLine{│   ├── Doxyfile                \# Configuration file for generating project documentation}
+\DoxyCodeLine{├── Makefile                \# Makefile for automating build and test processes}
+\DoxyCodeLine{├── LICENSE                 \# License file outlining the terms of use}
+\DoxyCodeLine{└── README.md               \# This README file}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md36}{}\doxysection{Building the Project}\label{index_autotoc_md36}
+\hypertarget{index_autotoc_md37}{}\doxysubsection{Building the Library}\label{index_autotoc_md37}
+To build the project, ensure that you have {\ttfamily gcc} and {\ttfamily make} installed on your system. You can then use the following commands\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Build Everything\+:}}
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make all}
+
+\end{DoxyCode}
+
+
+This command compiles all source files, creates object files, and links them to produce the {\ttfamily hmm} executable, as well as the static and shared libraries.
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Build Static Library Only\+:}}
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make static}
+
+\end{DoxyCode}
+
+
+This builds only the static library ({\ttfamily libhmm.\+a}).
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Build Shared Library Only\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make shared}
+
+\end{DoxyCode}
+ This builds only the shared library ({\ttfamily libhmm.\+so}).
+\end{DoxyItemize}\hypertarget{index_autotoc_md38}{}\doxysubsection{Running Tests}\label{index_autotoc_md38}
+After building, you can run the test suite to verify the memory manager\textquotesingle{}s functionality\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Run All Tests\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./bin/hmm}
+
+\end{DoxyCode}
+ The test suite is comprehensive and covers a wide range of scenarios, ensuring the robustness of the memory manager.
+\end{DoxyItemize}\hypertarget{index_autotoc_md39}{}\doxysubsection{Integration with Applications}\label{index_autotoc_md39}
+To use the memory manager in your application, link your application with the generated library\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Static Linking\+:}} ~\newline
+ Include the static library {\ttfamily libhmm.\+a} in your build process.
+\item {\bfseries{Shared Linking\+:}} ~\newline
+ Include the shared library {\ttfamily libhmm.\+so} and ensure it is in your system\textquotesingle{}s library path.
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{gcc -\/o myapp myapp.c -\/Llib -\/lhmm}
+
+\end{DoxyCode}
+
+
+This command compiles {\ttfamily myapp.\+c} and links it with the {\ttfamily hmm} library.\hypertarget{index_autotoc_md40}{}\doxysection{Documentation}\label{index_autotoc_md40}
+Detailed documentation is generated using Doxygen and is available in the {\ttfamily docs/} directory. You can also access the documentation online at the \href{https://mahmoud-abdelraouf.github.io/STM_System-Programming-under-Linux/}{\texttt{ Linux Memory Manager Documentation}}.
+
+To generate the documentation locally, run\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make doc}
+
+\end{DoxyCode}
+
+
+This will produce HTML documentation that can be viewed in any web browser.\hypertarget{index_autotoc_md41}{}\doxysection{Contributing}\label{index_autotoc_md41}
+We welcome contributions from the community! Here’s how you can contribute\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Fork the Repository\+:}} Start by forking the project repository.
+\item {\bfseries{Create a Branch\+:}} Develop your feature or fix in a new branch.
+\item {\bfseries{Submit a Pull Request\+:}} Once your changes are ready, submit a pull request for review.
+\item {\bfseries{Report Issues\+:}} If you find any bugs or have suggestions, please open an issue on Git\+Hub.
+\end{DoxyEnumerate}\hypertarget{index_autotoc_md42}{}\doxysubsection{Coding Standards}\label{index_autotoc_md42}
+Please adhere to the coding standards outlined in the {\ttfamily .editorconfig} file to ensure consistency across the project.\hypertarget{index_autotoc_md43}{}\doxysection{License}\label{index_autotoc_md43}
+This project is licensed under the MIT License. See the \href{../../../LICENSE}{\texttt{ LICENSE}} file for more details.\hypertarget{index_autotoc_md44}{}\doxysection{Acknowledgments}\label{index_autotoc_md44}
+This project is a part of the Linux System Programming course offered by STMicroelectronics Egypt. Special thanks to the course instructors and contributors for their valuable input and guidance. 

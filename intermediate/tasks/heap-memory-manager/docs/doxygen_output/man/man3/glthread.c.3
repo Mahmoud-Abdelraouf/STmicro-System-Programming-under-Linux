@@ -1,0 +1,184 @@
+.TH "src/glthread.c" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/glthread.c \- Implementation file for the Generic Linked List Thread library\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include 'glthread\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBinit_glthread\fP (\fBglthread_t\fP *glthread)"
+.br
+.RI "Initialize a glthread_t structure\&. "
+.ti -1c
+.RI "void \fBglthread_add_next\fP (\fBglthread_t\fP *curr_glthread, \fBglthread_t\fP *new_glthread)"
+.br
+.RI "Adds a new node after the specified current node in the threaded linked list\&. "
+.ti -1c
+.RI "void \fBglthread_add_before\fP (\fBglthread_t\fP *curr_glthread, \fBglthread_t\fP *new_glthread)"
+.br
+.RI "Adds a new node before the specified current node in the threaded linked list\&. "
+.ti -1c
+.RI "void \fBremove_glthread\fP (\fBglthread_t\fP *curr_glthread)"
+.br
+.RI "Removes the specified node from the threaded linked list\&. "
+.ti -1c
+.RI "void \fBdelete_glthread_list\fP (\fBglthread_t\fP *base_glthread)"
+.br
+.RI "Delete all glthread_t structures in a linked list\&. "
+.ti -1c
+.RI "void \fBglthread_add_last\fP (\fBglthread_t\fP *base_glthread, \fBglthread_t\fP *new_glthread)"
+.br
+.RI "Add a new glthread_t structure at the last position of a linked list\&. "
+.ti -1c
+.RI "unsigned int \fBget_glthread_list_count\fP (\fBglthread_t\fP *base_glthread)"
+.br
+.RI "Get the count of glthread_t structures in a linked list\&. "
+.ti -1c
+.RI "void \fBglthread_priority_insert\fP (\fBglthread_t\fP *base_glthread, \fBglthread_t\fP *glthread, int(*comp_fn)(void *, void *), int offset)"
+.br
+.RI "Insert a glthread_t structure into a sorted linked list based on priority\&. "
+.ti -1c
+.RI "void * \fBglthread_search\fP (\fBglthread_t\fP *base_glthread, void *(*thread_to_struct_fn)(\fBglthread_t\fP *), void *key, int(*comparison_fn)(void *, void *))"
+.br
+.RI "Search for a specific glthread_t structure in the linked list\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Implementation file for the Generic Linked List Thread library\&. 
+
+This file contains the implementation of the Generic Linked List Thread library, which provides functionality for managing generic linked lists using threads\&. 
+.SH "Function Documentation"
+.PP 
+.SS "void delete_glthread_list (\fBglthread_t\fP * base_glthread)"
+
+.PP
+Delete all glthread_t structures in a linked list\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbase_glthread\fP Pointer to the base glthread_t structure (head of the linked list)\&. 
+.RE
+.PP
+
+.SS "unsigned int get_glthread_list_count (\fBglthread_t\fP * base_glthread)"
+
+.PP
+Get the count of glthread_t structures in a linked list\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbase_glthread\fP Pointer to the base glthread_t structure (head of the linked list)\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+unsigned int The count of glthread_t structures in the linked list\&. 
+.RE
+.PP
+
+.SS "void glthread_add_before (\fBglthread_t\fP * base_glthread, \fBglthread_t\fP * new_glthread)"
+
+.PP
+Adds a new node before the specified current node in the threaded linked list\&. This function adds a new node before the specified current node in the threaded linked list\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIcurr_glthread\fP Pointer to the current node in the threaded linked list\&. 
+.br
+\fInew_glthread\fP Pointer to the new node to be added\&. 
+.RE
+.PP
+
+.SS "void glthread_add_last (\fBglthread_t\fP * base_glthread, \fBglthread_t\fP * new_glthread)"
+
+.PP
+Add a new glthread_t structure at the last position of a linked list\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbase_glthread\fP Pointer to the base glthread_t structure (head of the linked list)\&. 
+.br
+\fInew_glthread\fP Pointer to the new glthread_t structure to be added\&. 
+.RE
+.PP
+
+.SS "void glthread_add_next (\fBglthread_t\fP * base_glthread, \fBglthread_t\fP * new_glthread)"
+
+.PP
+Adds a new node after the specified current node in the threaded linked list\&. This function adds a new node after the specified current node in the threaded linked list\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIcurr_glthread\fP Pointer to the current node in the threaded linked list\&. 
+.br
+\fInew_glthread\fP Pointer to the new node to be added\&. 
+.RE
+.PP
+
+.SS "void glthread_priority_insert (\fBglthread_t\fP * base_glthread, \fBglthread_t\fP * glthread, int(*)(void *, void *) comp_fn, int offset)"
+
+.PP
+Insert a glthread_t structure into a sorted linked list based on priority\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbase_glthread\fP Pointer to the base glthread_t structure (head of the linked list)\&. 
+.br
+\fIglthread\fP Pointer to the glthread_t structure to be inserted\&. 
+.br
+\fIcomp_fn\fP Pointer to the comparison function used to determine priority\&. 
+.br
+\fIoffset\fP Offset to access the user data within the glthread_t structure\&. 
+.RE
+.PP
+< Add in the end
+.SS "void* glthread_search (\fBglthread_t\fP * base_glthread, void *(*)(\fBglthread_t\fP *) thread_to_struct_fn, void * key, int(*)(void *, void *) comparison_fn)"
+
+.PP
+Search for a specific glthread_t structure in the linked list\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbase_glthread\fP Pointer to the base glthread_t structure (head of the linked list)\&. 
+.br
+\fIthread_to_struct_fn\fP Function pointer to convert a glthread_t structure to the corresponding user-defined structure\&. 
+.br
+\fIkey\fP Pointer to the key used for comparison\&. 
+.br
+\fIcomparison_fn\fP Function pointer to the comparison function used to compare keys\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void* Pointer to the user-defined structure corresponding to the found glthread_t structure, or NULL if not found\&. 
+.RE
+.PP
+
+.SS "void init_glthread (\fBglthread_t\fP * glthread)"
+
+.PP
+Initialize a glthread_t structure\&. < System includes < Project includes 
+.SS "void remove_glthread (\fBglthread_t\fP * glthread)"
+
+.PP
+Removes the specified node from the threaded linked list\&. This function removes the specified node from the threaded linked list\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIcurr_glthread\fP Pointer to the node to be removed\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

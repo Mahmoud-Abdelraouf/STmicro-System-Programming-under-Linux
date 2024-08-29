@@ -1,0 +1,56 @@
+.TH "block_meta_data_" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+block_meta_data_ \- Structure representing metadata for a memory block\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <memory_manager\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBvm_bool_t\fP \fBis_free\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBblock_size\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBoffset\fP"
+.br
+.ti -1c
+.RI "struct \fBblock_meta_data_\fP * \fBprev_block\fP"
+.br
+.ti -1c
+.RI "struct \fBblock_meta_data_\fP * \fBnext_block\fP"
+.br
+.ti -1c
+.RI "\fBglthread_t\fP \fBpriority_thread_glue\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure representing metadata for a memory block\&. 
+
+The \fCblock_meta_data_t\fP structure represents metadata for a memory block\&. It includes information such as whether the block is free or allocated, its size, pointers to the previous and next blocks (if applicable), and the offset within the memory region\&. 
+.SH "Field Documentation"
+.PP 
+.SS "uint32_t block_meta_data_::block_size"
+Size of the memory block\&. 
+.SS "\fBvm_bool_t\fP block_meta_data_::is_free"
+Flag indicating whether the block is free\&. 
+.SS "struct \fBblock_meta_data_\fP* block_meta_data_::next_block"
+Pointer to the next memory block\&. 
+.SS "uint32_t block_meta_data_::offset"
+Offset within the memory region\&. 
+.SS "struct \fBblock_meta_data_\fP* block_meta_data_::prev_block"
+Pointer to the previous memory block\&. 
+.SS "\fBglthread_t\fP block_meta_data_::priority_thread_glue"
+Priority thread glue for managing block priority\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

@@ -1,0 +1,81 @@
+.TH "include/parse_datatype.h" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+include/parse_datatype.h \- Header file for parsing data type names\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <ctype\&.h>\fP
+.br
+\fC#include <stdbool\&.h>\fP
+.br
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBMAX_STRUCT_NAME_LEN\fP   50"
+.br
+.RI "Maximum length of the data type name\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "char * \fBparse_struct_name\fP (char *struct_name, char *buffer, uint8_t *error_flag)"
+.br
+.RI "Parses the name of a struct from a string\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Header file for parsing data type names\&. 
+
+This file contains declarations for functions related to parsing data type names from strings\&. 
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define MAX_STRUCT_NAME_LEN   50"
+
+.PP
+Maximum length of the data type name\&. Defines the maximum length allowed for a data type name\&. 
+.SH "Function Documentation"
+.PP 
+.SS "char* parse_struct_name (char * struct_name, char * buffer, uint8_t * error_flag)"
+
+.PP
+Parses the name of a struct from a string\&. This function extracts the name of a struct from a string formatted as 'sizeof(datatype)' and stores it in the provided buffer\&. If the string does not match this format, it checks if the string represents a number and sets the error flag accordingly\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIstruct_name\fP The string containing the sizeof expression\&. 
+.br
+\fIbuffer\fP Pointer to a buffer where the extracted struct name or integer value will be stored\&. If the struct name is extracted successfully, it will be stored in this buffer\&. If the struct name is a number, the integer value will be stored in this buffer\&. 
+.br
+\fIerror_flag\fP Pointer to a uint8_t variable to indicate the status of the struct name\&. It can have the following values:
+.IP "\(bu" 2
+0: No error, struct name extracted successfully\&.
+.IP "\(bu" 2
+1: Error in the format of the struct name, not in the form 'sizeof(datatype)'\&.
+.IP "\(bu" 2
+2: The struct name is actually a number, and the integer value is stored in the buffer\&. 
+.PP
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+If the struct name is extracted successfully or it's a number, returns 'int'\&. If an error occurs, returns NULL\&. PARSE_DATATYPE_H_ 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

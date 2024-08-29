@@ -1,0 +1,101 @@
+\hypertarget{parse__datatype_8h}{}\doxysection{include/parse\+\_\+datatype.h File Reference}
+\label{parse__datatype_8h}\index{include/parse\_datatype.h@{include/parse\_datatype.h}}
+
+
+Header file for parsing data type names.  
+
+
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for parse\+\_\+datatype.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parse__datatype_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{parse__datatype_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{parse__datatype_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}{MAX\+\_\+\+STRUCT\+\_\+\+NAME\+\_\+\+LEN}}~50
+\begin{DoxyCompactList}\small\item\em Maximum length of the data type name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{parse__datatype_8h_a45f2370263142bb7c955a543c7ea284e}{parse\+\_\+struct\+\_\+name}} (char $\ast$struct\+\_\+name, char $\ast$buffer, uint8\+\_\+t $\ast$error\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Parses the name of a struct from a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for parsing data type names. 
+
+This file contains declarations for functions related to parsing data type names from strings. 
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{parse__datatype_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}\label{parse__datatype_8h_a56d7beb47f6bbf896e6f21fb09c73ec5}} 
+\index{parse\_datatype.h@{parse\_datatype.h}!MAX\_STRUCT\_NAME\_LEN@{MAX\_STRUCT\_NAME\_LEN}}
+\index{MAX\_STRUCT\_NAME\_LEN@{MAX\_STRUCT\_NAME\_LEN}!parse\_datatype.h@{parse\_datatype.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_STRUCT\_NAME\_LEN}{MAX\_STRUCT\_NAME\_LEN}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+STRUCT\+\_\+\+NAME\+\_\+\+LEN~50}
+
+
+
+Maximum length of the data type name. 
+
+Defines the maximum length allowed for a data type name. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{parse__datatype_8h_a45f2370263142bb7c955a543c7ea284e}\label{parse__datatype_8h_a45f2370263142bb7c955a543c7ea284e}} 
+\index{parse\_datatype.h@{parse\_datatype.h}!parse\_struct\_name@{parse\_struct\_name}}
+\index{parse\_struct\_name@{parse\_struct\_name}!parse\_datatype.h@{parse\_datatype.h}}
+\doxysubsubsection{\texorpdfstring{parse\_struct\_name()}{parse\_struct\_name()}}
+{\footnotesize\ttfamily char$\ast$ parse\+\_\+struct\+\_\+name (\begin{DoxyParamCaption}\item[{char $\ast$}]{struct\+\_\+name,  }\item[{char $\ast$}]{buffer,  }\item[{uint8\+\_\+t $\ast$}]{error\+\_\+flag }\end{DoxyParamCaption})}
+
+
+
+Parses the name of a struct from a string. 
+
+This function extracts the name of a struct from a string formatted as \char`\"{}sizeof(datatype)\char`\"{} and stores it in the provided buffer. If the string does not match this format, it checks if the string represents a number and sets the error flag accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em struct\+\_\+name} & The string containing the sizeof expression. \\
+\hline
+{\em buffer} & Pointer to a buffer where the extracted struct name or integer value will be stored. If the struct name is extracted successfully, it will be stored in this buffer. If the struct name is a number, the integer value will be stored in this buffer. \\
+\hline
+{\em error\+\_\+flag} & Pointer to a uint8\+\_\+t variable to indicate the status of the struct name. It can have the following values\+:
+\begin{DoxyItemize}
+\item 0\+: No error, struct name extracted successfully.
+\item 1\+: Error in the format of the struct name, not in the form \char`\"{}sizeof(datatype)\char`\"{}.
+\item 2\+: The struct name is actually a number, and the integer value is stored in the buffer. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the struct name is extracted successfully or it\textquotesingle{}s a number, returns \char`\"{}int\char`\"{}. If an error occurs, returns NULL. PARSE\+\_\+\+DATATYPE\+\_\+\+H\+\_\+ 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{parse__datatype_8h_a45f2370263142bb7c955a543c7ea284e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{parse__datatype_8h_a45f2370263142bb7c955a543c7ea284e_icgraph}
+\end{center}
+\end{figure}

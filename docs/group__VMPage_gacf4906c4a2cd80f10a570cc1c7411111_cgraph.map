@@ -1,9 +1,0 @@
-<map id="allocate_vm_page" name="allocate_vm_page">
-<area shape="rect" id="Node000001" title="Allocates a new virtual memory page for a given page family." alt="" coords="5,63,147,88"/>
-<area shape="rect" id="Node000002" href="$glthread_8c.html#a9e4b763220b1c69da2d9e9f191506f89" title="Initialize a glthread_t structure." alt="" coords="244,5,348,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,60,194,41,230,31,231,37,195,46,124,65"/>
-<area shape="rect" id="Node000003" href="$group__MemoryManagement.html#ga8b6e564655ddbbb3147b2d28ee398e5c" title=" " alt="" coords="207,55,385,95"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,73,194,73,194,78,147,78"/>
-<area shape="rect" id="Node000004" href="$group__VMPage.html#gae68e468ad150ea915ed9a3b9d899e9df" title=" " alt="" coords="195,119,397,159"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="122,86,214,113,213,118,120,91"/>
-</map>

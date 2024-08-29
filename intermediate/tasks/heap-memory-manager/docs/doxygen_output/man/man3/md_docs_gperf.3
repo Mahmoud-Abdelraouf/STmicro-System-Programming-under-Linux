@@ -1,0 +1,91 @@
+.TH "md_docs_gperf" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+md_docs_gperf \- Generating Perfect Hash Functions with gperf 
+
+.SH "Overview"
+.PP
+This guide explains how to use \fCgperf\fP to generate perfect hash functions and lookup tables for efficient keyword lookup in C programs\&.
+.SH "Prerequisites"
+.PP
+Before getting started, make sure you have \fCgperf\fP installed on your system\&. You can install it using the package manager of your operating system or by downloading and compiling it from source\&.
+.SH "Usage"
+.PP
+.SS "1\&. Prepare Keyword List"
+Create a text file containing the list of keywords (or data type names) for which you want to generate the perfect hash function\&. Each keyword should be on a separate line\&.
+.PP
+Example (\fCdata_type_keywords\&.txt\fP):
+.PP
+.PP
+.nf
+int
+char
+float
+double
+short
+long
+long long
+unsigned int
+unsigned char
+unsigned short
+unsigned long
+unsigned long long
+.fi
+.PP
+.SS "2\&. Generate Perfect Hash Function"
+Run \fCgperf\fP on the keyword list file to generate the perfect hash function and associated lookup table\&. Here's the command:
+.PP
+.PP
+.nf
+gperf -L C -t -N getSizeOfDataType -K name -H hash_function data_type_keywords\&.txt > data_type_mappings\&.c
+.fi
+.PP
+.PP
+Explanation of options:
+.IP "\(bu" 2
+\fC-L C\fP: Specifies the language to use (C)\&.
+.IP "\(bu" 2
+\fC-t\fP: Tells \fCgperf\fP to produce a C function table\&.
+.IP "\(bu" 2
+\fC-N getSizeOfDataType\fP: Specifies the name of the lookup function\&.
+.IP "\(bu" 2
+\fC-K name\fP: Specifies the key field in the input file (data type names)\&.
+.IP "\(bu" 2
+\fC-H hash_function\fP: Specifies the hash function to use\&.
+.IP "\(bu" 2
+\fCdata_type_keywords\&.txt\fP: Input file containing the list of data type names\&.
+.IP "\(bu" 2
+\fCdata_type_mappings\&.c\fP: Output C file containing the generated code\&.
+.PP
+.SS "3\&. Include Generated Code"
+Include the generated C code (\fCdata_type_mappings\&.c\fP) in your project\&. This code contains the perfect hash function and the lookup table for efficient keyword lookup\&.
+.SH "Example"
+.PP
+Here's how you can use the generated perfect hash function and lookup table in your C program:
+.PP
+.PP
+.nf
+#include <stdio\&.h>
+#include "data_type_mappings\&.c"
+
+size_t getSizeOfDataType(const char *data_type) {
+    // Use the generated perfect hash function to get the size of the data type
+    const struct DataTypeMapping *result = in_word_set(data_type, strlen(data_type));
+    if (result) {
+        return result->size;
+    }
+    return 0; // Return 0 if data type is not found
+}
+
+int main() {
+    printf("Size of int: %zu\n", getSizeOfDataType("int"));
+    printf("Size of float: %zu\n", getSizeOfDataType("float"));
+    printf("Size of long long: %zu\n", getSizeOfDataType("long long"));
+    return 0;
+}
+.fi
+.PP
+.SH "Conclusion"
+.PP
+By using \fCgperf\fP to generate perfect hash functions and lookup tables, you can efficiently perform keyword lookup in your C programs, improving performance compared to linear search algorithms\&. 

@@ -1,0 +1,100 @@
+\hypertarget{parse__datatype_8c}{}\doxysection{src/parse\+\_\+datatype.c File Reference}
+\label{parse__datatype_8c}\index{src/parse\_datatype.c@{src/parse\_datatype.c}}
+
+
+Extracts a data type name from a string containing the sizeof operator.  
+
+
+{\ttfamily \#include \char`\"{}parse\+\_\+datatype.\+h\char`\"{}}\newline
+Include dependency graph for parse\+\_\+datatype.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parse__datatype_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{parse__datatype_8c_aced8c866b58d74e72f0c67e362c75740}{is\+\_\+number}} (const char $\ast$str)
+\begin{DoxyCompactList}\small\item\em Checks if a string represents a number. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{parse__datatype_8c_a45f2370263142bb7c955a543c7ea284e}{parse\+\_\+struct\+\_\+name}} (char $\ast$struct\+\_\+name, char $\ast$buffer, uint8\+\_\+t $\ast$error\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Parses the name of a struct from a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Extracts a data type name from a string containing the sizeof operator. 
+
+This program demonstrates how to extract a data type name from a string containing the sizeof operator using the sscanf function in C. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{parse__datatype_8c_aced8c866b58d74e72f0c67e362c75740}\label{parse__datatype_8c_aced8c866b58d74e72f0c67e362c75740}} 
+\index{parse\_datatype.c@{parse\_datatype.c}!is\_number@{is\_number}}
+\index{is\_number@{is\_number}!parse\_datatype.c@{parse\_datatype.c}}
+\doxysubsubsection{\texorpdfstring{is\_number()}{is\_number()}}
+{\footnotesize\ttfamily static bool is\+\_\+number (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checks if a string represents a number. 
+
+This function checks if the provided string represents a number. It allows for digits (0-\/9) and an optional decimal point. It ignores leading and trailing whitespace.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & The string to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the string represents a number, false otherwise. 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parse__datatype_8c_aced8c866b58d74e72f0c67e362c75740_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{parse__datatype_8c_a45f2370263142bb7c955a543c7ea284e}\label{parse__datatype_8c_a45f2370263142bb7c955a543c7ea284e}} 
+\index{parse\_datatype.c@{parse\_datatype.c}!parse\_struct\_name@{parse\_struct\_name}}
+\index{parse\_struct\_name@{parse\_struct\_name}!parse\_datatype.c@{parse\_datatype.c}}
+\doxysubsubsection{\texorpdfstring{parse\_struct\_name()}{parse\_struct\_name()}}
+{\footnotesize\ttfamily char$\ast$ parse\+\_\+struct\+\_\+name (\begin{DoxyParamCaption}\item[{char $\ast$}]{struct\+\_\+name,  }\item[{char $\ast$}]{buffer,  }\item[{uint8\+\_\+t $\ast$}]{error\+\_\+flag }\end{DoxyParamCaption})}
+
+
+
+Parses the name of a struct from a string. 
+
+This function extracts the name of a struct from a string formatted as \char`\"{}sizeof(datatype)\char`\"{} and stores it in the provided buffer. If the string does not match this format, it checks if the string represents a number and sets the error flag accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em struct\+\_\+name} & The string containing the sizeof expression. \\
+\hline
+{\em buffer} & Pointer to a buffer where the extracted struct name or integer value will be stored. If the struct name is extracted successfully, it will be stored in this buffer. If the struct name is a number, the integer value will be stored in this buffer. \\
+\hline
+{\em error\+\_\+flag} & Pointer to a uint8\+\_\+t variable to indicate the status of the struct name. It can have the following values\+:
+\begin{DoxyItemize}
+\item 0\+: No error, struct name extracted successfully.
+\item 1\+: Error in the format of the struct name, not in the form \char`\"{}sizeof(datatype)\char`\"{}.
+\item 2\+: The struct name is actually a number, and the integer value is stored in the buffer. 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the struct name is extracted successfully or it\textquotesingle{}s a number, returns \char`\"{}int\char`\"{}. If an error occurs, returns NULL. PARSE\+\_\+\+DATATYPE\+\_\+\+H\+\_\+ 
+\end{DoxyReturn}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{parse__datatype_8c_a45f2370263142bb7c955a543c7ea284e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{parse__datatype_8c_a45f2370263142bb7c955a543c7ea284e_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,76 @@
+\hypertarget{structvm__page__}{}\doxysection{vm\+\_\+page\+\_\+ Struct Reference}
+\label{structvm__page__}\index{vm\_page\_@{vm\_page\_}}
+
+
+Structure representing a virtual memory page.  
+
+
+
+
+{\ttfamily \#include $<$memory\+\_\+manager.\+h$>$}
+
+
+
+Collaboration diagram for vm\+\_\+page\+\_\+\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{structvm__page____coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structvm__page__}{vm\+\_\+page\+\_\+}} $\ast$ \mbox{\hyperlink{structvm__page___a87995cd55301183d3d7c94ae9cfc0bfb}{next}}
+\item 
+struct \mbox{\hyperlink{structvm__page__}{vm\+\_\+page\+\_\+}} $\ast$ \mbox{\hyperlink{structvm__page___a469046156ae2117a1dd19d6cf1801952}{prev}}
+\item 
+struct \mbox{\hyperlink{structvm__page__family__}{vm\+\_\+page\+\_\+family\+\_\+}} $\ast$ \mbox{\hyperlink{structvm__page___a6ac529860ec2f94916bea6dd91df92aa}{pg\+\_\+family}}
+\item 
+\mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} \mbox{\hyperlink{structvm__page___af8497e59faabb5f0665ea7e8db661c09}{block\+\_\+meta\+\_\+data}}
+\item 
+char \mbox{\hyperlink{structvm__page___a2c50de67035c2fed15c95dac6131c2d6}{page\+\_\+memory}} \mbox{[}0\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure representing a virtual memory page. 
+
+This structure represents a virtual memory page used in memory management systems. It contains metadata for managing memory blocks within the page, as well as the actual memory region allocated for storing data blocks. 
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structvm__page___af8497e59faabb5f0665ea7e8db661c09}\label{structvm__page___af8497e59faabb5f0665ea7e8db661c09}} 
+\index{vm\_page\_@{vm\_page\_}!block\_meta\_data@{block\_meta\_data}}
+\index{block\_meta\_data@{block\_meta\_data}!vm\_page\_@{vm\_page\_}}
+\doxysubsubsection{\texorpdfstring{block\_meta\_data}{block\_meta\_data}}
+{\footnotesize\ttfamily \mbox{\hyperlink{memory__manager_8h_a173309530f1b69ddabf71b33b75baf9f}{block\+\_\+meta\+\_\+data\+\_\+t}} vm\+\_\+page\+\_\+\+::block\+\_\+meta\+\_\+data}
+
+Metadata for managing memory blocks within the page. \mbox{\Hypertarget{structvm__page___a87995cd55301183d3d7c94ae9cfc0bfb}\label{structvm__page___a87995cd55301183d3d7c94ae9cfc0bfb}} 
+\index{vm\_page\_@{vm\_page\_}!next@{next}}
+\index{next@{next}!vm\_page\_@{vm\_page\_}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structvm__page__}{vm\+\_\+page\+\_\+}}$\ast$ vm\+\_\+page\+\_\+\+::next}
+
+Pointer to the next virtual memory page. \mbox{\Hypertarget{structvm__page___a2c50de67035c2fed15c95dac6131c2d6}\label{structvm__page___a2c50de67035c2fed15c95dac6131c2d6}} 
+\index{vm\_page\_@{vm\_page\_}!page\_memory@{page\_memory}}
+\index{page\_memory@{page\_memory}!vm\_page\_@{vm\_page\_}}
+\doxysubsubsection{\texorpdfstring{page\_memory}{page\_memory}}
+{\footnotesize\ttfamily char vm\+\_\+page\+\_\+\+::page\+\_\+memory\mbox{[}0\mbox{]}}
+
+Memory region allocated for storing data blocks. \mbox{\Hypertarget{structvm__page___a6ac529860ec2f94916bea6dd91df92aa}\label{structvm__page___a6ac529860ec2f94916bea6dd91df92aa}} 
+\index{vm\_page\_@{vm\_page\_}!pg\_family@{pg\_family}}
+\index{pg\_family@{pg\_family}!vm\_page\_@{vm\_page\_}}
+\doxysubsubsection{\texorpdfstring{pg\_family}{pg\_family}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structvm__page__family__}{vm\+\_\+page\+\_\+family\+\_\+}}$\ast$ vm\+\_\+page\+\_\+\+::pg\+\_\+family}
+
+Pointer to the page family associated with the page. \mbox{\Hypertarget{structvm__page___a469046156ae2117a1dd19d6cf1801952}\label{structvm__page___a469046156ae2117a1dd19d6cf1801952}} 
+\index{vm\_page\_@{vm\_page\_}!prev@{prev}}
+\index{prev@{prev}!vm\_page\_@{vm\_page\_}}
+\doxysubsubsection{\texorpdfstring{prev}{prev}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structvm__page__}{vm\+\_\+page\+\_\+}}$\ast$ vm\+\_\+page\+\_\+\+::prev}
+
+Pointer to the previous virtual memory page. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{memory__manager_8h}{memory\+\_\+manager.\+h}}\end{DoxyCompactItemize}

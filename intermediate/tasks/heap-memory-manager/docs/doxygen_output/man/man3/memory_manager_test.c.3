@@ -1,0 +1,86 @@
+.TH "src/memory_manager_test.c" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/memory_manager_test.c \- Test file for Memory Manager functionality\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'memory_manager_api\&.h'\fP
+.br
+\fC#include <stdint\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBemp_\fP"
+.br
+.RI "Structure representing an employee\&. "
+.ti -1c
+.RI "struct \fBstudent_\fP"
+.br
+.RI "Structure representing a student\&. "
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBemp_\fP \fBemp_t\fP"
+.br
+.RI "Structure representing an employee\&. "
+.ti -1c
+.RI "typedef struct \fBstudent_\fP \fBstudent_t\fP"
+.br
+.RI "Structure representing a student\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBmain\fP (void)"
+.br
+.RI "The main function\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Test file for Memory Manager functionality\&. 
+
+This file is used to test the Memory Manager module on a Linux system\&. It includes the main function to initialize necessary components, register structure types, and print registered page families\&. Additionally, it contains sample allocations to test memory management operations\&. 
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBemp_\fP \fBemp_t\fP"
+
+.PP
+Structure representing an employee\&. This structure defines the attributes of an employee, including their name and employee ID\&. 
+.SS "typedef struct \fBstudent_\fP \fBstudent_t\fP"
+
+.PP
+Structure representing a student\&. This structure defines the attributes of a student, including their name, roll number, and subject marks\&. Additionally, it contains a pointer to the next student in a linked list\&. 
+.SH "Function Documentation"
+.PP 
+.SS "int main (void)"
+
+.PP
+The main function\&. This function serves as the entry point to the program\&. It initializes necessary components, registers structure types, and prints registered page families\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIargc\fP The number of command-line arguments\&. 
+.br
+\fIargv\fP An array of command-line arguments\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+An integer indicating the exit status of the program\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.

@@ -1,0 +1,51 @@
+.TH "vm_page_" 3 "Wed Aug 21 2024" "Linux Memeory Manager" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+vm_page_ \- Structure representing a virtual memory page\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <memory_manager\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct \fBvm_page_\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "struct \fBvm_page_\fP * \fBprev\fP"
+.br
+.ti -1c
+.RI "struct \fBvm_page_family_\fP * \fBpg_family\fP"
+.br
+.ti -1c
+.RI "\fBblock_meta_data_t\fP \fBblock_meta_data\fP"
+.br
+.ti -1c
+.RI "char \fBpage_memory\fP [0]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure representing a virtual memory page\&. 
+
+This structure represents a virtual memory page used in memory management systems\&. It contains metadata for managing memory blocks within the page, as well as the actual memory region allocated for storing data blocks\&. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBblock_meta_data_t\fP vm_page_::block_meta_data"
+Metadata for managing memory blocks within the page\&. 
+.SS "struct \fBvm_page_\fP* vm_page_::next"
+Pointer to the next virtual memory page\&. 
+.SS "char vm_page_::page_memory[0]"
+Memory region allocated for storing data blocks\&. 
+.SS "struct \fBvm_page_family_\fP* vm_page_::pg_family"
+Pointer to the page family associated with the page\&. 
+.SS "struct \fBvm_page_\fP* vm_page_::prev"
+Pointer to the previous virtual memory page\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Linux Memeory Manager from the source code\&.
